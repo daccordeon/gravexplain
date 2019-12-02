@@ -1,0 +1,42 @@
+Monday, 2nd of December
+gravitational waves:
+standard explanation -> "ripples in 4d spacetime"
+quadrapole moment is why interferometers are at right angles
+-> one arm stretches while the other arm squishes
+
+coherent -> same phase
+monochromatic -> same frequency
+collimated -> same trajectory angle (some deviation produces the cone)
+
+michelson interferometer
+best source so far (better than the lab manual):
+MICHELSON’S INTERFEROMETER
+https://www.niser.ac.in/sps/sites/default/files/basic_page/Michelson%20Interferometer_P744%20-%20Optics.pdf
+Mirror M1 and the virtual image of mirror M2 act as the two surfaces of an air film
+The fringes formed in Michelson interferometer may be circular, curved or straight depending upon the nature of the air film
+-> thin film interference!
+
+caution: phase change picked up from going through the beam splitter of non-unity (!=1) refractive index
+-> not an issue for monochromatic light? so no need for compensating plane
+
+concentric circular fringes are ultimately by the same principle as circular diffraction (airy patterns)
+
+separation between the mirrors, d
+optical path difference, pd = 2*d = n*lambda, for counting change of n fringes (normal incidence at centre, theta=0)
+recall that lambda/2 is the distance from peak to trough
+counting change of n fringes is past some point, watch the lines come in or go out
+
+
+framerates:
+standard film -> 24 fps (i.e. 24 Hz)
+webcam max -> 30 fps, running usually at 15 fps
+
+taking 20 fps as our ballpark, how does that limit the input frequency?
+well, nyquist sampling would say that perfect recovery is possible for sounds of 10 fps or slower
+however, 20 Hz is a very deep bass and is at the limit of human hearing (likely unachievable by tiny speaker)
+maybe piezo-electric can move at 20 Hz, but the "bug the room with the interferometer" plan is not possible
+piezo resonance is around 2 kHz, sounds unlikely to work
+displacement isn't an issue, piezo scale can be well below millimeters (source?)
+solved! AC voltage source hooked up to piezo is successful (however annoyingly only curved fringes shown)
+Optics: Two-beam interference - collimated beams | MIT Video Demonstrations in Lasers and Optics
+https://youtu.be/J4Ecq7hIzYU?t=313
