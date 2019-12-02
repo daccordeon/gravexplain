@@ -40,3 +40,9 @@ displacement isn't an issue, piezo scale can be well below millimeters (source?)
 solved! AC voltage source hooked up to piezo is successful (however annoyingly only curved fringes shown)
 Optics: Two-beam interference - collimated beams | MIT Video Demonstrations in Lasers and Optics
 https://youtu.be/J4Ecq7hIzYU?t=313
+
+
+continuous wave sources:
+look at lumpy neutron stars that produce weak but continuous gravitational waves
+nearby candidate in Scorpius X-1, using hidden markov model + side-band search method (which is what exactly?)
+effectively, neither observing run 1 nor 2 found any gravitational radiation (waves in the data)
