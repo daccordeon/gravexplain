@@ -1,0 +1,39 @@
+Hawkeye 12.0MP (webcam)
+AnyView
+$11.97
+https://www.tech4u.com.au/anyview-hawkeye-120mp-webcam-with-headset-p369119.html?ref=ShopBot
+
+HD Webcam C270 (standard office webcam)
+Logitech 
+$37.00
+https://www.amazon.com.au/dp/B008QS9J6Y/ref=asc_df_B008QS9J6Y1575385200000/?tag=shopbotau22-22&creative=9303&creativeASIN=B008QS9J6Y&linkCode=df0
+
+webcam notes:
+- image entire screen, capturing geometry
+- likely poor image quality or resolution at low end, not designed as a scientific instrument
+- need to learn OpenCV to process video feed in python
+- huge variability in price, would prefer to purchace cheap initially
+
+
+BPW 21 (photodiode)
+OSRAM Opto
+$17.26
+https://au.rs-online.com/web/p/photodiodes/4975661/
+
+SM05PD2A (photodiode, mentioned)
+ThorLabs 
+$94.96
+https://www.thorlabs.com/thorproduct.cfm?partnumber=SM05PD2A
+
+photodiode notes:
+- sensitivity likely far higher than intensity from off-the-shelf webcam
+- only recieves at one location, so can't infer from geometry
+- watch out for shipping location, we don't want to wait weeks
+- again huge variability in price
+https://au.rs-online.com/web/c/displays-optoelectronics/optocouplers-photodetectors-photointerrupters/photodiodes/?applied-dimensions=4294965912,4294439791&sort-by=P_breakPrice1&sort-order=desc
+
+
+conclusion:
+- try out a cheap webcam, assess how easy it is to convert data-stream to readable data
+- ask an experimenter or electrical engineer for advice on photodiodes before buying any
+- also need to find piezo to input frequency
