@@ -16,6 +16,7 @@ gravexplain/
     
     mock_continuous_signal.ipynb
     reading_notes.txt
+    hardware.txt
 
     .gitignore
     LICENSE
