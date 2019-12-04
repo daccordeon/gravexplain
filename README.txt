@@ -9,9 +9,17 @@ https://github.com/daccordeon/gravexplain
 
 Directory structure:
 gravexplain/
-	README.txt
-	LICENSE
-	.gitignore
+    source/
+        mock_continuous_signal.py
+    plots/
+        (copies of all plots saved by scripts)
+    
+    mock_continuous_signal.ipynb
+    reading_notes.txt
+
+    .gitignore
+    LICENSE
+    README.txt
 
 - - -
 Guide to replicating results, please follow exactly
