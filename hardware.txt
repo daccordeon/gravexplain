@@ -37,3 +37,4 @@ conclusion:
 - try out a cheap webcam, assess how easy it is to convert data-stream to readable data
 - ask an experimenter or electrical engineer for advice on photodiodes before buying any
 - also need to find piezo to input frequency
+
