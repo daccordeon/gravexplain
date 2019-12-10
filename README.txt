@@ -12,7 +12,8 @@ gravexplain/
     source/
         mock_continuous_signal.py
     plots/
-        (copies of all plots saved by scripts)
+        (copies of all plots saved by scripts
+         from expt_4 onwards time series are recorded from a point, not tracked)
     
     mock_continuous_signal.ipynb
     tracker_time_series.ipynb
