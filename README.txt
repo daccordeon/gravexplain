@@ -1,7 +1,7 @@
 GravExplain: explaining gravitational wave data science to a non-specialist audience
 James Gardner, ANU
 Andrew Melatos and Hannah Middleton, OzGrav @ Melbourne Uni
-2020
+Summer 2019/2020
 README
 
 Current build found at:
@@ -15,6 +15,9 @@ gravexplain/
         (copies of all plots saved by scripts)
     
     mock_continuous_signal.ipynb
+    tracker_time_series.ipynb
+    open_cv.ipynb
+
     reading_notes.txt
     hardware.txt
 
