@@ -11,9 +11,10 @@ Directory structure:
 gravexplain/
     source/
         mock_continuous_signal.py
+        experiment_viterbi.py
     plots/
-        (copies of all plots saved by scripts
-         from expt_4 onwards time series are recorded from a point, not tracked)
+        (copies of all plots saved by scripts from expt_4 onwards
+         the time series are recorded from a point, not visually tracked)
     
     mock_continuous_signal.ipynb
     tracker_time_series.ipynb
@@ -40,4 +41,3 @@ matplotlib==3.0.3
 numpy==1.16.2
 pandas==0.24.2
 tqdm==4.33.0
-
