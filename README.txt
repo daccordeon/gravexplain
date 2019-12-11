@@ -18,6 +18,7 @@ gravexplain/
     mock_continuous_signal.ipynb
     tracker_time_series.ipynb
     open_cv.ipynb
+    experiment_viterbi.ipynb
 
     reading_notes.txt
     hardware.txt
