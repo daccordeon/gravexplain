@@ -12,14 +12,18 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{mathtools}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{hyperref}
 
 \bibliographystyle{apsrev4-2}
 % \setlength{\parindent}{0pt}
 
+\newcommand{\jam}{\textcolor{magenta}}
+
+
 \begin{document}
 
-\title{GravExplain}
+\title{GravExplain: Continuous gravitational wave data analysis in the undergraduate laboratory}
 
 \author{James W. Gardner}
 \email{u6069809@anu.edu.au}
@@ -29,7 +33,8 @@
 \email{hannah.middleton@unimelb.edu.au}
 \author{Andrew Melatos}
 \email{amelatos@unimelb.edu.au}
-\affiliation{School of Physics (David Caro Building), The University of Melbourne, VIC 3010 Australia}
+\affiliation{School of Physics, University of Melbourne, Parkville, VIC, 3010, Australia}
+\affiliation{OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery}
 
 % Summer 2019/202
 \date{\today}
@@ -37,33 +42,68 @@
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
 GravExplain
-
+	
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
-GravExplain
+% see paper?
 
 
-\section{Results}
-GravExplain
+\subsection{Interferometry}
+% path difference, virtual thin film interference
 
 
-\section{Conclusion}
-GravExplain
+\section{Method}
+
+\subsection{Data capture: webcam}
+% how to analyse video, python OpenCV2
+
+\subsection{Advanced data capture: photodiode}
+% leave circuit design to an appendix
+
+
+\section{Results and analysis}
+% combined/interwoven results, analysis, and discussion
+
+\subsection{Tracking tones: the Viterbi algorithm}
+% explaination and successful application
+\jam{should we introduce viterbi in the introduction, probably?}
+
+\subsection{Hearing harmonies and chords}
+% the best we can do right now
+% write about removing mains noise
+\jam{this is as far as we go right now}
+
+\subsection{Reconstructing music and voice}
+% signal processing required
+% may well be a ``future work'' section at the end
+\jam{! purely hypothetical right now !}
+
+
+\section{Conclusions}
+% we are able to successfully ...
 
 
 \appendix
 \section{}
-GravExplain
 
 
 \begin{acknowledgments}
 We gratefully acknowledge Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance.
 
+The authors are grateful to Deeksha Beniwal, Sebastian Ng, and Craig Ingram for their advice and work in designing the interferometer. 
+
 J.~Gardner also acknowledges the ANU PhB program for providing travel funding during the project.
+
+This research is supported by the Australian Research Council Centre of Excellence for Gravitational Wave Discovery (OzGrav) (project number CE170100004) and the Institute of Physics International Member Grant.
+
+
 \end{acknowledgments}
 
+
+\bibliographystyle{myunsrt}
+\bibliography{ifoDemoBib}
 
 \end{document}
