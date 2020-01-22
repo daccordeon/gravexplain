@@ -1,6 +1,5 @@
 .ipynb_checkpoints/*
-lnwandering.pdf
-dump.txt
+*.pdf
 *.mp4
 *.csv
 *.wav
