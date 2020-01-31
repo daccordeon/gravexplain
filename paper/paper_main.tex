@@ -42,8 +42,8 @@
 
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
-GravExplain
-
+Continuous gravitational wave searches use sophisticated statistical techniques to search for signals in noisy data. We demonstrate some of these techniques in an table-top Michelson interferometer. We also create an optical microphone capable of playing back simple recordings of injected audio.
+ 
 \end{abstract}
 
 \maketitle
@@ -82,38 +82,37 @@ The techniques used are very similar to those used by researchers to search for 
 In section X we describe...... \han{add this in at the end}
 
 
-\section{Method and results}
-\jam{a previous supervisor hated having subsections right after a section heading, let me know if this displeases you as well}
+% \section{Method and results}
+\section{Table-top gravitational wave science}
 
 \subsection{Hardware: Michelson interferometry}
 % path difference, virtual thin film interference
 
-\subsection{Data capture: webcam}
+\subsection{Method: webcam}
 % how to analyse video, python OpenCV2
 
 % \section{Results and analysis}
 % combined/interwoven results, analysis, and discussion
 
+\subsection{Advanced method: photodiode and raspberry pi}
+% leave circuit design to an appendix
+% only briefly mention Salen-Key, leave to signals processing section
+
 \subsection{Tracking tones: the Viterbi algorithm}
 % explaination and successful application
-\jam{should we introduce viterbi in the introduction, probably?}
+% \jam{should we introduce viterbi in the introduction, probably?}
 
-\subsection{Advanced data capture: photodiode}
-% leave circuit design to an appendix
+% we can do this with both webcam and photodiode
 
-\subsection{Photodiode viterbi}
-\jam{inject simulation wandering tone}
+\section{Optical microphone}
+% describe aim of optical microphone: play back injected sounds
+% acknowledge problems: fringe counting, transfer function, coupling
 
+\subsection{Signals processing}
+% breakdown of model and all of the filters
 
-\subsection{Hearing harmonies and chords}
-% the best we can do right now
-% write about removing mains noise
-\jam{this is as far as we go right now}
-
-\subsection{Future work: reconstructing music and voice}
-% signal processing required
-% may well be a ``future work'' section at the end
-\jam{! purely hypothetical right now !}
+\subsection{Reconstructing music and voice}
+% results of processing, likely mixed with above subsection
 
 
 \section{Conclusions}
@@ -121,8 +120,30 @@ In section X we describe...... \han{add this in at the end}
 
 
 \appendix
-\section{}
 
+\newpage
+\section{Intensity relation derivation}
+\begin{align}
+    y_0(t) &= A \sin{(k L - \omega t)} \\
+    y_1(t) &= A \sin{(k (L + 2 d \cos{\theta}) - \omega t)} \\
+    Y(t) &= A \sin{(k L - \omega t)} + A \sin{(k (L + 2 d \cos{\theta}) - \omega t)} \\
+    \phi &= 2 k d \cos{\theta} \\
+    Y(t) &= A\; \Im\{e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)}\} \\
+    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \phi/2 - \omega t)} + e^{i (k L + \phi/2 + \phi/2 - \omega t)}\} \\    
+    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \omega t)} (e^{- i \phi/2} + e^{i \phi/2})\} \\    
+    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \omega t)} (2 \cos{(\phi/2)})\} \\ 
+    Y(t) &= 2 A \cos{(\phi/2)}\; \Im\{e^{i (k L + \phi/2 - \omega t)}\} \\  
+    \therefore I(t) &= I_0 \cos^2{(\phi/2)}, \; \phi = \frac{4 \pi \cos{\theta}}{\lambda}\, d(t) \\
+    \frac{dI}{dt} &= \frac{dI}{d\phi}\; \frac{d\phi}{dt}\\
+    \frac{dI}{d\phi} &= - I_0 \cos{(\phi/2)} \sin{(\phi/2)}\\
+    &= - \frac{I_0}{2}\, \sin{(\phi)}\\
+    \delta\phi &= \frac{4 \pi \cos{\theta}}{\lambda}\, h\\
+    \therefore \delta I &= \frac{- 2 \pi I_0 \cos{\theta}}{\lambda}\,\sin{(\phi_0)}\, h
+\end{align}
+
+\section{Circuit design}
+% schematic of breadboard and connections to pi
+% https://www.circuit-diagram.org/editor/
 
 \begin{acknowledgments}
 We gratefully acknowledge Jude Prezens, Alex Tolotchkoc, Blake Molyneux, Robin Evans, and Bill Moran for their technical advice and generous assistance throughout the project.
