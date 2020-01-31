@@ -144,6 +144,13 @@ In section X we describe...... \han{add this in at the end}
 \section{Circuit design}
 % schematic of breadboard and connections to pi
 % https://www.circuit-diagram.org/editor/
+% https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{circuit_diagram.pdf}
+	\caption{Circuit diagram for photo-diode reading. Photo-diode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC), that’s finally read by the special purpose input (SPI) pins of a Raspberry Pi}
+	\label{fig:circuit_diagram}
+\end{figure}
 
 \begin{acknowledgments}
 We gratefully acknowledge Jude Prezens, Alex Tolotchkoc, Blake Molyneux, Robin Evans, and Bill Moran for their technical advice and generous assistance throughout the project.
