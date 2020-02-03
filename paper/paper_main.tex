@@ -123,24 +123,67 @@ A photodiode is an electrical component that acts as a regular diode when no lig
 To the interferometer set-up, placing a photodiode anywhere in the interference pattern will record the signal. The signal is independent of the position, up to an initial phase difference, since the interference principle means that all peaks become troughs together (and visa versa). This experiment placed it just off-centre.
 
 
-The analog signal from the photodiode is captured by an analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi, in the standard configuration. This digitally samples the signal at roughly 16kHz which introduces the first step of signal processing. Any existing frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range. To prevent this, an anti-aliasing Sallen-Key filter tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 16kHz, before they get digitally sampled.
+The analog signal from the photodiode is captured by a 10-bit analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi, in the standard configuration. This digitally samples the signal at roughly 16kHz which introduces the first step of signal processing. Any existing frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range. To prevent this, an anti-aliasing Sallen-Key filter tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 16kHz, before they get digitally sampled.
 
 
 All together, the photodiode measuring circuit diagram is shown in Figure~\ref{fig:circuit_diagram} in the appendices. It’s worth noting that it’s not immediately clear what is limiting the sample rate to 16kHz, but it is likely non-optimal reading by the Pi.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
-It is also worth noting that this method does not solve the problems of fringe counting nor speaker coupling.
+The photodiode is found to also be able to replicate the Viterbi results from before, but for a much greater range of frequencies as expected. However, this method does not solve the problems of fringe counting nor speaker coupling from before.
 
 
-\subsection{Signals processing: basics}
-% transfer function, power-spectral-density
+\subsection{Initial recordings}
+% breakdown of all the filters used along the way
 
-\subsection{Signals processing: filters}
-% breakdown of model and all of the filters
+The optical microphone (interferometer and photodiode circuit ensemble) was tested on many recordings of human voice and on music ranging from simple chord melodies to full track songs. Each recording was around one minute long but processing was generally done on ten second segments. For each trial, the recording was played through the speaker while the Pi script noted the photo-voltage, with minimal activity about the optical table. The saved  voltage time-series was then directly converted to a .wav file and played as an audio recording.
 
-% link back, gravitational wave searches also do lots of signal processing
 
-\subsection{Reconstructing music and voice}
-% results of processing, likely mixed with above subsection
+These initial recordings were extremely noisy and painful to listen to, with a loud bass hum throughout. Spectra of all of these recordings showed a dominant mains hum at 50Hz with strong power up to and beyond the 8th harmonic thereof. This power is also present with the speaker off, as in Figure~\ref{fig:psd_noise}, and also weakly with the photodiode in complete darkness.
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{podo_noise_psd_zoom-cropped.pdf}
+	\caption{Power spectral density (PSD) plot of the optical microphone system with no injected audio (with speaker off), ambience shows high power in the 50Hz mains hum and its harmonics}
+	\label{fig:psd_noise}
+\end{figure}
+
+
+Early attempts to remove the mains hum included zeroing the channel of each 50Hz harmonic, this is effectively using a rectangular comb filter. Applying (multiplying by) any filter in frequency space is equivalent to convolving with the inverse Fourier transform of that filter. While this did remove the mains harmonics, it also destroyed the rest of the signal. Similarly, low-passing the signal is problematic as the harmonics are all over the 100Hz-1kHz region, which also carries a lot of the signal. Low-passing the logarithm of the signal performs better but still doesn’t significantly remove the noise.
+
+
+Of these simple filters, the best performing was a band-pass Butterworth filter with frequency response shown in Figure~\ref{fig:butterworth}. This filter is `maximally flat' within the band region, here 150Hz to 3kHz, and trails off outside of the band with slope dependent on the order of the filter, here of order 5. Behind the remaining noise one could hear something distinctly speech-like or musical, just with very low intelligibility (as tested by multiple participants), i.e. one couldn’t understand the speech but could recognise that someone was talking.
+
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{butterworth_150_3000-cropped.pdf}
+	\caption{Butterworth bandpass filter frequency response, green vertical lines show the band limits of 150Hz and 3kHz. Any amplitude beyond -3dB is significant attenuation.}
+	\label{fig:butterworth}
+\end{figure}
+
+\subsection{logMMSE estimator}
+% logMMSE
+
+Speech enhancement for a noisy channel is a classic problem in signal processing. Hu~\&~Loizou~2006~\cite{SubjectiveComparison} compare various methods and find the best performing statistical technique to be the logMMSE (alt.\ MMSE-LSA) estimator which minimises the mean square error (MSE) of the log-spectral amplitude. This means that it takes the logarithm of the spectra of the original signal and finds the fit (or estimate) that has the minimal MSE to that log-spectra. Use of the logarithm is a common technique in speech processing as it, somewhat surprisingly, does not significantly change the intelligibility to the human ear.
+
+
+Applying an existing implementation of logMMSE to the optical microphone recordings produces dramatically cleaner results. The time series and spectrum raw from the optical microphone and after the logMMSE filter are shown in Figures~\ref{fig:logMMSE_timeseries}~\&~\ref{fig:logMMSE_spectrum}. All of the mains harmonics are significantly attenuated. Music out of the optical microphone is varied, loud rhythmic bass and drums are received well and the beat and chords remain recognisable, airy flutes and violins though struggle to be heard in the results. Speech is also far better separated from the background, however, the intelligibility remains low with the speech sounding mumbled and indistinct.
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{filter_timeseries_aa_melatos-cropped.pdf}
+	\caption{Optical microphone raw voltage time series (top) and with logMMSE filter applied (bottom), showing only one second of one minute recording, the effect at the start of the time series after filtering is the result of a finite signal}
+	\label{fig:logMMSE_timeseries}
+\end{figure}
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{filter_spectrum_aa_melatos-cropped.pdf}
+	\caption{Optical microphone raw signal spectrum (top) and with logMMSE filter applied (bottom), showing only up to 2kHz and a detail of the spectrum (before filtering the 50Hz line has a strength of 40 leaving one unable to see the rest of the spectrum)}
+	\label{fig:logMMSE_spectrum}
+\end{figure}
+
+The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
+% Visually it is impossible to confirm this for high frequencies, but it remains possible.
+
+\subsection{Future work}
+% full model of transfer function
+% SEGAN and other machine learning
 
 
 \section{Conclusions}
