@@ -58,7 +58,7 @@ In 2015 gravitational waves were observed for the first time from the merger of 
 The observation, made by the Laser Interferometer Gravitational-wave Observatory~\citep[LIGO]{AdvancedLIGO:2015}, marked a breakthrough in modern astrophysics and provides a new means to observe the universe. 
 Since 2015, the LIGO and Virgo~\cite{AdvancedVirgo:2015} observatories have made numerous detections of binary black hole~\cite{GW151226,GW170104,GW170814} and binary neutron star~\cite{GW170817,GW170817multi,GW190425} mergers. 
 In recent years there has been an increased public interest in gravitational-wave science. 
-Many gravitational wave research groups around the world have produced demonstrations and activities to aid in explaining this topic to a general audience
+Many gravitational wave research groups around the world have produced demonstrations and activities to aid in explaining this topic to a general audience.
 Activities range from online data analysis tutorials,~\cite{GWOSC:online,LOSC:2015} hands-on demonstrations, phone apps,~\cite{LaserLabs:online,SciVR:online} and online games,~\cite{BlackHoleHunter:online} to exhibitions,\cite{L2URSSE} artistic interpretation, and musical performance \han{add refs}. 
 
 
@@ -86,32 +86,82 @@ In section X we describe...... \han{add this in at the end}
 
 
 % \section{Method and results}
-\section{Table-top gravitational wave data science}
+\section{Table-top gravitational wave science}
+
+Detectable gravitational waves are caused by the most massive, violent events in the universe. Even so, the effects they produce are on the order of one part in $10^{21}$ for our best detectors. For a table-top demonstration this is impractical, so we demonstrate the same techniques for capturing audio instead.
 
 \subsection{Michelson interferometry}
 % hardware: path difference, virtual thin film interference
 
+A Michelson interferometer is a well-known optics configuration used in many undergraduate and research labs. A beam of coherent (monochromatic and equal phase) laser light is split to travel down and back from a mirror at the end of two arms at right-angles to each other, before returning to interfere at a screen to produce a pattern of concentric, circular fringes. See appendix for the exact set-up, lenses are included to focus the beam and view the interference pattern \jam{include Michelson schematic with speaker, webcam, photodiode and picture of interference pattern}.
+
+
+The appearance of the interference pattern, as shown in Figure~\ref{fig:interference_pattern}, is due to the path difference between one mirror and the virtual image of the other, resulting in a phase difference between the returning beams that meet at a point on the screen. As this phase difference only depends on the angle from the centre-line of the beam, the pattern is circularly symmetric for an aligned configuration. The intensity, $I$, of this pattern is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the initial beam, d is the difference in the arm lengths, $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Equation~\ref{eq:intensity_derivation} in the appendix for the full derivation).
+\begin{equation}
+\label{eq:intensity_result}
+I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
+\end{equation}
+
+This means that the intensity changes linearly with a small change in separation (again, see Equation~\ref{eq:intensity_derivation}).
+
+\begin{equation}
+	\delta I = \frac{- 8 \pi A^2 \cos{\theta} \sin{\phi}}{\lambda}\, \delta d
+\end{equation}
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{webcam_still0.pdf}
+	\caption{Interference pattern from Michelson interferometer, red dot indicates measured point for intensity time series}
+	\label{fig:interference_pattern}
+\end{figure}
+
+% A note that while the interference pattern appears similar to the Airy pattern produced by a circular aperture, they are not in fact the same geometry.
+
+
 \subsection{The webcam method}
 % how to analyse video, python OpenCV2
 
-% acknowledge problems: fringe counting, transfer function, coupling
+In this demonstration, a 0.5W speaker is stuck to the back of one of the interferometer mirrors. As the speaker cone deforms to play audio, the mirror moves with a change in separation, $\delta d$, as some function of the amplitude and frequency of the injected audio. The motion of the fringes follows the motion of the speaker at the same frequency. If the fringe motion is small, then changes in the intensity at some point on the screen follow the frequency of the injected audio but with amplitude given by a transfer function (which accounts for the coupling and resonance of the speaker-mirror system). Large fringe motion means that multiple fringes can pass over the measured point in a single speaker deformation, multiple fringes being counted raises the frequency of the intensity time series relative to the injected audio.
 
 
-% \section{Results and analysis}
-% combined/interwoven results, analysis, and discussion
+We measure the intensity at a point on the screen with a standard USB webcam, sampling at 30Hz. This limits the spectral content of signals we can observe to under the Nyquist frequency of 15Hz. This isn’t an issue to demonstrating the techniques, but see later Section~\ref{sec:photodiode} for a method to raise this limit to audible frequencies.	While playing a tone under 15Hz through the speaker, we recorded the interference pattern with the webcam. Then, at an off-centre pixel, we take the green-channel of the RGB video as approximate to the intensity time series, as the laser is monochromatic green light. Taking the Fourier transform of this signal clearly shows the injected tone, as shown in Figure~\ref{fig:webcam_spectrum}.
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{webcam_expt_4_0209-cropped.pdf}
+	\caption{Spectrum of intensity time series for injected tone of 2.09Hz, fundamental and harmonics clearly present}
+	\label{fig:webcam_spectrum}
+\end{figure}
 
 \subsection{Tracking tones with the Viterbi algorithm}
 % explaination and successful application
-% \jam{should we introduce viterbi in the introduction, probably?}
+% lean on the continuous gravitational waves angle
 
-% we can do this with both webcam and photodiode
+The signals that continuous gravitational wave searches look for change frequency slowly over time. This means that we can’t just look at the spectral content for the full observing run and search for a peak. Instead, the common method is to bin the observed time series into chunks of time, compute the spectra for each time interval, and then path-find through the grid of spectra over time for the most likely signal. Where the path-finding is restricted to go forwards in time and only move in frequency by a set amount, here 0.11 Hz per second. The Fourier amplitude of each frequency is used as the weight at each vertex in the grid of spectra over time.
+
+
+The Viterbi algorithm is a path-finding algorithm that solves this problem. Given a weighted graph, a sequence of subgraphs (the stages or layers to path-find through), and any restrictions on connectivity (the allowed amount of source frequency change over time), Viterbi will find the best path (in terms of the weights) to each node in the next subgraph from the first subgraph at each iteration. At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), then called the Viterbi path.
+
+
+To demonstrate this technique, we inject (play through the speaker) a tone that wanders in frequency over time, remembering to integrate up the phase change over time. Alternatively, a function generator can be slowly controlled to achieve the same input. Shown in Figure~\ref{fig:viterbi_overlay} is the grid (spectrogram) of the spectra of the observed signal over time, along with the Viterbi path and the injected signal. Due to the high signal-to-noise ratio (SNR), the Viterbi algorithm easily recovers the injected frequency over time. Note that the start of the signal moves too quickly (more than 0.11 Hz per second) for Viterbi to track, and that there appears to be an anomaly at 150s, likely a disturbance around the interferometer. Decreasing the signal-to-noise ratio closer to unity or increasing the allowed change in frequency over time causes Viterbi to lose the signal.
+
+
+\begin{figure}
+	\includegraphics[width=\textwidth]{expt_overlay_2_viterbi_test_webcam.pdf}
+	\caption{Spectrogram (spectra over time) of observed signal overlaid with white crosses for the Viterbi path and pink dots for the injected signal, notice the high correlation, the signal is able to be recovered}
+	\label{fig:viterbi_overlay}
+\end{figure}
+
+\jam{what more is there to say about Viterbi?}
 
 \section{Optical microphone}
 % aim of optical microphone: play back injected sounds
 
 The natural succession to tracking simple tones is to try complex audio signals, such as simple chords, and ultimately, music and speech. The Viterbi algorithm is not applicable to these signals, as it is designed to track a single tone signal that slowly, continuously changes frequency. Whereas music and speech consist of many tones that jump frequencies. As such, the interest now is in being able to record and play-back these complex audio signals. Using the interferometer set-up to do makes it an optical microphone, using light to capture sound.
 
+
+This aim is auxiliary to demonstrating continuous wave techniques, as advanced signal processing is required to extract the signal from noisy data in gravitational wave searches. To be able to recover audio with the optical microphone similarly requires signal processing, although of a simpler nature.
+
 \subsection{The photodiode method}
+\label{sec:photodiode}
 % advanced method: explain how we capture data
 
 For an optical microphone to be sensitive to speech and music it needs a frequency response far higher than the 30Hz of a standard webcam. Both speech and music need at least kHz response, with speech intelligibility requiring up to 3kHz and music preferably at least 8kHz. This can be addressed by a high-speed webcam, or more simply, by a photodiode.
@@ -183,8 +233,10 @@ The fringe counting problem of the detector, wherein multiple fringes passing ov
 
 \subsection{Future work}
 % full model of transfer function
-% SEGAN and other machine learning
+A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as linear for small motions, the other components of this full model are yet to be determined.
 
+
+% SEGAN and other machine learning
 
 \section{Conclusions}
 % we are able to successfully ...
@@ -192,24 +244,27 @@ The fringe counting problem of the detector, wherein multiple fringes passing ov
 
 \appendix
 
-\newpage
+\section{Michelson interferometer schematic}
+\jam{please include}
+
+Note that we do not include the common compensating plate that equalises the amount of time spent in glass for each beam. We did not find it necessary to demonstrate the results desired.
+
+% \newpage
 \section{Intensity relation derivation}
+
 \begin{align}
-    y_0(t) &= A \sin{(k L - \omega t)} \\
-    y_1(t) &= A \sin{(k (L + 2 d \cos{\theta}) - \omega t)} \\
-    Y(t) &= A \sin{(k L - \omega t)} + A \sin{(k (L + 2 d \cos{\theta}) - \omega t)} \\
-    \phi &= 2 k d \cos{\theta} \\
-    Y(t) &= A\; \Im\{e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)}\} \\
-    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \phi/2 - \omega t)} + e^{i (k L + \phi/2 + \phi/2 - \omega t)}\} \\    
-    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \omega t)} (e^{- i \phi/2} + e^{i \phi/2})\} \\    
-    Y(t) &= A\; \Im\{e^{i (k L + \phi/2 - \omega t)} (2 \cos{(\phi/2)})\} \\ 
-    Y(t) &= 2 A \cos{(\phi/2)}\; \Im\{e^{i (k L + \phi/2 - \omega t)}\} \\  
-    \therefore I(t) &= I_0 \cos^2{(\phi/2)}, \; \phi = \frac{4 \pi \cos{\theta}}{\lambda}\, d(t) \\
-    \frac{dI}{dt} &= \frac{dI}{d\phi}\; \frac{d\phi}{dt}\\
-    \frac{dI}{d\phi} &= - I_0 \cos{(\phi/2)} \sin{(\phi/2)}\\
-    &= - \frac{I_0}{2}\, \sin{(\phi)}\\
-    \delta\phi &= \frac{4 \pi \cos{\theta}}{\lambda}\, h\\
-    \therefore \delta I &= \frac{- 2 \pi I_0 \cos{\theta}}{\lambda}\,\sin{(\phi_0)}\, h
+\label{eq:intensity_derivation}
+    y_0(t) &= A e^{i (k L - \omega t)} \\
+    y_1(t) &= A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \\
+    I(t) &= \lvert A e^{i (k L - \omega t)} + A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \rvert^2 \\
+    I(t) &= A^2 \lvert e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)} \rvert^2,\, \phi = 2 k d \cos{\theta} \\
+    I(t) &= A^2 ((\cos{(k L - \omega t)} + \cos{(k L + \phi - \omega t)})^2 + (\sin{(k L - \omega t)} + \sin{(k L + \phi - \omega t)})^2) \\
+    I(t) &= A^2 (1 + 2 \cos{(k L - \omega t)} \cos{(k L + \phi - \omega t)} + 1 + 2 \sin{(k L - \omega t)} \sin{(k L + \phi - \omega t)}) \\
+    I(t) &= 2 A^2 (1 + \cos{\phi}),\, \phi = \frac{4 \pi d \cos{\theta}}{\lambda} \\
+    \frac{\delta I}{\delta d} &= \frac{\delta I}{\delta \phi}\; \frac{\delta \phi}{\delta d}\\
+    \frac{dI}{d\phi} &= - 2 A^2 \sin{\phi}\\
+    \delta\phi &= \frac{4 \pi \cos{\theta}}{\lambda}\, \delta d\\
+    \therefore \delta I &= \frac{- 8 \pi A^2 \cos{\theta} \sin{\phi}}{\lambda}\, \delta d
 \end{align}
 
 \section{Circuit design}
