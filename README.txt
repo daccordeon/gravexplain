@@ -10,18 +10,25 @@ https://github.com/daccordeon/gravexplain
 Directory structure:
 gravexplain/
     source/
-        mock_continuous_signal.py
-        experiment_viterbi.py
+        [py executable script versions of all .ipynb notebooks]
+        raspberry_pi_photodiode_adc.py
+            (reads photodiode signal through ADC by SPI pins, saves to .csv)
     paper/
-    	paper_main.tex
-    	ifoDemoBib.bib
-    	myunsrt.bst
+        paper_main.tex
+        ifoDemoBib.bib
+        myunsrt.bst
     
     mock_continuous_signal.ipynb
+        (simulates applying the Viterbi algorithm to a noisy signal)
     tracker_time_series.ipynb
+        (defunct; saves signal and spectrum plots from a .csv file)
     open_cv.ipynb
+        (defunct; various functions produced while learning the openCV library)
     experiment_viterbi.ipynb
+        (applies the Viterbi algorithm to an .mp4 from the webcam method)
     experiment_photodiode.ipynb
+        (filters signal from optical microphone produced by raspberry_pi_photodiode_adc.py,
+        also applies the Viterbi algorithm)
 
     .gitignore
     LICENSE
