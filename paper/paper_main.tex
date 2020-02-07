@@ -110,7 +110,7 @@ Detectable gravitational waves are caused by the most violent events in the univ
 A Michelson interferometer is a well-known optics configuration used in many undergraduate and research labs, including in the detectors for gravitational waves. A laser beam of coherent (monochromatic and equal phase) light is split into two arms at right-angles to each other, travelling down and back from a mirror at the end of each arm. The beams return to interfere at a screen and produce a pattern of concentric, circular fringes. The configuration is shown in Figure~\ref{fig:ifo_schematic_webcam}.
 
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{ifo_schematic_webcam.pdf}
+	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_webcam.pdf}
 	\caption{Michelson interferometer schematic, interference pattern is recorded by a webcam}
 	\label{fig:ifo_schematic_webcam}
 \end{figure}
@@ -132,7 +132,7 @@ This equation also means that the intensity changes linearly with a small change
 \end{equation}
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{webcam_still0.pdf}
+	\includegraphics[width=\textwidth]{figures/webcam_still0.pdf}
 	\caption{Interference pattern from Michelson interferometer as viewed by webcam from below (hence why the pattern appears non-circular), red dot indicates point where intensity time series was measured, the central fringe is approximately 5mm across}
 	\label{fig:interference_pattern}
 \end{figure}
@@ -158,7 +158,7 @@ We measure the intensity at a point on the screen with a standard commercial USB
 Then, at an off-centre pixel as seen in Figure~\ref{fig:interference_pattern}, we take the green-channel of the RGB video as approximate to the total intensity, as the laser is monochromatic green light. We can play this time series of intensity over time as an audio recording, and the tone is clearly heard. Taking the Fourier transform of this signal also strongly shows the injected tone at the correct frequency, as shown in Figure~\ref{fig:webcam_spectrum}. Therefore, we’re confident that we’ll be able to track input frequencies.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{webcam_expt_4_0209-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
 	\caption{Spectrum of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz hitting the interferometer, injected fundamental frequency and harmonics thereof clearly present in spectrum}
 	\label{fig:webcam_spectrum}
 \end{figure}
@@ -189,7 +189,7 @@ Decreasing the signal-to-noise ratio closer to unity or increasing the allowed c
 
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{expt_overlay_2_viterbi_test_webcam.pdf}
+	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
 	\caption{Spectrogram of observed signal overlaid with white crosses for the Viterbi path and pink dots for the injected signal, notice the high correlation between them indicating that the signal is able to be recovered; also note the deviation at the start when the signal moves too quickly and just before the background anomaly at 150s}
 	\label{fig:viterbi_overlay}
 \end{figure}
@@ -226,7 +226,7 @@ It’s not immediately clear what’s limiting the sample rate to 16kHz, but it 
 The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo}.
 
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{ifo_schematic_photodiode.pdf}
+	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_photodiode.pdf}
 	\caption{Michelson interferometer schematic, a part of the interference pattern is recorded by a photodiode}
 	\label{fig:ifo_schematic_podo}
 \end{figure}
@@ -240,7 +240,7 @@ The optical microphone was tested on recordings of one human talking and on musi
 These initial recordings were extremely noisy and painful to listen to, with a loud bass sound throughout. Spectra of all of these recordings showed a dominant mains hum at 50Hz with strong power up to and beyond the 8th harmonic thereof. This power is also present with the speaker off, as is shown in Figure~\ref{fig:psd_noise}, and also weakly when monitoring with the photodiode in complete darkness.
 
 \begin{figure}%[H]
-	\includegraphics[width=\textwidth]{podo_noise_psd_zoom-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/podo_noise_psd_zoom-cropped.pdf}
 	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off), show high power in the 50Hz mains hum and its harmonics (most likely from the photodiode circuit and the ambient lighting), otherwise is a fairly white spectrum except for the broad, shallow maximum at 750Hz}
 	\label{fig:psd_noise}
 \end{figure}
@@ -259,7 +259,7 @@ Of these simple filters, the best performing was a band-pass Butterworth filter 
 Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied. \jam{Should I show photodiode Viterbi results?}
 
 \begin{figure}%[H]
-	\includegraphics[width=0.8\textwidth]{butterworth_150_3000-cropped.pdf}
+	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
 	\caption{Butterworth bandpass filter frequency response, green vertical lines show the band limits of 150Hz and 3kHz. Note the very flat response within the band, any amplitude beyond -3dB is significant attenuation.}
 	\label{fig:butterworth}
 \end{figure}
@@ -283,13 +283,13 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 % % Visually it is impossible to confirm this for high frequencies, but it remains possible.
 
 \begin{figure}%[H]
-	\includegraphics[width=\textwidth]{filter_timeseries_aa_melatos-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
 	\caption{Optical microphone recording of adult male voice (saying ``A cathode ...'') shown before (top) and after (bottom) logMMSE filter is applied, only one second of the one minute recording is shown. The bump at the start of the time series is the result of filtering a finite signal, and is expected.}
 	\label{fig:logMMSE_timeseries}
 \end{figure}
 
 \begin{figure}%[H]
-	\includegraphics[width=\textwidth]{filter_spectrum_aa_melatos-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
 	\caption{Spectrum of optical microphone recording of adult male voice shown before (top) and after (bottom) logMMSE filter is applied, showing only up to 2kHz and a detail of the spectrum (limited to show only up to amplitude 2, while before filtering the 50Hz line has an amplitude of 40)}
 	\label{fig:logMMSE_spectrum}
 \end{figure}
@@ -413,7 +413,7 @@ We want to generate a sine wave that changes frequency over time so that the fre
 Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}
 
 \begin{figure}%[H]
-	\includegraphics[width=\textwidth]{circuit_diagram_2.pdf}
+	\includegraphics[width=\textwidth]{figures/circuit_diagram_2.pdf}
 	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC), that’s finally read by the special purpose input (SPI) pins of a Raspberry Pi}
 	\label{fig:circuit_diagram}
 \end{figure}

@@ -1,7 +1,7 @@
 GravExplain: explaining gravitational wave data science to a non-specialist audience
 James Gardner, ANU
 Hannah Middleton and Andrew Melatos, OzGrav @ Melbourne Uni
-Summer 2020
+February 2020
 README
 
 Current build found at:
@@ -10,25 +10,28 @@ https://github.com/daccordeon/gravexplain
 Directory structure:
 gravexplain/
     source/
-        [py executable script versions of all .ipynb notebooks]
+        main.py
+            (produces all paper figures from scripts given experimental data, execute as "python3 main.py" with sample files present)
+
         raspberry_pi_photodiode_adc.py
             (reads photodiode signal through ADC by SPI pins, saves to .csv)
+
+        viterbi_video_analysis.py
+            (applies the Viterbi algorithm to an .mp4 from the webcam method)
+        optical_microphone_filters.py
+            (filters signal from optical microphone produced by raspberry_pi_photodiode_adc.py, also applies the Viterbi algorithm)
+        mock_continuous_signal.py
+            (simulates applying the Viterbi algorithm to a noisy signal)
+
+        [also contains .ipynb versions of above three .py scripts]
+
+        defunct_open_cv.ipynb
+            (various functions produced while learning the openCV library)
+    
     paper/
         paper_main.tex
         ifoDemoBib.bib
         myunsrt.bst
-    
-    mock_continuous_signal.ipynb
-        (simulates applying the Viterbi algorithm to a noisy signal)
-    tracker_time_series.ipynb
-        (defunct; saves signal and spectrum plots from a .csv file)
-    open_cv.ipynb
-        (defunct; various functions produced while learning the openCV library)
-    experiment_viterbi.ipynb
-        (applies the Viterbi algorithm to an .mp4 from the webcam method)
-    experiment_photodiode.ipynb
-        (filters signal from optical microphone produced by raspberry_pi_photodiode_adc.py,
-        also applies the Viterbi algorithm)
 
     .gitignore
     LICENSE
