@@ -47,6 +47,7 @@ Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout
 \subsection*{Statement of achievements}
 % one paragraph recount of what’s been done for two months, like the abstract
 
+\jam{write this!}
 
 \newpage
 
@@ -112,7 +113,7 @@ So far many searches have been made of LIGO and Virgo data, however no detection
 % overview
 In this article we describe how a Michelson interferometer can be used to demonstrate the search for continuous gravitational waves to a general audience. 
 The techniques used are very similar to those used to search for continuous waves in LIGO and Virgo data.
-In Section~\ref{sec:ifo} we detail the interferometer set-up, Section~\ref{sec:single_tone} demonstrates observing a single tone, Section~\ref{sec:viterbi_wandering} details tracking a wandering frequency tone, and Section~\ref{sec:optical_microphone} extends the set-up to be able to capture complex audio, such as music and speech. We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
+As an overview, Section~\ref{sec:ifo} details the interferometer, Section~\ref{sec:single_tone} describes observing a single tone signal, Section~\ref{sec:viterbi_wandering} describes observing a wandering frequency signal, and Section~\ref{sec:optical_microphone} extends the set-up to be able to capture complex audio, such as music and speech. We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
 
 
 % \section{Method and results}
@@ -276,7 +277,7 @@ Attempting to low-pass the signal did better (to the ear) but was also problemat
 Of these simple filters, the best performing was a band-pass Butterworth filter with frequency response shown in Figure~\ref{fig:butterworth}. This filter is `maximally flat' within the band region, here 150Hz to 3kHz, and trails off outside of the band with slope dependent on the order of the filter, here of order 5. This still suffered from the presence of the higher mains harmonics. However, behind the remaining noise one could hear something distinctly speech-like or musical, just with very low intelligibility, you couldn’t understand the speech but could recognise that someone was talking.
 
 
-Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied. \jam{Should I show photodiode Viterbi results?}
+Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
 
 \begin{figure}%[H]
 	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
@@ -286,6 +287,8 @@ Note that we also replicated the Viterbi algorithm results from before with the 
 
 \subsection{logMMSE estimator}
 % logMMSE
+
+\jam{Explain MMSE as in the second talk, be honest in some way}
 
 Speech enhancement for a noisy channel is a classic problem in signal processing. Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compare various methods and find the best performing statistical technique to be the logMMSE (alt.\ MMSE-LSA) estimator which minimises the mean square error (MSE) of the log-spectral amplitude. This means that it takes the logarithm of the spectrum of the original signal and finds the fit (or estimate) that has the minimal MSE to that log-spectra.
 % Use of the logarithm is a common technique in speech processing as it, somewhat surprisingly, does not significantly change the intelligibility to the human ear.
@@ -300,7 +303,7 @@ There is varied success with passing music passed through the filters. Loud, rhy
 However, speech intelligibility remains very low with the voice sounding mumbled and indistinct. Enhancement so far has removed most of the background sound, as evidenced by the near silence between words, but has not clarified the speech. There is a question here as to where the diction in the speech is lost, at the speaker-mirror coupling, at the photodiode reading, or if it is still there, just obscured in the noisy signal.
 
 % The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
-% % Visually it is impossible to confirm this for high frequencies, but it remains possible.
+% Visually it is impossible to confirm this for high frequencies, but it remains possible.
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
@@ -319,13 +322,6 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 \label{sec:future_work}
 
 \jam{BATTERY POWER}
-
-Theoretically, if we had the correct model, then signal recovery would only be limited by the SNR. We could also use long recordings of white noise to estimate a matched filter for the system.
-
-
-For further speech enhancement, the optimal filter would involve a hidden-Markov-model trained to English phonemes. Alternatively, machine learning solutions also exist through-out the field.
-% SEGAN?
-
 % any other wild speculation?
 
 \subsection{Transfer function}
@@ -345,6 +341,13 @@ This Equation~\ref{eq:intensity_result} means that the intensity changes non-lin
 
 A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as non-linear for small motions (see above), the other components of this full model are yet to be determined. Figure~\ref{fig:pipeline_highlighted} shows this full pipeline, with the currently determined section highlighted.
 
+
+Theoretically, if we had the correct model, then signal recovery would only be limited by the SNR. We could also use long recordings of white noise to estimate a matched filter for the system.
+
+
+For further speech enhancement, the optimal filter would involve a hidden-Markov-model trained to English phonemes. Alternatively, machine learning solutions also exist through-out the field.
+
+
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/pipeline_highlighted.pdf}
 	\caption{???}
@@ -361,6 +364,7 @@ Using a Michelson interferometer, we able to successfully demonstrate the Viterb
 \appendix
 
 \section{Open-source code}
+\label{app:code}
 This project is implemented in python3\cite{python} inside of jupyter notebooks\cite{jupyter}\cite{ipython} and uses the packages of numpy\cite{numpy}, scipy\cite{scipy}, matplotlib\cite{matplotlib}, tqdm\cite{tqdm}, and logmmse\cite{logmmse}.
 
 The current build can be found at:
@@ -369,11 +373,18 @@ The current build can be found at:
 % README
 % \end{verbatim}
 
-\section{Guide to reproducing results}
+\section{Additional guide to reproducing results}
 \label{app:reproducing_results}
 % as for a 3rd year undergraduate
-\jam{Add this in, lots of advice and detail!}
 
+Besides the directions given in the rest of this article, there are some observations and technical details useful to someone wanting to reproduce the results shown herein. For the analysis and signal processing performed the best reference is Appendix~\ref{app:code} for the open-source code.
+
+For the experiment, since a Michelson interferometer is such a standard configuration, we’ll not detail it further here, see any optics manual for more information. To obtain an independent speaker cone we recommend carefully dismantling a budget commercial speaker system to get at the speaker within. To attach the speaker to one of the mirrors, we wedged it into part of the mirror mount and used commercial adhesive putty to keep it in place. If the other speaker in the pair remains, keep it as far away from the experiment and as damped as possible else it may act as a second, interfering source.
+% we used a Class 2 LDS5 ThorLabs laser at 532nm
+
+For the photodiode circuit, we used a Raspberry Pi and an MCP3008 ADC to monitor the analog signal. This could also be done with the analog pins on an Arduino. Be careful of the gain through the LM358 op-amps in the circuit though, else the ADC in either case could threshold the signal. Also be ready to change the values in the Sallen-Key filter to match your own sampling rate. The photodiode was an OSRAM BPW21, we mounted it through a discarded piece of speaker mesh (similar to black cloth over a frame) and placed another piece over the face to not over expose and threshold the signal. For the rest of the circuit, we used standard components assembled as in \ref{app:circuit_diagram}.
+
+\jam{Add this in, lots of advice and detail!}
 
 
 \section{The Viterbi Algorithm}
