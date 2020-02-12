@@ -28,13 +28,11 @@
 % cover page
 \section*{Project contributions}
 % contributions clarify what’s to be assessed
-Hannah Middleton: introduction of paper, design and making of interferometer
+James W. Gardner: all paper sections other than the introduction, design and making of the photodiode circuit, and all of the source code at \url{https://github.com/daccordeon/gravexplain}
 
+Hannah Middleton: introduction of paper, design and making of the interferometer
 
-James W. Gardner: all other paper sections, design and making of photodiode circuit, and all of the source code
-
-
-\jam{do we need to repeat those people in the Acknowledgements?}
+Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout the project
 
 \newpage
 
@@ -44,11 +42,15 @@ James W. Gardner: all other paper sections, design and making of photodiode circ
 \email{u6069809@anu.edu.au}
 \affiliation{Research School of Physics, Australian National University, 60 Mills Rd, Acton ACT 2601 Australia}
 
-\author{Hannah Middleton}
+\author{Hannah Middleton$^{(i)}$}
 \email{hannah.middleton@unimelb.edu.au}
-\author{Andrew Melatos}
+\author{Andrew Melatos$^{(i)}$}
 \email{amelatos@unimelb.edu.au}
-\affiliation{School of Physics, University of Melbourne, Parkville, VIC, 3010, Australia}
+\author{Robin Evans$^{(ii)}$}
+\email{robinje@unimelb.edu.au}
+\author{William Moran$^{(ii)}$}
+\email{wmoran@unimelb.edu.au}
+\affiliation{School of Physics$^{(i)}$ and Department of Electrical and Electronic Engineering$^{(ii)}$, University of Melbourne, Parkville, VIC, 3010, Australia}
 \affiliation{OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery}
 
 % Summer 2019/2020
@@ -124,11 +126,11 @@ The intensity, $I$, of this pattern at a particular angle is given by Equation~\
 I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
 \end{equation}
 
-This equation also means that the intensity changes linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation).
+This equation means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
 
 \begin{equation}
 \label{eq:intensity_change}
-	\delta I = \frac{- 8 \pi A^2 \cos{\theta} \sin{\phi}}{\lambda}\, \delta d
+	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
 \end{equation}
 
 \begin{figure}
@@ -223,12 +225,18 @@ It’s not immediately clear what’s limiting the sample rate to 16kHz, but it 
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
 
-The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo}.
+The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a picture taken of the experiment, showing the interferometer, the circuit, and the Pi, is shown in Figure~\ref{fig:setup_pic2}.
 
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_photodiode.pdf}
 	\caption{Michelson interferometer schematic, a part of the interference pattern is recorded by a photodiode}
 	\label{fig:ifo_schematic_podo}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.8\textwidth]{figures/setup_pic2.pdf}
+	\caption{Picture taken of the optical microphone set-up, showing the Michelson interferometer, the photodiode (in an insert), the circuit, and the Raspberry Pi.}
+	\label{fig:setup_pic2}
 \end{figure}
 
 \subsection{Initial results}
@@ -297,7 +305,7 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 
 \section{Future work}
 
-A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as linear for small motions, the other components of this full model are yet to be determined.
+A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as non-linear for small motions, the other components of this full model are yet to be determined.
 
 
 Theoretically, if we had the correct model, then signal recovery would only be limited by the SNR. We could also use long recordings of white noise to estimate a matched filter for the system.
@@ -319,43 +327,13 @@ Using a Michelson interferometer, we able to successfully demonstrate the Viterb
 \appendix
 
 \section{Open-source code}
-
-\jam{update this to the current README.txt}
-
 This project is implemented in python3\cite{python} inside of jupyter notebooks\cite{jupyter}\cite{ipython} and uses the packages of numpy\cite{numpy}, scipy\cite{scipy}, matplotlib\cite{matplotlib}, tqdm\cite{tqdm}, and logmmse\cite{logmmse}.
 
-Current build found at:
+The current build can be found at:
 \url{https://github.com/daccordeon/gravexplain}
-
-\begin{verbatim}
-Directory structure:
-gravexplain/
-    source/
-        [py executable script versions of all .ipynb notebooks]
-        raspberry_pi_photodiode_adc.py
-            (reads photodiode signal through ADC by SPI pins, saves to .csv)
-    paper/
-        paper_main.tex
-        ifoDemoBib.bib
-        myunsrt.bst
-    
-    mock_continuous_signal.ipynb
-        (simulates applying the Viterbi algorithm to a noisy signal)
-    experiment_viterbi.ipynb
-        (applies the Viterbi algorithm to an .mp4 from the webcam method)
-    experiment_photodiode.ipynb
-        (filters signal from optical microphone produced by raspberry_pi_photodiode_adc.py,
-        also applies the Viterbi algorithm)
-
-    tracker_time_series.ipynb
-        (defunct; saves signal and spectrum plots from a .csv file)
-    open_cv.ipynb
-        (defunct; various functions produced while learning the openCV library)
-
-    .gitignore
-    LICENSE
-    README.txt
-\end{verbatim}
+% \begin{verbatim}
+% README
+% \end{verbatim}
 
 % \newpage
 \section{Intensity relation derivation}
@@ -379,13 +357,13 @@ Collapse the phase difference to $\phi$ and expand the norm squared by expanding
     I(d) &= 2 A^2 (1 + \cos{\phi}),\, \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
 \end{align}
 
-Then take derivatives and find that the intensity changes linearly for small changes in separation.
+Then take derivatives and find that the intensity change is non-linear.
 
 \begin{align}    
     \frac{\delta I}{\delta d} &= \frac{\delta I}{\delta \phi}\; \frac{\delta \phi}{\delta d}\\
-    \frac{dI}{d\phi} &= - 2 A^2 \sin{\phi}\\
-    \delta\phi &= \frac{4 \pi \cos{\theta}}{\lambda}\, \delta d\\
-    \therefore \delta I &= \frac{- 8 \pi A^2 \cos{\theta} \sin{\phi}}{\lambda}\, \delta d
+    \frac{\delta I}{\delta\phi} &= - 2 A^2 \sin{\phi}\\
+    \frac{\delta\phi}{\delta d} &= \frac{4 \pi \cos{\theta}}{\lambda}\\
+    \therefore \frac{\delta I}{\delta d} &= \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
 \end{align}
 
 \section{The Viterbi Algorithm}
@@ -421,7 +399,7 @@ Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is als
 
 
 \begin{acknowledgments}
-The authors are grateful to Robin Evans, Bill Moran, Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance throughout the project.
+The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance throughout the project.
 	
 The authors are also grateful to Deeksha Beniwal, Sebastian Ng, and Craig Ingram for their advice and work in designing the interferometer. 
 

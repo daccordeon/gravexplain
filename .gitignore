@@ -1,6 +1,9 @@
 .ipynb_checkpoints/*
+source/.ipynb_checkpoints/*
 *.pdf
 *.mp4
 *.csv
 *.wav
+*.svg
 paper/paper_mainNotes.bib
+paper/talk*.tex
