@@ -3,8 +3,8 @@
 James Gardner 2020
 ANU / Melbourne Uni
 
-various assorted pieces of analysis of data from photodiode
-reading the changing pattern of the optical microphone interferometer
+analysis of data from photodiode reading the pattern of
+the optical microphone interferometer
 """
 
 import numpy as np
@@ -19,8 +19,6 @@ def fourier_spectrum_2(signal, fps, return_spectrum=False, cutter=2, remove_main
     """finds fourier spectrum of signal time series as numpy array,
     has functionality to return and/or plot the sectrum (both default off),
     built from code originally found in tracker_time_series.ipynb
-    
-    note: based off of fourier_spectrum, careful with older scripts
     """   
     signal_frames = len(signal)
     
@@ -97,8 +95,7 @@ def fourier_spectrum_2(signal, fps, return_spectrum=False, cutter=2, remove_main
     
 def cut_mains(signal, fps, cutter=2):
     """returns signal with the 50Hz mains cut out
-    
-    NB: this is a bad signal processing technique and should not be used
+    NB: this is a bad signal processing technique and should not be used!
     """
     signal_frames = len(signal)
     
@@ -150,8 +147,6 @@ def viterbi_pathfinder(grid, scanning_range=3):
     """find the highest scoring path through the grid, left-to-right,
     as by the viterbi algorithm, with connections plus-minus the scanning_range;
     returns score grid for best path to each node and a bitmap of the total best path
-    
-    NB: this is ripped from previous scripts
     """
     # normalised grid, algorithm goal is to maximise product of values
     ngrid  = grid/np.max(grid)
@@ -210,14 +205,13 @@ def viterbi_pathfinder(grid, scanning_range=3):
     return score_grid, path_grid
 
 def absmax(axis):
-    """returns the maximum absolute value along an np.axis"""
+    """returns the maximum absolute value along an axis of a np.array"""
     return max(abs(np.min(axis)), abs(np.max(axis)))
 
 def photodiode_experiment_viterbi(filename='podo_viterbi_test.csv',
                                   filetag='viterbi_test'):
     """performs viterbi analysis on window of .wav recording from photodiode"""
     # read in photodiode (aka podo) data as time series
-
     mega = np.genfromtxt(filename,delimiter=',')
     times = mega[:,0]
     long_signal = mega[:,1]
@@ -250,7 +244,6 @@ def photodiode_experiment_viterbi(filename='podo_viterbi_test.csv',
     plt.close(fig)
 
     # apply viterbi analysis to long_signal
-
     long_timesteps = 600
     scanning_range = 3
 
@@ -308,7 +301,8 @@ def photodiode_experiment_viterbi(filename='podo_viterbi_test.csv',
     plt.close()    
     
 def tone_shift_check(filename, inj_tone, filetag=None):
-    """filename must be a tone.csv recording"""
+    """checks for a frequency shift in an injected tone,
+    filename must be a tone.csv recording"""
     if filetag is None:
         ft0 = filename.find('podo_')
         if ft0 == 0:
@@ -336,7 +330,8 @@ def tone_shift_check(filename, inj_tone, filetag=None):
     plt.show()
     
 def makeshift_comb(filename):
-    """makeshift comb filter"""
+    """filters .csv signal with a makeshift comb filter,
+    this does not work particularly well for speech"""
     mega = np.genfromtxt(filename,delimiter=',')
     times = mega[:,0]
     long_signal = mega[:,1]
@@ -370,7 +365,6 @@ def makeshift_comb(filename):
     
 def wav_sanity_checks(filename='source_feynman(1).wav', filetag='feynman'):
     """sanity checks for basic wav reading and writing"""
-
     rate, signal = wavfile.read(filename)
     # mono np.nonzero(signal[:,0] - signal[:,1])
     signal = signal[:,0]
@@ -399,7 +393,6 @@ def wav_sanity_checks(filename='source_feynman(1).wav', filetag='feynman'):
 def wav_digitisation_check(infile_name='source_a440.wav', outfile_name=None):
     """checking that slower fps and digitisation
     doesn't significantly impact audio signal"""
-
     rate, signal = wavfile.read(infile_name)
     # mono np.nonzero(signal[:,0] - signal[:,1])
     if len(signal.shape) > 1:
@@ -581,7 +574,7 @@ def butter_filter_plot(butter_order=5, cut_off_f0=150, cut_off_f1=3000, fps=1600
     plt.close(fig)
     
 def logmmse_filter(filename='aa_melatos.csv', filetag=None):
-    """applies logMMSE speech enhancement filter"""
+    """applies logMMSE speech enhancement filter from existing implementation"""
     if filetag is None:
         ft0 = filename.find('podo_')
         if ft0 == 0:
@@ -640,7 +633,7 @@ def logmmse_filter(filename='aa_melatos.csv', filetag=None):
     plt.close(fig)
     
 def check_filters_on_source(filename='source_melatos.wav', filetag='source_melatos'):
-    """run the same filter process over the source file to compare to recording"""
+    """run the filter process over a source file to compare to the experimental recording"""
     fps, long_signal = wavfile.read(filename)
 
     logmmse_signal = logmmse(long_signal.astype('float32'), int(fps))

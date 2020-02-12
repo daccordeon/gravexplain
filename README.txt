@@ -52,6 +52,8 @@ This should produce all of the figures, as .pdf files, of the experimental resul
 
 This ends the guide to replicating results directly. The user is invited to use the functionality of the various scripts to investigate their own recordings and, hopefully, reproduce the results shown.
 
+To make your own recording with the photodiode and optical microphone set-up as described in the paper. Execute raspberry_pi_photodiode_adc.py with python3 inside the Raspberry Pi. This will produce a .csv of the recorded signal which can be transferred over for analysis.
+
 - - -
 GravExplain uses python 3.6.8 in jupyter notebook and has the requirements:
 ipython==5.5.0

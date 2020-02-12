@@ -3,7 +3,7 @@
 James Gardner 2020
 ANU / Melbourne Uni
 
-applies viterbi analysis pipeline to experiment video of
+applies viterbi analysis pipeline to experiment video (as .mp4) of
 michelson interferometer with a mirror driven at a changing frequency
 takes signal as time series of intensity at the video's centre
 """
@@ -151,16 +151,11 @@ def inj_wandering_signal(duration=300, fps=16000,
                          meander_amp=9, meander_decay=0.01, meander_freq=0.005,                     
                          filetag='webcam', return_freq_series=False, save_to_csv=False,
                          save_wav_recording=False, plot_wandering_signal = False):
-    """create injected meandering signal to test viteri analysis
-    # webcam options
-    meander_amp, meander_decay, meander_freq = 9, 0.01, 0.005
-    filetag = 'webcam'
-
-    # podo options (podo=photodiode)
+    """creates wandering frequency, FM-modulated signal to test viteri analysis,
+    default arguments are for testing the webcam, else see below for photodiode arguments:
     meander_amp, meander_decay, meander_freq = 300, 0.01, 0.01
     filetag = 'podo'  
     """
-
     # 5 minutes duration
     long_timesteps = fps*duration
 
@@ -287,7 +282,9 @@ class PointViterbi(object):
             plt.clf()
 
 def webcam_video_analysis(filename, point=None):
-    """filename must be a .mp4, saves the opening still and a spectrum of a point in the video"""
+    """saves the opening still of video and a spectrum of a point in the video,
+    filename must be an .mp4
+    """
     cap = cv2.VideoCapture(filename)
     ret, frame = cap.read()
     cv2.imwrite('tmp_webcam_still.png',frame)

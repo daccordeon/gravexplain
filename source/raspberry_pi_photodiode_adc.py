@@ -1,41 +1,46 @@
 #!/usr/bin/python
 """raspberry_pi_photodiode_adc.py
 James Gardner 2020
+built from existing scripts online since lost,
+gratitude to those original authors
 
-reads ADC signal and saves to .csv
+to be run on a Rasperry Pi,
+reads the signal from an ADC and saves to a .csv file
 """
 
 import spidev
 import time
-#import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define sensor channels
+# define sensor channels
 light_channel = 0
-# Define delay between readings
+# define delay between readings
 delay = 0.2
 
-# Open SPI bus
+# open SPI bus
 spi = spidev.SpiDev()
 spi.open(0,0)
 spi.max_speed_hz=1000000
 
-# Function to read SPI data from MCP3008 chip
-# Channel must be an integer 0-7
 def read_channel(channel):
+    """returns a single value from a channel of the ADC,
+    takes SPI data from MCP3008 chip,
+    channel must be an integer 0-7"""
     adc = spi.xfer2([1, (8 + channel) << 4, 0])
     data = ((adc[1] & 3) << 8) + adc[2]
     return data
 
-# Function to convert data to voltage level,
-# rounded to specified number of decimal places.
 def convert_volts(data, places):
+    """function to convert data to voltage level,
+    rounded to specified number of decimal places"""
     volts = (3.3*data) / float(1023)
     volts = round(volts, places)
     return volts
 
 def live_plot():
+    """displays a live plot of the channel reading,
+    can get very slow if left for too long"""
     delay = 1e-7
     t0 = time.time()
     x, y = [], []
@@ -50,6 +55,9 @@ def live_plot():
     plt.show()
 
 def save_stream(duration=1, out_file='adc_time_series.csv', show_plot=False):
+    """saves a data stream from the ADC for the given duration to a .csv files,
+    sample rate is just above 16kHz,
+    show_plot is not recommend due to the large number of points"""
     with open(out_file, 'w') as f:
         t0 = time.time()
         while True:
@@ -67,4 +75,9 @@ def save_stream(duration=1, out_file='adc_time_series.csv', show_plot=False):
         plt.show()
 
 if __name__ == '__main__':
-    save_stream(duration=1)
+    print('Welcome to raspberry_pi_photodiode_adc.py, attempting to save a one second stream now')
+    try:
+        save_stream(duration=1)
+    except:
+        print('This script must be run on a Raspberry Pi that is set-up \
+              exactly as in the GravExplain paper, please try again')
