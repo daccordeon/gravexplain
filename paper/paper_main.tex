@@ -28,11 +28,25 @@
 % cover page
 \section*{Project contributions}
 % contributions clarify what’s to be assessed
-James W. Gardner: all paper sections other than the introduction, design and making of the photodiode circuit, and all of the source code at \url{https://github.com/daccordeon/gravexplain}
+James W. Gardner:
+\begin{itemize}
+\item all paper sections other than the introduction, i.e.\ from Section~\ref{sec:ifo} onwards, and all figures in the paper
+\item addition of the injection speaker, design of photodiode circuit from standard examples, assembly of circuit on breadboard, and set-up of Raspberry Pi to measure output
+\item all of the source code at \url{https://github.com/daccordeon/gravexplain}, that reads the data from the Raspberry Pi, analyses it, and creates the figures used in the paper
+\item talks presented were based on paper and figures therein
+\end{itemize}
 
-Hannah Middleton: introduction of paper, design and making of the interferometer
+Hannah Middleton:
+\begin{itemize}
+\item introduction of paper, i.e.\ Section~\ref{sec:introduction}
+\item design and assembly of the interferometer
+\end{itemize}
 
 Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout the project
+
+\subsection*{Statement of achievements}
+% one paragraph recount of what’s been done for two months, like the abstract
+
 
 \newpage
 
@@ -58,15 +72,17 @@ Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout
 
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
-Continuous gravitational wave searches use sophisticated statistical techniques to search for signals in noisy data. We demonstrate some of these techniques with a table-top Michelson interferometer, namely the Viterbi algorithm for recovering injected tones and a signal processing filter pipeline. We also use the same experiment to demonstrate an optical microphone capable of playing back simple recordings of injected audio.
+Continuous gravitational wave searches use sophisticated statistical techniques to search for signals in noisy data. We demonstrate some of these techniques with a table-top Michelson interferometer, namely the Viterbi algorithm for recovering a tone with wandering frequency.
+We also use the same experiment to demonstrate an optical microphone capable of playing back simple audio recordings of injected music. However, played-back speech is currently unintelligible so we investigate preliminary methods of speech enhancement.
  
+\jam{Andrew says that this should be a bit more detailed!}
+
 \end{abstract}
 
 \maketitle
 
-% cover page that attributes all contributions
-
 \section{Introduction}
+\label{sec:introduction}
 
 % general gw intro
 In 2015 gravitational waves were observed for the first time from the merger of two black holes in a binary system.~\cite{GW150914} 
@@ -75,7 +91,6 @@ Since 2015, the LIGO and Virgo~\cite{AdvancedVirgo:2015} observatories have made
 In recent years there has been an increased public interest in gravitational-wave science. 
 Many gravitational wave research groups around the world have produced demonstrations and activities to aid in explaining this topic to a general audience.
 Activities range from online data analysis tutorials,~\cite{GWOSC:online,LOSC:2015} hands-on demonstrations, phone apps,~\cite{LaserLabs:online,SciVR:online} and online games,~\cite{BlackHoleHunter:online} to exhibitions,\cite{L2URSSE} artistic interpretation, and musical performance \han{add refs}. 
-
 
 
 % what are gws and how do we detect them...
@@ -96,20 +111,20 @@ So far many searches have been made of LIGO and Virgo data, however no detection
 
 % overview
 In this article we describe how a Michelson interferometer can be used to demonstrate the search for continuous gravitational waves to a general audience. 
-The techniques used are very similar to those used by researchers to search for continuous waves in LIGO and Virgo data.
-In Section~\ref{sec:ifo} we detail the interferometer set-up, Section~\ref{sec:single_tone} demonstrates observing a single tone, Section~\ref{sec:viterbi_wandering} details tracking a wandering frequency tone, and Section~\ref{sec:optical_microphone} extends the set-up to be able to capture complex audio, such as music and speech.
+The techniques used are very similar to those used to search for continuous waves in LIGO and Virgo data.
+In Section~\ref{sec:ifo} we detail the interferometer set-up, Section~\ref{sec:single_tone} demonstrates observing a single tone, Section~\ref{sec:viterbi_wandering} details tracking a wandering frequency tone, and Section~\ref{sec:optical_microphone} extends the set-up to be able to capture complex audio, such as music and speech. We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
 
 
 % \section{Method and results}
 \section{Table-top gravitational wave science}
 \label{sec:ifo}
 
-Detectable gravitational waves are caused by the most violent events in the universe. Like two massive black-holes merging with each other. Even so, the effects they produce are on the order of one part in $10^{21}$ for our best detectors\cite{GW150914}. Given the impossibility of such detection with a table-top experiment, we demonstrate the same techniques but for observing sound waves.
+Detectable gravitational waves are caused by some of the most violent events in the universe. Like two massive black-holes merging with each other\cite{GW150914}. Even so, the effects they produce are on the order of one part in $10^{21}$ for our best detectors\cite{GW150914}. For a table-top experiment these effects would be far too small, so we demonstrate observing a far louder source, sound waves. Although the analogue to gravitational waves is tenuous, we can still demonstrate some of the continuous wave analysis satisfactorily. The other benefit of observing sound is that we can use existing signal processing techniques designed for audio signals.
 
 \subsection{Michelson interferometry}
 % hardware: path difference, virtual thin film interference
 
-A Michelson interferometer is a well-known optics configuration used in many undergraduate and research labs, including in the detectors for gravitational waves. A laser beam of coherent (monochromatic and equal phase) light is split into two arms at right-angles to each other, travelling down and back from a mirror at the end of each arm. The beams return to interfere at a screen and produce a pattern of concentric, circular fringes. The configuration is shown in Figure~\ref{fig:ifo_schematic_webcam}.
+A Michelson interferometer is a well-known optics configuration used in many undergraduate and research labs, including in the detectors for gravitational waves. A laser beam of coherent (monochromatic and equal phase) light is split evenly by a 50/50 beamsplitter into two arms at right-angles to each other, travelling down and back from a mirror at the end of each arm. The beams recombine and interfere at the beamsplitter before hitting a screen to produce a pattern of concentric, circular fringes. The configuration is shown in Figure~\ref{fig:ifo_schematic_webcam}. In the detectors for gravitational waves, these arms are kilometres long and many other complexities (such as power recycling and quantum squeezing)\cite{GW150914} are necessary to observe a signal.
 
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_webcam.pdf}
@@ -118,50 +133,43 @@ A Michelson interferometer is a well-known optics configuration used in many und
 \end{figure}
 % Note that we do not include the common compensating plate that equalises the amount of time spent in glass for each beam. We did not find it necessary to include it to be able to demonstrate the results desired.
 
-The interference pattern, as shown in Figure~\ref{fig:interference_pattern}, is due to the path difference between the two arms resulting in a phase difference between the two beams when they meet at the screen. This path difference is perhaps better seen as the perpendicular separation between one mirror and the virtual image of the other.
+The interference pattern, as shown in Figure~\ref{fig:interference_pattern}, is due to the path difference between the two arms of unequal lengths (if the lengths were equal, then only a single, bright dot would be seen). This results in a phase difference between the two beams when they meet at the screen. This path difference is perhaps better seen as the perpendicular separation between one mirror and the virtual image of the other.
 For an aligned configuration and a fixed separation, the phase difference at a point only depends on the angle from the centre-line of the beam, and so the pattern is circularly symmetric.
-The intensity, $I$, of this pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
-\begin{equation}
-\label{eq:intensity_result}
-I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
-\end{equation}
-
-This equation means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
-
-\begin{equation}
-\label{eq:intensity_change}
-	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
-\end{equation}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/webcam_still0.pdf}
-	\caption{Interference pattern from Michelson interferometer as viewed by webcam from below (hence why the pattern appears non-circular), red dot indicates point where intensity time series was measured, the central fringe is approximately 5mm across}
+	\caption{Interference pattern from Michelson interferometer as viewed by webcam from off-centre (hence why the pattern appears non-circular), red dot indicates point where intensity time series was measured from. For scale, the central fringe is approximately 5mm across}
 	\label{fig:interference_pattern}
 \end{figure}
 
 % A note that while the interference pattern appears similar to the Airy pattern produced by a circular aperture, they are not in fact the same geometry.
-
 
 \section{Observing a single tone}
 \label{sec:single_tone}
 % the webcam method
 % how to analyse video, python OpenCV2
 
+Continuous gravitational wave searches are, by the nature of the astrophysical sources that they look for, always searching for periodic, or even sinusoidal, signals. Often the frequency of this periodicity can change, as addressed later, but sometimes it is (near) constant. As such, the audio analogue is to observe a single tone (a sinusoidal note of one frequency).
+
 \subsection{Method}
 
-We demonstrate a signal source with a 0.5W speaker stuck to the back of one of the mirrors. This speaker was obtained from a standard commercial 3.5mm jack input, USB powered pair of speakers. Alternatively, a speaker can be driven by a function generator and power plugs.
-As the speaker deforms to play something, the mirror moves with a change in separation, $\delta d$, as some function of the amplitude and frequency of the sound. The motion of the fringes follows the motion of the mirror and therefore the speaker at the same frequency. If the fringe motion is small, then changes in the intensity at some point on the screen follow the frequency of the injected (played) audio but with amplitude given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
-Large fringe motion means that multiple fringes can pass over the measured point in a single speaker deformation, such over-counting would artificially raise the measured frequency. As such, any motion of the fringes, and so of the speaker, must be kept small.
+We use a 0.5W speaker stuck to the back of one of the mirrors as a source for our demonstration, as shown in Figure~\ref{fig:ifo_schematic_webcam}. This speaker was part of a commercial 3.5mm-jack, USB powered pair of speakers and is driven by a PC. Previously, we used a function generator to accomplish the same signal.
+As the speaker deforms to play sound, the mirror moves with a change in separation, $\delta d$, as some coupling function of the amplitude and frequency of the sound. The motion of the fringes follows the motion of the mirror and therefore the speaker at the same frequency.
+If the fringe motion is small, then changes in the intensity at some point on the screen follow the frequency of the injected (played) audio but with amplitude given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
+Large fringe motion means that multiple fringes can pass over the measured point in a single speaker deformation, such over-counting would artificially raise the measured frequency. As such, any motion of the fringes, and so of the speaker, must be kept small by playing sound softly through the speaker.
 
 
 \subsection{Results}
 
-We measure the intensity at a point on the screen with a standard commercial USB webcam, sampling at 30Hz (or 30 fps). This limits the spectral content of signals we can observe to be under the Nyquist frequency of 15Hz. This isn’t an issue to demonstrate what we want, but see later Section~\ref{sec:photodiode} to raise this limit to audible frequencies. While playing a tone under 15Hz through the speaker for a minute, we recorded the interference pattern with the webcam.
-Then, at an off-centre pixel as seen in Figure~\ref{fig:interference_pattern}, we take the green-channel of the RGB video as approximate to the total intensity, as the laser is monochromatic green light. We can play this time series of intensity over time as an audio recording, and the tone is clearly heard. Taking the Fourier transform of this signal also strongly shows the injected tone at the correct frequency, as shown in Figure~\ref{fig:webcam_spectrum}. Therefore, we’re confident that we’ll be able to track input frequencies.
+We measure the intensity at a point on the screen with a commercial USB webcam placed as to view the screen (Figure~\ref{fig:ifo_schematic_webcam}), sampling at 30Hz (or 30 fps, frames-per-second). This limits the spectral content of signals we can observe to be under the Nyquist frequency of 15Hz.
+See later Section~\ref{sec:photodiode} where we raise this limit into to audible frequencies (20 Hz to 20kHz) with a photodiode.
+While playing a tone under 15Hz through the speaker for a minute, we recorded the interference pattern with the webcam. Then, at an off-centre pixel as seen in Figure~\ref{fig:interference_pattern}, we take the green-channel of the colour (RGB) video as approximate to the total intensity, as the laser is monochromatic green light. We can play this time series of intensity over time as an audio recording (we used the \textbf{scipy.io.wavfile.write}\cite{scipy} function in Python\cite{python}) and the tone is clearly heard.
+Taking the Fourier transform of this signal shows the injected tone, as seen in Figure~\ref{fig:webcam_spectrum} where we record the highest peak Fourier amplitude at $(2.099\pm 0.008)\mathrm{Hz}$ for an injected tone of 2.09Hz (a result within two standard deviations).
+Therefore, we’re able to observe a single tone quite confidently.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
-	\caption{Spectrum of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz hitting the interferometer, injected fundamental frequency and harmonics thereof clearly present in spectrum}
+	\caption{Fourier amplitudes of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz, the highest peak is measured at $(2.099\pm 0.008) \mathrm{Hz}$ for an injected tone of 2.09Hz. In fact, the actual highest peak is at 0Hz, but that corresponds only to a non-zero average value, so we don’t display or consider it.}
 	\label{fig:webcam_spectrum}
 \end{figure}
 
@@ -171,24 +179,28 @@ Then, at an off-centre pixel as seen in Figure~\ref{fig:interference_pattern}, w
 % explaination and successful application
 % lean on the continuous gravitational waves angle
 
-\jam{need to cite the various searches here}
+Continuous gravitational wave searches often look for signals that wander (change) in frequency slowly over time\cite{2019PhRvD.100l2002A}. This means that finding the signal isn’t as simple as searching for a peak in the frequency content for the full observing run, especially when the signal-to-noise ratio is particularly low.
 
-Continuous gravitational wave searches look for signals that change frequency slowly over time. This means that finding the signal isn’t as simple as searching for a peak in the spectral content for the full observing run.
-Instead, the common method is to split the observed time series into bins of time, compute the spectra for each time interval, and then find the most likely path for the signal frequency through the spectra over time. The plot of spectra over time is known as a spectrogram.
-This turns the problem of searching for a signal in noisy data into one of finding the best path through a grid of weights (here the Fourier amplitudes). We restrict the path-finding to some rate of frequency change of time, usually informed by a physical model, but here just set to 0.11 Hz per second to make it one frequency bin per every time bin.
+One method (among many) is to split the observed time series into bins of time, compute the Fourier transform for each time interval, and then create a grid (known as a spectrogram) where each cell is the Fourier amplitude of a particular frequency at a particular time.
+The method then treats the problem as one of finding the best path through a weighted graph, where here the weights are given by the Fourier amplitudes.
+The method takes in a parameter of the allowed frequency wandering, some rate of frequency change over time, usually informed by a physical model. Here, this parameter is set to 0.11 Hz per second to make it simply one frequency bin per every time bin, which will prove poorly adjusted to the signal.
 
 
 \subsection{The Viterbi algorithm}
 
-The Viterbi algorithm is a path-finding algorithm that solves this particular problem of going from one side of a grid to the other. See Appendix~\ref{app:viterbi} for the full details of the algorithm in this particular implementation.
-Abstractly speaking through, given a weighted graph (e.g.\ the spectrogram), a sensible sequence of subgraphs (e.g.\ the spectra at each time bin), and any restrictions on connectivity (e.g.\ the allowed amount of source frequency change over time), the Viterbi algorithm will find the best path to each node in the next subgraph all the way from the first subgraph at each iteration. At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), this overall best path is called the Viterbi path.
+The Viterbi algorithm is a path-finding algorithm that solves this problem.
+Abstractly speaking, the algorithm is given a weighted graph (e.g.\ the spectrogram grid), a sensible sequence of subgraphs (e.g.\ the columns holding spectrum at each time), and restrictions on connectivity (e.g.\ the allowed amount frequency wander). Then, at each iteration, it will find the best path to each node in the next subgraph, all the way from the first subgraph. At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), this overall best path is called the Viterbi path. See Appendix~\ref{app:viterbi} for the full details of the algorithm in this particular implementation.
 
 \subsection{Results}
 
-To demonstrate this technique, we inject a tone that wanders in frequency over time, remembering to integrate up the phase change over time (see Appendix~\ref{app:phase_gotcha} for why). Alternatively, a function generator can be slowly controlled to achieve the same input. Shown in Figure~\ref{fig:viterbi_overlay} is the resultant spectrogram of the observed signal, along with the Viterbi path and the injected signal.
-To the eye, the Viterbi algorithm recovers the injected frequency over time, likely due to the high signal-to-noise ratio (SNR). Quantifying this, the Viterbi path stays within one frequency bin (approximately 0.3Hz) of the injected tone for 94\% of the run. Note that the signal initially moves too quickly (more than 0.11 Hz per second) for Viterbi to track, and that there appears to be an anomaly at 150s, likely a disturbance around the interferometer.
-Decreasing the signal-to-noise ratio closer to unity or increasing the allowed change in frequency over time causes Viterbi to more easily lose the signal. However, the demonstration clearly shows the ability to recover a continuous wave with the Viterbi algorithm, just as is done in continuous gravitational wave searches.
+We demonstrate this method of using the Viterbi algorithm to find a signal, by injecting a wandering frequency signal into the speaker and recording the output via the webcam.
+Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
 
+Shown in Figure~\ref{fig:viterbi_overlay} is the resultant spectrogram of the observed signal, overlaid with the injected signal and the recovered Viterbi path.
+To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment. Quantifying this, the Viterbi path stays within one frequency bin (approximately 0.3Hz) of the injected tone for 94\% of the run.
+Note that the signal initially moves faster than the chosen frequency wander parameter, causing a discrepancy between the injected and recovered signals. To fix this, the parameter should be doubled, although this would then cause the recovered path to stray more often. There also appears to be an anomaly at 150s, likely from a disturbance (such as someone walking) around the interferometer.
+
+Empirically, decreasing the signal-to-noise ratio closer to unity also causes the Viterbi algorithm to more easily stray from the signal to reach nearby fluctuations. However, the only correlation through the grid is the signal, so we always expect the Viterbi path to lie near to the signal no matter how high the noise is.
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
@@ -234,7 +246,7 @@ The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_di
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=0.8\textwidth]{figures/setup_pic2.pdf}
+	\includegraphics[width=\textwidth]{figures/setup_pic2.pdf}
 	\caption{Picture taken of the optical microphone set-up, showing the Michelson interferometer, the photodiode (in an insert), the circuit, and the Raspberry Pi.}
 	\label{fig:setup_pic2}
 \end{figure}
@@ -304,9 +316,9 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 
 
 \section{Future work}
+\label{sec:future_work}
 
-A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as non-linear for small motions, the other components of this full model are yet to be determined.
-
+\jam{BATTERY POWER}
 
 Theoretically, if we had the correct model, then signal recovery would only be limited by the SNR. We could also use long recordings of white noise to estimate a matched filter for the system.
 
@@ -316,10 +328,32 @@ For further speech enhancement, the optimal filter would involve a hidden-Markov
 
 % any other wild speculation?
 
-\jam{should this be more broad a future work section?}
+\subsection{Transfer function}
+
+The intensity, $I$, of the interference pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
+\begin{equation}
+\label{eq:intensity_result}
+I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
+\end{equation}
+
+This Equation~\ref{eq:intensity_result} means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
+
+\begin{equation}
+\label{eq:intensity_change}
+	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
+\end{equation}
+
+A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as non-linear for small motions (see above), the other components of this full model are yet to be determined. Figure~\ref{fig:pipeline_highlighted} shows this full pipeline, with the currently determined section highlighted.
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{figures/pipeline_highlighted.pdf}
+	\caption{???}
+	\label{fig:pipeline_highlighted}
+\end{figure}
 
 
 \section{Conclusions}
+\label{sec:conclusions}
 
 Using a Michelson interferometer, we able to successfully demonstrate the Viterbi algorithm recovering an injected signal. Just as is done is continuous gravitational wave searches. We are also able to play-back chordal or rhythmic music from an optical microphone (using the same interferometer), while recordings of simple speech are audible but unintelligible.
 
@@ -335,7 +369,45 @@ The current build can be found at:
 % README
 % \end{verbatim}
 
-% \newpage
+\section{Guide to reproducing results}
+\label{app:reproducing_results}
+% as for a 3rd year undergraduate
+\jam{Add this in, lots of advice and detail!}
+
+
+
+\section{The Viterbi Algorithm}
+\label{app:viterbi}
+
+To find the Viterbi path through a spectrogram (spectra over time), given an M x N grid of M frequency rows and N time columns and a rate limit for the change of frequency over time that we convert into the number of allowed rows we can move while stepping from each column to the next (this limit was $\pm 1$ row/column in our case). The path must start from the first column and end at the last, taking a single step in each column along the way. Each element in the grid is the norm of the Fourier component of a frequency at a time. These are normalised between $(0, 1)$ to use as multiplicative weights, i.e.\ the total weight of a path is the product of all weights along that path. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight.
+
+
+With the grid prepared, the Viterbi algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, taking the greatest cumulative weight of those available, ‘nearby’ cells (the value of which was discovered in the previous iteration).
+For each cell in the current column, the algorithm notes this weight plus the cell’s own weight, along with the row index of which cell in the previous column it came from.
+Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That best path is the Viterbi path.
+
+
+\section{Common wandering frequency mistake}
+\label{app:phase_gotcha}
+
+We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase means that this produces a curve that looks very different to that desired. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
+
+
+\section{Circuit design}
+\label{app:circuit_diagram}
+% schematic of breadboard and connections to pi
+% https://www.circuit-diagram.org/editor/
+% https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
+
+Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}
+
+\begin{figure}%[H]
+	\includegraphics[width=\textwidth]{figures/circuit_diagram_2.pdf}
+	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC), that’s finally read by the special purpose input (SPI) pins of a Raspberry Pi}
+	\label{fig:circuit_diagram}
+\end{figure}
+
+
 \section{Intensity relation derivation}
 \label{app:intensity_derivation}
 
@@ -365,37 +437,6 @@ Then take derivatives and find that the intensity change is non-linear.
     \frac{\delta\phi}{\delta d} &= \frac{4 \pi \cos{\theta}}{\lambda}\\
     \therefore \frac{\delta I}{\delta d} &= \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
 \end{align}
-
-\section{The Viterbi Algorithm}
-\label{app:viterbi}
-
-To find the Viterbi path through a spectrogram (spectra over time), given an M x N grid of M frequency rows and N time columns and a rate limit for the change of frequency over time that we convert into the number of allowed rows we can move while stepping from each column to the next (this limit was $\pm 1$ row/column in our case). The path must start from the first column and end at the last, taking a single step in each column along the way. Each element in the grid is the norm of the Fourier component of a frequency at a time. These are normalised between $(0, 1)$ to use as multiplicative weights, i.e.\ the total weight of a path is the product of all weights along that path. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight.
-
-
-With the grid prepared, the Viterbi algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, taking the greatest cumulative weight of those available, ‘nearby’ cells (the value of which was discovered in the previous iteration).
-For each cell in the current column, the algorithm notes this weight plus the cell’s own weight, along with the row index of which cell in the previous column it came from.
-Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That best path is the Viterbi path.
-
-
-\section{Common changing frequency mistake}
-\label{app:phase_gotcha}
-
-We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase means that this produces a curve that looks very different to that desired. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
-
-\section{Circuit design}
-\label{app:circuit_diagram}
-% schematic of breadboard and connections to pi
-% https://www.circuit-diagram.org/editor/
-% https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
-
-Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}
-
-\begin{figure}%[H]
-	\includegraphics[width=\textwidth]{figures/circuit_diagram_2.pdf}
-	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC), that’s finally read by the special purpose input (SPI) pins of a Raspberry Pi}
-	\label{fig:circuit_diagram}
-\end{figure}
-
 
 
 \begin{acknowledgments}
