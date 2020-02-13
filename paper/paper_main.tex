@@ -33,7 +33,7 @@ James W. Gardner:
 \item all paper sections other than the introduction, i.e.\ from Section~\ref{sec:ifo} onwards, and all figures in the paper
 \item addition of the injection speaker, design of photodiode circuit from standard examples, assembly of circuit on breadboard, and set-up of Raspberry Pi to measure output
 \item all of the source code at \url{https://github.com/daccordeon/gravexplain}, that reads the data from the Raspberry Pi, analyses it, and creates the figures used in the paper
-\item talks presented were based on paper and figures therein
+\item talks presented were based on the paper and figures therein
 \end{itemize}
 
 Hannah Middleton:
@@ -46,8 +46,7 @@ Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout
 
 \subsection*{Statement of achievements}
 % one paragraph recount of what’s been done for two months, like the abstract
-
-\jam{write this!}
+The project spanned three weeks in December, four weeks in January, and two weeks in February. The first two weeks were spent writing the initial scripts and achieving the Viterbi results with the webcam set-up. The third week was spent setting up the photodiode circuit and the Raspberry Pi. All of January was spent progressing through the optical microphone experiment, and was largely driven by suggestions made at the signal processing meetings with the electrical engineers. By the end of the third week of January we had a working optical microphone but low speech intelligibility. The fourth week of January was spent on attempting methods of speech enhancement. Finally, the two weeks in February were spent writing and drafting the paper/report, and giving presentations.
 
 \newpage
 
@@ -73,10 +72,8 @@ Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout
 
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
-Continuous gravitational wave searches use sophisticated statistical techniques to search for signals in noisy data. We demonstrate some of these techniques with a table-top Michelson interferometer, namely the Viterbi algorithm for recovering a tone with wandering frequency.
-We also use the same experiment to demonstrate an optical microphone capable of playing back simple audio recordings of injected music. However, played-back speech is currently unintelligible so we investigate preliminary methods of speech enhancement.
- 
-\jam{Andrew says that this should be a bit more detailed!}
+Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+We also demonstrate how the inclusion of a photodiode and Raspberry Pi allows the interferometer to act as an optical microphone. We are able to play-back simple audio recordings from the photodiode data. However, played-back speech is unintelligible and so we investigate techniques of speech enhancement.
 
 \end{abstract}
 
@@ -209,12 +206,12 @@ Empirically, decreasing the signal-to-noise ratio closer to unity also causes th
 	\label{fig:viterbi_overlay}
 \end{figure}
 
-\section{Complex audio}
+\section{Playing back complex audio}
 \label{sec:optical_microphone}
 % Optical microphone
 % aim of optical microphone: play back injected sounds
 
-The natural succession to simple tones is to study complex audio signals, such as music and speech.
+The natural succession to observing simple tones is to study complex audio signals, such as music and speech.
 The Viterbi algorithm and tracking more broadly is not applicable to these signals. Compare a single tone that slowly, continuously changes frequency to music and speech which consist of a broad spectrum that is constantly changing.
 Instead, the interest here is in being able to record and play-back these complex audio signals, rather than track them. Using the interferometer to do so makes it, in ensemble with the measuring device, an ‘optical microphone’, using light to capture sound.
 
@@ -225,7 +222,7 @@ Advanced signal processing is required to extract gravitational wave signals fro
 \label{sec:photodiode}
 % advanced method: explain how we capture data
 
-For an optical microphone to be sensitive to speech and music it needs a frequency response far higher than the 30Hz of a standard webcam. Both speech and music need at least kHz range, with speech intelligibility requiring up to 3kHz and music preferably up to and beyond 8kHz. This can be addressed by using a high-speed webcam, or more simply, by using a photodiode as the measuring device.
+For an optical microphone to be sensitive to speech and music it needs a frequency response (a sampling rate) far higher than the 30Hz of a standard webcam. Both speech and music need at least kHz range, with speech intelligibility requiring up to 3kHz and music preferably up to and beyond 8kHz\cite{speech_intelligibility}. This can be addressed by using a high-speed webcam, or more simply, by using a photodiode as the measuring device.
 
 
 A photodiode is an electrical component that acts as a regular diode (blocking any current flow in the reverse direction) when no light is incident on it, but becomes more and more conductive in the reverse direction as the intensity of incident light increases. 
@@ -233,7 +230,7 @@ Fundamentally, a current is created in the photodiode by the photo-electric effe
 
 
 The voltage signal from the photo-detector is captured by a 10-bit analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi, in the standard configuration. This digitally samples the signal at roughly 16kHz. As such, any frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range.
-To prevent this, an anti-aliasing Sallen-Key filter tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 8kHz, before they get digitally sampled.
+To prevent this, an anti-aliasing Sallen-Key filter\cite{sallen_key_filter} tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 8kHz, before they get digitally sampled.
 It’s not immediately clear what’s limiting the sample rate to 16kHz, but it is likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
@@ -248,7 +245,7 @@ The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_di
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/setup_pic2.pdf}
-	\caption{Picture taken of the optical microphone set-up, showing the Michelson interferometer, the photodiode (in an insert), the circuit, and the Raspberry Pi.}
+	\caption{Picture taken of the optical microphone set-up, showing the Michelson interferometer, the photodiode (in an insert), the circuit, and the Raspberry Pi. For a closer photo of the circuit, see Figure~\ref{fig:circuit_pic3}.}
 	\label{fig:setup_pic2}
 \end{figure}
 
@@ -266,7 +263,7 @@ These initial recordings were extremely noisy and painful to listen to, with a l
 	\label{fig:psd_noise}
 \end{figure}
 
-\subsection{Filters applied}
+\subsection{Applying filters to the data}
 
 Early attempts to remove the mains hum included zeroing the channel of each 50Hz harmonic, this is effectively using a rectangular comb filter. Applying a filter (multiplying by a function) in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. While this did remove the mains harmonics, it also destroyed the rest of the signal.
 
@@ -277,7 +274,7 @@ Attempting to low-pass the signal did better (to the ear) but was also problemat
 Of these simple filters, the best performing was a band-pass Butterworth filter with frequency response shown in Figure~\ref{fig:butterworth}. This filter is `maximally flat' within the band region, here 150Hz to 3kHz, and trails off outside of the band with slope dependent on the order of the filter, here of order 5. This still suffered from the presence of the higher mains harmonics. However, behind the remaining noise one could hear something distinctly speech-like or musical, just with very low intelligibility, you couldn’t understand the speech but could recognise that someone was talking.
 
 
-Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
+% Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
 
 \begin{figure}%[H]
 	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
@@ -285,7 +282,7 @@ Note that we also replicated the Viterbi algorithm results from before with the 
 	\label{fig:butterworth}
 \end{figure}
 
-\subsection{logMMSE estimator}
+\subsection{The logMMSE estimator}
 % logMMSE
 
 \jam{Explain MMSE as in the second talk, be honest in some way}
@@ -324,7 +321,7 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 \jam{BATTERY POWER}
 % any other wild speculation?
 
-\subsection{Transfer function}
+\subsection{Finding the transfer function}
 
 The intensity, $I$, of the interference pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
 \begin{equation}
@@ -360,6 +357,7 @@ For further speech enhancement, the optimal filter would involve a hidden-Markov
 
 Using a Michelson interferometer, we able to successfully demonstrate the Viterbi algorithm recovering an injected signal. Just as is done is continuous gravitational wave searches. We are also able to play-back chordal or rhythmic music from an optical microphone (using the same interferometer), while recordings of simple speech are audible but unintelligible.
 
+
 \newpage
 \appendix
 
@@ -382,12 +380,9 @@ Besides the directions given in the rest of this article, there are some observa
 For the experiment, since a Michelson interferometer is such a standard configuration, we’ll not detail it further here, see any optics manual for more information. To obtain an independent speaker cone we recommend carefully dismantling a budget commercial speaker system to get at the speaker within. To attach the speaker to one of the mirrors, we wedged it into part of the mirror mount and used commercial adhesive putty to keep it in place. If the other speaker in the pair remains, keep it as far away from the experiment and as damped as possible else it may act as a second, interfering source.
 % we used a Class 2 LDS5 ThorLabs laser at 532nm
 
-For the photodiode circuit, we used a Raspberry Pi and an MCP3008 ADC to monitor the analog signal. This could also be done with the analog pins on an Arduino. Be careful of the gain through the LM358 op-amps in the circuit though, else the ADC in either case could threshold the signal. Also be ready to change the values in the Sallen-Key filter to match your own sampling rate. The photodiode was an OSRAM BPW21, we mounted it through a discarded piece of speaker mesh (similar to black cloth over a frame) and placed another piece over the face to not over expose and threshold the signal. For the rest of the circuit, we used standard components assembled as in \ref{app:circuit_diagram}.
+For the photodiode circuit, we used a Raspberry Pi and an MCP3008 ADC to monitor the analog signal. This could also be done with the analog pins on an Arduino. Be careful of the gain through the LM358 op-amps in the circuit though, else the ADC in either case could threshold the signal. Also be ready to change the values in the Sallen-Key filter to match your own sampling rate. The photodiode was an OSRAM BPW21, we mounted it through a discarded piece of speaker mesh (similar to black cloth over a frame) and placed another piece over the face to not over expose and threshold the signal. For the rest of the circuit, we used standard components assembled on a breadboard as detailed in Appendix~\ref{app:circuit_diagram}.
 
-\jam{Add this in, lots of advice and detail!}
-
-
-\section{The Viterbi Algorithm}
+\section{The Viterbi algorithm}
 \label{app:viterbi}
 
 To find the Viterbi path through a spectrogram (spectra over time), given an M x N grid of M frequency rows and N time columns and a rate limit for the change of frequency over time that we convert into the number of allowed rows we can move while stepping from each column to the next (this limit was $\pm 1$ row/column in our case). The path must start from the first column and end at the last, taking a single step in each column along the way. Each element in the grid is the norm of the Fourier component of a frequency at a time. These are normalised between $(0, 1)$ to use as multiplicative weights, i.e.\ the total weight of a path is the product of all weights along that path. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight.
@@ -398,7 +393,7 @@ For each cell in the current column, the algorithm notes this weight plus the ce
 Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That best path is the Viterbi path.
 
 
-\section{Common wandering frequency mistake}
+\section{A common mistake with wandering frequency signals}
 \label{app:phase_gotcha}
 
 We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase means that this produces a curve that looks very different to that desired. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
@@ -410,14 +405,19 @@ We want to generate a sine wave that changes frequency over time so that the fre
 % https://www.circuit-diagram.org/editor/
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 
-Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}
+Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}.
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/circuit_diagram_2.pdf}
-	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC), that’s finally read by the special purpose input (SPI) pins of a Raspberry Pi}
+	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC). The digitised signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.}
 	\label{fig:circuit_diagram}
 \end{figure}
 
+\begin{figure}%[H]
+	\includegraphics[width=0.8\textwidth]{figures/circuit_pic3.pdf}
+	\caption{Photo of circuit for photodiode reading assembled on breadboard.}
+	\label{fig:circuit_pic3}
+\end{figure}
 
 \section{Intensity relation derivation}
 \label{app:intensity_derivation}
