@@ -72,8 +72,8 @@ The project spanned three weeks in December, four weeks in January, and two week
 
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
-Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
-We also demonstrate how the inclusion of a photodiode and Raspberry Pi allows the interferometer to act as an optical microphone. We are able to play-back simple audio recordings from the photodiode data. However, played-back speech is unintelligible and so we investigate techniques of speech enhancement.
+Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+We also demonstrate how the inclusion of a photodiode and Raspberry Pi allows the interferometer to act as an optical microphone. That is, we are able to play back simple audio recordings from the photodiode data. However, more complex recordings, of speech, are unintelligible when played back, despite preliminary efforts towards speech enhancement.
 
 \end{abstract}
 
@@ -219,7 +219,7 @@ The Viterbi algorithm and tracking more broadly is not applicable to these signa
 Instead, the interest here is in being able to record and play-back these complex audio signals, rather than track them. Using the interferometer to do so makes it, in ensemble with the measuring device, an ‘optical microphone’, using light to capture sound.
 
 
-Advanced signal processing is required to extract gravitational wave signals from very noisy observational data. Recovering audio from an optical microphone requires related signal processing. Although far simpler, it serves as another useful demonstration.
+Advanced signal processing is required to extract gravitational wave signals from noisy observational data. Recovering audio from an optical microphone requires related signal processing. Although far simpler, it serves as another useful demonstration.
 
 \subsection{The photodiode method}
 \label{sec:photodiode}
@@ -229,16 +229,17 @@ For an optical microphone to be sensitive to speech and music it needs a frequen
 
 
 A photodiode is an electrical component that acts as a regular diode (blocking any current flow in the reverse direction) when no light is incident on it, but becomes more and more conductive in the reverse direction as the intensity of incident light increases. 
-Fundamentally, a current is created in the photodiode by the photo-electric effect. Placing a photodiode in reverse-bias over an op-amp creates a photo-detector that will produce a voltage dependent approximately linearly to the incident intensity. \jam{How sound is this approximation?} This experiment had the photodiode in the interference pattern at roughly the same spot as the webcam was monitoring previously, just off-centre.
+% Fundamentally, a current is created in the photodiode by the photo-electric effect.
+Placing a photodiode in reverse-bias over an op-amp creates a photo-detector that will produce a voltage dependent on the incident intensity. This experiment had the photodiode in the interference pattern at roughly the same spot as the webcam was monitoring previously, just off-centre in the position of the red dot in Figure~\ref{fig:interference_pattern}.
 
 
-The voltage signal from the photo-detector is captured by a 10-bit analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi, in the standard configuration. This digitally samples the signal at roughly 16kHz. As such, any frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range.
+The voltage signal from the photo-detector is captured by a 10-bit analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi Model 3 v1.2, in the standard configuration. This digitally samples the signal at roughly 16kHz. As such, any frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range.
 To prevent this, an anti-aliasing Sallen-Key filter\cite{sallen_key_filter} tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 8kHz, before they get digitally sampled.
 It’s not immediately clear what’s limiting the sample rate to 16kHz, but it is likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
 
-The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a picture taken of the experiment, showing the interferometer, the circuit, and the Pi, is shown in Figure~\ref{fig:setup_pic2}.
+The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a picture taken of the experiment, showing the interferometer, the circuit, and the Pi, is shown in Figure~\ref{fig:setup_pic2}. The only change to the interferometer schematic (Figure~\ref{fig:ifo_schematic_podo}) is the substitution of the webcam for the photodiode.
 
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_photodiode.pdf}
@@ -255,59 +256,73 @@ The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_di
 \subsection{Initial results}
 % breakdown of all the filters used along the way
 
-The optical microphone was tested on recordings of one human talking and on music ranging from simple melodies to full tracks. Each recording was around one minute long with processing done on ten second segments. For each observation, the audio was played through the speaker with minimal activity around interferometer as the Pi script recorded the signal. The saved time series was then directly converted to a .wav file and played as an audio recording, using the \textbf{scipy.io.wavfile.write}\cite{scipy} implementation in Python\cite{python}.
+The optical microphone was tested on recordings of speech from different people and on music ranging from simple melodies to full track songs. Each recording was around one minute long with processing often done on ten second segments. For each observation, the audio was played through the speaker with minimal activity around interferometer as the Pi script recorded the signal.
+The time series was then directly converted to a .wav file and played as an audio recording, using the \textbf{scipy.io.wavfile.write}\cite{scipy} implementation in Python\cite{python}.
 
 
-These initial recordings were extremely noisy and painful to listen to, with a loud bass sound throughout. Spectra of all of these recordings showed a dominant mains hum at 50Hz with strong power up to and beyond the 8th harmonic thereof. This power is also present with the speaker off, as is shown in Figure~\ref{fig:psd_noise}, and also weakly when monitoring with the photodiode in complete darkness.
+When played back and listen to, these initial recordings were extremely noisy and had a loud bass note throughout. Each Fourier spectrum showed a dominant AC mains hum with power ranging from the fundamental of 50Hz up to and beyond the 8th harmonic.
+With the speaker off this mains power was still present, as shown the power spectral density (effectively the norm squared of the Fourier spectrum) in Figure~\ref{fig:psd_noise}.
+And even with the speaker off and the photodiode in complete darkness, the mains hum was still present (with distribution similar to but weaker than that shown in Figure~\ref{fig:psd_noise}).
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/podo_noise_psd_zoom-cropped.pdf}
-	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off), show high power in the 50Hz mains hum and its harmonics (most likely from the photodiode circuit and the ambient lighting), otherwise is a fairly white spectrum except for the broad, shallow maximum at 750Hz}
+	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off), shows strong power in the 50Hz mains hum and its harmonics (most likely from the photodiode circuit and the surrounding room’s lighting and cooling), otherwise is a fairly white spectrum except for the broad, shallow maximum at 750Hz}
 	\label{fig:psd_noise}
 \end{figure}
 
 \subsection{Applying filters to the data}
+\label{sec:simple_filters}
 
-Early attempts to remove the mains hum included zeroing the channel of each 50Hz harmonic, this is effectively using a rectangular comb filter. Applying a filter (multiplying by a function) in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. While this did remove the mains harmonics, it also destroyed the rest of the signal.
+Early attempts to remove the mains hum included zeroing the channel of each 50Hz harmonic in the Fourier spectrum. Effectively, this is multiplying the spectrum by a rectangular comb filter. While this did remove the mains harmonics, it also audibly ruined the rest of the signal.
+This is because applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. And the inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complex sinc-like function that when convolved with significantly damages the actual signal.
+
+To fix this, we tried using a smoother comb filter but this suffered from too significantly attenuating the rest of the spectrum between each harmonic.
 
 
-Attempting to low-pass the signal did better (to the ear) but was also problematic as the harmonics are all over the 100Hz-1kHz region, which also carries a lot of the speech and music information. Low-passing the logarithm of the signal and then converting back did better still but doesn’t significantly remove the mains noise.
+Applying a high-pass filter to the signal worked well at removing the 50 and 100Hz tones but was problematic as the mains harmonics extend far past 100Hz. This region above 100Hz carries a lot of the fundamental frequencies for speech and music\cite{speech_intelligibility} and if the cut-off frequency is placed as to remove all the mains harmonics, then the resultant signal is unrecognisable.
+
+We also tried applying a high-pass filter to the logarithm of the signal spectrum and then exponentiating back, but this didn’t significantly improve on the above simple high-pass.
+
+Band-passing the signal similarly doesn’t address the remaining harmonics but does low-pass away other noise at higher frequencies. The best performing band-pass filter we found was a fifth order ($n = 5$) Butterworth filter over a band from 150Hz to 3kHz (beyond 2kHz the information content drops\cite{speech_intelligibility}). For a low-pass Butterworth filter at cut-off frequency $\omega_c$ and gain $\epsilon$ the frequency response (attenuation at each frequency) follows Equation~\ref{eq:butterworth}.
+\begin{equation}
+\label{eq:butterworth}
+H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\frac{\omega}{\omega_c})^{2n}}}
+\end{equation}
+For a band-pass filter, the above low-pass is combined with a high-pass filter of similar form. The response of the filter used is shown in Figure~\ref{fig:butterworth}. Despite improving, the recording with the filter applied still had very low intelligibility, it could be recognised as speech but was not understandable.
 
 
-Of these simple filters, the best performing was a band-pass Butterworth filter with frequency response shown in Figure~\ref{fig:butterworth}. This filter is `maximally flat' within the band region, here 150Hz to 3kHz, and trails off outside of the band with slope dependent on the order of the filter, here of order 5. This still suffered from the presence of the higher mains harmonics. However, behind the remaining noise one could hear something distinctly speech-like or musical, just with very low intelligibility, you couldn’t understand the speech but could recognise that someone was talking.
-
+The ideal filter would be one that completely attenuates the undesired parts of the spectrum, has no changing attenuation (is flat) on the rest of the spectrum, and has the smoothest edges as to not damage the signal. These three conditions are contradictory and any filter must compromise between them. The above simple filters fail at one or more of each of these conditions. The combs ruin the signal and the high-passes don’t remove the noise. The Butterworth filter performed the best audibly as it was maximally flat within the band region, prioritising the second condition.
 
 % Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
 
 \begin{figure}%[H]
 	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
-	\caption{Butterworth bandpass filter frequency response, green vertical lines show the band limits of 150Hz and 3kHz. Note the very flat response within the band, any amplitude beyond -3dB is significant attenuation.}
+	\caption{Butterworth bandpass filter frequency response, green vertical lines show the band limits of 150Hz and 3kHz. Note the flat response within the band, any amplitude beyond -3dB is significant attenuation (half power).}
 	\label{fig:butterworth}
 \end{figure}
+
 
 \subsection{The logMMSE estimator}
 % logMMSE
 
-\jam{Explain MMSE as in the second talk, be honest in some way}
-
-Speech enhancement for a noisy channel is a classic problem in signal processing. Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compare various methods and find the best performing statistical technique to be the logMMSE (alt.\ MMSE-LSA) estimator which minimises the mean square error (MSE) of the log-spectral amplitude. This means that it takes the logarithm of the spectrum of the original signal and finds the fit (or estimate) that has the minimal MSE to that log-spectra.
-% Use of the logarithm is a common technique in speech processing as it, somewhat surprisingly, does not significantly change the intelligibility to the human ear.
+Speech enhancement for a noisy channel is a classic problem in signal processing. Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compared various methods and found the best performing statistical technique among those at the time to be a logMMSE (alt.\ MMSE-LSA) estimator. This type of estimator is based on work by Ephraim~\&~Malah~(1984)~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
+Although this technique historically minimised with respect to the spectral amplitude\cite{EphraimSpeechEU_MMSE}, throughout speech processing use of the logarithm seems produce better results as perceived by the human ear\cite{SubjectiveComparison}.
 
 
-Applying an existing implementation of logMMSE\cite{logmmse} to the optical microphone recordings produces dramatically cleaner results. The time series and spectrum from before and after the logMMSE filter is applied are shown in Figures~\ref{fig:logMMSE_timeseries}~\&~\ref{fig:logMMSE_spectrum}. All of the mains harmonics are significantly attenuated. And further high-passing removes the low frequency curve beneath 100Hz.
+We use an existing implementation\cite{logmmse} of the logMMSE estimator. Applying this estimator to the optical microphone recordings produces dramatically clean results. The time series (in Figure~\ref{fig:logMMSE_timeseries}) and spectrum (in Figure~\ref{fig:logMMSE_spectrum}) from before and after applying the logMMSE filter are shown. Comparing the spectra in Figure~\ref{fig:logMMSE_spectrum} shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum.
 
 
-There is varied success with passing music passed through the filters. Loud, rhythmic chords and drums are received well and remain recognisable, while thinner, airy flute and violin melodies struggle to be heard in the results. It is likely that the lower sounds have higher amplitude speaker oscillations and so pass through the optical microphone better.
+For recordings of music listened to after the estimator is applied, simple chords and drums are heard well, while more complex melodies are often completely absent in the results. By observation, this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins.
+This could be a perceptual effect of listening to the lossy recording, but it seems more likely to be a frequency dependence somewhere in the optical microphone system. Speculating, perhaps the amplitude of speaker-mirror oscillations is higher at low frequencies.
 
 
-However, speech intelligibility remains very low with the voice sounding mumbled and indistinct. Enhancement so far has removed most of the background sound, as evidenced by the near silence between words, but has not clarified the speech. There is a question here as to where the diction in the speech is lost, at the speaker-mirror coupling, at the photodiode reading, or if it is still there, just obscured in the noisy signal.
-
+After applying the estimator to speech recordings, intelligibility still remains low with the voice sounding mumbled and indistinct. The estimator removes most of the background sound, but does not clarify the speech. 
+% There is a question here as to where the diction in the speech is lost, at the speaker-mirror coupling, at the photodiode reading, or if it is still there, just obscured in the noisy signal.
 % The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
-% Visually it is impossible to confirm this for high frequencies, but it remains possible.
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
-	\caption{Optical microphone recording of adult male voice (saying ``A cathode ...'') shown before (top) and after (bottom) logMMSE filter is applied, only one second of the one minute recording is shown. The bump at the start of the time series is the result of filtering a finite signal, and is expected.}
+	\caption{Optical microphone recording of adult male voice (saying ``A cathode ...'') shown before (top) and after (bottom) logMMSE filter is applied, only one second of the one minute recording is shown. The rise at the start of the time series is an expected result from filtering a finite signal.}
 	\label{fig:logMMSE_timeseries}
 \end{figure}
 
@@ -320,37 +335,26 @@ However, speech intelligibility remains very low with the voice sounding mumbled
 
 \section{Future work}
 \label{sec:future_work}
-
-\jam{BATTERY POWER}
-% any other wild speculation?
-
-\subsection{Finding the transfer function}
-
-The intensity, $I$, of the interference pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
-\begin{equation}
-\label{eq:intensity_result}
-I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
-\end{equation}
-
-This Equation~\ref{eq:intensity_result} means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
-
-\begin{equation}
-\label{eq:intensity_change}
-	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
-\end{equation}
-
-A full model of the transfer function would detail the system starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. Although we have the separation-intensity relation as non-linear for small motions (see above), the other components of this full model are yet to be determined. Figure~\ref{fig:pipeline_highlighted} shows this full pipeline, with the currently determined section highlighted.
+% wild speculation
+For better speech enhancement, we are currently working towards two future advances.
 
 
-Theoretically, if we had the correct model, then signal recovery would only be limited by the SNR. We could also use long recordings of white noise to estimate a matched filter for the system.
+The first would be to better isolate the optical microphone from the mains supply. The Raspberry Pi is USB powered and requires low power so it could even be run off a commercial external phone battery. Everything else in the circuit, including the photodiode, is connected to the Pi, so this would isolate them electrically as well. The laser is DC powered through a converter, so there is no issue there. With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
 
 
-For further speech enhancement, the optimal filter would involve a hidden-Markov-model trained to English phonemes. Alternatively, machine learning solutions also exist through-out the field.
+The second advancement would be to achieve a full model of the transfer function of the system. Starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading, see Figure~\ref{fig:pipeline_highlighted} for this full sequence. Theoretically, if we had the correct transfer function, then signal recovery would only be limited by the signal-to-noise ratio as we could construct an optimal matched filter.
+
+
+In our investigation, we have currently only derived part of this sequence, the relation between a deflection of the mirror and the change in the intensity of the interference pattern at some point (highlighted in Figure~\ref{fig:pipeline_highlighted}). We find this relation to be non-linear, see Appendix~\ref{app:intensity_derivation} for the full discussion and derivation.
+
+
+Asides from these two main avenues, other techniques are available to better process the recording. In particular, for extracting the speech there exists much literature\cite{HMM_english} on using a hidden Markov model train to English phonemes to recognise speech.
+Alternatively, machine learning solutions also exist throughout the field that are able to compete\cite{HMM_english} with statistical techniques like the logMMSE estimator. More simply, to remove any remaining mains hum we could monitor it separately from the interferometer and subtract the sinusoid with the right phase and amplitude in real (not frequency) space to avoid the problems of Section~\ref{sec:simple_filters}. This could also be done with the existing signals if the recording duration is long enough to precisely measure the phase and amplitude over a large number of cycles.
 
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/pipeline_highlighted.pdf}
-	\caption{???}
+	\caption{Sequence of relations for optical microphone transfer function}
 	\label{fig:pipeline_highlighted}
 \end{figure}
 
@@ -358,7 +362,16 @@ For further speech enhancement, the optimal filter would involve a hidden-Markov
 \section{Conclusions}
 \label{sec:conclusions}
 
-Using a Michelson interferometer, we able to successfully demonstrate the Viterbi algorithm recovering an injected signal. Just as is done is continuous gravitational wave searches. We are also able to play-back chordal or rhythmic music from an optical microphone (using the same interferometer), while recordings of simple speech are audible but unintelligible.
+% Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+
+We use sound and a table-top Michelson interferometer as an analogue to gravitational wave detectors to demonstrate signal processing techniques. Using a webcam to track the interference pattern, we inject a wandering frequency signal into the system with a speaker attached to the back of one of mirrors of the interferometer. We then demonstrate how to recover this signal using the Viterbi algorithm, just as is done in continuous gravitational wave searches.
+
+
+Substituting the webcam for the increased frequency response of a photodiode circuit read by a Raspberry Pi, we turned the intensity time series of the interference pattern into an audio recording and the interferometer into an optical microphone.
+We demonstrated that this optical microphone is capable of playing back simple recordings well and speech recordings unintelligibly. Dominant 50Hz mains hum in the recordings led to an exploration of speech enhancement techniques to remove it, including the well performing logMMSE estimate. From here we currently have many plans to further remove the mains hum and improve the intelligibility.
+
+
+These demonstrations have the potential to be adapted into the undergraduate laboratory. There is much to explore in the physics of the interferometer and the astronomy of the motivating continuous gravitational wave searches, but also in the signal processing of speech enhancement as an open problem for engineering focused students. See Appendix~\ref{app:reproducing_results} for advice aimed at the undergraduate student for replicating the results.
 
 
 \newpage
@@ -385,6 +398,7 @@ For the experiment, since a Michelson interferometer is such a standard configur
 
 For the photodiode circuit, we used a Raspberry Pi and an MCP3008 ADC to monitor the analog signal. This could also be done with the analog pins on an Arduino. Be careful of the gain through the LM358 op-amps in the circuit though, else the ADC in either case could threshold the signal. Also be ready to change the values in the Sallen-Key filter to match your own sampling rate. The photodiode was an OSRAM BPW21, we mounted it through a discarded piece of speaker mesh (similar to black cloth over a frame) and placed another piece over the face to not over expose and threshold the signal. For the rest of the circuit, we used standard components assembled on a breadboard as detailed in Appendix~\ref{app:circuit_diagram}.
 
+
 \section{The Viterbi algorithm}
 \label{app:viterbi}
 
@@ -399,7 +413,7 @@ Continuing like this until it reaches the end of the grid, the algorithm then lo
 \section{A common mistake with wandering frequency signals}
 \label{app:phase_gotcha}
 
-We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase means that this produces a curve that looks very different to that desired. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
+We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase produces the wrong curve. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
 
 
 \section{Circuit design}
@@ -424,6 +438,26 @@ Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is als
 
 \section{Intensity relation derivation}
 \label{app:intensity_derivation}
+
+
+
+
+The intensity, $I$, of the interference pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
+\begin{equation}
+\label{eq:intensity_result}
+I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
+\end{equation}
+
+This Equation~\ref{eq:intensity_result} means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
+
+\begin{equation}
+\label{eq:intensity_change}
+	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
+\end{equation}
+
+
+
+
 
 We want the change in intensity, $\delta I$, at a point in the Michelson interference pattern, given a small change, $\delta d$, in the perpendicular path difference of the mirrors (or in the separation of one and virtual image of the other). The point is at angle $\theta$ on the screen above the central ray, noting circular symmetry. At this point, two rays meet, one from each mirror, with the total electric field (\jam{parallel to the screen?}) being $E_1(t) + E_2(t)$. Given an initial separation of $d$, the path difference between the mirrors is $2 d \cos{\theta}$ as the longer ray must travel to and from the further mirror, and both move up at the angle $\theta$ to meet at the screen.
 
