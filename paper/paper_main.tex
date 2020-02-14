@@ -15,6 +15,7 @@
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{hyperref}
 % \usepackage{siunitx}
+\usepackage{textcomp}
 
 \bibliographystyle{apsrev4-2}
 % \setlength{\parindent}{0pt}
@@ -30,31 +31,39 @@
 % contributions clarify what’s to be assessed
 James W. Gardner:
 \begin{itemize}
-\item all paper sections other than the introduction, i.e.\ from Section~\ref{sec:ifo} onwards, and all figures in the paper
+\item all paper sections other than the introduction, i.e.\ the abstract and from Section~\ref{sec:ifo} onwards, and all figures in the paper
 \item addition of the injection speaker, design of photodiode circuit from standard examples, assembly of circuit on breadboard, and set-up of Raspberry Pi to measure output
-\item all of the source code at \url{https://github.com/daccordeon/gravexplain}, that reads the data from the Raspberry Pi, analyses it, and creates the figures used in the paper
-\item talks presented were based on the paper and figures therein
+\item all of the source code at \url{https://github.com/daccordeon/gravexplain} (containing over 1000 lines of Python scripts), that reads the data from the Raspberry Pi, performs all of the analysis on it, and creates all the figures used in the paper
+\item presentation of two talks based on the paper and the figures therein
 \end{itemize}
 
 Hannah Middleton:
 \begin{itemize}
-\item introduction of paper, i.e.\ Section~\ref{sec:introduction}
+\item the introduction of the paper, i.e.\ Section~\ref{sec:introduction}
 \item design and assembly of the interferometer
+\item continuous support and advice throughout the project
 \end{itemize}
 
-Andrew Melatos, Robin Evans, William Moran: vital advice and comments throughout the project
+Andrew Melatos, Robin Evans, William Moran: other vital advice and comments throughout the project
 
-\subsection*{Statement of achievements}
+\newpage
+\section*{Statement of achievements}
 % one paragraph recount of what’s been done for two months, like the abstract
-The project spanned three weeks in December, four weeks in January, and two weeks in February. The first two weeks were spent writing the initial scripts and achieving the Viterbi results with the webcam set-up. The third week was spent setting up the photodiode circuit and the Raspberry Pi. All of January was spent progressing through the optical microphone experiment, and was largely driven by suggestions made at the signal processing meetings with the electrical engineers. By the end of the third week of January we had a working optical microphone but low speech intelligibility. The fourth week of January was spent on attempting methods of speech enhancement. Finally, the two weeks in February were spent writing and drafting the paper/report, and giving presentations.
+The project spanned three weeks in December, four weeks in January, and two weeks in February. The first two weeks were spent writing the initial scripts and achieving the Viterbi results with the webcam set-up. This was relatively straight forward and the greatest hurdle was understanding the algorithm.
+
+The third week was spent setting up the photodiode circuit and the Raspberry Pi which involved constant testing and changing of the components and design of the circuit.
+All of January was spent on the optical microphone. Much difficultly was had combating 50Hz mains hum in the experiment. Eventually through many discussions at the signal processing meetings, we had a working optical microphone but low speech intelligibility. The last week of January was spent on methods of speech enhancement. If the investigation had continued we had much future work planned and possible solutions in mind. 
+
+Finally, the start of February was spent writing the paper and giving presentations (one nine minute general talk and one 50 minute technical follow-up talk).
+
 
 \newpage
 
-\title{GravExplain: Continuous gravitational wave searches in a table-top experiment}
+\title{GravExplain: Demonstrating continuous gravitational wave searches using sound and a table-top interferometer}
 
 \author{James W. Gardner}
 \email{u6069809@anu.edu.au}
-\affiliation{Research School of Physics, Australian National University, 60 Mills Rd, Acton ACT 2601 Australia}
+\affiliation{College of Science, Australian National University, Acton, ACT, 2601, Australia}
 
 \author{Hannah Middleton$^{(i)}$}
 \email{hannah.middleton@unimelb.edu.au}
@@ -72,8 +81,8 @@ The project spanned three weeks in December, four weeks in January, and two week
 
 % AJP requires an abstract for all regular article submissions.
 \begin{abstract}
-Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
-We also demonstrate how the inclusion of a photodiode and Raspberry Pi allows the interferometer to act as an optical microphone. That is, we are able to play back simple audio recordings from the photodiode data. However, more complex recordings, of speech, are unintelligible when played back, despite preliminary efforts towards speech enhancement.
+Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate these techniques by observing sound with a table-top Michelson interferometer. In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+We also describe how the inclusion of a photodiode and Raspberry Pi allowed the interferometer to act as an `optical microphone' with sufficient fidelity to play back simple audio recordings. However, more complex recordings, of speech, remain unintelligible when played back, despite preliminary efforts made towards speech enhancement.
 
 \end{abstract}
 
@@ -82,62 +91,81 @@ We also demonstrate how the inclusion of a photodiode and Raspberry Pi allows th
 \section{Introduction}
 \label{sec:introduction}
 
+\begin{figure}
+	\includegraphics[width=0.9\textwidth]{figures/ligo_pic.pdf}
+	\caption{Aerial photo of the LIGO Hanford facility and its 4km long beam arms, courtesy of LIGO/Caltech/MIT}
+	\label{fig:ligo_pic}
+\end{figure}
+
 % general gw intro
-In 2015 gravitational waves were observed for the first time from the merger of two black holes in a binary system.~\cite{GW150914} 
-The observation, made by the Laser Interferometer Gravitational-wave Observatory~\citep[LIGO]{AdvancedLIGO:2015}, marked a breakthrough in modern astrophysics and provides a new means to observe the universe. 
+In 2015, gravitational waves were observed for the first time from the merger of two black holes in a binary system~\cite{GW150914}. 
+The observation, made by the Laser Interferometer Gravitational wave Observatory~\citep[LIGO]{AdvancedLIGO:2015}, marked a breakthrough in modern astrophysics and revealed a new means to observe the universe. 
 Since 2015, the LIGO and Virgo~\cite{AdvancedVirgo:2015} observatories have made numerous detections of binary black hole~\cite{GW151226,GW170104,GW170814} and binary neutron star~\cite{GW170817,GW170817multi,GW190425} mergers. 
-In recent years there has been an increased public interest in gravitational-wave science. 
-Many gravitational wave research groups around the world have produced demonstrations and activities to aid in explaining this topic to a general audience.
-Activities range from online data analysis tutorials,~\cite{GWOSC:online,LOSC:2015} hands-on demonstrations, phone apps,~\cite{LaserLabs:online,SciVR:online} and online games,~\cite{BlackHoleHunter:online} to exhibitions,\cite{L2URSSE} artistic interpretation, and musical performance~\cite{ArthurJeffesMusic:online,GravitySynthLeonTrimble:online}. 
+In recent years, there has been increased public interest in gravitational wave science. 
+Many gravitational wave research groups around the world have produced demonstrations and activities to explain the topic to a general audience.
+Activities range from hands-on demonstrations, exhibitions, and online data analysis tutorials~\cite{GWOSC:online,LOSC:2015}, to phone apps~\cite{LaserLabs:online,SciVR:online}, video games~\cite{BlackHoleHunter:online}, and musical performances~\cite{ArthurJeffesMusic:online,GravitySynthLeonTrimble:online}.
 
 % what are gws and how do we detect them...
 Gravitational waves are a prediction of Einstein's theory of general relativity. 
-They are disturbances in spacetime caused by the acceleration of massive objects. 
-The effect of gravitational waves is a change in distances; a ``stretch and squeeze'' effect. 
-Observatories such as LIGO, Virgo, and KAGRA~\cite{KAGRA:2013} are laser interferometers; they use the interference of laser light to measure changes in distance. 
-Gravitational-wave observatories are extremely complex devices, however they are based on the Michelson interferometer. 
-Table-top Michelson interferometers are commonly used by gravitational-wave research groups to demonstrate the science of gravitational-wave detection to non-specialist audiences~\cite{ThorLabsIFO,NikhefIFO,ExhibitIFO,LIGOIFOGlue,LIGOIFOMagnets} and they are often used in undergraduate lab experiments~\cite{UgoliniEtAl:2019}. 
+They are disturbances in space-time caused by the acceleration of massive objects. 
+The effect of gravitational waves is a change in lengths; a `stretching and squeezing' of the very distance between objects.
+Observatories such as LIGO, Virgo, and KAGRA~\cite{KAGRA:2013} are laser interferometers; they use the interference of laser light to measure changes in distance. As shown in an aerial view of LIGO Hanford in Figure~\ref{fig:ligo_pic}, they use beam arms kilometres long.
+These observatories are extremely complex, but are fundamentally are based on the Michelson interferometer. 
+Table-top Michelson interferometers are commonly used in undergraduate lab experiments~\cite{UgoliniEtAl:2019} and to demonstrate the science of gravitational wave detection to non-specialist audiences~\cite{ThorLabsIFO,NikhefIFO,ExhibitIFO,LIGOIFOGlue,LIGOIFOMagnets}.
 
 % continuous gws
-To date the network of gravitational-wave observatories have observed short-duration transient signals~\cite{GWTC-1:2018,GWOSC:online}. 
-These observatories are also searching for continuous gravitational waves; persistent periodic signals at near-monochromatic frequencis. 
+To date, while the network of gravitational wave observatories have only observed short-duration transient signals~\cite{GWTC-1:2018,GWOSC:online}, these observatories are also searching for continuous gravitational waves; persistent periodic signals at near-monochromatic frequencies.
+These continuous waves may emit at constant frequencies, or they may wander slowly in frequency over time. 
 One of the prime targets of continuous wave searches are rotating neutron stars in low mass X-ray binaries (LMXBs).
-LMXBs are binary systms containing a compact object (such as a neturon star or a black hole) in orbit with a low mass stellar companion~\cite{xraybinaries:1997}. 
+LMXBs are binary systems containing a compact object (such as a neutron star or a black hole) in orbit with a low mass stellar companion~\cite{xraybinaries:1997}. 
 The LMXB Scorpius X-1 is an LMXB which is particularly bright in X-rays. 
-It is a prime target for continuous wave searches from LMXBs and numerous searches have been performed~\cite{2019PhRvD.100l2002A,RadiometerO1O2:2019,SearchCrossCorrO1:2017}. 
- 
-% sound analogy
-Here we demonstrate the use of a Michelson interferometer as a tool to explain the search for continuous waves to a general audience.
-The analogy of listening to the universe is often used to explain gravitational-wave observations; transient gravitational-wave signals have been converted into audio.
-Continuous waves may emitt at constant frequencies, or they may wander slowly in frequency over time. 
-This can be demonstrated with a table-top interferometer by playing audio of constant or slowly changing frequency tones to produce a simulation of a continuous wave signal. 
-The analysis techniques used in this work are similar to those used to search for continuous gravitational waves in LIGO and Virgo data, particularly for the wandering frequency demonstration~\cite{2019PhRvD.100l2002A,ScoX1ViterbiO1:2017,SuvorovaEtAl:2017,SuvorovaEtAl:2017}. 
+It is a prime target for continuous wave searches from LMXBs and numerous, as yet unsuccessful, searches have been performed~\cite{2019PhRvD.100l2002A,RadiometerO1O2:2019,SearchCrossCorrO1:2017}.
 
-In this work we detail our table-top intererometer design in Section~\ref{sec:ifo}, in Section~\ref{sec:single_tone} we describe observing a single tone signal, Section~\ref{sec:viterbi_wandering} describes observing a wandering frequency signal, and Section~\ref{sec:optical_microphone} extends the set-up to be able to capture complex audio, such as music and speech. We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
+% sound analogy
+Here, we demonstrate the use of a Michelson interferometer as a tool to explain the search for continuous waves to a general audience; the analogy of listening to the universe is often used to explain gravitational wave observations.
+ %; transient gravitational wave signals have been converted into audio.
+This can be demonstrated with a table-top interferometer by playing sound close enough to move the mirrors and change the interference pattern.
+Using audio of slowly wandering frequency tones to produce an analogue of a continuous gravitational wave signal.
+The analysis techniques used in this work are similar to those used to search for continuous gravitational waves in LIGO and Virgo data~\cite{2019PhRvD.100l2002A,ScoX1ViterbiO1:2017,SuvorovaEtAl:2017,SuvorovaEtAl:2017}, particularly for the wandering frequency demonstration. 
+
+In this work we detail our table-top interferometer design in Section~\ref{sec:ifo} and describe observing a single note from a speaker in Section~\ref{sec:single_tone}. In Section~\ref{sec:viterbi_wandering}, we demonstrate the analysis techniques for observing a wandering frequency signal.
+In Section~\ref{sec:optical_microphone}, we demonstrate capturing and playing back complex audio, such as music and speech. This demonstration of an `optical microphone' serves as a more general exhibition of signal processing. We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
 
 
 % \section{Method and results}
 \section{Table-top gravitational wave science}
 \label{sec:ifo}
 
-Detectable gravitational waves are caused by some of the most violent events in the universe. Like two massive black-holes merging with each other\cite{GW150914}. Even so, the effects they produce are on the order of one part in $10^{21}$ for our best detectors\cite{GW150914}. For a table-top experiment these effects would be far too small, so we demonstrate observing a far louder source, sound waves. Although the analogue to gravitational waves is tenuous, we can still demonstrate some of the continuous wave analysis satisfactorily. The other benefit of observing sound is that we can use existing signal processing techniques designed for audio signals.
+Even though gravitational waves are caused by some of the most massive events in the universe, their observable effects on Earth are vanishingly small | on the order of only one part in $10^{21}$ for our best detectors~\cite{GW150914}. Clearly, the measurement of such effects is far beyond any table-top experiment. But, the fundamental principle of gravitational wave detection remains that changes in the lengths of the beam arms of an interferometer leads to a change in the interference pattern observed. By observing sound waves that vibrate the mirrors of a table-top interferometer and so change the lengths of the beam arms we have an analogue of this principle.
 
-\subsection{Michelson interferometry}
+
+\subsection{Method of Michelson interferometry to observe sound}
 % hardware: path difference, virtual thin film interference
 
-A Michelson interferometer is a well-known optics configuration used in many undergraduate and research labs, including in the detectors for gravitational waves. A laser beam of coherent (monochromatic and equal phase) light is split evenly by a 50/50 beamsplitter into two arms at right-angles to each other, travelling down and back from a mirror at the end of each arm. The beams recombine and interfere at the beamsplitter before hitting a screen to produce a pattern of concentric, circular fringes. The configuration is shown in Figure~\ref{fig:ifo_schematic_webcam}. In the detectors for gravitational waves, these arms are kilometres long and many other complexities (such as power recycling and quantum squeezing)\cite{GW150914} are necessary to observe a signal.
+In a Michelson interferometer, a coherent (monochromatic and equal phase) source of laser light is split evenly by a beamsplitter into two arms at right-angles to each other, travelling down and back from a mirror at the end of each arm. The beams recombine and interfere at the beamsplitter before hitting a screen to produce a pattern of concentric, circular fringes. The configuration used in this experiment is shown diagrammatically in Figure~\ref{fig:ifo_schematic_webcam} and as part of a photo in Figure~\ref{fig:setup_pic2}.
 
-\begin{figure}
+
+A sample interference pattern is shown in Figure~\ref{fig:interference_pattern}.
+This pattern is due to the path difference between the two arms of unequal lengths (if the lengths were equal, then only a single, bright dot would be seen). This results in a phase difference between the two beams when they meet at the screen. This path difference is perhaps better seen as the perpendicular separation between one mirror (M1) and the virtual image (M2\textquotesingle) of the other. For an aligned configuration and a fixed separation, the phase difference at a point on the screen only depends on the angle from the centre-line of the beam, and so the pattern is circularly symmetric. When the path difference changes, the fringes stay circular but move radially in or out.
+
+\begin{figure}[h]
 	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_webcam.pdf}
-	\caption{Michelson interferometer schematic, interference pattern is recorded by a webcam}
+	\caption{Michelson interferometer schematic with interference pattern recorded by a commercial webcam. We used a Class 2 532nm laser~\cite{ThorLabsIFO} and a commercial speaker. The beam is focused at a converging lens before the 50/50 beamsplitter and the interference pattern is made visible by a diverging lens after the beamsplitter. The arms lengths between the speakers are roughly 3cm different and the entire interferometer (without the screen) fits within the dimensions of an A4 piece of paper. We did not include a compensating plate with the beamsplitter, as is often done.}
 	\label{fig:ifo_schematic_webcam}
 \end{figure}
+
+
+We used a 0.5W speaker stuck to the back of one of the mirrors as an audio source for our demonstration. This speaker was part of a commercial 3.5mm-jack, USB powered pair of speakers and was driven by a PC. To attach the speaker to one of the mirrors, we wedged it into part of the mirror mount and used commercial adhesive putty to keep it in place. We kept the other speaker in the pair face-down and as far away from the experiment as the cables would allow to reduce it acting as a second source.
+
+As the speaker deforms to play sound, the mirror moves with a change in separation as some coupling function of the amplitude and frequency of the sound. The motion of the fringes follows this motion of the mirror and therefore the speaker at the same frequency.
+If the fringe motion is small, then changes in the intensity at some point on the screen follow the frequency of the injected audio but with amplitude given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
+If the fringe motion was large enough for multiple fringes to pass over the measured point in a single speaker deformation, then over-counting would artificially raise the measured frequency. As such, any motion of the fringes must be kept small by playing sound softly through the speaker.
+
+For later sections, we derive the non-linear relation between the separation of the mirrors and the intensity of the pattern at some point on the screen, this can be found in Appendix~\ref{app:intensity_derivation}.
+
 % Note that we do not include the common compensating plate that equalises the amount of time spent in glass for each beam. We did not find it necessary to include it to be able to demonstrate the results desired.
 
-The interference pattern, as shown in Figure~\ref{fig:interference_pattern}, is due to the path difference between the two arms of unequal lengths (if the lengths were equal, then only a single, bright dot would be seen). This results in a phase difference between the two beams when they meet at the screen. This path difference is perhaps better seen as the perpendicular separation between one mirror and the virtual image of the other.
-For an aligned configuration and a fixed separation, the phase difference at a point only depends on the angle from the centre-line of the beam, and so the pattern is circularly symmetric.
-
-\begin{figure}
+\begin{figure}[h]
 	\includegraphics[width=\textwidth]{figures/webcam_still0.pdf}
 	\caption{Interference pattern from Michelson interferometer as viewed by webcam from off-centre (hence why the pattern appears non-circular), red dot indicates point where intensity time series was measured from. For scale, the central fringe is approximately 5mm across}
 	\label{fig:interference_pattern}
@@ -150,27 +178,18 @@ For an aligned configuration and a fixed separation, the phase difference at a p
 % the webcam method
 % how to analyse video, python OpenCV2
 
-Continuous gravitational wave searches are, by the nature of the astrophysical sources that they look for, always searching for periodic, or even sinusoidal, signals. Often the frequency of this periodicity can change, as addressed later, but sometimes it is (near) constant. As such, the audio analogue is to observe a single tone (a sinusoidal note of one frequency).
+As mentioned in Section~\ref{sec:introduction}, continuous gravitational wave searches look for near monochromatic signals. The audio analogue of this is a simple sinusoidal tone; a constant note.
 
-\subsection{Method}
+We measured the intensity at a point on the screen with a commercial USB webcam placed as to view the screen as in Figure~\ref{fig:ifo_schematic_webcam}. This webcam samples at 30Hz, which limits the spectral content of signals we can observe to below 15Hz, the Nyquist frequency.
+% See later Section~\ref{sec:photodiode} where we raise this limit into audible frequencies (20 Hz to 20kHz) with a photodiode.
+While playing a tone under 15Hz through the speaker for a minute, we recorded the interference pattern with the webcam. Then, at an off-centre pixel (shown as a red dot in Figure~\ref{fig:interference_pattern}), we took the green-channel of the video as approximate to the total intensity, as the laser is monochromatic green light (at 532nm).
 
-We use a 0.5W speaker stuck to the back of one of the mirrors as a source for our demonstration, as shown in Figure~\ref{fig:ifo_schematic_webcam}. This speaker was part of a commercial 3.5mm-jack, USB powered pair of speakers and is driven by a PC. Previously, we used a function generator to accomplish the same signal.
-As the speaker deforms to play sound, the mirror moves with a change in separation, $\delta d$, as some coupling function of the amplitude and frequency of the sound. The motion of the fringes follows the motion of the mirror and therefore the speaker at the same frequency.
-If the fringe motion is small, then changes in the intensity at some point on the screen follow the frequency of the injected (played) audio but with amplitude given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
-Large fringe motion means that multiple fringes can pass over the measured point in a single speaker deformation, such over-counting would artificially raise the measured frequency. As such, any motion of the fringes, and so of the speaker, must be kept small by playing sound softly through the speaker.
+We played this time series of intensity over time as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python}. The two tones played together sound similar and don’t produce any noticeable beating.
+To quantify the precision, we recorded a signal from an injected tone of 2.09Hz. From the Fourier transform shown in Figure~\ref{fig:webcam_spectrum}, we measured a peak amplitude at $(2.099\pm 0.008)\mathrm{Hz}$, a result within two standard deviations. This showed that the experiment observes a single tone confidently.
 
-
-\subsection{Results}
-
-We measure the intensity at a point on the screen with a commercial USB webcam placed as to view the screen (Figure~\ref{fig:ifo_schematic_webcam}), sampling at 30Hz (or 30 fps, frames-per-second). This limits the spectral content of signals we can observe to be under the Nyquist frequency of 15Hz.
-See later Section~\ref{sec:photodiode} where we raise this limit into to audible frequencies (20 Hz to 20kHz) with a photodiode.
-While playing a tone under 15Hz through the speaker for a minute, we recorded the interference pattern with the webcam. Then, at an off-centre pixel as seen in Figure~\ref{fig:interference_pattern}, we take the green-channel of the colour (RGB) video as approximate to the total intensity, as the laser is monochromatic green light. We can play this time series of intensity over time as an audio recording (we used the \textbf{scipy.io.wavfile.write}\cite{scipy} function in Python\cite{python}) and the tone is clearly heard.
-Taking the Fourier transform of this signal shows the injected tone, as seen in Figure~\ref{fig:webcam_spectrum} where we record the highest peak Fourier amplitude at $(2.099\pm 0.008)\mathrm{Hz}$ for an injected tone of 2.09Hz (a result within two standard deviations).
-Therefore, we’re able to observe a single tone quite confidently.
-
-\begin{figure}
+\begin{figure}[h]
 	\includegraphics[width=\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
-	\caption{Fourier amplitudes of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz, the highest peak is measured at $(2.099\pm 0.008) \mathrm{Hz}$ for an injected tone of 2.09Hz. In fact, the actual highest peak is at 0Hz, but that corresponds only to a non-zero average value, so we don’t display or consider it.}
+	\caption{Fourier amplitudes of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz, the amplitude 17.5 peak was measured at $(2.099\pm 0.008) \mathrm{Hz}$. The actual maximum is achieved at 0Hz, but corresponds to the signal having a non-zero average value, so we don’t display or consider it.}
 	\label{fig:webcam_spectrum}
 \end{figure}
 
@@ -180,34 +199,35 @@ Therefore, we’re able to observe a single tone quite confidently.
 % explaination and successful application
 % lean on the continuous gravitational waves angle
 
-Continuous gravitational wave searches often look for signals that wander (change) in frequency slowly over time\cite{2019PhRvD.100l2002A}. This means that finding the signal isn’t as simple as searching for a peak in the frequency content for the full observing run, especially when the signal-to-noise ratio is particularly low.
+As also mentioned in Section~\ref{sec:introduction}, continuous wave searches often look for signals that wander slowly in frequency~\cite{2019PhRvD.100l2002A}. The audio analogue of this is a tone that wanders in frequency; a note that changes pitch. Unlike the above Section~\ref{sec:single_tone} though, finding the signal isn’t as simple as searching for a peak in the spectrum for the full observing run.
 
-One method (among many) is to split the observed time series into bins of time, compute the Fourier transform for each time interval, and then create a grid (known as a spectrogram) where each cell is the Fourier amplitude of a particular frequency at a particular time.
-The method then treats the problem as one of finding the best path through a weighted graph, where here the weights are given by the Fourier amplitudes.
-The method takes in a parameter of the allowed frequency wandering, some rate of frequency change over time, usually informed by a physical model. Here, this parameter is set to 0.11 Hz per second to make it simply one frequency bin per every time bin, which will prove poorly adjusted to the signal.
+One method (among many) for continuous wave searches is to split the observed signal into intervals of time, compute the Fourier transform for each time interval, and then create a grid (known as a spectrogram) where each cell is the Fourier amplitude of a particular frequency at a particular time.
+This method turns the problem into finding the best path through the spectrogram grid as if it were a weighted graph, where here the weights are the Fourier amplitudes.
+
+When finding the path, the method requires a limit for the allowed frequency change over time, usually informed by a physical model. Here, this frequency wander limit was set to 0.11 Hz per second to make it simply one frequency bin per every time bin, which will prove poorly adjusted to the signal.
 
 
 \subsection{The Viterbi algorithm}
 
-The Viterbi algorithm is a path-finding algorithm that solves this problem.
-Abstractly speaking, the algorithm is given a weighted graph (e.g.\ the spectrogram grid), a sensible sequence of subgraphs (e.g.\ the columns holding spectrum at each time), and restrictions on connectivity (e.g.\ the allowed amount frequency wander). Then, at each iteration, it will find the best path to each node in the next subgraph, all the way from the first subgraph. At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), this overall best path is called the Viterbi path. See Appendix~\ref{app:viterbi} for the full details of the algorithm in this particular implementation.
+The Viterbi algorithm is a path-finding algorithm that is used in continuous wave searches~\cite{viterbi_application} to solve this problem.
+Abstractly speaking, the algorithm is given a weighted graph (e.g.\ the spectrogram grid), a sensible sequence of subgraphs (e.g.\ the columns of the spectrum at each time), and restrictions on connectivity (e.g.\ the allowed amount frequency wander). Then, at each iteration, it will find the best path to each node in the next subgraph, all the way from the first subgraph. At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), this overall best path is called the Viterbi path. See Appendix~\ref{app:viterbi} for the full details of the algorithm in this particular implementation.
 
 \subsection{Results}
 
-We demonstrate this method of using the Viterbi algorithm to find a signal, by injecting a wandering frequency signal into the speaker and recording the output via the webcam.
+We demonstrate this method of using the Viterbi algorithm by injecting a wandering frequency signal into the speaker and recording the output via the webcam.
 Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
 
-Shown in Figure~\ref{fig:viterbi_overlay} is the resultant spectrogram of the observed signal, overlaid with the injected signal and the recovered Viterbi path.
-To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment. Quantifying this, the Viterbi path stays within one frequency bin (approximately 0.3Hz) of the injected tone for 94\% of the run.
-Note that the signal initially moves faster than the chosen frequency wander parameter, causing a discrepancy between the injected and recovered signals. To fix this, the parameter should be doubled, although this would then cause the recovered path to stray more often. There also appears to be an anomaly at 150s, likely from a disturbance (such as someone walking) around the interferometer.
-
-Empirically, decreasing the signal-to-noise ratio closer to unity also causes the Viterbi algorithm to more easily stray from the signal to reach nearby fluctuations. However, the only correlation through the grid is the signal, so we always expect the Viterbi path to lie near to the signal no matter how high the noise is.
-
-\begin{figure}
+\begin{figure}[h]
 	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
-	\caption{Spectrogram of observed signal overlaid with white crosses for the Viterbi path and pink dots for the injected signal, notice the high correlation between them indicating that the signal is able to be recovered; also note the deviation at the start when the signal moves too quickly and just before the background anomaly at 150s}
+	\caption{Spectrogram of observed signal overlaid with pink dots for the injected signal and white crosses for the Viterbi path. Note the high correlation between them. Also note the deviations at the start time when the signal moves too quickly and just before the background anomaly at 150s.}
 	\label{fig:viterbi_overlay}
 \end{figure}
+
+Shown in Figure~\ref{fig:viterbi_overlay} is the resultant spectrogram of the observed signal, overlaid with the injected signal (the pink dots) and the recovered Viterbi path (the white crosses).
+To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment. Quantifying this, the Viterbi path stays within one frequency bin (approximately 0.3Hz) of the injected tone for 94\% of the run.
+Note that the signal initially moves faster than the frequency wander limit, causing a discrepancy between the injected and recovered signals. To fix this, the limit should be doubled, although this would then cause the recovered path to stray more often. There also appears to be an anomaly at 150s, likely from a disturbance (such as someone walking) around the interferometer.
+
+Empirically, decreasing the signal-to-noise ratio closer to unity (by making the speaker quieter) causes the Viterbi algorithm to stray more from the signal. However, since the only correlation through the grid is the signal, we always expect the Viterbi path to lie near to the signal no matter how high the noise is, and this is indeed what we see.
 
 \section{Playing back complex audio}
 \label{sec:optical_microphone}
@@ -216,119 +236,125 @@ Empirically, decreasing the signal-to-noise ratio closer to unity also causes th
 
 The natural succession to observing simple tones is to study complex audio signals, such as music and speech.
 The Viterbi algorithm and tracking more broadly is not applicable to these signals. Compare a single tone that slowly, continuously changes frequency to music and speech which consist of a broad spectrum that is constantly changing.
-Instead, the interest here is in being able to record and play-back these complex audio signals, rather than track them. Using the interferometer to do so makes it, in ensemble with the measuring device, an ‘optical microphone’, using light to capture sound.
+Rather than track them, the interest here is in being able to record and play-back these complex audio signals. Using the interferometer to do so makes it an ‘optical microphone’, using light to capture sound. This device has precedence in the laser microphones~\cite{laser_microphone} of the defence industry which operate on a variety of related principles.
 
 
-Advanced signal processing is required to extract gravitational wave signals from noisy observational data. Recovering audio from an optical microphone requires related signal processing. Although far simpler, it serves as another useful demonstration.
+Although this is indirectly related to the advanced signal processing required to extract gravitational wave signals, using an interferometer to capture sound can serve as an interesting demonstration to a broader physics and engineering audience. As such this could be introduced as a separate demonstration.
 
 \subsection{The photodiode method}
 \label{sec:photodiode}
 % advanced method: explain how we capture data
 
-For an optical microphone to be sensitive to speech and music it needs a frequency response (a sampling rate) far higher than the 30Hz of a standard webcam. Both speech and music need at least kHz range, with speech intelligibility requiring up to 3kHz and music preferably up to and beyond 8kHz\cite{speech_intelligibility}. This can be addressed by using a high-speed webcam, or more simply, by using a photodiode as the measuring device.
+For the optical microphone to be sensitive to speech and music it needs a frequency response (a sampling rate) far higher than the 30Hz of the webcam. In the context of audible frequencies (roughly 20Hz to 20kHz), speech intelligibility requires frequencies up to 3kHz and music requires frequencies up to and beyond 8kHz~\cite{speech_intelligibility}. Therefore the sampling rate of the optical microphone must be at least 16kHz to capture both speech and music. We achieved this with a photodiode.
 
 
-A photodiode is an electrical component that acts as a regular diode (blocking any current flow in the reverse direction) when no light is incident on it, but becomes more and more conductive in the reverse direction as the intensity of incident light increases. 
+A photodiode is an electrical component that acts as a regular diode, blocking any current flow in the `reverse' direction, when no light is incident on it. But as the intensity of incident light rises, it becomes increasingly conductive in the reverse direction. 
 % Fundamentally, a current is created in the photodiode by the photo-electric effect.
-Placing a photodiode in reverse-bias over an op-amp creates a photo-detector that will produce a voltage dependent on the incident intensity. This experiment had the photodiode in the interference pattern at roughly the same spot as the webcam was monitoring previously, just off-centre in the position of the red dot in Figure~\ref{fig:interference_pattern}.
+
+We placed a (OSRAM BPW21) photodiode in reverse-bias over an (LM358) op-amp to create a photo-detector that would produce a voltage dependent on the incident intensity. We placed the photodiode in the interference pattern at roughly the same off-centre spot as the webcam was monitoring previously (although we saw no difference when monitoring at other positions). The photodiode was mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath.
 
 
-The voltage signal from the photo-detector is captured by a 10-bit analog-to-digital converter (ADC) connected to the special purpose input (SPI) pins of a Raspberry Pi Model 3 v1.2, in the standard configuration. This digitally samples the signal at roughly 16kHz. As such, any frequency component of the analog signal above the Nyquist frequency of 8kHz would be aliased down into the detected range.
-To prevent this, an anti-aliasing Sallen-Key filter\cite{sallen_key_filter} tuned to 16kHz is included before the ADC. This component attenuates any frequencies above 8kHz, before they get digitally sampled.
-It’s not immediately clear what’s limiting the sample rate to 16kHz, but it is likely non-optimal reading of the ADC by the Pi script.
+The voltage signal from the photo-detector was captured by a (MCP3008) 10-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. Together, these sampled the signal at roughly 16kHz, our desired limit.
+
+However, by sampling, any frequency component of the analog signal above the Nyquist frequency of 8kHz would have been aliased down into the detected range.
+To prevent this, we included an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to 16kHz before the ADC. This component attenuated any frequencies above 8kHz, before they got digitally sampled. We also had to place another cloth screen over the face of the photodiode, as the reading without it, after gaining through the op-amps, was too high for the ADC.
+% It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
-
-The entire circuit diagram is detailed and shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a picture taken of the experiment, showing the interferometer, the circuit, and the Pi, is shown in Figure~\ref{fig:setup_pic2}. The only change to the interferometer schematic (Figure~\ref{fig:ifo_schematic_podo}) is the substitution of the webcam for the photodiode.
+A diagram and a photo of the circuit are shown in Appendix~\ref{app:circuit_diagram}. The updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a picture taken of the entire optical microphone is shown in Figure~\ref{fig:setup_pic2}.
 
 \begin{figure}
 	\includegraphics[width=0.8\textwidth]{figures/ifo_schematic_photodiode.pdf}
-	\caption{Michelson interferometer schematic, a part of the interference pattern is recorded by a photodiode}
+	\caption{Michelson interferometer schematic with the intensity of the interference pattern at a point measured by a photodiode. See Figure~\ref{fig:ifo_schematic_webcam} for details on the optics configuration.}
 	\label{fig:ifo_schematic_podo}
 \end{figure}
 
 \begin{figure}
 	\includegraphics[width=\textwidth]{figures/setup_pic2.pdf}
-	\caption{Picture taken of the optical microphone set-up, showing the Michelson interferometer, the photodiode (in an insert), the circuit, and the Raspberry Pi. For a closer photo of the circuit, see Figure~\ref{fig:circuit_pic3}.}
+	\caption{Picture taken of the optical microphone set-up. Showing the Michelson interferometer, the photodiode (behind the cloth screen and in an insert), the circuit, and the Raspberry Pi. See Appendix~\ref{app:circuit_diagram} for a diagram and closer photo of the circuit.}
 	\label{fig:setup_pic2}
 \end{figure}
 
-\subsection{Initial results}
+\subsection{Initial results of the optical microphone}
 % breakdown of all the filters used along the way
 
-The optical microphone was tested on recordings of speech from different people and on music ranging from simple melodies to full track songs. Each recording was around one minute long with processing often done on ten second segments. For each observation, the audio was played through the speaker with minimal activity around interferometer as the Pi script recorded the signal.
-The time series was then directly converted to a .wav file and played as an audio recording, using the \textbf{scipy.io.wavfile.write}\cite{scipy} implementation in Python\cite{python}.
+The optical microphone was tested on varied recordings of speech from different people and on music ranging from simple melodies to full track songs. Each recording was around one minute long with processing done on ten second segments. For each observation, the audio was played through the speaker as the Pi script recorded the signal from the photodiode. Care was taken to have minimal activity around interferometer while this was happening.
+The time series was then directly converted to a .wav file and played as an audio recording, using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python} as before.
 
 
-When played back and listen to, these initial recordings were extremely noisy and had a loud bass note throughout. Each Fourier spectrum showed a dominant AC mains hum with power ranging from the fundamental of 50Hz up to and beyond the 8th harmonic.
+When played back, these initial recordings were extremely noisy and had a loud bass hum throughout. Each Fourier spectrum showed dominant AC mains noise with power ranging from the fundamental of 50Hz up to and beyond the 8th harmonic thereof.
 With the speaker off this mains power was still present, as shown the power spectral density (effectively the norm squared of the Fourier spectrum) in Figure~\ref{fig:psd_noise}.
 And even with the speaker off and the photodiode in complete darkness, the mains hum was still present (with distribution similar to but weaker than that shown in Figure~\ref{fig:psd_noise}).
 
-\begin{figure}%[H]
+\begin{figure}[h]%[H]
 	\includegraphics[width=\textwidth]{figures/podo_noise_psd_zoom-cropped.pdf}
-	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off), shows strong power in the 50Hz mains hum and its harmonics (most likely from the photodiode circuit and the surrounding room’s lighting and cooling), otherwise is a fairly white spectrum except for the broad, shallow maximum at 750Hz}
+	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off), shows strong power in the 50Hz mains hum and its harmonics (most likely from the photodiode circuit and the surrounding room’s lighting and even cooling), but otherwise is a fairly white spectrum.}
+	% except for the broad, shallow maximum at 750Hz}
 	\label{fig:psd_noise}
 \end{figure}
 
 \subsection{Applying filters to the data}
 \label{sec:simple_filters}
 
-Early attempts to remove the mains hum included zeroing the channel of each 50Hz harmonic in the Fourier spectrum. Effectively, this is multiplying the spectrum by a rectangular comb filter. While this did remove the mains harmonics, it also audibly ruined the rest of the signal.
-This is because applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. And the inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complex sinc-like function that when convolved with significantly damages the actual signal.
+The first attempt made to remove the mains hum was to zero the channel of each 50Hz harmonic in the Fourier spectrum. Effectively, this multiplied the spectrum by a rectangular comb filter. While this did remove the mains harmonics, it also audibly ruined the rest of the signal.
+This is because applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. And the inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complicated sinc-like function that when convolved with significantly damages the signal.
 
-To fix this, we tried using a smoother comb filter but this suffered from too significantly attenuating the rest of the spectrum between each harmonic.
+To fix this, we tried using a smoother comb filter but this too significantly attenuated the rest of the spectrum between each harmonic to hear the signal at all.
 
 
-Applying a high-pass filter to the signal worked well at removing the 50 and 100Hz tones but was problematic as the mains harmonics extend far past 100Hz. This region above 100Hz carries a lot of the fundamental frequencies for speech and music\cite{speech_intelligibility} and if the cut-off frequency is placed as to remove all the mains harmonics, then the resultant signal is unrecognisable.
+Applying a high-pass filter with cut-off frequency 150Hz to the signal worked well at removing the 50Hz and 100Hz tones but was problematic as the mains harmonics extend far past 100Hz and so remain after filtering. This region above 100Hz carries a lot of the fundamental frequencies for speech and music~\cite{speech_intelligibility} and if the cut-off frequency is placed as to remove more of the mains harmonics, then the resultant signal is unrecognisable.
 
 We also tried applying a high-pass filter to the logarithm of the signal spectrum and then exponentiating back, but this didn’t significantly improve on the above simple high-pass.
 
-Band-passing the signal similarly doesn’t address the remaining harmonics but does low-pass away other noise at higher frequencies. The best performing band-pass filter we found was a fifth order ($n = 5$) Butterworth filter over a band from 150Hz to 3kHz (beyond 2kHz the information content drops\cite{speech_intelligibility}). For a low-pass Butterworth filter at cut-off frequency $\omega_c$ and gain $\epsilon$ the frequency response (attenuation at each frequency) follows Equation~\ref{eq:butterworth}.
+
+\begin{figure}[h]%[H]
+	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
+	\caption{Butterworth bandpass filter frequency response, any amplitude beyond -3dB is significant attenuation (half power). The green vertical lines show the band limits of 150Hz and 3kHz. Note the flat response within the band.}
+	\label{fig:butterworth}
+\end{figure}
+
+
+Band-passing the signal similarly doesn’t address the remaining harmonics above 100Hz but does low-pass away other noise at higher frequencies. The best performing band-pass filter we found was a fifth order ($n = 5$) Butterworth filter over a band from 150Hz to 3kHz (beyond 2kHz speech information content drops significantly~\cite{speech_intelligibility}). For a low-pass Butterworth filter at cut-off frequency $\omega_c$ and gain $\epsilon$ the frequency response (attenuation at each frequency) follows Equation~\ref{eq:butterworth}.
 \begin{equation}
 \label{eq:butterworth}
 H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\frac{\omega}{\omega_c})^{2n}}}
 \end{equation}
-For a band-pass filter, the above low-pass is combined with a high-pass filter of similar form. The response of the filter used is shown in Figure~\ref{fig:butterworth}. Despite improving, the recording with the filter applied still had very low intelligibility, it could be recognised as speech but was not understandable.
+For a Butterworth band-pass filter, the above low-pass filter is combined with a high-pass filter of similar form. The response of the filter used is shown in Figure~\ref{fig:butterworth}. This filter improved on the above simpler filters but recordings of speech still had very low intelligibility, they could be recognised as speech but not understood.
 
 
-The ideal filter would be one that completely attenuates the undesired parts of the spectrum, has no changing attenuation (is flat) on the rest of the spectrum, and has the smoothest edges as to not damage the signal. These three conditions are contradictory and any filter must compromise between them. The above simple filters fail at one or more of each of these conditions. The combs ruin the signal and the high-passes don’t remove the noise. The Butterworth filter performed the best audibly as it was maximally flat within the band region, prioritising the second condition.
+The ideal filter would be one that completely attenuates the undesired parts of the spectrum, does not change the rest of the spectrum, and has smooth edges as to not damage the signal through convolution. These three conditions are contradictory and any filter must compromise between them. The above simple filters fail at one or more of each of these conditions. The combs ruin the signal and the high-passes do not remove the noise. The Butterworth filter performed the best audibly as it is optimised to be `maximally flat' within the band region, prioritising the second condition.
 
 % Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
-
-\begin{figure}%[H]
-	\includegraphics[width=0.8\textwidth]{figures/butterworth_150_3000-cropped.pdf}
-	\caption{Butterworth bandpass filter frequency response, green vertical lines show the band limits of 150Hz and 3kHz. Note the flat response within the band, any amplitude beyond -3dB is significant attenuation (half power).}
-	\label{fig:butterworth}
-\end{figure}
 
 
 \subsection{The logMMSE estimator}
 % logMMSE
 
 Speech enhancement for a noisy channel is a classic problem in signal processing. Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compared various methods and found the best performing statistical technique among those at the time to be a logMMSE (alt.\ MMSE-LSA) estimator. This type of estimator is based on work by Ephraim~\&~Malah~(1984)~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
-Although this technique historically minimised with respect to the spectral amplitude\cite{EphraimSpeechEU_MMSE}, throughout speech processing use of the logarithm seems produce better results as perceived by the human ear\cite{SubjectiveComparison}.
+Although this technique historically minimised with respect to the spectral amplitude~\cite{EphraimSpeechEU_MMSE}, throughout speech processing use of the logarithm seems produce better results as perceived by the human ear~\cite{SubjectiveComparison}.
 
 
-We use an existing implementation\cite{logmmse} of the logMMSE estimator. Applying this estimator to the optical microphone recordings produces dramatically clean results. The time series (in Figure~\ref{fig:logMMSE_timeseries}) and spectrum (in Figure~\ref{fig:logMMSE_spectrum}) from before and after applying the logMMSE filter are shown. Comparing the spectra in Figure~\ref{fig:logMMSE_spectrum} shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum.
+We used an existing implementation~\cite{logmmse} of the logMMSE estimator. Applying this estimator to the optical microphone recordings produced dramatically clean results. The time series (in Figure~\ref{fig:logMMSE_timeseries}) and spectrum (in Figure~\ref{fig:logMMSE_spectrum}) from before and after applying the logMMSE filter are shown. Comparing the before and after spectra in Figure~\ref{fig:logMMSE_spectrum} shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum.
 
 
-For recordings of music listened to after the estimator is applied, simple chords and drums are heard well, while more complex melodies are often completely absent in the results. By observation, this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins.
-This could be a perceptual effect of listening to the lossy recording, but it seems more likely to be a frequency dependence somewhere in the optical microphone system. Speculating, perhaps the amplitude of speaker-mirror oscillations is higher at low frequencies.
+After applying the estimator, simple chords and drums are heard well in played back music. While more complex melodies are sometimes completely absent. By observation, this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins.
+This could be a perceptual effect of listening to the lossy recording, but seems more likely to be a frequency dependence somewhere in the optical microphone system. Speculating, perhaps the amplitude of speaker-mirror oscillations is higher at low frequencies and so instruments like electric bass and drums are louder in the results.
 
 
-After applying the estimator to speech recordings, intelligibility still remains low with the voice sounding mumbled and indistinct. The estimator removes most of the background sound, but does not clarify the speech. 
-% There is a question here as to where the diction in the speech is lost, at the speaker-mirror coupling, at the photodiode reading, or if it is still there, just obscured in the noisy signal.
+After applying the estimator to speech recordings, intelligibility still remains low with the voice sounding mumbled and indistinct. The estimator removes most of the background noise, but does not clarify the speech.
+
+To address these problems with the recordings we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. This requires a better understanding of the system and further improvements to the experiment if true.
 % The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
-	\caption{Optical microphone recording of adult male voice (saying ``A cathode ...'') shown before (top) and after (bottom) logMMSE filter is applied, only one second of the one minute recording is shown. The rise at the start of the time series is an expected result from filtering a finite signal.}
+	\caption{Optical microphone recording of adult male voice (saying ``A cathode ...'') shown before (top) and after (bottom) the logMMSE estimator is applied, showing one second of the one minute recording. The rise at the start of the bottom	 time series is an expected result from filtering a finite signal.}
 	\label{fig:logMMSE_timeseries}
 \end{figure}
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
-	\caption{Spectrum of optical microphone recording of adult male voice shown before (top) and after (bottom) logMMSE filter is applied, showing only up to 2kHz and a detail of the spectrum (limited to show only up to amplitude 2, while before filtering the 50Hz line has an amplitude of 40)}
+	\caption{Spectrum of optical microphone recording of adult male voice shown before (top) and after (bottom) the logMMSE estimator is applied, showing only up to 2kHz and to amplitude 2 to see greater detail.}
 	\label{fig:logMMSE_spectrum}
 \end{figure}
 
@@ -336,95 +362,93 @@ After applying the estimator to speech recordings, intelligibility still remains
 \section{Future work}
 \label{sec:future_work}
 % wild speculation
-For better speech enhancement, we are currently working towards two future advances.
+We are currently working towards two future advancements for the optical microphone.
 
 
-The first would be to better isolate the optical microphone from the mains supply. The Raspberry Pi is USB powered and requires low power so it could even be run off a commercial external phone battery. Everything else in the circuit, including the photodiode, is connected to the Pi, so this would isolate them electrically as well. The laser is DC powered through a converter, so there is no issue there. With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
+The first would be to better isolate the experiment from the mains supply. The Raspberry Pi is USB powered and requires low power so it could even be run off a commercial external phone battery. Everything else in the circuit, including the photodiode, is connected to the Pi, so this would isolate them electrically as well. The laser is DC powered through a converter, so there is no issue there. With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
 
 
-The second advancement would be to achieve a full model of the transfer function of the system. Starting from the voltage sent to the speaker and ending with the value recorded by the Pi, including any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading, see Figure~\ref{fig:pipeline_highlighted} for this full sequence. Theoretically, if we had the correct transfer function, then signal recovery would only be limited by the signal-to-noise ratio as we could construct an optimal matched filter.
+The second advancement would be to achieve a full model of the transfer function of the system. Theoretically, if we had the correct transfer function, then signal recovery would only be limited by the signal-to-noise ratio as we could construct an optimal matched filter. This function would have to start from the voltage sent to the speaker and end with the value recorded by the Pi, and include any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation, and the photodiode reading. This sequence that the signal takes is shown in Figure~\ref{fig:pipeline_highlighted}.
 
 
-In our investigation, we have currently only derived part of this sequence, the relation between a deflection of the mirror and the change in the intensity of the interference pattern at some point (highlighted in Figure~\ref{fig:pipeline_highlighted}). We find this relation to be non-linear, see Appendix~\ref{app:intensity_derivation} for the full discussion and derivation.
+In our investigation, we have currently only derived part of this sequence, the relation between a deflection of the mirror and the change in the intensity of the interference pattern at some point. We find this relation to be non-linear, see Appendix~\ref{app:intensity_derivation} for the derivation.
 
 
-Asides from these two main avenues, other techniques are available to better process the recording. In particular, for extracting the speech there exists much literature\cite{HMM_english} on using a hidden Markov model train to English phonemes to recognise speech.
-Alternatively, machine learning solutions also exist throughout the field that are able to compete\cite{HMM_english} with statistical techniques like the logMMSE estimator. More simply, to remove any remaining mains hum we could monitor it separately from the interferometer and subtract the sinusoid with the right phase and amplitude in real (not frequency) space to avoid the problems of Section~\ref{sec:simple_filters}. This could also be done with the existing signals if the recording duration is long enough to precisely measure the phase and amplitude over a large number of cycles.
+Asides from the transfer function, for extracting the speech there exists much literature~\cite{HMM_english} on using a hidden Markov model train to English phonemes to recognise speech.
+Alternatively, machine learning solutions exist throughout the field that are able to compete~\cite{SEGAN} with statistical techniques like the logMMSE estimator.
+
+To remove the mains hum we could also monitor it separately from the interferometer and subtract the sinusoids with the right phase and amplitude in real (not frequency) space to avoid the problems of Section~\ref{sec:simple_filters}. This could be done with the existing signals if the recording duration is long enough to precisely measure the phase and amplitude over a large number of cycles.
 
 
 \begin{figure}%[H]
 	\includegraphics[width=\textwidth]{figures/pipeline_highlighted.pdf}
-	\caption{Sequence of relations for optical microphone transfer function}
+	\caption{Sequence of relations for optical microphone transfer function. The currently derived relation is highlighted.}
 	\label{fig:pipeline_highlighted}
 \end{figure}
 
-
+\newpage
 \section{Conclusions}
 \label{sec:conclusions}
 
 % Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
 
-We use sound and a table-top Michelson interferometer as an analogue to gravitational wave detectors to demonstrate signal processing techniques. Using a webcam to track the interference pattern, we inject a wandering frequency signal into the system with a speaker attached to the back of one of mirrors of the interferometer. We then demonstrate how to recover this signal using the Viterbi algorithm, just as is done in continuous gravitational wave searches.
+We use sound and a table-top Michelson interferometer as an analogue to a gravitational wave detector.
+% This serves to demonstrate signal processing techniques.
 
 
-Substituting the webcam for the increased frequency response of a photodiode circuit read by a Raspberry Pi, we turned the intensity time series of the interference pattern into an audio recording and the interferometer into an optical microphone.
-We demonstrated that this optical microphone is capable of playing back simple recordings well and speech recordings unintelligibly. Dominant 50Hz mains hum in the recordings led to an exploration of speech enhancement techniques to remove it, including the well performing logMMSE estimate. From here we currently have many plans to further remove the mains hum and improve the intelligibility.
+Using a webcam to track the interference pattern, we inject a wandering frequency signal into the system with a speaker attached to the back of one of mirrors of the interferometer. We then demonstrate how to recover this signal using the Viterbi algorithm, just as is done in continuous gravitational wave searches.
 
 
-These demonstrations have the potential to be adapted into the undergraduate laboratory. There is much to explore in the physics of the interferometer and the astronomy of the motivating continuous gravitational wave searches, but also in the signal processing of speech enhancement as an open problem for engineering focused students. See Appendix~\ref{app:reproducing_results} for advice aimed at the undergraduate student for replicating the results.
+Substituting the webcam for the increased frequency response of a photodiode circuit read by a Raspberry Pi, we turned the interferometer into an optical microphone.
+We demonstrated that this optical microphone is capable of playing back simple recordings well but that it produces unintelligible recordings of speech. Dominant 50Hz mains hum in the recordings led to an exploration of speech enhancement techniques to remove it, including the well performing logMMSE estimate. From here we have many plans to further remove the mains hum and improve the intelligibility.
 
 
+These demonstrations have good potential to be adapted into the undergraduate laboratory. There is much to explore in the physics of the interferometer and the astronomy of the motivating continuous gravitational wave searches. Most of all, the signal processing of speech enhancement is an interesting problem that’s relevant to digital communications.
+
+
+% \bigskip
 \newpage
 \appendix
 
 \section{Open-source code}
 \label{app:code}
-This project is implemented in python3\cite{python} inside of jupyter notebooks\cite{jupyter}\cite{ipython} and uses the packages of numpy\cite{numpy}, scipy\cite{scipy}, matplotlib\cite{matplotlib}, tqdm\cite{tqdm}, and logmmse\cite{logmmse}.
+This project was implemented in python3~\cite{python} scripts as well as jupyter notebooks~\cite{jupyter}~\cite{ipython} and used the packages of numpy~\cite{numpy}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
 
-The current build can be found at:
+The current build and sample recordings of the optical microphone can be found at:
 \url{https://github.com/daccordeon/gravexplain}
 % \begin{verbatim}
 % README
 % \end{verbatim}
 
-\section{Additional guide to reproducing results}
-\label{app:reproducing_results}
-% as for a 3rd year undergraduate
-
-Besides the directions given in the rest of this article, there are some observations and technical details useful to someone wanting to reproduce the results shown herein. For the analysis and signal processing performed the best reference is Appendix~\ref{app:code} for the open-source code.
-
-For the experiment, since a Michelson interferometer is such a standard configuration, we’ll not detail it further here, see any optics manual for more information. To obtain an independent speaker cone we recommend carefully dismantling a budget commercial speaker system to get at the speaker within. To attach the speaker to one of the mirrors, we wedged it into part of the mirror mount and used commercial adhesive putty to keep it in place. If the other speaker in the pair remains, keep it as far away from the experiment and as damped as possible else it may act as a second, interfering source.
-% we used a Class 2 LDS5 ThorLabs laser at 532nm
-
-For the photodiode circuit, we used a Raspberry Pi and an MCP3008 ADC to monitor the analog signal. This could also be done with the analog pins on an Arduino. Be careful of the gain through the LM358 op-amps in the circuit though, else the ADC in either case could threshold the signal. Also be ready to change the values in the Sallen-Key filter to match your own sampling rate. The photodiode was an OSRAM BPW21, we mounted it through a discarded piece of speaker mesh (similar to black cloth over a frame) and placed another piece over the face to not over expose and threshold the signal. For the rest of the circuit, we used standard components assembled on a breadboard as detailed in Appendix~\ref{app:circuit_diagram}.
-
-
-\section{The Viterbi algorithm}
+\section{Implementation of the Viterbi algorithm}
 \label{app:viterbi}
 
-To find the Viterbi path through a spectrogram (spectra over time), given an M x N grid of M frequency rows and N time columns and a rate limit for the change of frequency over time that we convert into the number of allowed rows we can move while stepping from each column to the next (this limit was $\pm 1$ row/column in our case). The path must start from the first column and end at the last, taking a single step in each column along the way. Each element in the grid is the norm of the Fourier component of a frequency at a time. These are normalised between $(0, 1)$ to use as multiplicative weights, i.e.\ the total weight of a path is the product of all weights along that path. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight.
+We used the Viterbi algorithm to find a signal in a spectrogram. Here we detail the implementation used.
+
+We consider a spectrogram grid where each element in the grid is the Fourier amplitude of a particular frequency at a particular time. These are normalised between $(0, 1)$ to use as multiplicative weights. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight among all paths.
+
+With the grid prepared, the algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, selecting the previous cell with the greatest cumulative weight among those ‘nearby’ (the value of which was discovered in the previous iteration). Where the cumulative weight is the weight of the best path to reach that previous cell. The nearness of a previous cell is given by the limit on the allowed frequency change over time.
+
+For each cell in the current column, the algorithm calculates the cumulative weight to reach that cell by adding its weight to the cumulative weight to reach it. The algorithm also notes the row index of which cell in the previous column it best connects to.
+Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That discovered best path is the Viterbi path.
 
 
-With the grid prepared, the Viterbi algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, taking the greatest cumulative weight of those available, ‘nearby’ cells (the value of which was discovered in the previous iteration).
-For each cell in the current column, the algorithm notes this weight plus the cell’s own weight, along with the row index of which cell in the previous column it came from.
-Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That best path is the Viterbi path.
-
-
-\section{A common mistake with wandering frequency signals}
+\section{A common mistake for those new to wandering frequency signals}
 \label{app:phase_gotcha}
 
-We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. The common mistake is to just appeal to the standard form $\sin{(2 \pi f t)}$, where f would be a constant frequency, and write down $\sin{(2 \pi f(t) t)}$. However, accumulation of phase produces the wrong curve. Instead, one should see that the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
+We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. A common mistake is to appeal to the standard form $\sin{(2 \pi f t)}$, where f is a constant frequency, and guess $\sin{(2 \pi f(t) t)}$. However, this fails to address the phase accumulated earlier in the signal. Instead, the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
+% This formula is also useful when performing frequency modulation.
 
 
-\section{Circuit design}
+\section{Photodiode circuit design}
 \label{app:circuit_diagram}
 % schematic of breadboard and connections to pi
 % https://www.circuit-diagram.org/editor/
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 
-Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}.
+Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. This design was based off standard examples of photo-detectors, connecting an ADC to a Pi, and Sallen-Key filters.
 
-\begin{figure}%[H]
+\begin{figure}[h]%[H]
 	\includegraphics[width=\textwidth]{figures/circuit_diagram_2.pdf}
 	\caption{Circuit diagram for photodiode reading. Photodiode in reverse-bias over an op-amp, analog signal then passed through Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC). The digitised signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.}
 	\label{fig:circuit_diagram}
@@ -432,52 +456,41 @@ Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram, it is als
 
 \begin{figure}%[H]
 	\includegraphics[width=0.8\textwidth]{figures/circuit_pic3.pdf}
-	\caption{Photo of circuit for photodiode reading assembled on breadboard.}
+	\caption{Photo of photodiode circuit assembled on breadboard.}
 	\label{fig:circuit_pic3}
 \end{figure}
 
-\section{Intensity relation derivation}
+\section{Interferometric intensity relation derivation}
 \label{app:intensity_derivation}
 
+To obtain part of the transfer function for the optical microphone, we want to know the resultant change in intensity, $\delta I$, at a point in the interference pattern, given a small change, $\delta d$, in the difference between the arm lengths of the mirrors. Let the point be at angle $\theta$ on the screen (in the far-field) above the central ray as measured from the mirrors. Noting circular symmetry as to not specify exactly where in the fringe the point is.
 
+At this point, two rays meet, one from each mirror, with total electric field amplitude $E_1(t) + E_2(t)$. Given an initial difference between the arm lengths of $d$, the path difference between the two beams at the screen is $2 d \cos{\theta}$ as the longer beam must travel back and forth over the extra distance, and both travel at angle $\theta$ to meet the point~\cite{fringes:online}.
 
-
-The intensity, $I$, of the interference pattern at a particular angle is given by Equation~\ref{eq:intensity_result} below. Where A is the amplitude of the electric field of the beam, d is the separation (or the difference in the arm lengths), $\theta$ is the angle from the centre-line to the point on the screen, and $\lambda$ is the wavelength, 532nm, of the laser (see Appendix~\ref{app:intensity_derivation} for the derivation to get to this equation).
-\begin{equation}
-\label{eq:intensity_result}
-I = 2 A^2 (1+\cos{\phi}), \; \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
-\end{equation}
-
-This Equation~\ref{eq:intensity_result} means that the intensity changes non-linearly with a small change in separation, as in Equation~\ref{eq:intensity_change} (see Appendix~\ref{app:intensity_derivation} again for the derivation). This makes the problem of extracting the original signal more difficult.
-
-\begin{equation}
-\label{eq:intensity_change}
-	\frac{\delta I}{\delta d} = \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
-\end{equation}
-
-
-
-
-
-We want the change in intensity, $\delta I$, at a point in the Michelson interference pattern, given a small change, $\delta d$, in the perpendicular path difference of the mirrors (or in the separation of one and virtual image of the other). The point is at angle $\theta$ on the screen above the central ray, noting circular symmetry. At this point, two rays meet, one from each mirror, with the total electric field (\jam{parallel to the screen?}) being $E_1(t) + E_2(t)$. Given an initial separation of $d$, the path difference between the mirrors is $2 d \cos{\theta}$ as the longer ray must travel to and from the further mirror, and both move up at the angle $\theta$ to meet at the screen.
+The intensity at the point is then the norm squared of the total electric field amplitude as expressed in Equation~\ref{eq:intensity_derivation} below.
 
 \begin{align}
-\label{eq:intensity_derivation}
     E_1(t) &= A e^{i (k L - \omega t)} \\
     E_2(t) &= A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \\
     I(t) &= \lvert A e^{i (k L - \omega t)} + A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \rvert^2
+\label{eq:intensity_derivation}    
 \end{align}
 
-Collapse the phase difference to $\phi$ and expand the norm squared by expanding the complex exponentials. From there is it trigonometric manipulation to reach the result of intensity in terms of separation.
+Collapse the phase difference to some value $\phi = 2 k d \cos{\theta}$. Then expand the norm squared using Euler’s relation, $e^{i \theta} = \cos{\theta} + i \sin{\theta}$. Here we stop considering intensity as a function of time as the time dependence will vanish.
 
 \begin{align}    
-    I(t) &= A^2 \lvert e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)} \rvert^2,\, \phi = 2 k d \cos{\theta} \\
-    I(t) &= A^2 ((\cos{(k L - \omega t)} + \cos{(k L + \phi - \omega t)})^2 + (\sin{(k L - \omega t)} + \sin{(k L + \phi - \omega t)})^2) \\
-    I(t) &= A^2 (1 + 2 \cos{(k L - \omega t)} \cos{(k L + \phi - \omega t)} + 1 + 2 \sin{(k L - \omega t)} \sin{(k L + \phi - \omega t)}) \\
-    I(d) &= 2 A^2 (1 + \cos{\phi}),\, \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
+    I &= A^2 \lvert e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)} \rvert^2,\, \phi = 2 k d \cos{\theta} \\
+    I &= A^2 ((\cos{(k L - \omega t)} + \cos{(k L + \phi - \omega t)})^2 + (\sin{(k L - \omega t)} + \sin{(k L + \phi - \omega t)})^2)
 \end{align}
 
-Then take derivatives and find that the intensity change is non-linear.
+Expand and collect like terms, pull out a factor of two, and then recognise the form of $\cos{(\alpha-\beta)}$.
+
+\begin{align}
+    I &= A^2 (1 + 2 \cos{(k L - \omega t)} \cos{(k L + \phi - \omega t)} + 1 + 2 \sin{(k L - \omega t)} \sin{(k L + \phi - \omega t)}) \\
+    I &= 2 A^2 (1 + \cos{\phi}),\, \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
+\end{align}
+
+Finally, changing derivatives and expand $\phi$ to find that the change in intensity given a change in distance is non-linear, that ${\delta I}/{\delta d}$ is non-constant.
 
 \begin{align}    
     \frac{\delta I}{\delta d} &= \frac{\delta I}{\delta \phi}\; \frac{\delta \phi}{\delta d}\\
@@ -485,6 +498,8 @@ Then take derivatives and find that the intensity change is non-linear.
     \frac{\delta\phi}{\delta d} &= \frac{4 \pi \cos{\theta}}{\lambda}\\
     \therefore \frac{\delta I}{\delta d} &= \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
 \end{align}
+
+This non-linearity in part of the transfer function will make the reverse problem of extracting the original signal more difficult.
 
 
 \begin{acknowledgments}
