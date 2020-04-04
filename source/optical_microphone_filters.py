@@ -444,7 +444,7 @@ def wav_digitisation_check(infile_name='source_a440.wav', outfile_name=None):
     plt.show()
     plt.close(fig)
     
-def psd_plot(filename='podo_14_6.csv'):
+def psd_plot(filename):
     """find power spectral density (psd) of noise
     requires noise recording, like podo_14_6.csv"""
     mega = np.genfromtxt(filename,delimiter=',')
@@ -465,7 +465,7 @@ def psd_plot(filename='podo_14_6.csv'):
     ax.xaxis.label.set_size(26)
     ax.yaxis.set_tick_params(labelsize=24)
     ax.yaxis.label.set_size(26) 
-    plt.savefig('podo_noise_psd.pdf', bbox_inches='tight')
+    plt.savefig(filename[-4]+'.pdf', bbox_inches='tight')
     plt.close(fig)
     
 def butter_filter_recording(filename, filetag=None, produce_plots=False,
@@ -687,7 +687,7 @@ def check_filters_on_source(filename='source_melatos.wav', filetag='source_melat
     plt.close(fig)
 
 if __name__ == "__main__":
-    psd_plot()
+    psd_plot('podo_14_6.csv')
     butter_filter_plot()
     logmmse_filter('aa_melatos.csv')
     logmmse_filter('aa_jam_track.csv')

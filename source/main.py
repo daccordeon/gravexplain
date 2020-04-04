@@ -18,13 +18,14 @@ import optical_microphone_filters
 if __name__ == "__main__":
     
     if (os.path.isfile('expt_4_0209.mp4') and os.path.isfile('expt_viterbi_test_webcam.mp4')
-        and os.path.isfile('aa_melatos.csv') and os.path.isfile('aa_jam_track.csv')):
+        and os.path.isfile('aa_melatos.csv') and os.path.isfile('aa_jam_track.csv')
+        and os.path.isfile('podo_14_6.csv')):
         print('Welcome to GravExplain main.py, all sample files are present, beginning analysis now')
         
         viterbi_video_analysis.webcam_video_analysis('expt_4_0209.mp4', point=(230,240))
         viterbi_video_analysis.PointViterbi('expt_viterbi_test_webcam.mp4', scanning_range=1).plot()
 
-        optical_microphone_filters.psd_plot()
+        optical_microphone_filters.psd_plot('podo_14_6.csv')
         optical_microphone_filters.butter_filter_plot()
         optical_microphone_filters.logmmse_filter('aa_melatos.csv')
         optical_microphone_filters.logmmse_filter('aa_jam_track.csv')           

@@ -43,8 +43,8 @@ gravexplain/
 - - -
 Guide to replicating results, please follow exactly.
 
-Download the latest source code from the repository. Download the sample files (two .csv and two .mp4) as sample.zip from the release below, and extract them into the same directory as the source code.
-https://github.com/daccordeon/gravexplain/releases/download/v1.0/sample.zip
+Download the latest source code from the repository. Download the sample files (three .csv and two .mp4) as sample1.zip from the release below, and extract them into the same directory as the source code.
+https://github.com/daccordeon/gravexplain/releases/download/v1.1/sample1.zip
 
 Execute main.py with python3, this can typically be done via the command line with "python3 main.py" when in the directory containing all of the source code and sample files.
 
