@@ -1,0 +1,203 @@
+\documentclass[paper-main.tex]{subfiles}
+
+
+\begin{document}
+
+
+% Optical microphone
+% aim of optical microphone: play back injected sounds
+
+A natural succession to observing simple tones is to use complex audio signal, such as music and speech. 
+The Viterbi algorithm and tracking more broadly is not applicable to these signals---music and speech are constantly changing over a broad spectrum. 
+Instead of tracking a changing frequency over time, here we are interested in being able to record the interference pattern and play back these complex audio signal. 
+We use the interferometer as an `optical microphone', using light to capture sound. 
+The device has precedence in the laser microphones~\cite{laser_microphone} used in the defence industry which operate on a variety of related principles.
+
+This section is indirectly related to the advanced signal processing required to extract gravitational-wave signals. 
+The optical microphone provides an interesting independent demonstration for a broader physics and engineering audience, particularly for the undergraduate lab. 
+
+We describe additional components to the demonstration in Section~\ref{sec:photodiode} and our initial results in Section~\ref{sec:initialResultsOpMic}.
+Filter and speech enhancement techniques applied to the data are detailed in Sections~\ref{sec:simple_filters} and~\ref{sec:logmmse} respectively.
+
+
+\subsection{The photodiode method}
+\label{sec:photodiode}
+% advanced method: explain how we capture data
+
+For the optical microphone to be sensitive to speech and music it needs a sampling rate far higher than the $30\,{\rm Hz}$ of the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering}. 
+Audible frequencies are in the range $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
+Speech intelligibility requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$~\cite{speech_intelligibility}. 
+Therefore the optical microphone data requires a sample rate of at least $16\,{\rm kHz}$ to capture both speach and music. 
+We achieved this with a photodiode.
+
+
+A photodiode is an electrical component that acts as a regular diode wheen no light is incident on it, blocking any current flow in the `reverse' direction.
+As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction. 
+% Fundamentally, a current is created in the photodiode by the photo-electric effect.
+We place a (OSRAM BPW21) photodiod in reverse-bias over an (LM358) op-amp. 
+This creates a photo-detector that produces a voltage dependent on the incident intensity. 
+The photodiode recored the interference pattern at roughly the same off-centre position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} (however we saw no difference when monitoring at other positions in the interference pattern).
+The photodiode was mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath. 
+
+
+The voltage signal from the photo-detector is captured by a (MCP3008) $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. 
+Together, these sampled the signal at roughly $16\,{\rm kHz}$, our desired limit.
+
+
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing into the detected range. 
+To prevent this, we include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC. 
+This component attenuates any frequencies above $8\,{\rm kHz}$, before they are digitally sampled.
+We also place another cloth screen over the face of the photodiode, as the reading without it, after gaining through the op-amps, was too high for the ADC.
+% It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
+% The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
+
+An updated schematic is shown in Figure~\ref{fig:ifo_schematic_podo} and a photograph of the entire optical microphone in Figure~\ref{fig:setup_pic2}.
+See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circuit. 
+
+
+\begin{figure}
+	\includegraphics[width=0.49\textwidth]{figures/ifo_schematic_photodiode.pdf}
+	\caption{Michelson interferometer schematic with the intensity of the interference pattern at a point measured by a photodiode. See Figure~\ref{fig:ifo_schematic_webcam} for details on the optical configuration.}
+	\label{fig:ifo_schematic_podo}
+\end{figure}
+
+\begin{figure*}
+	\includegraphics[width=.6\textwidth]{figures/setup_pic2.pdf}
+\caption{Photograph of the optical microphone set-up. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
+	\label{fig:setup_pic2}
+\end{figure*}
+
+
+\subsection{Initial results of the optical microphone}
+\label{sec:initialResultsOpMic}
+% breakdown of all the filters used along the way
+
+The optical microphone is tested on varied recordings of speech from different people and on music ranging from simple melodies to full track songs. 
+Each recording is around one minute long with processing applied to ten second segments. 
+For each observation, the audio is played through the speaker whilst the Pi script records the signal from the photodiode. 
+During recordings, care is taken to ensure minimal activity around the interferometer to reduce environmental noise. 
+The timeseries is then directly converted to a .wav file and played as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python} as before.
+
+We find that initial recordings are extremely noisy with a loud bass hum throughout.
+Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond the $8$th harmonic thereof.
+We find that the mains power signal is present in data recorded without an injected audio signal as shown by the power spectral density (effectively the norm squared of the Fourier spectrum) in Figure~\ref{fig:psd_noise}.
+The mains power is also present in data taken with the photodiode in complete darkness with a similar but weaker distribution as that shown in Figure~\ref{fig:psd_noise}).
+The origin of the mains power signal is likely to be from the photodiode signal, or environmental noise from the rooms lighting and air conditioning, or a combination. 
+
+
+
+\begin{figure}
+	\includegraphics[width=.49\textwidth]{figures/podo_noise_psd_zoom-cropped.pdf}
+	\caption{Power spectral density (PSD) of the optical microphone system with no injected audio (i.e.\ with the speaker off). We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most likely from the photodiode circuit and the surrounding room’s lighting and even cooling), but otherwise is a fairly white spectrum.}
+	% except for the broad, shallow maximum at 750Hz}
+	\label{fig:psd_noise}
+\end{figure}
+
+
+\subsection{Applying filters to the data}
+\label{sec:simple_filters}
+
+Here we describe several approaches to remove the $50\,{\rm Hz}$ mains power signal and its harmonics. 
+
+Simply zeroing the frequency channel of each $50\,{\rm Hz}$ harmonic in the Fourier spectrum is unsuccessful. 
+Effectively, this multiplies the spectrum by a rectangular comb filter. 
+It does remove the mains harmonics, however it audibly ruins the rest of the signal. 
+Applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. 
+The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complicated sinc-like function, which significantly damages the signal. 
+
+
+A smoother comb filter significantly attenuates the spectrum between each harmonic so that the signal is no longer audible. 
+
+
+Applying a high-pass filter with cut-off frequency $150\,{\rm Hz}$ to the signal works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics.
+However, mains harmonics $> 100\,{\rm Hz}$ and remain after filtering. 
+The region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of speech and music~\cite{speech_intelligibility}. 
+Therefore, although a high-pass filter with a higher cut-off removes more harmonics, the resultant signal is unrecognisable. 
+Applying a high-pass filter to the logarithm of the signal spectrum does not significantly improve on the above simple high-pass filter.
+
+%We also tried applying a high-pass filter to the logarithm of the signal spectrum and then exponentiating back, but this didn’t significantly improve on the above simple high-pass.
+
+
+\begin{figure}
+	\includegraphics[width=0.49\textwidth]{figures/butterworth_150_3000-cropped.pdf}
+	\caption{Butterworth bandpass filter frequency response, any amplitude beyond -3dB is significant attenuation (half power). The green vertical lines show the band limits of 150Hz and 3kHz. Note the flat response within the band.}
+	\label{fig:butterworth}
+\end{figure}
+
+
+Band-passing the signal similarly does not address the remaining harmonics above $100\,{\rm Hz}$. 
+However, it does low-pass away other noise at higher frequencies. 
+The best performing band-pass filter we found was a fifth order ($n = 5$) Butterworth filter over the range $150\,{\rm Hz}$--$3\,{\rm kHz}$ (beyond $2\,{\rm kHz}$ speech information content drops significantly~\cite{speech_intelligibility}). 
+For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\epsilon$, the frequency response (attenuation at each frequency) is,
+\begin{equation}
+\label{eq:butterworth}
+H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\frac{\omega}{\omega_c})^{2n}}},
+\end{equation}
+as a function of frequency $\omega$. 
+To construct a Butterworth band-pass filter, the above low-pass filter is combined with a high-pass filter of similar form. 
+The response of the filter used is shown in Figure~\ref{fig:butterworth}. 
+This filter improves on the above simpler filters but recordings of speech still have very low intelligibility, they can be recognised as speech but not understood.
+
+
+The ideal filter would be one that i.) completely attenuates the undesired parts of the spectrum, ii.) does not change the rest of the spectrum, and iii.) has smooth edges so as to not damage the signal through convolution. 
+These three conditions are contradictory and any filter must compromise between them. 
+The above simple filters fail at one or more of each of these conditions. 
+The combs ruin the signal and the high-passes do not remove the noise. 
+The Butterworth filter performs the best audibly as it is optimised to be `maximally flat' within the band region, prioritising the second condition.
+
+\han{Is it worth also including some plots to show how the different filters perform? E.g. a PSD with comb filter, high pass filter, Butterworth filter?}
+
+% Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
+
+
+\subsection{The logMMSE estimator}
+\label{sec:logmmse}
+% logMMSE
+
+Speech enhancement for a noisy channel is a classic problem in signal processing. 
+Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compare 13 speech enhancement methods. 
+They find the best performing statistical technique considered to be a logMMSE (alt.\ MMSE-LSA) estimator. 
+This type of estimator is based on work by Ephraim~\&~Malah~(1984)~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
+Historically this technique minimises with respect to the spectral amplitude~\cite{EphraimSpeechEU_MMSE}. 
+However in speech processing, use of the logarithm seems to produce better results as percieved by the human ear~\cite{SubjectiveComparison}.
+
+
+In this work we used an existing implementation~\cite{logmmse} of the logMMSE estimator. 
+Applying this estimator to the optical microphone recordings produced dramatically cleaner results. 
+
+In Figures~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} we present results from playing a speech recording through the optical microphone. 
+Figure~\ref{fig:logMMSE_timeseries} shows the time series from before (top panel) and after (bottom panel) applying the logMMSE filter. 
+Figure~\ref{fig:logMMSE_spectrum} shows the corresponding spectra before (top panel) and after (bottom panel) the logMMSE filter. 
+Comparing the before and after spectra shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum. 
+
+\begin{figure*}
+	\includegraphics[width=.8\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
+	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom time series is an expected result from filtering a finite signal.}
+	\label{fig:logMMSE_timeseries}
+\end{figure*}
+
+\begin{figure*}
+	\includegraphics[width=.8\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
+	\caption{Spectrum of optical microphone recording of adult male voice shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows up to $2\,{\rm kHz}$ and to amplitude $2$ to see greater detail.}
+	\label{fig:logMMSE_spectrum}
+\end{figure*}
+
+
+We also find improvement with music recordings.
+After applying the estimator, simple chords and drums can be heard clearly. 
+However more complex melodies are sometimes completely absent from the resulting time series. 
+From observation, this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins.
+This could be a perceptual effect of listening to the lossy recording, but seems more likely to be a frequency dependence somewhere in the optical microphone system. 
+Speculating, perhaps the amplitude of speaker-mirror oscillations is higher at low frequencies and so instruments like electric bass and drums are louder in the results.
+
+
+Overall, we find that the intelligibility of speech signals remains low. 
+The voice sounds mumbled and indistinct. 
+The estimator removes most of the background noise, but does not clarify the speech. 
+To address these problems with the recordings we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
+This requires a better understanding of the system and further improvements to the experiment if true.
+% The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
+
+
+
+\end{document}

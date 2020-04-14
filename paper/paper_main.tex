@@ -1,5 +1,5 @@
 % GravExplain
-\documentclass[prb,preprint]{revtex4-1} 
+\documentclass[prb,reprint]{revtex4-1} 
 % \documentclass[prb,preprint,letterpaper,noeprint,longbibliography,nodoi,footinbib]{revtex4-1} 
 
 % Note that AJP uses the same style as Phys. Rev. B (prb).
@@ -16,6 +16,7 @@
 \usepackage{hyperref}
 % \usepackage{siunitx}
 \usepackage{textcomp}
+\usepackage{subfiles}
 
 \bibliographystyle{apsrev4-2}
 % \setlength{\parindent}{0pt}
@@ -24,7 +25,159 @@
 \newcommand{\han}{\textcolor{orange}}
 
 
+
+
 \begin{document}
+
+\title{GravExplain: Demonstrating continuous gravitational wave searches using sound and a table-top interferometer}
+
+
+\author{James W. Gardner}
+\email{u6069809@anu.edu.au}
+\affiliation{%
+College of Science, Australian National University, Acton, ACT, 2601, Australia
+}%
+
+\author{Changrong Liu}
+\email{}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
+
+\author{Hannah Middleton}
+\email{hannah.middleton@unimelb.edu.au}
+\affiliation{%
+ School of Physics, University of Melbourne, Parkville, Vic, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{Andrew Melatos}
+\email{amelatos@unimelb.edu.au}
+\affiliation{%
+ School of Physics, University of Melbourne, Parkville, Vic, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{Robin Evans}
+\email{robinje@unimelb.edu.au}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{William Moran}
+\email{wmoran@unimelb.edu.au}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
+\affiliation{
+}
+
+\author{\han{also invite the people who helped us with interferometer design to be authors??}}
+\email{wmoran@unimelb.edu.au}
+\affiliation{%
+Adelaide, Adelaide-OzGrav
+}
+
+% Summer 2019/2020
+\date{\today}
+
+
+\begin{abstract}
+Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy data. 
+We demonstrate these techniques by observing sound with a table-top Michelson interferometer. 
+In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+We also describe how the inclusion of a photodiode and Raspberry Pi allowed the interferometer to act as an `optical microphone' with sufficient fidelity to play back simple audio recordings. 
+However, more complex recordings, of speech, remain unintelligible when played back, despite preliminary efforts made towards speech enhancement.
+%Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. 
+%We demonstrate these techniques by observing sound with a table-top Michelson interferometer. 
+%In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+%We also describe how the inclusion of a photodiode and Raspberry Pi allowed the interferometer to act as an `optical microphone' with sufficient fidelity to play back simple audio recordings. 
+%However, more complex recordings, of speech, remain unintelligible when played back, despite preliminary efforts made towards speech enhancement.
+\end{abstract}
+
+
+
+\maketitle
+
+\section{Introduction}
+\label{sec:introduction}
+\subfile{ifo-introduction.tex}
+
+
+\section{Table-top gravitational wave science}
+\label{sec:ifo}
+\subfile{ifo-tableTopGWs.tex}
+
+
+\section{Observing a single tone}
+\label{sec:single_tone}
+\subfile{ifo-singleTone.tex}
+
+ 
+\section{Observing a wandering tone}
+\label{sec:viterbi_wandering}
+\subfile{ifo-wanderingTone.tex}
+
+
+\section{Playing back complex audio}
+\label{sec:optical_microphone}
+\subfile{ifo-complexAudio.tex}
+
+
+\section{Future work}
+\label{sec:future_work}
+\subfile{ifo-futureWork.tex}
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+\subfile{ifo-conclusions.tex}
+
+
+\begin{acknowledgments}
+The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance throughout the project.
+The authors are also grateful to Deeksha Beniwal, Sebastian Ng, and Craig Ingram for their advice and work in designing the interferometer. 
+This research is supported by the Australian Research Council Centre of Excellence for Gravitational Wave Discovery (OzGrav) (project number CE170100004) and the Institute of Physics International Member Grant.
+Travel during the project was supported by the Australian National University PhB Science program.
+
+\end{acknowledgments}
+
+
+\bibliographystyle{myunsrt}
+\bibliography{ifoDemoBib}
+
+
+\newpage
+\appendix
+\subfile{ifo-appendix.tex}
+
+
+\end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
 
 % cover page
 \section*{Project contributions}
@@ -61,20 +214,46 @@ Finally, the start of February was spent writing the paper and giving presentati
 
 \title{GravExplain: Demonstrating continuous gravitational wave searches using sound and a table-top interferometer}
 
+
 \author{James W. Gardner}
 \email{u6069809@anu.edu.au}
-\affiliation{College of Science, Australian National University, Acton, ACT, 2601, Australia}
+\affiliation{%
+College of Science, Australian National University, Acton, ACT, 2601, Australia
+}%
 
-\author{Hannah Middleton$^{(i)}$}
+
+\author{Hannah Middleton}
 \email{hannah.middleton@unimelb.edu.au}
-\author{Andrew Melatos$^{(i)}$}
+\affiliation{%
+ School of Physics, University of Melbourne, Parkville, Vic, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{Andrew Melatos}
 \email{amelatos@unimelb.edu.au}
-\author{Robin Evans$^{(ii)}$}
+\affiliation{%
+ School of Physics, University of Melbourne, Parkville, Vic, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{Robin Evans}
 \email{robinje@unimelb.edu.au}
-\author{William Moran$^{(ii)}$}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery
+}
+
+\author{William Moran}
 \email{wmoran@unimelb.edu.au}
-\affiliation{School of Physics$^{(i)}$ and Department of Electrical and Electronic Engineering$^{(ii)}$, University of Melbourne, Parkville, VIC, 3010, Australia}
-\affiliation{OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
 
 % Summer 2019/2020
 \date{\today}
@@ -173,26 +352,7 @@ For later sections, we derive the non-linear relation between the separation of 
 
 % A note that while the interference pattern appears similar to the Airy pattern produced by a circular aperture, they are not in fact the same geometry.
 
-\section{Observing a single tone}
-\label{sec:single_tone}
-% the webcam method
-% how to analyse video, python OpenCV2
-
-As mentioned in Section~\ref{sec:introduction}, continuous gravitational wave searches look for near monochromatic signals. The audio analogue of this is a simple sinusoidal tone; a constant note.
-
-We measured the intensity at a point on the screen with a commercial USB webcam placed as to view the screen as in Figure~\ref{fig:ifo_schematic_webcam}. This webcam samples at 30Hz, which limits the spectral content of signals we can observe to below 15Hz, the Nyquist frequency.
-% See later Section~\ref{sec:photodiode} where we raise this limit into audible frequencies (20 Hz to 20kHz) with a photodiode.
-While playing a tone under 15Hz through the speaker for a minute, we recorded the interference pattern with the webcam. Then, at an off-centre pixel (shown as a red dot in Figure~\ref{fig:interference_pattern}), we took the green-channel of the video as approximate to the total intensity, as the laser is monochromatic green light (at 532nm).
-
-We played this time series of intensity over time as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python}. The two tones played together sound similar and don’t produce any noticeable beating.
-To quantify the precision, we recorded a signal from an injected tone of 2.09Hz. From the Fourier transform shown in Figure~\ref{fig:webcam_spectrum}, we measured a peak amplitude at $(2.099\pm 0.008)\mathrm{Hz}$, a result within two standard deviations. This showed that the experiment observes a single tone confidently.
-
-\begin{figure}[h]
-	\includegraphics[width=\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
-	\caption{Fourier amplitudes of intensity time series of interference pattern as captured by a webcam for an injected tone of 2.09Hz, the amplitude 17.5 peak was measured at $(2.099\pm 0.008) \mathrm{Hz}$. The actual maximum is achieved at 0Hz, but corresponds to the signal having a non-zero average value, so we don’t display or consider it.}
-	\label{fig:webcam_spectrum}
-\end{figure}
-
+    
 \section{Observing a wandering tone}
 \label{sec:viterbi_wandering}
 % Tracking tones with the Viterbi algorithm
