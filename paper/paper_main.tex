@@ -29,7 +29,19 @@
 
 \begin{document}
 
-\title{GravExplain: Demonstrating continuous gravitational wave searches using sound and a table-top interferometer}
+%\title{GravExplain: Demonstrating continuous gravitational wave searches using sound and a table-top interferometer}
+\title{Title ideas...
+\\\hspace{2em}\newline
+Demonstrating continuous gravitational wave searches in the lab with an optical microphone
+\\\hspace{2em}\newline
+An optical microphone analogy to continuous gravitational wave searches 
+\\\hspace{2em}\newline
+Continuous gravitational waves in the lab: recovering audio signals with a table-top optical microphone
+\\\hspace{2em}\newline
+}
+
+
+
 
 
 \author{James W. Gardner}
@@ -37,12 +49,6 @@
 \affiliation{%
 College of Science, Australian National University, Acton, ACT, 2601, Australia
 }%
-
-\author{Changrong Liu}
-\email{}
-\affiliation{%
-Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
-}
 
 \author{Hannah Middleton}
 \email{hannah.middleton@unimelb.edu.au}
@@ -76,7 +82,17 @@ OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitati
 \affiliation{%
 Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
 }
-\affiliation{
+\affiliation{%
+\han{check all affiliations}
+}
+
+\author{Changrong Liu}
+\email{}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
+}
+\affiliation{%
+\han{check all affiliations}
 }
 
 \author{\han{also invite the people who helped us with interferometer design to be authors??}}
@@ -90,11 +106,22 @@ Adelaide, Adelaide-OzGrav
 
 
 \begin{abstract}
-Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy data. 
-We demonstrate these techniques by observing sound with a table-top Michelson interferometer. 
-In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
-We also describe how the inclusion of a photodiode and Raspberry Pi allowed the interferometer to act as an `optical microphone' with sufficient fidelity to play back simple audio recordings. 
-However, more complex recordings, of speech, remain unintelligible when played back, despite preliminary efforts made towards speech enhancement.
+Gravitational wave observatories around the world are searching for continuous waves: persistent signals from spinning neutron stars. 
+Searches use sophisticated statistical techniques to look for weak signals in noisy data. 
+We show how continuous wave searches can be demonstrated with a table-top model gravitational-wave detector (a Michelson interferometer). 
+Sound is used as an analogue to gravitational-wave signals in our model detector. 
+Using signal processing techniques from continuous wave searches we demonstrate the recovery of a constant and changing frequency tone. 
+Finally we investigate the performance of the demonstration as an `optical microphone'. 
+We test its recovery of music and speech. 
+Simple chords and drums are easily recovered, however speech recordings are very noisy. 
+Application of an existing speech enhancement technique provides some noise reduction, however the audio remains unintelligible. 
+This demonstration has scope for use in the physics and electrical engineering undergraduate lab. 
+It can also be adapted for use as an engagement tool for communicating gravitational-wave and signal-processing topics to non-specialist audiences. 
+%Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy data. 
+%We demonstrate these techniques by observing sound with a table-top Michelson interferometer. 
+%In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
+%We also describe how the inclusion of a photodiode and Raspberry Pi allowed the interferometer to act as an `optical microphone' with sufficient fidelity to play back simple audio recordings. 
+%However, more complex recordings, of speech, remain unintelligible when played back, despite preliminary efforts made towards speech enhancement.
 %Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. 
 %We demonstrate these techniques by observing sound with a table-top Michelson interferometer. 
 %In particular, we used the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
@@ -116,17 +143,17 @@ However, more complex recordings, of speech, remain unintelligible when played b
 \subfile{ifo-tableTopGWs.tex}
 
 
-\section{Observing a single tone}
+\section{Single tone}
 \label{sec:single_tone}
 \subfile{ifo-singleTone.tex}
 
  
-\section{Observing a wandering tone}
+\section{Wandering tone}
 \label{sec:viterbi_wandering}
 \subfile{ifo-wanderingTone.tex}
 
 
-\section{Playing back complex audio}
+\section{Complex audio: music and speech}
 \label{sec:optical_microphone}
 \subfile{ifo-complexAudio.tex}
 

@@ -9,7 +9,7 @@
 
 A natural succession to observing simple tones is to use complex audio signal, such as music and speech. 
 The Viterbi algorithm and tracking more broadly is not applicable to these signals---music and speech are constantly changing over a broad spectrum. 
-Instead of tracking a changing frequency over time, here we are interested in being able to record the interference pattern and play back these complex audio signal. 
+Instead of tracking a changing frequency over time, here we are interested in being able to record the interference pattern and play back these complex audio signals. 
 We use the interferometer as an `optical microphone', using light to capture sound. 
 The device has precedence in the laser microphones~\cite{laser_microphone} used in the defence industry which operate on a variety of related principles.
 
@@ -20,14 +20,14 @@ We describe additional components to the demonstration in Section~\ref{sec:photo
 Filter and speech enhancement techniques applied to the data are detailed in Sections~\ref{sec:simple_filters} and~\ref{sec:logmmse} respectively.
 
 
-\subsection{The photodiode method}
+\subsection{Recording data via photodiode}
 \label{sec:photodiode}
 % advanced method: explain how we capture data
 
-For the optical microphone to be sensitive to speech and music it needs a sampling rate far higher than the $30\,{\rm Hz}$ of the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering}. 
+Speech and music recordings require a higher sample rate than that of the webcam ($30\,{\rm Hz}$) used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering}. 
 Audible frequencies are in the range $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
 Speech intelligibility requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$~\cite{speech_intelligibility}. 
-Therefore the optical microphone data requires a sample rate of at least $16\,{\rm kHz}$ to capture both speach and music. 
+Therefore the optical microphone data requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music. 
 We achieved this with a photodiode.
 
 
@@ -36,12 +36,12 @@ As the intensity of incident light rises, it becomes increasingly conductive in 
 % Fundamentally, a current is created in the photodiode by the photo-electric effect.
 We place a (OSRAM BPW21) photodiod in reverse-bias over an (LM358) op-amp. 
 This creates a photo-detector that produces a voltage dependent on the incident intensity. 
-The photodiode recored the interference pattern at roughly the same off-centre position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} (however we saw no difference when monitoring at other positions in the interference pattern).
+The photodiode records the interference pattern at roughly the same off-centre position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} (however we see no difference when monitoring at other positions in the interference pattern).
 The photodiode was mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath. 
 
 
 The voltage signal from the photo-detector is captured by a (MCP3008) $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. 
-Together, these sampled the signal at roughly $16\,{\rm kHz}$, our desired limit.
+Together, these sampled the signal at roughly $16\,{\rm kHz}$.
 
 
 Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing into the detected range. 
@@ -56,8 +56,11 @@ See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circu
 
 
 \begin{figure}
-	\includegraphics[width=0.49\textwidth]{figures/ifo_schematic_photodiode.pdf}
-	\caption{Michelson interferometer schematic with the intensity of the interference pattern at a point measured by a photodiode. See Figure~\ref{fig:ifo_schematic_webcam} for details on the optical configuration.}
+	\includegraphics[width=0.49\textwidth]{figures/ifo_schematic_photodiode_edit.pdf}
+	\caption{
+Michelson interferometer schematic. 
+The schematic is identical to Figure~\ref{fig:interference_pattern} except that the data is now recorded using a photodiode and Raspberry Pi instead of a webcam. 
+}
 	\label{fig:ifo_schematic_podo}
 \end{figure}
 
@@ -120,7 +123,7 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 
 \begin{figure}
 	\includegraphics[width=0.49\textwidth]{figures/butterworth_150_3000-cropped.pdf}
-	\caption{Butterworth bandpass filter frequency response, any amplitude beyond -3dB is significant attenuation (half power). The green vertical lines show the band limits of 150Hz and 3kHz. Note the flat response within the band.}
+	\caption{Butterworth bandpass filter frequency response, any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The green vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band.}
 	\label{fig:butterworth}
 \end{figure}
 
