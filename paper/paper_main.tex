@@ -1,5 +1,6 @@
 % GravExplain
-\documentclass[prb,reprint]{revtex4-1} 
+%\documentclass[prb,reprint,nofootinbib]{revtex4-1} 
+\documentclass[pra,superscriptaddress,reprint,amsmath,amssymb,nofootinbib]{revtex4-1}
 % \documentclass[prb,preprint,letterpaper,noeprint,longbibliography,nodoi,footinbib]{revtex4-1} 
 
 % Note that AJP uses the same style as Phys. Rev. B (prb).
@@ -17,8 +18,24 @@
 % \usepackage{siunitx}
 \usepackage{textcomp}
 \usepackage{subfiles}
+\usepackage[bottom]{footmisc}
 
-\bibliographystyle{apsrev4-2}
+
+%\usepackage{dcolumn}
+%\usepackage{bm}
+%\usepackage[pdftex,plainpages=false,colorlinks=true]{hyperref}
+%\usepackage[toc,page,title,titletoc,header]{appendix} 
+%\usepackage{multirow}
+%\usepackage{tabularx}
+%\usepackage[bottom]{footmisc}
+%\usepackage{caption}
+%\usepackage{subcaption}
+%\usepackage[bottom]{footmisc}
+%\usepackage{soul}
+
+
+
+%\bibliographystyle{apsrev4-2}
 % \setlength{\parindent}{0pt}
 
 \newcommand{\jam}{\textcolor{magenta}}
@@ -134,7 +151,7 @@ It can also be adapted for use as an engagement tool for communicating gravitati
 \subfile{ifo-tableTopGWs.tex}
 
 
-\section{Single tone}
+\section{Constant tone}
 \label{sec:single_tone}
 \subfile{ifo-singleTone.tex}
 

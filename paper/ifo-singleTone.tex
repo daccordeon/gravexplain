@@ -7,7 +7,7 @@
 % how to analyse video, python OpenCV2
 
 Continuous wave searches look for signals which are close to monochromatic. 
-In this section we consider a simple sinusoidal tone; a constant note. 
+In this section we consider a simple sinusoidal tone; a time at a single constant frequency. 
 As described in Section~\ref{sec:ifo}, the audio is played through a speaker fixed to the back of one of the mirrors.
 
 
@@ -16,11 +16,10 @@ The webcam's sample rate is $30\,{\rm Hz}$, which limits the spectral content of
 A tone under $15\,{\rm Hz}$ is played through the speaker for one minute and the interference pattern recorded with the webcam. 
 
 
-The resulting data is a video capture of the whole interference pattern. 
-As only the frequency of the interference ring motion is needed, we take data from a single off-centre pixel indicated by the red dot in Fig.~\ref{fig:interference_pattern}. 
-We take the green-channel of the video as an approximation to the total intensity as the laser produces monochromatic green light (at $532\,{\rm nm}$).
-
-
+%The resulting data is a video capture of the whole interference pattern. 
+%As only the frequency of the interference ring motion is needed, w
+We take data from a single off-centre pixel indicated by the red dot in Fig.~\ref{fig:interference_pattern}. 
+The green-channel of the video is used as an approximation to the total intensity as the laser produces monochromatic green light (at $532\,{\rm nm}$).
 As an initial inspection, we play the timeseries of the intensity using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python}. 
 The two tones sound similar by ear and don't produce any noticeable beating. 
 The result is quantified in Fig.~\ref{fig:webcam_spectrum}. 
@@ -39,8 +38,9 @@ The demonstration is able to recover a single frequency tone to within two stand
 \begin{figure}
 	\includegraphics[width=.49\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
 	\caption{\label{fig:webcam_spectrum}
-Single injected tone results. 
-The Fourier amplitude of the intensity timeseres recorded by webcam. 
+Injected tone at a constant frequency: Fourier amplitude of the intensity time series recorded by the webcam. 
+%Single injected tone results. 
+%The Fourier amplitude of the intensity timeseres recorded by webcam. 
 The frequency of the injection is $2.09\,{\rm Hz}$. 
 The recovered frequency peak is at $(2.099\pm 0.008)\,{\rm Hz}$. 
 \han{[to do: add new numbers from James]}

@@ -8,25 +8,28 @@
 
 % Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
 
-In this work we use a table-top Michelson interferometer as an analogue to a gravitational-wave detector. 
-Signals are simulated with sound recordings played though a speaker fixed to the back of one of the interferometer mirror. 
-We consider monochromatic and slowly-wandering frequency signals as an analogue to continuous wave signals as well as more complex audio recordings of speech and music. 
+In this paper we present an educational demonstration in which an \han{inexpensive}, table top Michelson interferometer serves as an analogue to a gravitational-wave detector. 
+Vibrations produced by gravitational-wave signals are simulated with sound recordings played though a speaker fixed to the back of one of the interferometer mirrors. 
+We consider quasimonochromatic signals as an analogue to continuous wave signals as well as short segments of speech and music which are (more distant) analogues of unmodelled gravitational-wave bursts, e.g. from supernovae. 
 % This serves to demonstrate signal processing techniques.
 
-In Sections~\ref{sec:ifo} and ~\ref{sec:single_tone} we demonstrate the recovery of a monochromatic and wandering frequency signal. 
-A webcam is used to track the interference pattern and the injected signal is recovered succesffully with the Viterbi algorithm. 
+
+In Sections~\ref{sec:ifo} and ~\ref{sec:single_tone} we demonstrate the recovery of signals with constant and slowly wandering frequency. 
+A webcam sampling at \han{XX}$\,{\rm Hz}$ is used to track the interference pattern and the injected signal is recovered succesfully with the Viterbi algorithm. 
 These sections direcly demonstrate the continuous wave search techniques used in gravitational-wave data analysis. 
 %Using a webcam to track the interference pattern, we inject a wandering frequency signal into the system with a speaker attached to the back of one of mirrors of the interferometer. We then demonstrate how to recover this signal using the Viterbi algorithm, just as is done in continuous gravitational wave searches.
 
 
-Substituting the webcam for the increased frequency response of a photodiode circuit read by a Raspberry Pi, we turned the interferometer into an optical microphone.
+In Section~\ref{sec:complex_audio} we demonstrate recovery of more complex signals of music and speech. 
+Substituting the webcam for the increased frequency response of a photodiode read by a Raspberry Pi, we transform the interferometer into an optical microphone.
 We demonstrate that the optical microphone is capable of playing back simple recordings well but that it produces unintelligible recordings of speech. 
-Dominant $50\,{\rm Hz}$ mains hum in the recordings led to an exploration of speech enhancement techniques to remove it, including the well performing logMMSE estimate. 
-Further avenues of exploration for this work include changes to the demonstration hardware to further remove the mains harmonics as well as investigating a more complete model of the optical microphone transfer function, which may lead to improvements in intelligibility. 
+Mains hum at $50\,{\rm Hz}$ and its harmonics dominates the photodiode output. 
+This offers students the opportunity to explore speech enhancement techniques to remove it, including the well performing logMMSE estimator. 
+Further avenues of exploration include a more complete model of the optical microphone transfer function, which may lead to improvements in intelligibility. 
 
 
 The demonstration presented here has good potential to be adapted for use in the undergraduate laboratory. 
-It can be used to demonstrate topics of interest to astrophysics and digital communications including: interferometer physics; gravitational-wave detection, searches, and analysis; and signal processing with filters and speech enhancement. 
+It can be used to demonstrate topics of interest to physicists and electrical engineers including: interferometer physics; gravitational-wave detection, searches, and analysis; and signal processing with filters and speech enhancement. 
 %These demonstrations have good potential to be adapted into the undergraduate laboratory. There is much to explore in the physics of the interferometer and the astronomy of the motivating continuous gravitational wave searches. Most of all, the signal processing of speech enhancement is an interesting problem that’s relevant to digital communications.
 
 
