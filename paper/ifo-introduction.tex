@@ -4,7 +4,7 @@
 
 
 % general gw intro
-In 2015, gravitational waves were observed for the first time from the merger of two black holes in a binary system~\cite{GW150914}. 
+In 2015, gravitational waves were observed for the first time from the merger of two black holes~\cite{GW150914}. 
 The observation, made by the Laser Interferometer Gravitational-wave Observatory~\citep[LIGO]{AdvancedLIGO:2015}, marked a breakthrough in modern astrophysics and revealed a new means to observe the universe. 
 Since 2015, the LIGO and Virgo~\cite{AdvancedVirgo:2015} observatories have made numerous detections of binary black hole~\cite{GW151226,GW170104,GW170814} and binary neutron star~\cite{GW170817,GW170817multi,GW190425} mergers. 
 Gravitational-wave detection has led to increased public and media interest in gravitational-wave science. 
@@ -13,38 +13,40 @@ Activities range from hands-on demonstrations, exhibitions~\cite{TTExhibit:2020,
 
 % what are gws and how do we detect them...
 Gravitational waves are a prediction of Albert Einstein's theory of general relativity~\cite{Einstein:1916}. 
-They are disturbances in spacetime caused by the acceleration of massive objects. 
+They are disturbances in spacetime caused by the acceleration of asymmetric massive objects. 
 The effect of gravitational waves is a change in lengths: a `stretching and squeezing' of the distance between objects.
-Observatories such as LIGO, Virgo, and KAGRA~\cite{KAGRA:2013} are laser interferometers, they use the interference of laser light to measure changes in distance. 
+Observatories such as LIGO, Virgo, and KAGRA~\cite{KAGRA:2013} are laser interferometers.
+They use the interference of laser light to measure changes in distance. 
 %As shown in an aerial view of LIGO Hanford in Figure~\ref{fig:ligo_pic}, they use beam arms kilometres long.
-Gravitational-wave observatories are extremely complex, but are fundamentally are based on the Michelson interferometer. 
+Gravitational-wave observatories are extremely complex but are fundamentally based on the Michelson interferometer. 
 Table-top Michelson interferometers are commonly used in undergraduate lab experiments~\cite{UgoliniEtAl:2019} and to demonstrate the science of gravitational wave detection to non-specialist audiences~\cite{ThorLabsIFO,NikhefIFO,TTExhibit:2020,LIGOIFOGlue,LIGOIFOMagnets}.
 
 % continuous gws
-To date the network of gravitational wave observatories have observed short-duration transient signals~\cite{GWTC-1:2018,GWOSC:online}. 
-However, the network is also searching for continuous gravitational waves; persistent periodic signals at near-monochromatic frequencies.
+To date the network of gravitational wave observatories has observed short-duration transient signals~\cite{GWTC-1:2018,GWOSC:online}. 
+However, the network is also searching for continuous gravitational waves: persistent, periodic, near-monochromatic signals.
 Continuous waves may be emitted at constant frequencies, or may wander slowly in frequency over time. 
-Rotating neutron stars in low mass X-ray binaries (LMXBs) are one of the targets for continuous-wave searches. 
-LMXBs are binary systems containing a compact object (such as a neutron star or a black hole) in orbit with a low mass stellar companion~\cite{xraybinaries:1997}. 
+For example, rotating neutron stars in low mass X-ray binaries (LMXBs) are one of the targets for continuous-wave searches. 
+LMXBs are binary systems containing a compact object (such as a neutron star or a black hole) in orbit with a low mass stellar companion, where the rotation frequency of the compact object wanders over time due to variable accretion of matter (and hence angular momentum transfer) from the companion~\cite{xraybinaries:1997}. 
 Scorpius X-1 is an LMXB which is particularly bright in X-rays. 
 It is a prime target for continuous wave searches from LMXBs and numerous, as yet unsuccessful, searches have been performed~\cite{ScoX1O2Viterbi:2019,RadiometerO1O2:2019,SearchCrossCorrO1:2017}.
 
 
 % sound analogy
-We use the analogy of sound to demonstrate gravitational-wave science with a table-top experiment (see also Section~\ref{sec:ifo}). 
-We use similar data analysis techniques to those used in the search for continuous waves in LIGO and Virgo data~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,SuvorovaEtAl:2017,SuvorovaEtAl:2017}.
-As an undergraduate lab experiment this demonstration can be used to teach topics ranging from gravitational-wave detection and analysis to signal processing and speech enhancement. 
-It can also be adapted for use as an outreach tool to explain gravitational-wave science to a general audience. 
+In this paper, we present an \han{inexpensive} table-top experiment, where a standard Michelson interferometer plays the role of a `toy' gravitational-wave detector, which detects acoustic vibrations (such as music) instead of gravitational waves. 
+As an undergraduate lab experiment this demonstration can be used to teach topics ranging from gravitational-wave detection and analysis to electronics, signal processing, and speech enhancement. 
+It gives students in courses such as physics and electrical engineering the freedom to explore the response of an accessible yet nontrivial optomechanical system using a hierarchy of data analysis techniques of increasing complexity, including those used in the search for continuous waves in LIGO and Virgo data~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,SuvorovaEtAl:2017,SuvorovaEtAl:2017}.
+The demonstration can also be adapted for use as an outreach tool to explain gravitational-wave science to a general audience. 
 
 
+The paper presents 
 In this work we present a selection of demonstrations using different types of audio signals ranging from simple tones, analogous to continuous wave signals, to more complex audio of music and speech. 
-In Section~\ref{sec:ifo} we detail our table-top interferometer design. 
+In Section~\ref{sec:ifo} we detail the table-top interferometer design. 
 We demonstrate observing a single note from a speaker in Section~\ref{sec:single_tone}.
-In Section~\ref{sec:viterbi_wandering} we replace the single note with a slowly changing frequency and analyse the signal using techniques from continuous-wave searches. 
+In Section~\ref{sec:viterbi_wandering} we replace the single note with a slowly changing frequency and analyse the signal using a hidden Markov model technique from continuous-wave searches. 
 In Section~\ref{sec:optical_microphone}, we demonstrate capturing and playing back complex audio, such as music and speech. 
 This demonstration of an `optical microphone' serves as a more general exhibition of signal processing. 
 We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in Section~\ref{sec:conclusions}.
-See Appendix~\ref{app:code} for the software and scripts used to produce this work. 
+Appendix~\ref{app:code} collects the software and scripts used to produce this work. 
 
 
 
