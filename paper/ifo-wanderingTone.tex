@@ -49,15 +49,18 @@ In Section~\ref{sec:wanderingResults} we present our results for recovery of a w
 \label{sec:viterbi}
 
 \begin{figure}
-\includegraphics[width=0.49\textwidth]{/home/hannahm/Documents/viterbi/quickTest/circlesTest}
+\includegraphics[width=0.49\textwidth]{figures/viterbiDiagram.pdf}
 \caption{\label{fig:viterbi}
 A schematic diagram of the Viterbi algorithm. 
-Each box represents an element in the time-frequency grid starting from $t_0$ on the left and ending at $t_4$ on the right. 
-The color of the box indicates the likelihood that a signal is present in the box, where a lighter color corresponds to higher likelihood. 
-Each box has a single path leading to it indicated by the dotted lines. 
-The Viterbi path is highlighted in orange. 
-At each time step, the paths can move up one $f$ box, move down one $f$ box, or stay in the same $f$ box. 
-See the main text for a full description. 
+Each box represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
+Vertically, the grid starts from frequency $f_0$ at the bottom and ending at $f_{N_f}$ at the top. 
+The color of each circle indicates the likelihood that a signal is present in the box, where a lighter color corresponds to higher likelihood. 
+AT each time step, the paths can move up one $f$ step, move down one $f$ step, or stay at the same $f$ step (shown by lines in the diagram). 
+Each circles has three paths leading to it indicated by the lines. 
+The best path to each circle at each $t_i$ is highlighted in black. 
+Some routes through the grid are found to be dead ends, such as the path ending at $t_1$ marked (a). 
+At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by equation~\ref{eqn:recursiveViterbi}, marked (b). 
+The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
 }
 \end{figure}
 
@@ -89,7 +92,7 @@ Pr[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
                      & *Pr[f(t_i)].
 \label{eqn:recursiveViterbi}
 \end{eqnarray}
-The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes $Pr[f(t_{N_t})] = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
+The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes $Pr[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
 We can the maximize the latter quantity over $0 \leq j \leq N_f$ to find the optimal Viterbi path overall, i.e. terminating in any frequency bin. 
 
 
@@ -98,20 +101,22 @@ Here we describe the algorithm as psudeo-code referring to the schematic in Fig.
 The implementation used in this work is available online (see Appendix~\ref{app:code}).
 \begin{enumerate}
 \item Starting at $t_1$, each $f_j$ element has three possible paths it could originate from at $t_0$, indicated by the lines in Fig.~\ref{fig:viterbi}. 
-At each $f_j$ element, the highest $F[t_0,f_j] A[f(t_0),f(t_1)]$ from the previous time step is selected, shown by the solid lines in Fig.~\ref{fig:viterbi}. 
+At each $f_j$ element, the highest $F[t_0,f_j] A[f(t_0),f(t_1)]$ from the previous time step is selected, highlighted by the black lines in Fig.~\ref{fig:viterbi}. 
 For example for the element labelled (a), the highest value is directly behind it, therefore the transition from $\{t_0,f_0\}$ to $\{t_1,f_0\}$ is selected. 
 Each element has now selected the best path from the previous time step. 
 In Fig.~\ref{fig:viterbi}, black lines show the best paths and grey lines show all other paths. 
 \item Moving to $t_2$, the path with the highest value of the recursive relation in equation~\ref{eqn:recursiveViterbi} is selected for each $f_j$ as shown by the solid lines from $t_1$ to $t_2$ in Fig.~\ref{fig:viterbi}. 
-\item Steps 2 is repeated until the end of the grid is reached. 
+\item Steps 2 is repeated until the end of the grid ($t=t_{N_t}$) is reached. 
+Only the best paths are stored. 
 \item At $t=t_{N_t}$, each $f_j$ has a value $Pr[f(t_{N_t})=f_j]$ (equation~\ref{eqn:recursiveViterbi}). 
-The highest likelihood path for each $f_j$ can be seen by tracing the solid lines from right to left in Fig.~\ref{fig:viterbi}. 
-The $f_j$ with the maximum $Pr[f(t_{N_t})=f_j]$ is labelled (b) in Fig.~\ref{fig:viterbi}. 
-\item Tracing the p
-At the end of the grid, each $f_j$ has a unique path associated with it (seen by tracing the dotted lines from right to left in Fig.~\ref{fig:viterbi}). The element with the highest accumulated probability is selected, in the case of Fig.~\ref{fig:viterbi}, this is labelled (b). 
-\item Tracing the path from right to left in Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c). This is the Viterbi path, which is highlighted in orange in Fig.~\ref{fig:viterbi}. 
+The algorithm selects the terminating frequency $f(t_{N_t})$ with the highest value, marked (b) in Fig.~\ref{fig:viterbi}.
+\item The Viterbi path is then found by backtracking along the best paths at each time step. 
+In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c). 
+The Viterbi path is highlighed in orange in fig.~\ref{fig:viterbi}.
 \end{enumerate}
-
+The Viterbi algorithm is an example of a dynamical programming algorithm, where a computation can be broken down into a series of sub-computations.
+The Viterbi path for a time series sequences spanning $t_0$ to $t_{N_t}$ contains the Viterbi path for sub-sequences of that time series. 
+It is also very computationally efficient. 
 
 \begin{comment}
 The route through the grid which maximises the overall probability 

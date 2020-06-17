@@ -15,7 +15,7 @@ It is also analogous to the detection of unmodelled gravitational-wave signals, 
 %It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
 
 
-We describe additional components to the demonstration in Section~\ref{sec:photodiode} and our initial results in Section~\ref{sec:initialResultsOpMic}.
+We describe additional components to the demonstration in Section~\ref{sec:photodiode} and initial results in Section~\ref{sec:initialResultsOpMic}.
 Filter and speech enhancement techniques applied to the data are detailed in Sections~\ref{sec:simple_filters} and~\ref{sec:logmmse} respectively.
 This section is indirectly related to the advanced signal processing required to extract gravitational-wave signals. 
 The optical microphone provides an interesting independent demonstration for a broader physics and engineering audience, particularly for the undergraduate lab. 
@@ -69,7 +69,7 @@ The schematic is identical to Figure~\ref{fig:interference_pattern} except that 
 
 \begin{figure*}
 	\includegraphics[width=.6\textwidth]{figures/setup_pic2.pdf}
-\caption{Photograph of the optical microphone set-up. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
+\caption{Photograph of the optical microphone. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
 	\label{fig:setup_pic2}
 \end{figure*}
 
@@ -178,13 +178,13 @@ Comparing the before and after spectra shows significant attenuation of all main
 
 \begin{figure*}
 	\includegraphics[width=.8\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
-	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom time series is an expected result from filtering a finite signal.}
+	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a finite signal.}
 	\label{fig:logMMSE_timeseries}
 \end{figure*}
 
 \begin{figure*}
 	\includegraphics[width=.8\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
-	\caption{Spectrum of optical microphone recording of adult male voice shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows up to $2\,{\rm kHz}$ and to amplitude $2$ to see greater detail.}
+	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows up to $2\,{\rm kHz}$ and to amplitude $2$ to see greater detail.}
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
 
