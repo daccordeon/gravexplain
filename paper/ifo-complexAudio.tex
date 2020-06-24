@@ -106,16 +106,48 @@ Otherwise the PSD is fairly white.
 \label{sec:simple_filters}
 
 Here we describe several approaches to remove the $50\,{\rm Hz}$ mains hum and its harmonics. 
+We test these approaches on $1\,{\rm s}$ of data throughout this section as an illustrative example. 
 
-Simply zeroing the frequency channel of each $50\,{\rm Hz}$ harmonic in the Fourier spectrum is unsuccessful. 
+
+\begin{figure*}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/freqSpectrumOriginalNoiseSubtracted.jpg}
+\end{center}
+\caption{\label{fig:noiseSubtract}
+Frequency spectrum of a $1\,{\rm s}$ signal before the use of filters. 
+The first panel shows the original frequency spectrum of the human voice recording (saying ``A cathode ...''). 
+The second panel shows the spectrum recorded after the signal passes through the optical microphone (sampled at $16\,000\,{\rm Hz}$).
+The third panel shows a noise-only recording from the optical microphone when no audio signal is being played. 
+The fourth panel shows the result of subtracting the noise-only spectrum in the third panel from the recording in the second panel. 
+We see no obvious improvement from this method. 
+}
+\end{figure*}
+
+Fig.~\ref{fig:noiseSubtract} shows the frequency spectrum of $1\,{\rm s}$ of recorded speech. 
+The first and second panels show the original signal before passing through the interferometer and the optical microphone recording of the signal respectively. 
+An intuitive means to remove noise is to subtract the noise spectrum of the instrument directly from the signal spectrum. 
+The third panel of Fig.~\ref{fig:noiseSubtract} shows a recording from the optical microphone with no audio signal. 
+We see that the output noise is coloured, which reflects the non-linearity of the optical microphone.
+The fourth panel of Fig.~\ref{fig:noiseSubtract} shows the frequency spectrum after the noise spectrum has been subtracted. 
+We see no obvious improvement, which may be due to time-variant noise. 
+
+
+The next step is to apply filters to the data. 
+The ideal filter would be one that 
+\begin{itemize}
+\item[i)] completely attenuates the undesired parts of the spectrum, 
+\item[ii)] does not change the rest of the spectrum, and 
+\item[iii)] has smooth edges so as to not damage the signal after convolution. 
+\end{itemize}
+These three conditions are contradictory and any filter must compromise between them. 
+
+We note that simply zeroing the frequency channel of each $50\,{\rm Hz}$ in the frequency spectrum is unsuccessful. 
 Effectively, this multiplies the spectrum by a rectangular comb filter. 
 It does remove the mains harmonics, however it audibly ruins the rest of the signal. 
 Applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. 
 The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complicated sinc-like function, which significantly corrupts the signal. 
 
-
-A smoother comb filter significantly attenuates the spectrum between each harmonic so that the signal is no longer audible. 
-
+%A smoother comb filter significantly attenuates the spectrum between each harmonic so that the signal is no longer audible. 
 
 Applying a high-pass filter with cut-off frequency $150\,{\rm Hz}$ to the signal works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics.
 However, mains harmonics above $100\,{\rm Hz}$ remain. 
@@ -123,7 +155,7 @@ The region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of
 Therefore, although a high-pass filter with a higher cut-off removes more harmonics, the played-back signal is unrecognisable. 
 Applying a high-pass filter to the logarithm of the signal spectrum does not significantly improve on the above simple high-pass filter.
 
-%We also tried applying a high-pass filter to the logarithm of the signal spectrum and then exponentiating back, but this didn’t significantly improve on the above simple high-pass.
+%We also tried applying a high-pass filter to the logarithm of the signal spectrum and then exponentiating back, but this didn’t significantly improve on the above simple high-pass
 
 
 \begin{figure}
@@ -139,21 +171,63 @@ The best performing band-pass filter we find is a fifth order ($n = 5$) Butterwo
 For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\epsilon$, the frequency response (attenuation at each frequency) is,
 \begin{equation}
 \label{eq:butterworth}
-H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\frac{\omega}{\omega_c})^{2n}}},
+H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\omega/\omega_c)^{2n}}},
 \end{equation}
 as a function of frequency $\omega$. 
-To construct a Butterworth band-pass filter, the above low-pass filter is combined with a high-pass filter of similar form. 
+To construct a Butterworth band-pass filter, the low-pass filter in Eq.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
 The response of the filter used is shown in Figure~\ref{fig:butterworth}. 
+The Butterworth filter performs the well as it is optimised to be `maximally flat' within the band region, prioritising the condition ii) .
 This filter improves on the above simpler filters but recordings of speech still have low intelligibility.
 They can be recognised as speech without being understood.
+Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter are shown in combination with a speech enhancement technique. 
+
+\begin{figure*}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/timeSeriesNotchWiener.jpg}
+\end{center}
+\caption{\label{fig:timeNotchWiener}
+}
+\end{figure*}
 
 
-The ideal filter would be one that i) completely attenuates the undesired parts of the spectrum, ii) does not change the rest of the spectrum, and iii) has smooth edges so as to not damage the signal after convolution. 
-These three conditions are contradictory and any filter must compromise between them. 
-The above simple filters fail one or more of i)--iii). 
-The Butterworth filter performs the best as it is optimised to be `maximally flat' within the band region, prioritising the second condition.
+\begin{figure*}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/freqNotchWiener.jpg}
+\end{center}
+\caption{\label{fig:freqNotchWiener}
+}
+\end{figure*}
 
-\han{Is it worth also including some plots to show how the different filters perform? E.g. a PSD with comb filter, high pass filter, Butterworth filter?}
+We also consider a combined notch filter and Wiener filter. 
+Timeseries and frequency spectrum results are shown in Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively. 
+The original signal is identical to that shown in Fig.~\ref{fig:noiseSubtract}.
+The first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing thought the optical microphone (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
+
+A notch filter attenuates signals in specific frequency bands. 
+We apply a $15$ cascaded notched filter to remove the mains noise and its harmonics up to $750\,{\rm Hz}$. 
+\han{should we include here a mathematical description of the $15$ cascade notch filter?}
+The timeseries and frequency spectrum results are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}. 
+We seen that the mains harmonics are significantly attenuated in comparison to the analysis in Fig.~\ref{fig:noiseSubtract}. 
+
+The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
+It minimizes the mean square error $E(\hat{x}-x)^2$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
+\han{should we add more details here too?}
+The timeseries and frequency spectrum results of the Wiener filter are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
+The timeseries is visibly cleaner, however there is a strong noise hum. 
+
+The combination of the notch filter and the Wiener filter results are shown in the 
+%The ideal filter would be one that i) completely attenuates the undesired parts of the spectrum, ii) does not change the rest of the spectrum, and iii) has smooth edges so as to not damage the signal after convolution. 
+%These three conditions are contradictory and any filter must compromise between them. 
+%The above simple filters fail one or more of i)--iii). 
+%The Butterworth filter performs the best as it is optimised to be `maximally flat' within the band region, prioritising the second condition.
+%\han{see note from Andrew and ask James about this}
+
+
+
+
+
+
+%\han{Is it worth also including some plots to show how the different filters perform? E.g. a PSD with comb filter, high pass filter, Butterworth filter?}
 
 % Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
 
@@ -177,13 +251,13 @@ Figure~\ref{fig:logMMSE_spectrum} shows the corresponding spectra before (top pa
 Comparing the before and after spectra shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum. 
 
 \begin{figure*}
-	\includegraphics[width=.8\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
 	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a finite signal.}
 	\label{fig:logMMSE_timeseries}
 \end{figure*}
 
 \begin{figure*}
-	\includegraphics[width=.8\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
+	\includegraphics[width=\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
 	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows up to $2\,{\rm kHz}$ and to amplitude $2$ to see greater detail.}
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
