@@ -43,7 +43,7 @@ I(t) = 2 A^2 \left[ 1 + \cos{\left( 2 k d(t) \cos{\theta} \right) } \right]  \la
 Equation~\ref{eqn:intensity2} shows that $I(t)$ and $d(t)$ are related nonlinearly. 
 Near a bright fringe, where one has $\cos{[2kd\cos{(\theta)}]} \approx 1$, the nonlinearity is quadratic, with $\delta I \propto (\delta d)^2$ for small $\delta d$. 
 Consequently, an oscillation of the form $\delta d \propto \exp{( -i \Omega t )}$ in the arm length difference produces a DC signal and a frequency-double signal $\propto \exp{(-2i\Omega t)}$ in $\delta I$. 
-This is discussed further in Section~\ref{}\han{to do}.    
+This is discussed further in Section~\ref{}\han{to do}. \jam{[not quite sure how much further we can take discussion about this, are we wanting results that show the doubling?]}
 
 
 %Collapse the phase difference to some value $\phi = 2 k d \cos{\theta}$. Then expand the norm squared using Euler’s relation, $e^{i \theta} = \cos{\theta} + i \sin{\theta}$. Here we stop considering intensity as a function of time as the time dependence will vanish.
@@ -73,9 +73,9 @@ This is discussed further in Section~\ref{}\han{to do}.
 
 
 
-
-
-
+\section{Likelihood of sinusoids in Gaussian noise}
+\label{app:sinusoid_likelihood}
+\jam{[to do! from Andrew: ``Write a short appendix proving that maximizing the likelihood exp(-n||n/2) with respect to A given a signal A cos (wt + phi) is the Fourier transform. Classic sig proc result useful for teachers to know.'']}
 
 
 
@@ -86,7 +86,8 @@ This appendix contains some details regarding implementation of the Viterbi algo
 The Viterbi algorithm is a classic method in signal processing, whose theoretical underpinnings and implementation are easily accessible to undergraduate students. 
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
-\han{to do! psudo code here}
+\han{to do! pseudo-code here}
+\jam{[Hannah has already explained a lot about Viterbi, at this point is it worth just citing existing documentation for further details? I used Wikipedia in writing code, should we cite that? Andrew mentions going through the practical aspects, e.g. log to avoid underflow, is that worth writing up? My thought is only that all of this is technically available in the open source.]}
 %We consider a spectrogram grid where each element in the grid is the Fourier amplitude of a particular frequency at a particular time. These are normalised between $(0, 1)$ to use as multiplicative weights. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight among all paths.
 
 %With the grid prepared, the algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, selecting the previous cell with the greatest cumulative weight among those ‘nearby’ (the value of which was discovered in the previous iteration). Where the cumulative weight is the weight of the best path to reach that previous cell. The nearness of a previous cell is given by the limit on the allowed frequency change over time.
@@ -108,7 +109,7 @@ The interested reader is referred to the excellent review paper by Rabiner~\cite
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 
 Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram. 
-It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. This design was based off standard examples of photo-detectors, connecting an ADC to a Pi, and Sallen-Key filters.
+It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. This design was based off \jam{standard examples (I have no idea where I or Alex originally got the designs from, I'm confident though that they are common enough to not need citing given that we also give the diagram)} of photo-detectors, connecting an ADC to a Pi, and Sallen-Key filters.
 
 \begin{figure*}
 	\includegraphics[width=.65\textwidth]{figures/circuit_diagram_2.pdf}

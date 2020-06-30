@@ -6,4 +6,3 @@ source/.ipynb_checkpoints/*
 *.wav
 *.svg
 paper/paper_mainNotes.bib
-paper/talk*.tex

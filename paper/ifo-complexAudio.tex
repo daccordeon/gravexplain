@@ -7,9 +7,9 @@
 % Optical microphone
 % aim of optical microphone: play back injected sounds
 A natural successor to simple tomes is complex audio, such as music and speech. 
-Complex audio signals are not quasimonochromatic, unlike continuous gravitational wave signals, so the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not applicable directly.
+Complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, so the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not applicable directly.
 Instead, in this section, we explore how to use the interferometer as an `optical microphone' to detect and play back complex audio signals, using light to capture sound. 
-In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter tuned to sinusoidal signals in Section~\ref{sec:single_tone} and \han{to do: Appendix~\ref{}}. 
+In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter tuned to sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood} \han{to do}. 
 The device has precedence in the laser microphones~\cite{laser_microphone} used in the defence industry which operate on a variety of related principles.
 It is also analogous to the detection of unmodelled gravitational-wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
 %It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
@@ -43,7 +43,7 @@ We see no difference when monitoring at other positions in the interference patt
 The photodiode is mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath. 
 
 
-The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. 
+The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. \jam{[Hannah is right, the Pi first appears here. If we want to comment on its convenience and usage this is the place.]}
 Together, these sample the signal at roughly $16\,{\rm kHz}$.
 
 
@@ -79,17 +79,17 @@ The schematic is identical to Figure~\ref{fig:interference_pattern} except that 
 % breakdown of all the filters used along the way
 
 The optical microphone is tested on recordings of speech from different people and on music ranging from simple melodies to full track songs. 
-Each recording is around one minute long with processing applied to ten second segments. 
-For each observation, the audio is played through the speaker whilst the Pi script records the signal from the photodiode. 
+Each recording is around one minute long with \jam{processing [this is poor, each recording was functionally ten seconds long, the fact that the sources were minutes long doesn't really matter]} applied to ten second segments. 
+For each observation\jam{[again, poor wording, this means that for each 10 s recording we did the following]}, the audio is played through the speaker whilst the Pi script records the signal from the photodiode. 
 During recordings, care is taken to ensure minimal activity around the interferometer to reduce environmental noise. 
 The timeseries is then directly converted to a .wav file and played as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python} as before.
 
-We find that initial recordings are extremely noisy with a loud bass hum throughout.
-Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond its $8$th harmonic.
+We find that initial recordings \jam{[Hannah's interpretation is correct here: "We find that the raw output of the optical microphone, collected without special precautions except anti-aliasing, is noisy, with a loud..."?]} are extremely noisy with a loud bass hum throughout.
+Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond its $8$th harmonic. \jam{[non-linear appendix, Andrew says to cite Feynman lectures on non-linear oscillations]}
 We find that the mains power signal is present in data recorded without an injected audio signal as seen in the power spectral density in Figure~\ref{fig:psd_noise}.
 The mains power is also present in data taken with the photodiode in complete darkness with a similar but weaker distribution as that shown in Figure~\ref{fig:psd_noise}).
 The origin of the mains power signal is likely to be from the photodiode signal, or environmental noise from the rooms lighting and air conditioning, or a combination. 
-
+\jam{[No idea about the hump at 750 Hz. It is near to the main speech content, but is too broad for me to have any idea]}
 
 
 \begin{figure}
@@ -145,9 +145,10 @@ We note that simply zeroing the frequency channel of each $50\,{\rm Hz}$ in the 
 Effectively, this multiplies the spectrum by a rectangular comb filter. 
 It does remove the mains harmonics, however it audibly ruins the rest of the signal. 
 Applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. 
-The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is a complicated sinc-like function, which significantly corrupts the signal. 
+The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is some combination of sinc functions, which significantly corrupt the signal. 
 
 %A smoother comb filter significantly attenuates the spectrum between each harmonic so that the signal is no longer audible. 
+\jam{[re:comb filters. When I tried to comb filter it either was too sharp and so jumbled the whole signal in convolution. Or if smooth attenuated the signal away into noise. At least, that's what I remember. Changrong has a comb filter section anyway so I am happy dropping my unsuccessful attempts.]}
 
 Applying a high-pass filter with cut-off frequency $150\,{\rm Hz}$ to the signal works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics.
 However, mains harmonics above $100\,{\rm Hz}$ remain. 
@@ -160,7 +161,8 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 
 \begin{figure}
 	\includegraphics[width=0.49\textwidth]{figures/butterworth_150_3000-cropped.pdf}
-	\caption{Butterworth bandpass filter frequency response, any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The green vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band.}
+	\caption{Butterworth bandpass filter frequency response, any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The green vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band.
+	\jam{[to do: change green lines to dashed and red. add panel with PSD after applying Butterworth bandpass]}}
 	\label{fig:butterworth}
 \end{figure}
 
@@ -174,6 +176,7 @@ For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\e
 H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\omega/\omega_c)^{2n}}},
 \end{equation}
 as a function of frequency $\omega$. 
+\jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
 To construct a Butterworth band-pass filter, the low-pass filter in Eq.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
 The response of the filter used is shown in Figure~\ref{fig:butterworth}. 
 The Butterworth filter performs the well as it is optimised to be `maximally flat' within the band region (prioritising condition (ii) above).
@@ -198,28 +201,27 @@ Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter ar
 }
 \end{figure*}
 
-We also consider a combined notch filter and Wiener filter. 
+We also consider a combined notch filter and Wiener filter.
 Timeseries and frequency spectrum results are shown in Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively. 
 The original signal is identical to that shown in Fig.~\ref{fig:noiseSubtract}.
-The first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing thought the optical microphone (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
+The first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing through the optical microphone (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
 
 A notch filter attenuates signals in specific frequency bands. 
 We apply a $15$ cascaded notched filter to remove the mains noise and its harmonics up to $750\,{\rm Hz}$. 
 \han{should we include here a mathematical description of the $15$ cascade notch filter?}
+\jam{[Yes, I have no idea what a cascaded notched filter is and I'm an author!]}
 The timeseries and frequency spectrum results are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}. 
 We seen that the mains harmonics are significantly attenuated in comparison to the analysis in Fig.~\ref{fig:noiseSubtract}. 
 
 The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
-It minimizes the mean square error $E(\hat{x}-x)^2$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
-\han{should we add more details here too?}
+It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
+\han{should we add more details here too?} \jam{[seconded]}
 The timeseries and frequency spectrum results of the Wiener filter are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
 The timeseries is visibly cleaner, however there is a strong noise hum. 
 
 The combination of the notch filter and the Wiener filter produces a cleaner signal than either individually. 
 The time series and spectrum results are shown in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively.
 \han{todo - ask Changrong for some concluding remarks on intelligibility of the result using notch and wiener filter} 
-
-
 
 %The ideal filter would be one that i) completely attenuates the undesired parts of the spectrum, ii) does not change the rest of the spectrum, and iii) has smooth edges so as to not damage the signal after convolution. 
 %These three conditions are contradictory and any filter must compromise between them. 
@@ -257,13 +259,13 @@ Comparing the before and after spectra shows significant attenuation of all main
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
-	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a finite signal.}
+	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.\jam{[add more panels showing original time series, like in Changrong's figures]}}
 	\label{fig:logMMSE_timeseries}
 \end{figure*}
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
-	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows up to $2\,{\rm kHz}$ and to amplitude $2$ to see greater detail.}
+	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot.}
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
 

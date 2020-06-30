@@ -20,8 +20,9 @@ Transferring the circuit from a breadboard to a printed circuit board will also 
 %With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
 
 A second improvement is to measure the full model of the transfer function of the system. 
-Theoretically, with the correct transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
-The transfer function starts from the voltage sent to the speaker and end with the value recorded by the Pi, and include any non-linearities in the speaker audio production, the speaker-mirror coupling, the separation-intensity relation Appendix~\ref{app:intensity_derivation}, and the photodiode reading. 
+With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
+\jam{[check with Rob et al. about the veracity of this]}
+The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the separation-intensity relation Appendix~\ref{app:intensity_derivation}, and the photodiode reading. 
 A schematic of the full optical microphone transfer function is shown in Figure~\ref{fig:pipeline_highlighted}.
 
 A voluminous literature exists about using a hidden Markov model (HMM) trained against phonemes to recognize speech~\cite{HMM_english}. 
@@ -29,7 +30,7 @@ Interestingly, this connects back to the Viterbi algorithm in Section IV, which 
 Alternatively, machine learning solutions exist throughout the field that are able to compete~\cite{SEGAN} with statistical techniques like the logMMSE estimator.
 
 Other traditional signal processing methods for extracting spectrogram like wavelet transform (WT) \citep{nason1995stationary} can also be implemented and compared with HMM. WT provides both time and frequency information, making it easier to pinpoint the origin of noise respect to time. 
-In Refs. \cite{tufekci2000feature,agbinya1996discrete}, WT was also proposed for speech recognition. 
+In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT was also proposed for speech recognition. 
 
 Finally, we can also consider how to improve the stability of the optical microphone components.
 A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 
@@ -42,7 +43,8 @@ A feedback loop control system can be used to suppress any unwanted movement of 
 	\includegraphics[width=.99\textwidth]{figures/pipeline_highlighted.pdf}
 	\caption{
 Flowchart for the optical microphone transfer function. 
-The highlighted stage is analysised in Appendix XX, the other stages are left to future work. 
+The highlighted stage is analysed in Appendix \jam{XX}, the other stages are left to future work. 
+\jam{[to do: change grey to something more readable and reconsider labels. add editable version to git]}
 }
 	\label{fig:pipeline_highlighted}
 \end{figure*}

@@ -4,13 +4,11 @@
 \begin{document}
 
 
-
-
 % Continuous gravitational wave searches use sophisticated statistical techniques to search for weak signals in noisy interferometric data. We demonstrate some of these techniques by observing sound with a table-top Michelson interferometer. In particular, we successfully use the Viterbi algorithm to recover a tone with wandering frequency from a webcam video of the interference pattern.
 
-In this paper we present an educational demonstration in which an \han{inexpensive}, table top Michelson interferometer serves as an analogue to a gravitational-wave detector. 
+In this paper we present an educational demonstration in which an \han{inexpensive} \jam{[see comments in introduction]}, table top Michelson interferometer serves as an analogue to a gravitational-wave detector. 
 Vibrations produced by gravitational-wave signals are simulated with sound recordings played though a speaker fixed to the back of one of the interferometer mirrors. 
-We consider quasimonochromatic signals as an analogue to continuous wave signals as well as short segments of speech and music which are (more distant) analogues of unmodelled gravitational-wave bursts, e.g. from supernovae. 
+We consider quasi-monochromatic signals as an analogue to continuous wave signals as well as short segments of speech and music which are (more distant) analogues of unmodelled gravitational-wave bursts, e.g. from supernovae. 
 % This serves to demonstrate signal processing techniques.
 
 
@@ -22,6 +20,7 @@ These sections direcly demonstrate the continuous wave search techniques used in
 
 In Section~\ref{sec:optical_microphone} we demonstrate recovery of more complex signals of music and speech. 
 Substituting the webcam for the increased frequency response of a photodiode read by a Raspberry Pi, we transform the interferometer into an optical microphone.
+\jam{[Confirming Hannah's comment, the Pi was only necessary to read the photodiode, the webcam video I just saved onto PC and analysed directly]}
 We demonstrate that the optical microphone is capable of playing back simple recordings well but that it produces unintelligible recordings of speech. 
 Mains hum at $50\,{\rm Hz}$ and its harmonics dominates the photodiode output. 
 This offers students the opportunity to explore speech enhancement techniques to remove it, including the well performing logMMSE estimator. 

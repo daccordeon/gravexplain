@@ -28,12 +28,17 @@ Figure~\ref{fig:webcam_spectrum} shows the Fourier transform of the recording.
 \han{[to do - rewrite once James has the new numbers (also Fig 3 caption)] 
 We measure a peak amplitude at $(2.099\pm 0.008)\,{\rm Hz}$ (where the error represents the $1\sigma$ uncertainty).
 The demonstration is able to recover a single frequency tone to within two standard deviations. }
+\jam{[For the single tone result, the FWHM is 0.033 Hz. This puts the injected 2.09 Hz well within the uncertainty in the measured value of 2.099 Hz.]}
 %We played this time series of intensity over time as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python}. 
 %The two tones played together sound similar and don’t produce any noticeable beating.
 %To quantify the precision, we recorded a signal from an injected tone of $2.09\,{\rm Hz}$. 
 %From the Fourier transform shown in Figure~\ref{fig:webcam_spectrum}, we measured a peak amplitude at $(2.099\pm 0.008)\,{\rm Hz}$, a result within two standard deviations. 
 %The experiment is able to recover a single tone confidently. 
 %This showed that the experiment observes a single tone confidently.
+
+
+\jam{[re: quantifying the non-linear response, the first two harmonics (at 4.19 and 6.28 Hz) are 0.103 and 0.098 the height of the main peak respectively.]}
+
 
 \begin{figure}
 	\includegraphics[width=.49\textwidth]{figures/webcam_expt_4_0209-cropped.pdf}
@@ -44,13 +49,12 @@ Injected tone at a constant frequency: Fourier amplitude of the intensity time s
 The frequency of the injection is $2.09\,{\rm Hz}$. 
 The recovered frequency peak is at $(2.099\pm 0.008)\,{\rm Hz}$. 
 \han{[to do: add new numbers from James]}
+\jam{[For the single tone result, the FWHM is 0.033 Hz. This puts the injected 2.09 Hz well within the uncertainty in the measured value of 2.099 Hz.]}
 %The peak (with amplitude $17.5$) has a frequency was measured at $(2.099\pm 0.008) \mathrm{Hz}$. The actual maximum is achieved at $0\,{\rm Hz}$, but corresponds to the signal having a non-zero average value, so we don’t display or consider it.
 }
 	
 \end{figure}
 
-
-\end{document}
 
 \begin{comment}
 As described in Section~\ref{sec:introduction}, continuous gravitational wave searches look for near monochromatic signals. 
@@ -76,3 +80,5 @@ To quantify the precision, we recorded a signal from an injected tone of 2.09Hz.
 	\label{fig:webcam_spectrum}
 \end{figure*}
 \end{comment}
+
+\end{document}
