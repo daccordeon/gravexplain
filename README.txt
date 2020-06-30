@@ -1,7 +1,7 @@
 GravExplain: Continuous gravitational wave searches in a table-top experiment
-James Gardner: PhB Science - Australian National University
-Hannah Middleton, Andrew Melatos, Robin Evans, Bill Moran: OzGrav-Melbourne
-February 2020
+James Gardner: College of Science - Australian National University
+Hannah Middleton, Andrew Melatos, Robin Evans, Bill Moran, Changrong Liu: OzGrav-Melbourne
+July 2020
 README
 
 Current build found at:
