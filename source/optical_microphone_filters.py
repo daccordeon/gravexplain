@@ -465,7 +465,7 @@ def psd_plot(filename):
     ax.xaxis.label.set_size(26)
     ax.yaxis.set_tick_params(labelsize=24)
     ax.yaxis.label.set_size(26) 
-    plt.savefig(filename[-4]+'.pdf', bbox_inches='tight')
+    plt.savefig(filename[:-4]+'.pdf', bbox_inches='tight')
     plt.close(fig)
     
 def butter_filter_recording(filename, filetag=None, produce_plots=False,

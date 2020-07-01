@@ -93,11 +93,11 @@ The origin of the mains power signal is likely to be from the photodiode signal,
 
 
 \begin{figure}
-	\includegraphics[width=.49\textwidth]{figures/podo_noise_psd_zoom-cropped.pdf}
+	\includegraphics[width=.49\textwidth]{figures/psd_butterworth_14_6.pdf}
 	\caption{\label{fig:psd_noise}
-Power spectral density (PSD) of the optical microphone  with no injected audio (i.e.\ with the speaker off). 
-We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most likely from the photodiode circuit and the room’s lighting and cooling). 
-Otherwise the PSD is fairly white. 
+Power spectral density (PSD) of background noise (top) from the optical microphone (with the speaker off), and the PSD after applying a Butterworth bandpass filter (bottom) between the two frequencies marked with red, dashed lines. 
+We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most likely from the photodiode circuit and the room’s lighting and cooling). Otherwise the PSD is fairly white. 
+After filtering we see strong attenuation of all frequencies outside the band, but little change to the harmonics within the band.
 }
 \end{figure}
 
@@ -160,9 +160,8 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 
 
 \begin{figure}
-	\includegraphics[width=0.49\textwidth]{figures/butterworth_150_3000-cropped.pdf}
-	\caption{Butterworth bandpass filter frequency response, any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The green vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band.
-	\jam{[to do: change green lines to dashed and red. add panel with PSD after applying Butterworth bandpass]}}
+	\includegraphics[width=0.49\textwidth]{figures/butterworth_150_3000.pdf}
+	\caption{Butterworth bandpass filter frequency response, any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band.}
 	\label{fig:butterworth}
 \end{figure}
 
