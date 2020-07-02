@@ -170,12 +170,12 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 Band-passing the signal similarly does not address the remaining harmonics above $100\,{\rm Hz}$. 
 However, it does suppress other noise at higher frequencies. 
 The best performing band-pass filter we find is a fifth order ($n = 5$) Butterworth filter over the range $150\,{\rm Hz}$--$3\,{\rm kHz}$ (beyond $2\,{\rm kHz}$ speech information content drops significantly~\cite{speech_intelligibility}). 
-For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\epsilon$, the frequency response (attenuation at each frequency) is,
+For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\varepsilon$, the frequency response (attenuation at each frequency) as a function of frequency $\omega$ is:
 \begin{equation}
 \label{eq:butterworth}
-H(\omega) = \frac{1}{\sqrt{1+\epsilon^2 (\omega/\omega_c)^{2n}}},
+H(\omega) = \left(1+\varepsilon^2 \left( \frac{\omega}{\omega_c} \right)^{2n}\right)^{-\frac{1}{2}}
 \end{equation}
-as a function of frequency $\omega$. 
+
 \jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
 To construct a Butterworth band-pass filter, the low-pass filter in Eq.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
 The response of the filter used is shown in Figure~\ref{fig:butterworth}. 
@@ -258,14 +258,14 @@ Figure~\ref{fig:logMMSE_spectrum} shows the corresponding spectra before (top pa
 Comparing the before and after spectra shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum. 
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/filter_timeseries_aa_melatos-cropped.pdf}
-	\caption{Time series of the optical microphone recording of an adult male voice (saying ``A cathode ...'') shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.\jam{[add more panels showing original time series, like in Changrong's figures]}}
+	\includegraphics[width=\textwidth]{figures/combined_timeseries_melatos.pdf}
+	\caption{Time series of an adult male voice (saying ``A cathode ...'') showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.}
 	\label{fig:logMMSE_timeseries}
 \end{figure*}
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/filter_spectrum_aa_melatos-cropped.pdf}
-	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} shown before (top panel) and after (bottom panel) the logMMSE estimator is applied. The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot.}
+	\includegraphics[width=\textwidth]{figures/combined_spectrum_melatos.pdf}
+	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot.}
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
 
