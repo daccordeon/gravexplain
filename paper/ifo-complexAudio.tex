@@ -43,7 +43,8 @@ We see no difference when monitoring at other positions in the interference patt
 The photodiode is mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath. 
 
 
-The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2. \jam{[Hannah is right, the Pi first appears here. If we want to comment on its convenience and usage this is the place.]}
+The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online}, which provides a convenient means to record the photodiode data. 
+\han{[from hannah: James does this sound ok? And I have referenced the Raspberry Pi general website, but could you add any appropriate references you used]}
 Together, these sample the signal at roughly $16\,{\rm kHz}$.
 
 
@@ -77,7 +78,7 @@ The schematic is identical to Figure~\ref{fig:interference_pattern} except that 
 \subsection{Anti-aliased output}
 \label{sec:initialResultsOpMic}
 % breakdown of all the filters used along the way
-
+\han{James, if you could rewrite these sentences based on your comments below to reflect exactly what you did, that would be helpful - I don't want to make guesses based on your comments}
 The optical microphone is tested on recordings of speech from different people and on music ranging from simple melodies to full track songs. 
 Each recording is around one minute long with \jam{processing [this is poor, each recording was functionally ten seconds long, the fact that the sources were minutes long doesn't really matter]} applied to ten second segments. 
 For each observation\jam{[again, poor wording, this means that for each 10 s recording we did the following]}, the audio is played through the speaker whilst the Pi script records the signal from the photodiode. 
@@ -90,7 +91,7 @@ We find that the mains power signal is present in data recorded without an injec
 The mains power is also present in data taken with the photodiode in complete darkness with a similar but weaker distribution as that shown in Figure~\ref{fig:psd_noise}).
 The origin of the mains power signal is likely to be from the photodiode signal, or environmental noise from the rooms lighting and air conditioning, or a combination. 
 \jam{[No idea about the hump at 750 Hz. It is near to the main speech content, but is too broad for me to have any idea]}
-
+\han{[from hannah: okay, perhaps we should just say that we don't know the origin?]}
 
 \begin{figure}
 	\includegraphics[width=.49\textwidth]{figures/psd_butterworth_14_6.pdf}
