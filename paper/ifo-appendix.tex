@@ -88,6 +88,7 @@ The interested reader is referred to the excellent review paper by Rabiner~\cite
 
 \han{to do! pseudo-code here}
 \jam{[Hannah has already explained a lot about Viterbi, at this point is it worth just citing existing documentation for further details? I used Wikipedia in writing code, should we cite that? Andrew mentions going through the practical aspects, e.g. log to avoid underflow, is that worth writing up? My thought is only that all of this is technically available in the open source.]}
+\han{[from Hannah: I think it is worth having a go at pseudocode write-up of the implementation as Andrew suggests - James can you add some text based on your code and we can see how it looks?]}
 %We consider a spectrogram grid where each element in the grid is the Fourier amplitude of a particular frequency at a particular time. These are normalised between $(0, 1)$ to use as multiplicative weights. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight among all paths.
 
 %With the grid prepared, the algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, selecting the previous cell with the greatest cumulative weight among those ‘nearby’ (the value of which was discovered in the previous iteration). Where the cumulative weight is the weight of the best path to reach that previous cell. The nearness of a previous cell is given by the limit on the allowed frequency change over time.
@@ -109,7 +110,7 @@ The interested reader is referred to the excellent review paper by Rabiner~\cite
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 
 Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram. 
-It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. This design was based off \jam{standard examples (I have no idea where I or Alex originally got the designs from, I'm confident though that they are common enough to not need citing given that we also give the diagram)} of photo-detectors, connecting an ADC to a Pi, and Sallen-Key filters.
+It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. This design was based off \jam{standard examples (I have no idea where I or Alex originally got the designs from, I'm confident though that they are common enough to not need citing given that we also give the diagram)} \han{[from hannah: hmm, okay - I think if we refer to `standard examples' we need to say what that means. Are there any equivalent references you can find which include the same information, even if you can't find exactly the one you used? If we think about someone who may like to reproduce this work, this is a very useful piece of information]} of photo-detectors, connecting an ADC to a Pi, and Sallen-Key filters.
 
 \begin{figure*}
 	\includegraphics[width=.65\textwidth]{figures/circuit_diagram_2.pdf}

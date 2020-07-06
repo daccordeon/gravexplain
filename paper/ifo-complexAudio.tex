@@ -266,18 +266,20 @@ We seen that the mains harmonics are significantly attenuated in comparison to t
 
 \subsubsection{Weiner Filter}
 
-We use vector $\textbf{x}=\{x(0),\dots x(N-1)\}$ to denote the noisy speech signal sequence. Assume original clean signal is $\textbf{s}=\{s(0),\dots,s(N-1)\}$, and the noise sequence $\textbf{w}=\{w(0),\dots,w(N-1)\}$. We then have
+A Wiener filter is used to compute an estimate of the original signal. 
+We label the noisy speech signal sequence as  $\mathbf{x}=\{x(0),\dots, x(N-1)\}$, where $N$ is the length of the data sequence. 
+It is the sum of the original clean signal $\mathbf{s}=\{s(0),\dots,s(N-1)\}$, and the noise sequence $\mathbf{w}=\{w(0),\dots,w(N-1)\}$, 
 \begin{equation}
-    \textbf{x}=\textbf{s}+\textbf{w}
+    \mathbf{x}=\mathbf{s}+\mathbf{w}
 \end{equation}
-Based on the observation data$\textbf{x}$, our goal is to estimate s, such that the error between $\textbf{x}$ and estimated $\mathit{\hat{s}}$ is minimized in the mean square sense, we write
+Given the observation data $\mathbf{x}$, our goal is to estimate $\mathbf{s}$ so that the error between $\mathbf{x}$ and the estimate ${\hat{\mathbf{s}}}$ is minimized in the mean square sense,
 \begin{equation}
-    \hat{\textbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\textbf{x}-\textbf{s}||_2^2
+    \hat{\mathbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\mathbf{x}-\mathbf{s}||_2^2\,. 
 \end{equation}
-Under the assumptions that observed data is wide sense stationary and noise sequence is stationary, uncorrelated with signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
-The famous Wiener-Hopf equation \citep{noble1959methods} provides us a way to determine $\textbf{h}$, which can be expressed as 
+Assuming that $\textbf{x}$ is wide-sense stationary \han{[perhaps a simple definition of wide-sense stationary should be included in brackets here? to do; ask Changrong]} and that $\textbf{w}$ is stationary and uncorrelated with the signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
+The famous Wiener-Hopf equation~\citep{noble1959methods} provides us a way to determine $\textbf{h}$, as
 \begin{equation}
-\label{winer-hopf}
+\label{eqn:winer-hopf}
 \begin{bmatrix}  
 r_{xx}[0]&r_{xx}[1]&\dots& r_{xx}[n]\\
 r_{xx}[1]&r_{xx}[0]&\dots &r_{xx}[n-1]\\
@@ -297,23 +299,33 @@ r_{ss}[1]\\
 r_{ss}[n]
 \end{bmatrix}
 \end{equation}
-
-\begin{equation*}
-\left\{
-\begin{array}
-r_{xx}[n]=E[x[i]x[i+n]] \\ 
-r_{ss}[n]=E[s[i]s[i+n]]
-\end{array} \right\}  
-\end{equation*}
-where $r_{xx}$ and $r_{ss}$ is the auto-correlation function of $x$ and $s$.
-If further, we do not need to guarantee the causality of Wiener filter, in other words, we estimate current signal based on both past and future observations, Eq. \ref{winer-hopf} can then be represented in the frequency domain, which is
+where $r_{xx}$ and $r_{ss}$ are the auto-correlation functions of $\mathbf{x}$ and $\mathbf{s}$ between timestep $i$ and $i+n$, 
+%\begin{equation*}
+%\left\{ 
+\begin{eqnarray} 
+r_{xx}[n] &~=~& E[x(i)~x(i+n)] \,,\\
+r_{ss}[n] &~=~& E[s(i)~s(i+n)] \,.
+%r_{xx}[n] &=& E[x(i)\, &x(i+n)] \\ 
+%r_{ss}[n] &=& E[s(i)\, &s(i+n)] 
+\end{eqnarray} 
+%\right\}  
+%\end{equation*}
+%where $r_{xx}$ and $r_{ss}$ is the auto-correlation function of $x$ and $s$.
+If we do not need to guarantee the causality of the Wiener filter, i.e. we can estimate the current signal based on both past and future observations, then Eqn.~\ref{eqn:winer-hopf} can be represented in the frequency domain as
 \begin{equation}
-\label{wiener}
+\label{eqn:wiener}
     H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}
 \end{equation}
-where $P_{xx}(f),P_{ss}(f),P_{ww}(f)$ stands for the frequency spectrum of noisy observations, clean signal and pure noise respectively. Intuitively, from Eq. \ref{wiener}, we can see Wiener filter amplifies input signal where signal to noise ratio (SNR) is high, and weaken the signal where SNR is low.
-Notice that since this filter is non-causal, which may not be suitable for real time signal processing. More detailed analysis can be found in \citep{10.5555/151045}. In our case, we construct a causal Wiener filter based on Eq. \ref{winer-hopf}, and set the length of the filter to be 100. Large n smooths the input signal further, while cause more delay and requires more memory meanwhile. $n=100$ is a relatively reasonable choice for balancing these effects.
+where $P_{xx}(f),P_{ss}(f),P_{ww}(f)$ stands for the frequency spectrum of the noisy observation, clean signal, and pure noise respectively. 
+Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the Wiener filter amplifies the input signal where signal to noise ratio (SNR) is high, and weakens the signal where SNR is low.
+We note that this filter is non-causal, which may not be suitable for real time signal processing. 
+More detailed analysis can be found in Ref.~\citep{10.5555/151045}. 
+In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:winer-hopf}, and set the length of the filter to $n=100$. 
+A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
+The choice of $n=100$ is a reasonably selection to balance smoothing and efficiency. 
 
+The timeseries and frequency spectrum results of the Wiener fileter are are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
+There is improvement which is particularly visible in the timeseries, however a strong noise hum persists. 
 %The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
 %It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
 %\han{should we add more details here too?} \jam{[seconded]}
