@@ -109,7 +109,8 @@ We test these approaches on $1\,{\rm s}$ of data throughout this section as an i
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=\textwidth]{figures/freqSpectrumOriginalNoiseSubtracted.jpg}
+% trim order is <left> <lower> <right> <upper>
+\includegraphics[width=\textwidth,trim={0cm 8.5cm 0 8cm},clip]{figures/freqSpectrumOriginalNoiseSubtracted.pdf}
 \end{center}
 \caption{\label{fig:noiseSubtract}
 Frequency spectrum of a $1\,{\rm s}$ signal before the use of filters. 
@@ -183,18 +184,27 @@ Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter ar
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=\textwidth]{figures/timeSeriesNotchWiener.jpg}
+\includegraphics[width=\textwidth,trim={0cm 8.7cm 0 8.3cm},clip]{figures/timeSeriesNotchWiener.pdf}
 \end{center}
 \caption{\label{fig:timeNotchWiener}
+Timeseries results for the notch and Wiener filters. 
+The first panel shows the original speech recording which was played from the speaker. 
+The second panel shows the data from the optical microphone before any filters are applied. 
+The third and fourth panels show results after applying the notch and Wiener filter respectively. 
+Finally, the fifth panel shows the result of applying both the notch and Wiener filter. 
 }
 \end{figure*}
 
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=\textwidth]{figures/freqNotchWiener.jpg}
+\includegraphics[width=\textwidth,trim={0cm 8.2cm 0 8cm},clip]{figures/freqNotchWiener.pdf}
 \end{center}
 \caption{\label{fig:freqNotchWiener}
+Frequency spectrum results for the notch and Wiener filters. 
+The first and second panels show the results of applying the notch and Wiener filter respectively.
+The third panel shows the spectrum after applying both the notch and Wiener filters. 
+The first, second, and third panels show the spectrum of the timeseries show in the third, fourth, and fifth panels of Fig.~\ref{fig:timeNotchWiener} respectively. 
 }
 \end{figure*}
 
@@ -203,22 +213,129 @@ Timeseries and frequency spectrum results are shown in Figs.~\ref{fig:timeNotchW
 The original signal is identical to that shown in Fig.~\ref{fig:noiseSubtract}.
 The first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing through the optical microphone (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
 
-A notch filter attenuates signals in specific frequency bands. 
-We apply a $15$ cascaded notched filter to remove the mains noise and its harmonics up to $750\,{\rm Hz}$. 
-\han{should we include here a mathematical description of the $15$ cascade notch filter?}
-\jam{[Yes, I have no idea what a cascaded notched filter is and I'm an author!]}
-The timeseries and frequency spectrum results are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}. 
+
+
+\subsubsection{Cascade notched filter}
+A straightforward method for removing hum noise and its harmonics is to use a sequence of notch filters centered at each of the frequency bins we want to remove. 
+A typical transfer function of infinite impulse response (IIR) notch filter can be written as \citep{10.5555/541204}
+\begin{equation}
+    \label{eqn:notch}
+    H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}
+\end{equation}
+where $\alpha$ and $\beta$ are self-tuned parameters which adjust the locations of poles and zeros. 
+By allowing the numerator and demoninator of $H(z)$ to be zero, we can find the corresponding locations of zeros and poles of the filter. 
+Notice zeros are at $e^{\pm jw_0}, \text{where } w_0=\cos^{-1}(\beta)$, and poles are at $re^{\pm j\phi}, \text{where } r=\sqrt{\alpha},\phi=\cos^{-1}(\beta(1+\alpha)/(2\sqrt{\alpha}))$.
+At $w_0$, the magnitude response will be zero. 
+Thus, we can calculate $\beta$ setting $w_0$ to be the frequency we want to remove. 
+The parameter $\alpha$ affects the bandwidth ($B_w$) of the filter and has the relation $B_w=\cos^{-1}(\frac{2\alpha}{1+\alpha^2})$. \\
+In our paper, we first decide $\beta$ for each filter. 
+We locate hum noise spectrum at around $50k\,{\rm Hz}$ where the integer $k=1,2,\dots,15$. 
+For each $k$, we build a notch filter to filter out the specific frequency bin approximately at $50k \, {\rm Hz}$. 
+We then alter the parameter $\alpha$ to determine the bandwidth of each filter. 
+On one side, the bandwidth should be as narrow as possible to avoid disturbing useful signals. 
+This can be achieved through increasing orders of the filter (add more poles and zeros). 
+On the other side, the bandwidth should have enough residues to account for the uncertainty of our pinpointing the location of hum noise. 
+After considering these two aspects, we are now able to get the ideal transfer function for each filter. 
+The whole cascaded filter is achieved by multiplying them together, 
+\begin{equation}
+    \label{eqn:notch15}
+    H(z)=H_1(z)H_2(z)\dots H_k(z),k=1,2,\dots 15\,,
+\end{equation}
+where $H(z)$ denotes the transfer function of the full cascaded notch filter, and $H_k(z)$ denotes one single notch filter for removing $50k \, {\rm Hz}$ frequency. 
+We use the built-in MATLAB filter design toolbox to help us realize a well performed cascaded notch filter (each filter has order 6).  
+The magnitude response of the first five notch filters are shown in Fig.~\ref{fig:notchMagResponse}. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=.49\textwidth]{figures/1111}
+\end{center}
+\caption{\label{fig:notchMagResponse}
+Magnitude response for the first five notches of the $15$ cascaded notch filter described by Eqns.~\ref{eqn:notch} and ~\ref{eqn:notch15}. 
+}
+\end{figure}
+
+
+The timeseries and frequency spectrum results of the notch filter are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}. 
 We seen that the mains harmonics are significantly attenuated in comparison to the analysis in Fig.~\ref{fig:noiseSubtract}. 
 
-The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
-It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
-\han{should we add more details here too?} \jam{[seconded]}
-The timeseries and frequency spectrum results of the Wiener filter are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
-The timeseries is visibly cleaner, however there is a strong noise hum. 
+%A notch filter attenuates signals in specific frequency bands. 
+%We apply a $15$ cascaded notched filter to remove the mains noise and its harmonics up to $750\,{\rm Hz}$. 
+%\han{should we include here a mathematical description of the $15$ cascade notch filter?}
+%\jam{[Yes, I have no idea what a cascaded notched filter is and I'm an author!]}
 
-The combination of the notch filter and the Wiener filter produces a cleaner signal than either individually. 
-The time series and spectrum results are shown in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively.
-\han{todo - ask Changrong for some concluding remarks on intelligibility of the result using notch and wiener filter} 
+
+
+\subsubsection{Weiner Filter}
+
+We use vector $\textbf{x}=\{x(0),\dots x(N-1)\}$ to denote the noisy speech signal sequence. Assume original clean signal is $\textbf{s}=\{s(0),\dots,s(N-1)\}$, and the noise sequence $\textbf{w}=\{w(0),\dots,w(N-1)\}$. We then have
+\begin{equation}
+    \textbf{x}=\textbf{s}+\textbf{w}
+\end{equation}
+Based on the observation data$\textbf{x}$, our goal is to estimate s, such that the error between $\textbf{x}$ and estimated $\mathit{\hat{s}}$ is minimized in the mean square sense, we write
+\begin{equation}
+    \hat{\textbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\textbf{x}-\textbf{s}||_2^2
+\end{equation}
+Under the assumptions that observed data is wide sense stationary and noise sequence is stationary, uncorrelated with signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
+The famous Wiener-Hopf equation \citep{noble1959methods} provides us a way to determine $\textbf{h}$, which can be expressed as 
+\begin{equation}
+\label{winer-hopf}
+\begin{bmatrix}  
+r_{xx}[0]&r_{xx}[1]&\dots& r_{xx}[n]\\
+r_{xx}[1]&r_{xx}[0]&\dots &r_{xx}[n-1]\\
+\vdots&\vdots&\ddots&\vdots\\
+r_{xx}[n]&r_{xx}[n-1]&\dots &r_{xx}[0]
+\end{bmatrix}
+\begin{bmatrix}
+h[0]\\
+h[1]\\
+\vdots\\
+h[n]
+\end{bmatrix}=
+\begin{bmatrix}
+r_{ss}[0]\\
+r_{ss}[1]\\
+\vdots\\
+r_{ss}[n]
+\end{bmatrix}
+\end{equation}
+
+\begin{equation*}
+\left\{
+\begin{array}
+r_{xx}[n]=E[x[i]x[i+n]] \\ 
+r_{ss}[n]=E[s[i]s[i+n]]
+\end{array} \right\}  
+\end{equation*}
+where $r_{xx}$ and $r_{ss}$ is the auto-correlation function of $x$ and $s$.
+If further, we do not need to guarantee the causality of Wiener filter, in other words, we estimate current signal based on both past and future observations, Eq. \ref{winer-hopf} can then be represented in the frequency domain, which is
+\begin{equation}
+\label{wiener}
+    H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}
+\end{equation}
+where $P_{xx}(f),P_{ss}(f),P_{ww}(f)$ stands for the frequency spectrum of noisy observations, clean signal and pure noise respectively. Intuitively, from Eq. \ref{wiener}, we can see Wiener filter amplifies input signal where signal to noise ratio (SNR) is high, and weaken the signal where SNR is low.
+Notice that since this filter is non-causal, which may not be suitable for real time signal processing. More detailed analysis can be found in \citep{10.5555/151045}. In our case, we construct a causal Wiener filter based on Eq. \ref{winer-hopf}, and set the length of the filter to be 100. Large n smooths the input signal further, while cause more delay and requires more memory meanwhile. $n=100$ is a relatively reasonable choice for balancing these effects.
+
+%The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
+%It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
+%\han{should we add more details here too?} \jam{[seconded]}
+%The timeseries and frequency spectrum results of the Wiener filter are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
+%The timeseries is visibly cleaner, however there is a strong noise hum. 
+
+
+\subsubsection{Combined Notch and Weiner filter}
+The Wiener filter makes use of statistical information from the speech data and noise. 
+It amplifies the part of the signal with high SNR, while suppressing the part with low SNR. 
+It is implemented in the form of a finite response filter, which ensures linear phase response and stability at the cost of high orders. 
+By comparison, the notch filter is based on directly removing the unwanted frequency components. 
+It is implemented in the form of an infinite impulse response fileter. 
+Although it significantly decreases the order of the filter, it unavoidably introduces nonlinear phase and instability. 
+
+Combining the notch and Wiener filter, we have a trade off between the two filters, which shows better performance in filtering out different noise components (white noise plus hum noise). 
+The results from the combination of notch and Wiener filters are visibly cleaner as shown in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} for the timeseries and spectrum respectively 
+
+
+
+%The combination of the notch filter and the Wiener filter produces a cleaner signal than either individually. 
+%The time series and spectrum results are shown in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively.
 
 %The ideal filter would be one that i) completely attenuates the undesired parts of the spectrum, ii) does not change the rest of the spectrum, and iii) has smooth edges so as to not damage the signal after convolution. 
 %These three conditions are contradictory and any filter must compromise between them. 
