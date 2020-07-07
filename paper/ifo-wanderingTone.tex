@@ -24,7 +24,7 @@ The detection statistics in every segment are combined to form a grid in time an
 The value at each spectrogram point determines the likelihood that a signal is present at a particular time and frequency. 
 In gravitational-wave data analysis, a detection statistic is used to calculate the likelihood of a signal given the antenna beam pattern of the detector, which varies with as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
 The detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}). 
-In this work the detection statistic is the amplitude (modulus) of the Fourier transform of the data at each time segment, which maximizes the likelihood of detecting a sinusoid in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood} \han{to do} \jam{[makes sense but is beyond me]}.
+In this work the detection statistic is the amplitude (modulus) of the Fourier transform of the data at each time segment, which maximizes the likelihood of detecting a sinusoid in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
 The resulting spectrogram gives the Fourier amplitude for each frequency and time bin. 
 The task is then to find the most likely wandering frequency signal through the spectrogram. 
 The Viterbi algorithm~\cite{Viterbi:1967} is an efficient method to find the most likely path of a signal given an observation sequence. 

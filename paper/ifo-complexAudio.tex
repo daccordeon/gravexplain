@@ -9,7 +9,7 @@
 A natural successor to simple tomes is complex audio, such as music and speech. 
 Complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, so the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not applicable directly.
 Instead, in this section, we explore how to use the interferometer as an `optical microphone' to detect and play back complex audio signals, using light to capture sound. 
-In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter tuned to sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood} \han{to do}. 
+In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter tuned to sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}. 
 The device has precedence in the laser microphones~\cite{laser_microphone} used in the defence industry which operate on a variety of related principles.
 It is also analogous to the detection of unmodelled gravitational-wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
 %It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
@@ -44,7 +44,7 @@ The photodiode is mounted on a cloth screen re-purposed from the dismantled comm
 
 
 The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online}, which provides a convenient means to record the photodiode data. 
-\han{[from hannah: James does this sound ok? And I have referenced the Raspberry Pi general website, but could you add any appropriate references you used]} \jam{[from James: no problem, sounds good. no obvious references spring to mind that aren't readily available for anyone trying to reproduce the experiment]}
+\han{[from hannah: James does this sound ok? And I have referenced the Raspberry Pi general website, but could you add any appropriate references you used]} \jam{[from James: no problem, sounds good. no obvious references spring to mind that aren't readily available for anyone trying to reproduce the experiment]} \han{[could you add a couple of useful resources? We should try our best to help out the reader in terms of reproducibility]}
 Together, these sample the signal at roughly $16\,{\rm kHz}$.
 
 
@@ -276,7 +276,12 @@ Given the observation data $\mathbf{x}$, our goal is to estimate $\mathbf{s}$ so
 \begin{equation}
     \hat{\mathbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\mathbf{x}-\mathbf{s}||_2^2\,. 
 \end{equation}
-Assuming that $\textbf{x}$ is wide-sense stationary \han{[perhaps a simple definition of wide-sense stationary should be included in brackets here? to do; ask Changrong]} and that $\textbf{w}$ is stationary and uncorrelated with the signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
+Assuming that $\textbf{x}$ is wide-sense stationary~\footnote{
+A random process $\{x(t)\}$ is wide sense stationary (WSS) if for all
+$t_1,t_2 \in R$, it satisfies (1) mean is time invariant, i.e.,
+$\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; (2) autocorrelation depends
+only on time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.}
+and that $\textbf{w}$ is stationary and uncorrelated with the signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
 The famous Wiener-Hopf equation~\citep{noble1959methods} provides us a way to determine $\textbf{h}$, as
 \begin{equation}
 \label{eqn:winer-hopf}

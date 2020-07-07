@@ -73,9 +73,36 @@ This is discussed further in Section~\ref{}\han{to do}. \jam{[not quite sure how
 
 
 
-\section{Likelihood of sinusoids in Gaussian noise}
+\section{Detecting a sinusoidal signal in Gaussian noise}
 \label{app:sinusoid_likelihood}
-\jam{[to do! from Andrew: ``Write a short appendix proving that maximizing the likelihood exp(-n||n/2) with respect to A given a signal A cos (wt + phi) is the Fourier transform. Classic sig proc result useful for teachers to know.'']}
+%\jam{[to do! from Andrew: ``Write a short appendix proving that maximizing the likelihood exp(-n||n/2) with respect to A given a signal A cos (wt + phi) is the Fourier transform. Classic sig proc result useful for teachers to know.'']}
+In this appendix we demonstrate the the modulus of the Fourier Transform is an appropriate detection statistic when searching for a sinusoidal signal in Gaussian noise. 
+We describe the data as
+\begin{equation}
+x(t) = s(t) + n(t)\,, 
+\end{equation}
+where $s(t)$ and $n(t)$ are the signal and noise respectively. 
+The we describe the signal as 
+\begin{equation}
+s(t) = A \cos{\omega t + \phi}\,,
+\end{equation}
+where $A$, $\omega$, and $\phi$ are the amplitude, angular frequency and phase of the signal respectively. 
+The log likelihood assuming Gaussian noise is given by
+\begin{eqnarray}
+\log \mathcal{L} &=& -\frac{1}{2}(n|n)\,, \\
+                 &=& -\frac{1}{2}(x-s|x-s)\,, \\ 
+                 &=& -\frac{1}{2}(x|x) - \frac{A^2}{2} (\cos[\omega t + \phi] | \cos[\omega t + \phi]) \\ &&+ A (x | \cos[\omega t +\phi])\,, \\ 
+                 &=& -\frac{1}{2}(x|x) - \frac{A^2}{4} + A (x | \cos[\omega t +\phi])\,, \label{eqn:logLike}\\ 
+\end{eqnarray}
+where we define the inner product between $u(t)$ and $v(t)$ as $(u|v) = \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data (and the last line assumes that $T>>1/\omega$ so that $(\cos[\omega t + \phi] | \cos[\omega t + \phi])\approx{1/2}$). 
+
+Maximising Eqn.~\ref{eqn:logLike} with respect to $A$ shows that the maximum likelihood is when $A = 2\left( x | \cos[\omega t+\phi]\right)$. 
+The maximum likelihood is then, 
+\begin{eqnarray}
+\log \mathcal{L}_\mathrm{max} = - \frac{1}{2} (x|x) + ( x | cos[\omega t + \phi)^2\,. \label{eqn:maxLogLike}
+\end{eqnarray}
+Focusing on the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum log likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, baring the constant factor $(x|x)$.  
+
 
 
 
