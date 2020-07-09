@@ -264,24 +264,39 @@ We seen that the mains harmonics are significantly attenuated in comparison to t
 
 
 
-\subsubsection{Weiner Filter}
+\subsubsection{Wiener Filter}
 
 A Wiener filter is used to compute an estimate of the original signal. 
 We label the noisy speech signal sequence as  $\mathbf{x}=\{x(0),\dots, x(N-1)\}$, where $N$ is the length of the data sequence. 
 It is the sum of the original clean signal $\mathbf{s}=\{s(0),\dots,s(N-1)\}$, and the noise sequence $\mathbf{w}=\{w(0),\dots,w(N-1)\}$, 
 \begin{equation}
-    \mathbf{x}=\mathbf{s}+\mathbf{w}
+    \mathbf{x}=\mathbf{s}+\mathbf{w}\,.
 \end{equation}
-Given the observation data $\mathbf{x}$, our goal is to estimate $\mathbf{s}$ so that the error between $\mathbf{x}$ and the estimate ${\hat{\mathbf{s}}}$ is minimized in the mean square sense,
+Given the observation data $\textbf{x}$, our goal is to filter the signal $\textbf{s}$ from the noise $\textbf{w}$, and get an estimated $\hat{\textbf{s}}$, where the difference between $\hat{\textbf{s}}$ and true signal $\textbf{s}$ is minimized in the mean square error sense, which is represented as
 \begin{equation}
-    \hat{\mathbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\mathbf{x}-\mathbf{s}||_2^2\,. 
+\text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,,
 \end{equation}
-Assuming that $\textbf{x}$ is wide-sense stationary~\footnote{
+where $\text{BMSE}$ is the Bayesian mean square error. 
+Assuming that (i) $\textbf{x}$ is wide sense stationary~\footnote{
 A random process $\{x(t)\}$ is wide sense stationary (WSS) if for all
 $t_1,t_2 \in R$, it satisfies (1) mean is time invariant, i.e.,
 $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; (2) autocorrelation depends
-only on time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.}
-and that $\textbf{w}$ is stationary and uncorrelated with the signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
+only on time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} 
+with zero mean; (ii) the signal $\textbf{s}$ is zero mean; (iii) the noise processes $\textbf{w}$ are uncorrelated with the signal $\textbf{s}$, we can further express the estimated $\hat{\textbf{s}}$ to be a linear combination of present and past input observed data
+\begin{equation}
+\hat{{s}}[n]=\sum_{k=0}^{n}h[k]x[n-k]\,,
+\end{equation}
+where $\textbf{h}=\{h(0),\dots h(n)\}$ represents the coefficients of an $n$th order Wiener filter.
+%Given the observation data $\mathbf{x}$, our goal is to estimate $\mathbf{s}$ so that the error between $\mathbf{x}$ and the estimate ${\hat{\mathbf{s}}}$ is minimized in the mean square sense,
+%\begin{equation}
+%    \hat{\mathbf{s}}=\mathop{\arg\min}_{\textbf{s}}||\mathbf{x}-\mathbf{s}||_2^2\,. 
+%\end{equation}
+%Assuming that $\textbf{x}$ is wide-sense stationary~\footnote{
+%A random process $\{x(t)\}$ is wide sense stationary (WSS) if for all
+%$t_1,t_2 \in R$, it satisfies (1) mean is time invariant, i.e.,
+%$\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; (2) autocorrelation depends
+%only on time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.}
+%and that $\textbf{w}$ is stationary and uncorrelated with the signal, we represent the $n$th order Wiener filter by its coefficients $\textbf{h}=\{h(0),\dots(n)\}$. 
 The famous Wiener-Hopf equation~\citep{noble1959methods} provides us a way to determine $\textbf{h}$, as
 \begin{equation}
 \label{eqn:winer-hopf}
@@ -302,7 +317,7 @@ r_{ss}[0]\\
 r_{ss}[1]\\
 \vdots\\
 r_{ss}[n]
-\end{bmatrix}
+\end{bmatrix}\,,
 \end{equation}
 where $r_{xx}$ and $r_{ss}$ are the auto-correlation functions of $\mathbf{x}$ and $\mathbf{s}$ between timestep $i$ and $i+n$, 
 %\begin{equation*}
@@ -338,7 +353,7 @@ There is improvement which is particularly visible in the timeseries, however a 
 %The timeseries is visibly cleaner, however there is a strong noise hum. 
 
 
-\subsubsection{Combined Notch and Weiner filter}
+\subsubsection{Combined Notch and Wiener filter}
 The Wiener filter makes use of statistical information from the speech data and noise. 
 It amplifies the part of the signal with high SNR, while suppressing the part with low SNR. 
 It is implemented in the form of a finite response filter, which ensures linear phase response and stability at the cost of high orders. 
