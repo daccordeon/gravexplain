@@ -109,13 +109,45 @@ Focusing on the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum
 \section{Viterbi algorithm}
 \label{app:viterbi}
 
-This appendix contains some details regarding implementation of the Viterbi algorithm described in Section~\ref{sec:viterbi}. 
+This appendix contains some details regarding the implementation of the Viterbi algorithm described in Section~\ref{sec:viterbi}. 
 The Viterbi algorithm is a classic method in signal processing, whose theoretical underpinnings and implementation are easily accessible to undergraduate students. 
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
-\han{to do! pseudo-code here}
-\jam{[Hannah has already explained a lot about Viterbi, at this point is it worth just citing existing documentation for further details? I used Wikipedia in writing code, should we cite that? Andrew mentions going through the practical aspects, e.g. log to avoid underflow, is that worth writing up? My thought is only that all of this is technically available in the open source.]}
-\han{[from Hannah: I think it is worth having a go at pseudocode write-up of the implementation as Andrew suggests - James can you add some text based on your code and we can see how it looks?]}
+\subsection{Pseudocode}
+Here we give pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalised between $(0, 1)$ as multiplicative weights, but to avoid underflow we take the logarithm and consider them as additive weights.
+
+Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices. We restrict paths to only move one cell up or down at a time (or stay constant).
+
+\begin{algorithmic}
+\Function{Viterbi}{$X$}
+    % \State $a \gets a+1$
+    % \State \Return $a$
+
+    \For{each row $j=0,\ldots,N_f$}
+		\State $Y_{0,j} \gets X_{0,j}$
+    \EndFor
+
+    \For{each column $i=1,\ldots,N_t$}
+	    \For{each row $j=0,\ldots,N_f$}
+		
+	    	\State $Y_{i,j} \gets \underset{k \in \{-1,0,1\}}{\max} (Y_{i-1,j+k} + X_{i,j})$
+	    	\State $Z_{i,j} \gets j + \underset{k \in \{-1,0,1\}}{\arg\max} (Y_{i-1,j+k} + X_{i,j})$
+   
+	    \EndFor
+    \EndFor
+
+    \State $W_{N_t} \gets \underset{j=0,\ldots,N_f}{\arg\max} (Y_{N_t,j})$
+
+    \For{each col $i=N_t-1,\ldots,0$}
+
+		\State $W_i \gets Z_{i+1, W_{i+1}}$
+
+    \EndFor    
+
+    \State \Return $W$
+\EndFunction
+\end{algorithmic}
+
 %We consider a spectrogram grid where each element in the grid is the Fourier amplitude of a particular frequency at a particular time. These are normalised between $(0, 1)$ to use as multiplicative weights. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight among all paths.
 
 %With the grid prepared, the algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, selecting the previous cell with the greatest cumulative weight among those ‘nearby’ (the value of which was discovered in the previous iteration). Where the cumulative weight is the weight of the best path to reach that previous cell. The nearness of a previous cell is given by the limit on the allowed frequency change over time.

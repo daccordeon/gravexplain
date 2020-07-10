@@ -217,7 +217,12 @@ The overlaid pink-dot and white-cross markers show the injected signal and recov
 The Viterbi path provides a good match to the injected frequency. 
 %To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment \han{What was the SNR? / can we quantify this?}.
 Quantitatively, the Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. 
-\jam{[Andrew wanted something about ``percentage root mean-square-error'' along the path, can you explain what he wants me to calculate?]}
+We also consider the root mean square (RMS) fractional error along the path. Given $i=0,1,...,N_f$ columns of the injected frequency $I_i$ and recovered (Viterbi) frequency $R_i$, the RMS fractional error is given by:
+\begin{equation}
+\sqrt{ \frac{1}{N_f+1} \sum_{i=0}^{N_f} \frac{(I_i - R_i)^2}{{I_i}^2} }
+\end{equation}
+Computing this along the path, we end up with the value \jam{???}, which indicates a good recovery of the injected signal.
+
 
 %The Viterbi path stays within one frequency bin (approximately $0.3\,{\rm Hz}$) of the injected tone for $94\%$ of the run. 
 Initially the injected signal moves faster then the frequency wander limit, leading to the discrepancy observed for $t\lesssim 10\,{\rm s}$. 
