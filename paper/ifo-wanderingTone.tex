@@ -198,8 +198,7 @@ In some cases, we see this proves poorly adjusted to the signal.
 \subsection{Sample output}
 \label{sec:wanderingResults}
 
-To test the Viterbi algorithm, a signal with wandering frequency is played by the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}.
-\jam{[The injected frequency wandered along a decaying sinusoid, it was not random.]}
+To test the Viterbi algorithm, a sinusoidal signal with wandering frequency was played by the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}. The injected frequency itself followed a sinusoid with decaying amplitude. This choice was arbitrary, any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm.
 %Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
 
 \begin{figure*}

@@ -43,10 +43,8 @@ We see no difference when monitoring at other positions in the interference patt
 The photodiode is mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath. 
 
 
-The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online}, which provides a convenient means to record the photodiode data. 
-\han{[from hannah: James does this sound ok? And I have referenced the Raspberry Pi general website, but could you add any appropriate references you used]} \jam{[from James: no problem, sounds good. no obvious references spring to mind that aren't readily available for anyone trying to reproduce the experiment]} \han{[could you add a couple of useful resources? We should try our best to help out the reader in terms of reproducibility]}
-Together, these sample the signal at roughly $16\,{\rm kHz}$.
-
+The voltage signal from the photo-detector is captured by a MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online}, which provides a convenient means to record the photodiode data.
+Together, these sample the signal at roughly $16\,{\rm kHz}$. Resources for using the Pi are found in Appendix~\ref{app:circuit_diagram}.
 
 Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing into the detected range. 
 To prevent this, we include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC. 
@@ -85,8 +83,8 @@ The timeseries was then directly converted to a .wav file and played as an audio
 
 We find that the raw output of the optical microphone, collected without any further processing (except anti-aliasing), is noisy, with a loud bass hum throughout.
 Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond its $8$th harmonic. \jam{[non-linear appendix, Andrew says to cite Feynman lectures on non-linear oscillations]}
-We find that the mains power signal is present in data recorded without an injected audio signal as seen in the power spectral density in Figure~\ref{fig:psd_noise}.
-The mains power is also present in data taken with the photodiode in complete darkness with a similar but weaker distribution as that shown in Figure~\ref{fig:psd_noise}).
+This mains power signal is present in the power spectral density of background noise as shown in the top panel of Figure~\ref{fig:psd_noise}.
+The mains power signal is far weaker but still present in the background noise taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution.
 The origin of the mains power signal is likely to be from the photodiode signal, or environmental noise from the rooms lighting and air conditioning, or a combination. 
 Outside the mains noise, the power appears to peak broadly around 750 Hz, the origin or significance of which we don't know. 
 
@@ -164,10 +162,6 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 	\label{fig:butterworth}
 \end{figure}
 
-
-Band-passing the signal similarly does not address the remaining harmonics above $100\,{\rm Hz}$. 
-However, it does suppress other noise at higher frequencies. 
-The best performing band-pass filter we find is a fifth order ($n = 5$) Butterworth filter over the range $150\,{\rm Hz}$--$3\,{\rm kHz}$ (beyond $2\,{\rm kHz}$ speech information content drops significantly~\cite{speech_intelligibility}). 
 For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\varepsilon$, the frequency response (attenuation at each frequency) as a function of frequency $\omega$ is:
 \begin{equation}
 \label{eq:butterworth}
@@ -176,11 +170,14 @@ H(\omega) = \left(1+\varepsilon^2 \left( \frac{\omega}{\omega_c} \right)^{2n}\ri
 
 \jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
 To construct a Butterworth band-pass filter, the low-pass filter in Eq.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
-The response of the filter used is shown in Figure~\ref{fig:butterworth}. 
-The Butterworth filter performs the well as it is optimised to be `maximally flat' within the band region (prioritising condition (ii) above).
-This filter improves on the above simpler filters but recordings of speech still have low intelligibility.
-They can be recognised as speech without being understood.
-Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter are shown in combination with a speech enhancement technique. 
+The best performing band-pass filter we find is a fifth order ($n = 5$) Butterworth filter over the range $150\,{\rm Hz}$--$3\,{\rm kHz}$ (beyond $2\,{\rm kHz}$ speech information content drops significantly~\cite{speech_intelligibility}). 
+The response of the filter used is shown in Figure~\ref{fig:butterworth} and its effect on the power spectral density of background noise is shown in the bottom panel of Figure~\ref{fig:psd_noise}.
+Band-passing the signal does not address the remaining harmonics above $100\,{\rm Hz}$. 
+However, it does suppress other noise at higher frequencies. 
+The Butterworth filter performs well at maintaining source intelligibility as it is optimised to be `maximally flat' within the band region (prioritising condition (ii) above).
+However recordings of speech still have low intelligibility (the speech can't be understood) as the filter does not improve beyond the source.
+% They can be recognised as speech without being understood.
+Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter are shown in combination with a speech enhancement technique to address this. 
 
 \begin{figure*}
 \begin{center}
