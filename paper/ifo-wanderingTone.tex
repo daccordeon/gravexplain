@@ -15,24 +15,36 @@ Continuous wave searches are performed on long datasets (months to years in dura
 The frequency of gravitational-wave emission wanders significantly over the observation period. 
 In this context, ``significantly'' means ``across multiple frequency bins'', where the typical width of a frequency bin is the reciprocal of the total observing time~\cite{JKS:1998,ScoX1O2Viterbi:2019}
 
+
+
+
+
 One method to search for a wandering signal is to split the data into several shorter segments which are analysed individually. 
 The detection statistics in every segment are combined to form a grid in time and frequency (spectrogram). 
 The value at each spectrogram point determines the likelihood that a signal is present at a particular time and frequency. 
-In gravitational-wave data analysis, a detection statistic is used to calculate the likelihood of a signal given the antenna beam pattern of the detector, which varies with as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
-The detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}). 
+In gravitational-wave data analysis, a detection statistic is used to calculate the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
+The detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}. 
 In this work the detection statistic is the amplitude (modulus) of the Fourier transform of the data at each time segment, which maximizes the likelihood of detecting a sinusoid in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
 The resulting spectrogram gives the Fourier amplitude for each frequency and time bin. 
-The task is then to find the most likely wandering frequency signal through the spectrogram. 
+
+
+In continuous wave searches a hidden Markov model is used to describe the system. 
+The frequency (the state) of the signal is unknown (hidden) and the signal is Markovian in that its current state depends only on the previous state. 
+The hidden Markov model method relates the observable quantity (the detection statistic) to the signal frequency (the hidden state). 
+The task is then to find the most likely wandering frequency signal given the observable of the spectrogram. 
 The Viterbi algorithm~\cite{Viterbi:1967} is an efficient method to find the most likely path of a signal given an observation sequence. 
-It is used in continuous wave searches for a range of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}. 
+This method is used in continuous wave searches for a range of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,JonesSun:2020,MiddletonEtAlO2LMXBs:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}. 
  
+
+
+
 In Section~\ref{sec:viterbi} we review the Viterbi algorithm and its application to this work. 
 In Section~\ref{sec:wanderingResults} we present the results for recovery of a wandering audio frequency. 
 
 
 
 
-\subsection{The Viterbi algorithm}
+\subsection{The hidden Markov model and Viterbi algorithm}
 \label{sec:viterbi}
 
 \begin{figure}
@@ -51,35 +63,28 @@ The Viterbi path is the path leading to this circle, highlighted in orange from 
 }
 \end{figure}
 
-%Here we overview the Viterbi algorithm and describe its usage in this work. 
-%Thinking about this 
-A spectrogram is a grid indexed by time $t$ and frequency $f$ where here there are $N_t$ and $N_f$ time and frequency bins respectively, as shown in Fig.~\ref{fig:viterbi}.
+
+The spectrogram grid is indexed by time $t$ and frequency $f$ where there are $N_t$ and $N_f$ time and frequency bins respectively, as shown in Fig.~\ref{fig:viterbi}.
 We label the elements of the grid as $t_i$ and $f_j$ with $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
-The value in each grid element is a detection statistic based on the time series data observed. 
-It indicates the likelihood that a signal is present in the element. 
-We label the normalised Fourier amplitude as $F(t_i,f_j)$. 
-%In continuous wave searches the detection statistic depends on the type of gravitational wave source. 
-%In this work we use the normalised Fourier amplitude, which we label $F(t_i,f_j)$. 
+The normalised Fourier amplitude $F(t_i,f_j)$ is the detection statistic indicating the likelihood that a signal is present in each grid element. 
 
 
 The objective is to find the most likely path through the grid given the data and any probabilistic constraints on how the frequency wanders from $t_i$ to $t_{i+1}$. 
 In continuous wave searches, a physical model is used to decide how much the frequency of the signal is allowed to wander at each time step, which depends on the type of target. 
 In this work, at each time step we allow the frequency to either a) stay in the same bin; b) move up a single frequency bin; or c) move down a single frequency bin. 
-The probability of transitioning from $f_j$ at $t_i$ to any of $\{f_{j+1},f_j,f_{j-1}\}$ at $t_{i+1}$ is called the transition probability $A(f_k,f_m)$. 
+In a hidden Markov model, the probability of transitioning from $f_j$ at $t_i$ to any of $\{f_{j+1},f_j,f_{j-1}\}$ at $t_{i+1}$ is called the transition probability $A(f_k,f_m)$. 
 In this work the three options have equal probability $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 
 
 A path through the grid has a likelihood dependent on the detection statistic (the observation) and the transition probability.
-If the starting probabilities are all equal, i.e. $Pr[f(t_0)] = 1/N_f$, the the probability of the frequency equalling $f(t_{i+1})$ at $t = t_{i+1}$ is defined recursively by
-%If there is equal probability of starting $f_j$ at $t=t_0$, the probability of path $Q$ given the observation $O$ is 
+If the starting probabilities are all equal, i.e. ${\rm Pr}[f(t_0)] = 1/N_f$, the the probability of the frequency equalling $f(t_{i+1})$ at $t = t_{i+1}$ is defined recursively by
 \begin{eqnarray}
-%P(Q|O) =& A(f_j) F(t=N_t,f_j), \nonumber \\ &~~ \times \dots, A(f_j) F (t=t_0,f_j).
-Pr[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
-                     &*A[f(t_{i+1}),f(t_i)]  \nonumber \\
-                     & *Pr[f(t_i)].
+{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
+                     &\times A[f(t_{i+1}),f(t_i)]  \nonumber \\
+                     &\times {\rm Pr}[f(t_i)].
 \label{eqn:recursiveViterbi}
 \end{eqnarray}
-The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes $Pr[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
+The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes ${\rm Pr}[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
 We can the maximize the latter quantity over $0 \leq j \leq N_f$ to find the optimal Viterbi path overall, i.e. terminating in any frequency bin. 
 
 
@@ -98,7 +103,7 @@ In Fig.~\ref{fig:viterbi}, black lines show the best paths and grey lines show a
 \item Steps 2 is repeated until the end of the grid ($t=t_{N_t}$) is reached. 
 Only the best paths are stored. 
 
-\item At $t=t_{N_t}$, each $f_j$ has a value $Pr[f(t_{N_t})=f_j]$ (equation~\ref{eqn:recursiveViterbi}). 
+\item At $t=t_{N_t}$, each $f_j$ has a value ${\rm Pr}[f(t_{N_t})=f_j]$ (equation~\ref{eqn:recursiveViterbi}). 
 The algorithm selects the terminating frequency $f(t_{N_t})$ with the highest value, marked (b) in Fig.~\ref{fig:viterbi}.
 
 \item The Viterbi path is then found by backtracking along the best paths at each time step.
