@@ -20,11 +20,12 @@
 \usepackage{subfiles}
 \usepackage[bottom]{footmisc}
 \usepackage{comment}
-
 \usepackage{algpseudocode}
 % \usepackage{algorithm}
 % \usepackage{algorithmic}
 
+\usepackage{lineno}
+\linenumbers
 
 %\usepackage{dcolumn}
 %\usepackage{bm}
@@ -98,21 +99,15 @@ OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitati
 \affiliation{%
 Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
 }
-\affiliation{%
-\han{check all affiliations \\ from hannah: James, I have added the uni-melb affiliation for you as this is standard practice given you did a lot of the work as a uni-melb visitor} \jam{\\ from james: okay, if that’s how it’s done}
-}
 
 \author{Changrong Liu}
 \email{}
 \affiliation{%
 Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria 3010, Australia
 }
-\affiliation{%
-\han{check all affiliations}
-}
 
-\author{\han{(to do: ask other authors?)} \jam{[Other authors and affiliations I leave to you to contact and clarify]}}
-\email{wmoran@unimelb.edu.au}
+\author{...}
+\email{to do}
 \affiliation{%
 Adelaide, Adelaide-OzGrav
 }
@@ -122,10 +117,10 @@ Adelaide, Adelaide-OzGrav
 
 
 \begin{abstract}
-Gravitational wave observatories around the world are searching for continuous waves: persistent signals from spinning neutron stars. 
+Gravitational-wave observatories around the world are searching for continuous waves: persistent signals from spinning neutron stars. 
 Searches use sophisticated statistical techniques to look for weak signals in noisy data. 
-We show how continuous wave searches can be demonstrated with a table-top model gravitational-wave detector (a Michelson interferometer), where sound plays the role of gravitational waves. 
-Using signal processing techniques from continuous wave searches we demonstrate the recovery of tones with constant and wandering frequencies. 
+We show how continuous-wave searches can be demonstrated with a table-top model gravitational-wave detector (a Michelson interferometer), where sound plays the role of gravitational waves. 
+Using signal processing techniques from continuous-wave searches we demonstrate the recovery of tones with constant and wandering frequencies. 
 Finally we investigate the performance of the demonstration as an `optical microphone' for recovering music and speech. 
 Simple chords and drums are easily recovered, but speech is more challenging. 
 %however speech recordings are very noisy. 
@@ -187,22 +182,22 @@ It can also be adapted for use as an engagement tool for communicating gravitati
 
 
 \begin{acknowledgments}
-The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance throughout the project.
-The authors are also grateful to Deeksha Beniwal, Sebastian Ng, and Craig Ingram for their advice and work in designing the interferometer.
-\jam{[update if turned into authors]} 
-This research is supported by the Australian Research Council Centre of Excellence for Gravitational Wave Discovery (OzGrav) (project number CE170100004) and the Institute of Physics International Member Grant.
-Travel during the project was supported by the Australian National University PhB Science program.
+The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance throughout the project. 
+This research is supported by the Australian Research Council Centre of Excellence for Gravitational Wave Discovery (OzGrav) (project number CE170100004). 
+This work also received financial support from the Institute of Physics International Member Grant and travel support from the Australian National University PhB Science program.
 
 \end{acknowledgments}
+
+
+\appendix
+\subfile{ifo-appendix.tex}
+
 
 \nocite{*}
 \bibliographystyle{myunsrt}
 \bibliography{ifoDemoBib}
 
 
-\newpage
-\appendix
-\subfile{ifo-appendix.tex}
 
 
 \end{document}

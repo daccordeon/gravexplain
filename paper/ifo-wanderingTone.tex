@@ -4,10 +4,6 @@
 \begin{document}
 
 
- 
-% Tracking tones with the Viterbi algorithm
-% explaination and successful application
-% lean on the continuous gravitational waves angle
 Continuous gravitational wave signals may wander slowly in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars~\cite{MelatosDouglassSimula:2015,Jones:2010} or stochastic accretion flows in binary neutron stars~\cite{BildstenTB:1998}. 
 %As also mentioned in Section~\ref{sec:introduction}, continuous wave searches often look for signals that wander slowly in frequency~\cite{ScoX1O2Viterbi:2019}. 
 The audio analogue of this is a tone that wanders in frequency; a note that changes pitch. 
@@ -32,15 +28,6 @@ It is used in continuous wave searches for a range of astrophysical targets~\cit
  
 In Section~\ref{sec:viterbi} we review the Viterbi algorithm and its application to this work. 
 In Section~\ref{sec:wanderingResults} we present the results for recovery of a wandering audio frequency. 
-
-%The data from a gravitaitonal wave observation run can be many months to a year. 
-%One method to search for a slowly wandering continuous wave signal is to split the data into several shorter intervals. 
-%Each chunk is analysed seperately. 
-%In our project we take a Fourier transform of each interval and then create a grid (or spectrogram) where each cell is the Fourier amplitude of a particular frequency at a particular time. 
-%(In continuous wave searches, a detection statistic is used to calculate the likelihood of a signal being present in a particular frequency bin.)
-%The task is then to find the best path through the spectrogram grid as if it where a weighted graph, where here the weights are the Fourier amplitudes. 
-%The Viterbi algorithm~\cite{Viterbi:1967} is an efficient method find the best path through the grid. 
-%It is used in contiuous wave searches for a range of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}. 
 
 
 
@@ -121,85 +108,12 @@ The Viterbi path is highlighted in orange in fig.~\ref{fig:viterbi}.
 \end{enumerate}
 The Viterbi algorithm is an example of a dynamical programming algorithm, where a computation can be broken down into a series of sub-computations.
 The Viterbi path for a time series sequences spanning $t_0$ to $t_{N_t}$ contains the Viterbi path for sub-sequences of that time series. 
-It is also very computationally efficient. \jam{[Justify this claim to efficiency? Cite something about it being $O(n^2)$ or whatever it is?]}
-
-\begin{comment}
-The route through the grid which maximises the overall probability 
+The algorithm is computationally efficient, at every time step all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}).
 
 
-Constraints are set on the allowable paths. 
-In continuous wave searches, a physical model is used to decide how much the frequency can wander at each timestep, depends on the type of target. 
-In this work we allow the frequency to either a) stay in the same bin; b) move up a single frequency bin; or c) move down a single frequency bin. 
-We label the probability of transitioning from $f_j$ at $t_{i}$ to $f_{j+1,j,j-1}$ at $t_{i+1}$ as $A_{i,j}$. 
-In this work the three transition option have equal probability. 
-
-
-Our objective is now to find the most likely path through the grid given the data and transition constraints. 
-This is the route which maximises the overall probability, which we call the `Viterbi path'.
-In practice we sum the logarithm of the Fourier amplitude $\log O_{i,j}$ along the path.
-
- 
-The Viterbi algorithm begins at $t_{i=1}$. 
-The algorithm selects the highest probability route for each $f_j$. 
-\begin{equation}
-A_{i,j} O_{i,j+1}
-A_{i,j} O_{i,j}
-A_{i,j} O_{i,j-1}
-\end{equation}
-At $t_{i=2}$ it then selects the best route to this point based on the accumulated probability along the paths so far. 
-For example, at 
-
-
-(a.) The grid point labelled (a) has $f_{j=3}$ and $t_{i=1}$. 
-Looking back at the previous time, there are three options for where the path could have started from at $t_{i=0}$. These are $f_{j=4}$, $f_{j=3}$, or $f_{j=2}$. 
-The algorithm selects $f_{j=3}$ as it has the highest value. 
-(b.) The grid point labelled (b.) is not the best starting position for any of the cells at $t_{i=1}$, no paths starting from this position will be considered from now on. 
-
-
-
-
-
-The probability of a path is given by the accumulated probability along the path. 
-\begin{equation}
-
-\end{equation}
-
-
-
-
-The value of each element in the grid is the logarithm of the normalised Fourier amplitude, which we label $O_{i,j}$. 
-
-Our objective is to find the most likely path through the grid which maximises the , the `best path'. 
-In practice, we sum the logarithm of the Fourier amplitudes along the path. 
-
-We label the time-frequency grid points as $t_i$ and $f_j$ respectively, where $i=1,2,...N_t$ and $j=1,2,...,N_f$ (and $N_t$ and $N_f$ are the total number of time and frequency bins respectively). 
-Starting at $t_{i=2}$, the algorithm iterates calculates the best path to each $f_j$ from $t_{i=1}$ to $t_=2$.  through $t_i$, at each stage finding the best path to every $f_j$ from $t_{i=0}$. 
-
-
-
-Abstractly speaking, the algorithm is given a weighted graph (e.g.\ the spectrogram grid), a sensible sequence of subgraphs (e.g.\ the columns of the spectrum at each time), and restrictions on connectivity (e.g.\ the allowed amount of frequency wander). 
-At each iteration, the algorithm will find the best path to each node in the next sub-graph. 
-This is repeated to the final sub-graph. 
-%n, at each iteration, it will find the best path to each node in the next subgraph, all the way from the first subgraph. 
-The Viterbi path is then the overall best path from the first sub-graph to the last. 
-The overall best path from the first sub-graph to the last is then selected, which is called the Viterbi path. 
-At the end, it selects the overall best path from the first to the last subgraph (here, from the start to end time), this overall best path is called the Viterbi path. 
-See Appendix~\ref{app:viterbi} for the full details of the algorithm in this particular implementation.
-
-
-% moved from above
-The method requires a limit for the allowed frequency change over time, usually informed by a physical model. 
-In this work the frequency $f$ path can move in one of three ways at each time bin: a) up one frequency bin; b) stay in the same frequency bin; or c) down one frequency bin. 
-We set the frequency bin width to be $\Delta f = 0.3\,{\rm Hz}$ which corresponds to a maximum frequency wander of $0.11\,{\rm Hz}{\rm s}^{-1}$.
-%In this work, the frequency wander limit is set to $0.11\,{\rm Hz} {\rm s}^{-1}$ which corresponds to one frequency bin per every time bin. 
-In some cases, we see this proves poorly adjusted to the signal. 
-\end{comment}
 
 \subsection{Sample output}
 \label{sec:wanderingResults}
-
-To test the Viterbi algorithm, a sinusoidal signal with wandering frequency was played by the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}. The injected frequency itself followed a sinusoid with decaying amplitude. This choice was arbitrary, any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm.
-%Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
@@ -210,6 +124,11 @@ The overlaid pink-dot and white-cross markers show the injected signal and recov
 On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover. 
 At $150\,{\rm s}$ the data appears anomalous, which may be due to some background noise. }
 \end{figure*}
+ 
+To test the Viterbi algorithm, a sinusoidal signal with wandering frequency was played by the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}. The injected frequency itself followed a sinusoid with decaying amplitude. This choice was arbitrary, any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm.
+%Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
+
+
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal. 
