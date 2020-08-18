@@ -58,7 +58,7 @@ AT each time step, the paths can move up one $f$ step, move down one $f$ step, o
 Each circles has three paths leading to it indicated by the lines. 
 The best path to each circle at each $t_i$ is highlighted in black. 
 Some routes through the grid are found to be dead ends, such as the path ending at $t_1$ marked (a). 
-At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by equation~\ref{eqn:recursiveViterbi}, marked (b). 
+At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:recursiveViterbi}, marked (b). 
 The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
 }
 \end{figure}
@@ -98,16 +98,18 @@ For example for the element labelled (a), the highest value is directly behind i
 Each element has now selected the best path from the previous time step. 
 In Fig.~\ref{fig:viterbi}, black lines show the best paths and grey lines show all other paths. 
 
-\item Moving to $t_2$, the path with the highest value of the recursive relation in equation~\ref{eqn:recursiveViterbi} is selected for each $f_j$ as shown by the solid lines from $t_1$ to $t_2$ in Fig.~\ref{fig:viterbi}. 
+\item Moving to $t_2$, the path with the highest value of the recursive relation in Eqn.~\ref{eqn:recursiveViterbi} is selected for each $f_j$ as shown by the solid lines from $t_1$ to $t_2$ in Fig.~\ref{fig:viterbi}. 
+The origins are stored for each grid point.
 
 \item Steps 2 is repeated until the end of the grid ($t=t_{N_t}$) is reached. 
 Only the best paths are stored. 
 
-\item At $t=t_{N_t}$, each $f_j$ has a value ${\rm Pr}[f(t_{N_t})=f_j]$ (equation~\ref{eqn:recursiveViterbi}). 
+\item At $t=t_{N_t}$, each $f_j$ has a value ${\rm Pr}[f(t_{N_t})=f_j]$ (Eqn.~\ref{eqn:recursiveViterbi}). 
 The algorithm selects the terminating frequency $f(t_{N_t})$ with the highest value, marked (b) in Fig.~\ref{fig:viterbi}.
 
-\item The Viterbi path is then found by backtracking along the best paths at each time step.
-\jam{[Andrew mentioned providing a closed form here, which I'm not sure exists. The code works by storing three arrays: the weights, the score for the best path to a given vertex, and the index of the previous vertex along that path. Backtracking comprises of looping through that third array from the vertex in the last row with the highest score from the second array. I don't think we need to explain it any further than that.]}
+\item The Viterbi path is then found by backtracking along the stored best paths at each time step (see also Appendix~\ref{app:viterbi}). 
+% come back to this. 
+%\jam{[Andrew mentioned providing a closed form here, which I'm not sure exists. The code works by storing three arrays: the weights, the score for the best path to a given vertex, and the index of the previous vertex along that path. Backtracking comprises of looping through that third array from the vertex in the last row with the highest score from the second array. I don't think we need to explain it any further than that.]}
 In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c). 
 The Viterbi path is highlighted in orange in fig.~\ref{fig:viterbi}.
 \end{enumerate}
@@ -141,11 +143,11 @@ The overlaid pink-dot and white-cross markers show the injected signal and recov
 The Viterbi path provides a good match to the injected frequency. 
 %To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment \han{What was the SNR? / can we quantify this?}.
 Quantitatively, the Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. 
-We also consider the root mean square (RMS) fractional error along the path. Given $i=0,1,...,N_f$ columns of the injected frequency $I_i$ and recovered (Viterbi) frequency $R_i$, the RMS fractional error is given by:
+We also consider the root mean square (RMS) fractional error $E_{\rm rms}$ along the path. Given $i=0,1,...,N_f$ columns of the injected frequency $I_i$ and recovered (Viterbi) frequency $R_i$, $E_{\rm rms}$ is given by
 \begin{equation}
-\sqrt{ \frac{1}{N_f+1} \sum_{i=0}^{N_f} \frac{(I_i - R_i)^2}{{I_i}^2} }
+E_{\rm rms} = \sqrt{ \frac{1}{N_f+1} \sum_{i=0}^{N_f} \frac{(I_i - R_i)^2}{{I_i}^2} }
 \end{equation}
-Computing this along the Viterbi path we find an error of 0.082, which indicates fair but not total recovery of the injected signal.
+Computing this along the Viterbi path we find $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
 
 
 %The Viterbi path stays within one frequency bin (approximately $0.3\,{\rm Hz}$) of the injected tone for $94\%$ of the run. 

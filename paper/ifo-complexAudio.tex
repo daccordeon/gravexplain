@@ -6,12 +6,12 @@
 
 % Optical microphone
 % aim of optical microphone: play back injected sounds
-A natural successor to simple tomes is complex audio, such as music and speech. 
+A natural successor to single and wandering tones is complex audio, such as music and speech. 
 Complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, so the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not applicable directly.
 Instead, in this section, we explore how to use the interferometer as an `optical microphone' to detect and play back complex audio signals, using light to capture sound. 
 In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter tuned to sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}. 
 The device has precedence in the laser microphones~\cite{laser_microphone} used in the defence industry which operate on a variety of related principles.
-It is also analogous to the detection of unmodelled gravitational-wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
+%It is also analogous to the detection of unmodelled gravitational-wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
 %It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
 
 
@@ -82,7 +82,7 @@ During recordings, care was taken to ensure minimal activity around the interfer
 The timeseries was then directly converted to a .wav file and played as an audio recording using the \textbf{io.wavfile.write} function from the Scipy~\cite{scipy} package in Python~\cite{python}, as before.
 
 We find that the raw output of the optical microphone, collected without any further processing (except anti-aliasing), is noisy, with a loud bass hum throughout.
-Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond its $8$th harmonic. \jam{[non-linear appendix, Andrew says to cite Feynman lectures on non-linear oscillations]}
+Each $10\,{\rm s}$ Fourier spectrum shows dominant AC mains noise with power ranging from the fundamental of the $50\,{\rm Hz}$ mains power up to and beyond its $8$th harmonic, likely due to the non-linearity discussed in Appendix~\ref{app:intensity_derivation} (see also Ref.~\cite{feynman}). 
 This mains power signal is present in the power spectral density of background noise as shown in the top panel of Figure~\ref{fig:psd_noise}.
 The mains power signal is far weaker but still present in the background noise taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution.
 The origin of the mains power signal is likely to be from the photodiode signal, or environmental noise from the rooms lighting and air conditioning, or a combination. 
@@ -130,12 +130,12 @@ We see no obvious improvement, which may be due to time-variant noise.
 
 
 The next step is to apply filters to the data. 
-The ideal filter would be one that 
-\begin{itemize}
-\item[i)] completely attenuates the undesired parts of the spectrum, 
-\item[ii)] does not change the rest of the spectrum, and 
-\item[iii)] has smooth edges so as to not damage the signal after convolution. 
-\end{itemize}
+The ideal filter would be one that:
+%\begin{itemize}
+i) completely attenuates the undesired parts of the spectrum, 
+ii) does not change the rest of the spectrum, and 
+iii) has smooth edges so as to not damage the signal after convolution. 
+%\end{itemize}
 These three conditions are contradictory and any filter must compromise between them. 
 
 We note that simply zeroing the frequency channel of each $50\,{\rm Hz}$ in the frequency spectrum is unsuccessful. 
@@ -162,21 +162,22 @@ Applying a high-pass filter to the logarithm of the signal spectrum does not sig
 	\label{fig:butterworth}
 \end{figure}
 
-For a low-pass Butterworth filter with cut-off frequency $\omega_c$ and gain $\varepsilon$, the frequency response (attenuation at each frequency) as a function of frequency $\omega$ is:
+We also apply a Butterworth filter. 
+A low-pass Butterworth filter with cut-off frequency $f_c$ and gain $\varepsilon$, has a frequency response (attenuation at each frequency)
 \begin{equation}
 \label{eq:butterworth}
-H(\omega) = \left(1+\varepsilon^2 \left( \frac{\omega}{\omega_c} \right)^{2n}\right)^{-\frac{1}{2}}
+H(\omega) = \left(1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right)^{-\frac{1}{2}}
 \end{equation}
-
-\jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
-To construct a Butterworth band-pass filter, the low-pass filter in Eq.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
+% commenting to send to co-authors
+%\jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
+To construct a Butterworth band-pass filter, the low-pass filter in Eqn.~\ref{eq:butterworth} is combined with a high-pass filter of similar form. 
 The best performing band-pass filter we find is a fifth order ($n = 5$) Butterworth filter over the range $150\,{\rm Hz}$--$3\,{\rm kHz}$ (beyond $2\,{\rm kHz}$ speech information content drops significantly~\cite{speech_intelligibility}). 
-The response of the filter used is shown in Figure~\ref{fig:butterworth} and its effect on the power spectral density of background noise is shown in the bottom panel of Figure~\ref{fig:psd_noise}.
+The effect of the Butterworth band-pass filter on the power spectral density of the background noise is shown in the bottom panel of Fig.~\ref{fig:psd_noise}, where we see that it reduces the amplitude of the mains harmonics below $150\,{\rm Hz}$ 
+The response of the filter is shown in Fig.~\ref{fig:butterworth}.
 Band-passing the signal does not address the remaining harmonics above $100\,{\rm Hz}$. 
 However, it does suppress other noise at higher frequencies. 
-The Butterworth filter performs well at maintaining source intelligibility as it is optimised to be `maximally flat' within the band region (prioritising condition (ii) above).
-However recordings of speech still have low intelligibility (the speech can't be understood) as the filter does not improve beyond the source.
-% They can be recognised as speech without being understood.
+The Butterworth filter performs well at maintaining source intelligibility as it is optimised to be `maximally flat' within the band region (prioritising condition ii) above).
+However recordings of speech still have low intelligibility (the speech can't be understood).
 Looking forward to Sec.~\ref{sec:logmmse}, results for the Butterworth filter are shown in combination with a speech enhancement technique to address this. 
 
 \begin{figure*}
@@ -205,10 +206,11 @@ The first, second, and third panels show the spectrum of the timeseries show in 
 }
 \end{figure*}
 
-We also consider a combined notch filter and Wiener filter.
-Timeseries and frequency spectrum results are shown in Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively. 
-The original signal is identical to that shown in Fig.~\ref{fig:noiseSubtract}.
-The first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing through the optical microphone (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
+
+
+We also consider a combined notch filter and Wiener filter. 
+Here we describe our use of these methods with timeseries and frequency spectrum results shown in Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener} respectively. 
+The original signal is identical to that shown in Fig.~\ref{fig:noiseSubtract} where the first and second panels of Fig.~\ref{fig:timeNotchWiener} show the original audio signal and the recording after passing through the optical microphone respectively (i.e. the timeseries of the data shown in the first two panels of Fig.~\ref{fig:noiseSubtract}). 
 
 
 
