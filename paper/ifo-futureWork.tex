@@ -26,10 +26,11 @@ Transferring the circuit from a breadboard to a printed circuit board will also 
 
 %With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
 
-A second improvement is to measure the full model of the transfer function of the system. 
-With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
-\jam{[check with Rob et al. about the veracity of this]}
-The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the separation-intensity relation Appendix~\ref{app:intensity_derivation}, and the photodiode reading. 
+A second improvement is to measure the full model of the transfer function of the system, providing more information about how the audio signal couples with the interferometer.
+% commented out whilst James is checking this
+%With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
+%\jam{[check with Rob et al. about the veracity of this]}
+The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode reading. 
 A schematic of the full optical microphone transfer function is shown in Figure~\ref{fig:pipeline_highlighted}.
 
 A voluminous literature exists about using a hidden Markov model (HMM) trained against phonemes to recognize speech~\cite{HMM_english}. 
