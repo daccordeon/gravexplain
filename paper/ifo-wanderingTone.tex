@@ -5,17 +5,13 @@
 
 
 Continuous gravitational wave signals may wander slowly in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars~\cite{MelatosDouglassSimula:2015,Jones:2010} or stochastic accretion flows in binary neutron stars~\cite{BildstenTB:1998}. 
-%As also mentioned in Section~\ref{sec:introduction}, continuous wave searches often look for signals that wander slowly in frequency~\cite{ScoX1O2Viterbi:2019}. 
 The audio analogue of this is a tone that wanders in frequency; a note that changes pitch. 
-%Unlike the single tone described in Section~\ref{sec:single_tone}, finding the signal isn’t as simple as searching for a peak in the spectrum for the full timeseries data.%observing run.
 
 
 The analysis techniques used here are inspired by those used to search for continuous waves from spinning neutron in LIGO and Virgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}.
 Continuous wave searches are performed on long datasets (months to years in duration). 
 The frequency of gravitational-wave emission wanders significantly over the observation period. 
 In this context, ``significantly'' means ``across multiple frequency bins'', where the typical width of a frequency bin is the reciprocal of the total observing time~\cite{JKS:1998,ScoX1O2Viterbi:2019}
-
-
 
 
 
@@ -29,9 +25,9 @@ The resulting spectrogram gives the Fourier amplitude for each frequency and tim
 
 
 In continuous wave searches a hidden Markov model is used to describe the system. 
-The frequency (the state) of the signal is unknown (hidden) and the signal is Markovian in that its current state depends only on the previous state. 
+The frequency (the state) of the signal is unknown (hidden) and the signal is Markovian in that the state at any time depends only on the state in had at the previous time step. 
 The hidden Markov model method relates the observable quantity (the detection statistic) to the signal frequency (the hidden state). 
-The task is then to find the most likely wandering frequency signal given the observable of the spectrogram. 
+The task is to find the most likely wandering frequency signal given the observable of the spectrogram. 
 The Viterbi algorithm~\cite{Viterbi:1967} is an efficient method to find the most likely path of a signal given an observation sequence. 
 This method is used in continuous wave searches for a range of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,JonesSun:2020,MiddletonEtAlO2LMXBs:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}. 
  
@@ -47,21 +43,6 @@ In Section~\ref{sec:wanderingResults} we present the results for recovery of a w
 \subsection{The hidden Markov model and Viterbi algorithm}
 \label{sec:viterbi}
 
-\begin{figure}
-\includegraphics[width=0.49\textwidth]{figures/viterbiDiagram.pdf}
-\caption{\label{fig:viterbi}
-A schematic diagram of the Viterbi algorithm. 
-Each box represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
-Vertically, the grid starts from frequency $f_0$ at the bottom and ending at $f_{N_f}$ at the top. 
-The colour of each circle indicates the likelihood that a signal is present in the box, where a lighter colour corresponds to higher likelihood. 
-AT each time step, the paths can move up one $f$ step, move down one $f$ step, or stay at the same $f$ step (shown by lines in the diagram). 
-Each circles has three paths leading to it indicated by the lines. 
-The best path to each circle at each $t_i$ is highlighted in black. 
-Some routes through the grid are found to be dead ends, such as the path ending at $t_1$ marked (a). 
-At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:recursiveViterbi}, marked (b). 
-The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
-}
-\end{figure}
 
 
 The spectrogram grid is indexed by time $t$ and frequency $f$ where there are $N_t$ and $N_f$ time and frequency bins respectively, as shown in Fig.~\ref{fig:viterbi}.
@@ -111,11 +92,27 @@ The algorithm selects the terminating frequency $f(t_{N_t})$ with the highest va
 % come back to this. 
 %\jam{[Andrew mentioned providing a closed form here, which I'm not sure exists. The code works by storing three arrays: the weights, the score for the best path to a given vertex, and the index of the previous vertex along that path. Backtracking comprises of looping through that third array from the vertex in the last row with the highest score from the second array. I don't think we need to explain it any further than that.]}
 In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c). 
-The Viterbi path is highlighted in orange in fig.~\ref{fig:viterbi}.
+The Viterbi path is highlighted in orange in Fig.~\ref{fig:viterbi}.
 \end{enumerate}
 The Viterbi algorithm is an example of a dynamical programming algorithm, where a computation can be broken down into a series of sub-computations.
 The Viterbi path for a time series sequences spanning $t_0$ to $t_{N_t}$ contains the Viterbi path for sub-sequences of that time series. 
 The algorithm is computationally efficient, at every time step all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}).
+
+\begin{figure}
+\includegraphics[width=0.49\textwidth]{figures/viterbiDiagram.pdf}
+\caption{\label{fig:viterbi}
+A schematic diagram of the Viterbi algorithm. 
+Each box represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
+Vertically, the grid starts from frequency $f_0$ at the bottom and ending at $f_{N_f}$ at the top. 
+The colour of each circle indicates the likelihood that a signal is present in the box, where a lighter colour corresponds to higher likelihood. 
+AT each time step, the paths can move up one $f$ step, move down one $f$ step, or stay at the same $f$ step (shown by lines in the diagram). 
+Each circles has three paths leading to it indicated by the lines. 
+The best path to each circle at each $t_i$ is highlighted in black. 
+Some routes through the grid are found to be dead ends, such as the path ending at $t_1$ marked (a). 
+At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:recursiveViterbi}, marked (b). 
+The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
+}
+\end{figure}
 
 
 
@@ -132,35 +129,28 @@ On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly
 At $150\,{\rm s}$ the data appears anomalous, which may be due to some background noise. }
 \end{figure*}
  
-To test the Viterbi algorithm, a sinusoidal signal with wandering frequency was played by the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}. The injected frequency itself followed a sinusoid with decaying amplitude. This choice was arbitrary, any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm.
-%Note that when creating a wandering frequency signal, the phase change must be integrated up over time, as detailed in Appendix~\ref{app:phase_gotcha}.
-
+To test the Viterbi algorithm, a sinusoidal signal with wandering frequency was played through the speaker and the output recorded via webcam as in Section~\ref{sec:single_tone}. 
+The injected frequency itself followed a sinusoid with decaying amplitude. 
+This choice was arbitrary, any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm.
 
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal. 
-The overlaid pink-dot and white-cross markers show the injected signal and recovered Viterbi path respectively maximized over all terminating frequency bins. 
-The Viterbi path provides a good match to the injected frequency. 
-%To the eye, the Viterbi algorithm easily recovers the injected frequency over time due to the high signal-to-noise ratio (SNR) of this experiment \han{What was the SNR? / can we quantify this?}.
-Quantitatively, the Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. 
-We also consider the root mean square (RMS) fractional error $E_{\rm rms}$ along the path. Given $i=0,1,...,N_f$ columns of the injected frequency $I_i$ and recovered (Viterbi) frequency $R_i$, $E_{\rm rms}$ is given by
-\begin{equation}
-E_{\rm rms} = \sqrt{ \frac{1}{N_f+1} \sum_{i=0}^{N_f} \frac{(I_i - R_i)^2}{{I_i}^2} }
-\end{equation}
-Computing this along the Viterbi path we find $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
-
-
-%The Viterbi path stays within one frequency bin (approximately $0.3\,{\rm Hz}$) of the injected tone for $94\%$ of the run. 
-Initially the injected signal moves faster then the frequency wander limit, leading to the discrepancy observed for $t\lesssim 10\,{\rm s}$. 
-%Note that the signal initially moves faster than the frequency wander limit, causing a discrepancy between the injected and recovered signals. 
-%To fix this, the limit should be doubled, although this would then cause the recovered path to stray more often. 
+The overlaid pink-dot markers show the injected signal. 
+The white-cross markers show the recovered Viterbi path maximised over all terminating frequency bins, which qualitatively provides a good match to the injection. 
+Initially, the injected signal moves faster than the frequency wander limit, leading to the discrepancy observed for $t\lesssim 10\,{\rm s}$. 
 There is also an anomaly at $150\,{\rm s}$, which illustrates what happens when the interferometer is disturbed, e.g. when someone walks nearby. 
 The Viterbi algorithm is robust against such disturbances, recovering the optimal path promptly, as Fig.~\ref{fig:viterbi_overlay} shows. 
-%is likely due to a disturbance around the interferometer (such as someone walking nearby).
-%There also appears to be an anomaly at $150\,{\rm s}$, likely from a disturbance (such as someone walking) around the interferometer.
 
-%Empirically, decreasing the signal-to-noise ratio closer to unity (by making the speaker quieter) causes the Viterbi algorithm to stray more from the signal. 
-%However, since the only correlation through the grid is the signal, we always expect the Viterbi path to lie near to the signal no matter how high the noise is, and this is indeed what we see. \han{Should we show results for this?}
+
+Quantitatively, the Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. 
+Another figure of merit is the root mean square (RMS) fractional error $E_{\rm rms}$ along the path defined as 
+\han{}
+\begin{equation}
+E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}^2} \right] ^{1/2}
+\end{equation}
+where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths. 
+Computing this for the result shown in Fig.~\ref{fig:viterbi_overlay} we find $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
 
 
 \end{document}
