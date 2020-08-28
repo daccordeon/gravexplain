@@ -19,26 +19,28 @@ Here we consider a selection of further extensions to the experiment touching on
 
 
 An initial improvement is to better isolate the experiment from interference, such as the mains supply. 
-The Raspberry Pi is USB powered and requires low power so it could be run off a commercial external phone battery. 
+The Raspberry Pi is USB powered and requires low power so it can instead be powered by a commercial external phone battery rather than the mains. 
 Everything else in the circuit, including the photodiode, is connected to the Pi. 
 The laser is DC powered through a converter, so should not introduce mains harmonics itself. 
-Transferring the circuit from a breadboard to a printed circuit board will also reduce interference~\cite{elfekey2013design}
+Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}
 
 %With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
 
-A second improvement is to measure the full model of the transfer function of the system, providing more information about how the audio signal couples with the interferometer.
+A second improvement is to measure the full model of the transfer function of the system, providing information about how the audio signal couples with the interferometer.
 % commented out whilst James is checking this
 %With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
 %\jam{[check with Rob et al. about the veracity of this]}
-The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode reading. 
-A schematic of the full optical microphone transfer function is shown in Figure~\ref{fig:pipeline_highlighted}.
+The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. 
+It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode reading. 
+A schematic of the full optical microphone transfer function is shown in Fig.~\ref{fig:pipeline_highlighted}.
 
 A voluminous literature exists about using a hidden Markov model (HMM) trained against phonemes to recognize speech~\cite{HMM_english}. 
-Interestingly, this connects back to the Viterbi algorithm in Section IV, which is also underpinned by a hidden Markov model, albeit of a different type. 
+Interestingly, this connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. 
 Alternatively, machine learning solutions exist throughout the field that are able to compete~\cite{SEGAN} with statistical techniques like the logMMSE estimator.
 
-Other traditional signal processing methods for extracting spectrogram like wavelet transform (WT) \citep{nason1995stationary} can also be implemented and compared with HMM. WT provides both time and frequency information, making it easier to pinpoint the origin of noise respect to time. 
-In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT was also proposed for speech recognition. 
+Other traditional signal processing methods for extracting spectrogram-like wavelet transform (WT) \citep{nason1995stationary} can also be implemented and compared with HMM. 
+WT provides both time and frequency information, making it easier to pinpoint the origin of noise respect to time. 
+In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT is also proposed for speech recognition. 
 
 Finally, we can also consider how to improve the stability of the optical microphone components.
 A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 

@@ -340,15 +340,15 @@ If we do not need to guarantee the causality of the Wiener filter, i.e. we can e
 \label{eqn:wiener}
     H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}
 \end{equation}
-where $P_{xx}(f),P_{ss}(f),P_{ww}(f)$ stands for the frequency spectrum of the noisy observation, clean signal, and pure noise respectively. 
+where $P_{xx}(f),P_{ss}(f),P_{ww}(f)$ are the frequency spectrum of the noisy observation, clean signal, and pure noise respectively. 
 Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the Wiener filter amplifies the input signal where signal to noise ratio (SNR) is high, and weakens the signal where SNR is low.
 We note that this filter is non-causal, which may not be suitable for real time signal processing. 
 More detailed analysis can be found in Ref.~\citep{10.5555/151045}. 
 In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:winer-hopf}, and set the length of the filter to $n=100$. 
 A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
-The choice of $n=100$ is a reasonably selection to balance smoothing and efficiency. 
+The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
 
-The timeseries and frequency spectrum results of the Wiener fileter are are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
+The timeseries and frequency spectrum results of the Wiener filter are are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener} respectively. 
 There is improvement which is particularly visible in the timeseries, however a strong noise hum persists. 
 %The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
 %It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
@@ -394,18 +394,20 @@ The results from the combination of notch and Wiener filters are visibly cleaner
 % logMMSE
 
 Speech enhancement for a noisy channel is a classic problem in signal processing. 
-Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compare 13 speech enhancement methods and find the best to be a log minimum mean-square error (log-MMSE) estimator. 
-This type of estimator is based on work by Ephraim~\&~Malah~(1984)~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
+In Ref.~\cite{SubjectiveComparison}, $13$ speech enhancement methods are compared and the best found to be a log minimum means-square error (logMMSE) estimator. 
+This type of estimator is based on work in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
+%Hu~\&~Loizou~(2006)~\cite{SubjectiveComparison} compare 13 speech enhancement methods and find the best to be a log minimum mean-square error (log-MMSE) estimator. 
+%This type of estimator is based on work Ephraim~\&~Malah~(1984)~\cite{Ephraim1984SpeechEU_logMMSE} into speech enhancement by minimising the mean square error (MSE) to the logarithm of the spectral (Fourier) amplitude.
 The logarithm approximates the response of the human ear~\cite{SubjectiveComparison}.
+We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}).
 
+%In this work we use an existing implementation~\cite{logmmse} of the logMMSE estimator. 
+%Applying this estimator to the optical microphone output produced dramatically cleaner results. 
 
-In this work we use an existing implementation~\cite{logmmse} of the logMMSE estimator. 
-Applying this estimator to the optical microphone output produced dramatically cleaner results. 
-
-In Figures~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} we present results from playing a speech recording through the optical microphone. 
-Figure~\ref{fig:logMMSE_timeseries} shows the anti-aliased photodiode time series from before (top panel) and after (bottom panel) applying the logMMSE filter. 
-Figure~\ref{fig:logMMSE_spectrum} shows the corresponding spectra before (top panel) and after (bottom panel) the logMMSE filter. 
-Comparing the before and after spectra shows significant attenuation of all mains harmonics as well as a general smoothing of the spectrum. 
+The timeseries and frequency results of the logMMSE are shown in Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} respectively. 
+The top two panels of each figure again show the original speech signal and anti-aliased reading from the optical microphone for ease of comparison. 
+The third panel of Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} show the timeseries and corresponding spectra after applying the logMMSE filter. 
+ 
 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/combined_timeseries_melatos.pdf}
@@ -419,20 +421,26 @@ Comparing the before and after spectra shows significant attenuation of all main
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
 
+The results show significant attenuation of the mains harmonics as well as a general smoothing of the spectrum.
+However, we find that the intelligibility of speech remains low with the voice sounding mumbled and indistinct. 
+The logMMSE removes most of the background noise, but does not clarify the speech. 
 
-We also find improvement with music recordings.
-After applying the estimator, simple chords and drums can be heard clearly. 
-However more complex melodies are sometimes completely absent. 
+We find some improvement with music recordings. 
+After applying the logMMSE, simple chords and drums can be heard clearly, however more complex melodies are sometimes completely absent. 
 From observation, this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins.
 This could be a perceptual effect or a frequency dependence somewhere in the optical microphone. 
 Speculating, perhaps the speaker-mirror oscillates more at at low frequencies and so instruments like electric bass and drums are louder in the results.
 
 
-Overall, we find that the intelligibility of speech remains low. 
-The played-back voice sounds mumbled and indistinct. 
-The estimator removes most of the background noise, but does not clarify the speech. 
-To address these problems with the recordings we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
-This requires a better understanding of the system.
+To address these problems we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
+This requires a better understanding of the system as discussed in Section~\ref{sec:future_work}.
+
+
+%Overall, we find that the intelligibility of speech remains low. 
+%The played-back voice sounds mumbled and indistinct. 
+%The estimator removes most of the background noise, but does not clarify the speech. 
+%To address these problems with the recordings we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
+%This requires a better understanding of the system.
 % The fringe counting problem of the detector, wherein multiple fringes passing over the array in a single speaker deflection artificially raises the frequency, was noticeable in the speech recordings when compared to the source audio. However, upon comparing injected pure tones, the increase appears to be minimal and inconsistent, at around 5Hz maximum difference. An simple explanation is that the speaker deflections are small compared to manual pressing on the optical table.
 
 
