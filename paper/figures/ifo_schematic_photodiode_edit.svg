@@ -17,7 +17,7 @@
    viewBox="0 0 190 170"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="ifo_schematic_photodiode_edit.svg">
   <defs
      id="defs2">
@@ -644,17 +644,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70000001"
-     inkscape:cx="482.50106"
-     inkscape:cy="181.04957"
+     inkscape:zoom="1.4"
+     inkscape:cx="329.44796"
+     inkscape:cy="327.36755"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="981"
-     inkscape:window-x="1200"
-     inkscape:window-y="868"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1705"
+     inkscape:window-height="950"
+     inkscape:window-x="532"
+     inkscape:window-y="44"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -663,7 +663,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -875,7 +875,7 @@
        i:dimmedPercent="50"
        i:layer="yes"
        id="g2239"
-       transform="matrix(0.47047728,0.47047728,-0.47047728,0.47047728,126.46645,206.77634)">
+       transform="matrix(-0.47047728,0.47047728,0.47047728,0.47047728,117.79744,206.77634)">
       <linearGradient
          gradientTransform="matrix(0.35,0,0,1,-116.2935,-14.3086)"
          y2="22.892099"
@@ -1156,13 +1156,13 @@
          sodipodi:role="line">To Raspberry Pi circuit</tspan></text>
     <text
        id="text5210-2-5-7"
-       y="199.7594"
-       x="71.370285"
+       y="195.41266"
+       x="63.054813"
        style="font-style:normal;font-weight:normal;font-size:26.45833397px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.66145831"
        xml:space="preserve"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111126px;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.66145831"
-         y="199.7594"
-         x="71.370285"
+         y="195.41266"
+         x="63.054813"
          id="tspan5208-17-1-4"
          sodipodi:role="line">Beamsplitter</tspan></text>
     <text
@@ -1222,7 +1222,7 @@
          sodipodi:role="line">Lens</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 105.19526,201.65826 13.09621,10.69079"
+       d="m 100.84853,197.12255 13.09621,10.69079"
        id="path5519"
        inkscape:connector-curvature="0" />
     <g
