@@ -4,31 +4,28 @@
 \begin{document}
 
 
-Continuous gravitational wave signals may wander slowly in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars~\cite{MelatosDouglassSimula:2015,Jones:2010} or stochastic accretion flows in binary neutron stars~\cite{BildstenTB:1998}. 
-The audio analogue of this is a tone that wanders in frequency; a note that changes pitch. 
+Continuous wave searches, such as in Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017,SearchTwoSpecS6:2017,SunEtAlSNR:2018,JonesSun:2020}, are often (not always) performed on long datasets (months to years in duration).
+The frequency of a continuous wave signals may wander significantly over this timescale, due to stochastic internal processes in the superfluid interior of isolated neutron stars~\cite{MelatosDouglassSimula:2015,Jones:2010} or variable accretion flows onto a neutron star from a stellar companion (e.g. as in LMXBs)~\cite{BildstenTB:1998}.
+In this context, wandering ``significantly'' means ``across multiple frequency bins'', where the typical width of a frequency bin is the reciprocal of the total observing time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
+The audio analogue to these continuous wave signals is a tone that wanders in frequency; a note that changes pitch.
+Here, we adapt the data analysis technique used to search for slowly wandering continuous waves signals from spinning neutron stars in aLIGO and aVirgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 
 
-The analysis techniques used here are inspired by those used to search for continuous waves from spinning neutron in LIGO and Virgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}.
-Continuous wave searches are performed on long datasets (months to years in duration). 
-The frequency of gravitational-wave emission wanders significantly over the observation period. 
-In this context, ``significantly'' means ``across multiple frequency bins'', where the typical width of a frequency bin is the reciprocal of the total observing time~\cite{JKS:1998,ScoX1O2Viterbi:2019}
-
-
-
-One method to search for a wandering signal is to split the data into several shorter segments which are analysed individually. 
-The detection statistics in every segment are combined to form a grid in time and frequency (spectrogram). 
-The value at each spectrogram point determines the likelihood that a signal is present at a particular time and frequency. 
+One method to search for a wandering signal is to split the time series into several shorter segments, analyse these individually, then recombine them (under some continuity assumption) to coherently analyse the whole.
+The detection statistics in every segment are combined to form a grid in time and frequency (spectrogram).
+The value at each grid point gives the likelihood that a signal is present at that particular time and frequency.
 In gravitational-wave data analysis, a detection statistic is used to calculate the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
 The detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}. 
-In this work the detection statistic is the amplitude (modulus) of the Fourier transform of the data at each time segment, which maximizes the likelihood of detecting a sinusoid in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
-The resulting spectrogram gives the Fourier amplitude for each frequency and time bin. 
 
 
-In continuous wave searches a hidden Markov model is used to describe the system. 
-The frequency (the state) of the signal is unknown (hidden) and the signal is Markovian in that the state at any time depends only on the state in had at the previous time step. 
-The hidden Markov model method relates the observable quantity (the detection statistic) to the signal frequency (the hidden state). 
-The task is to find the most likely wandering frequency signal given the observable of the spectrogram. 
+In this work the detection statistic is the amplitude (modulus) of the Fourier transform of the data at each time segment, which maximizes the likelihood of detecting a sinusoid in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}.
+The resulting spectrogram gives the Fourier amplitude for each frequency and time bin.
+In continuous wave searches a hidden Markov model is used to describe the system.
+The frequency (the state) of the signal is unknown (hidden) and the signal is Markovian in that the state at any time depends only on the state at the previous time step.
+The hidden Markov model method relates the observable quantity (the detection statistic) to the signal frequency (the hidden state).
+The task is to find the most likely wandering frequency signal given the observable of the spectrogram.
 The Viterbi algorithm~\cite{Viterbi:1967} is an efficient method to find the most likely path of a signal given an observation sequence. 
+
 This method is used in continuous wave searches for a range of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,JonesSun:2020,MiddletonEtAlO2LMXBs:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}. 
  
 
@@ -36,6 +33,8 @@ This method is used in continuous wave searches for a range of astrophysical tar
 
 In Section~\ref{sec:viterbi} we review the Viterbi algorithm and its application to this work. 
 In Section~\ref{sec:wanderingResults} we present the results for recovery of a wandering audio frequency. 
+
+
 
 
 

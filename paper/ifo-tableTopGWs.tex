@@ -2,87 +2,71 @@
 
 \begin{document}
 
-The basic physics of gravitational-wave detection can be demonstrated with a table-top Michelson interferometer, an optical configuration commonly used in undergraduate labs. 
-A simple Michelson interferometer comprises a laser, a beamsplitter, and two mirrors. 
-Laser light is split by a beamsplitter into two arms at right angles. 
-At the end of each arm is a mirror which reflects the beams back to the beamsplitter where they recombine. 
-The combination of the two beams produces an interference pattern which is dependent on the relative distance travelled by each of the beams. 
-A change in arm length results in a change in the interference pattern. 
+Gravitational-wave detectors such as aLIGO and aVirgo are large, complex experiments. However, their design is based fundamentally on a Michelson interferometer, an optical configuration commonly used in undergraduate laboratories.
+It consists of a beam splitter which splits light from a laser down two long perpendicular ``arms'' ($4\,{\rm km}$ long at aLIGO, $3\,{\rm km}$ at aVirgo).
+Mirrors at the end of each arm reflect the light back towards the beam splitter, where they recombine and produce an interference pattern.
+This pattern is dependent on the relative distance travelled by each beam and thus on the relative length of each arm. The current generation gravitational-wave observatories use this technique, in combination with others, to detect minuscule changes in distance of two arms due to a passing gravitational wave.
+For example, the first detection of a binary black hole merger changed the relative length of the two arms by $10^{-21}$~\cite{GW150914}, smaller with the width of a proton.
 
 
-
-Gravitational-wave detectors are large, complex interferometers.
-The LIGO and Virgo detectors have $4\,{\rm km}$ and $3\,{\rm km}$ arms respectively.
-They are sensitive to minuscule changes in distance, for example the first detection of a binary black hole merger had a peak gravitational-wave strain of $10^{-21}$ ~\cite{GW150914}.
-However, their design is based fundamentally on the Michelson interferometer. 
-Detection and analysis concepts can be demonstrated with table-top optical equipment. 
-See Refs.~\cite{TTExhibit:2020,TTExhibit:online,AMIGO:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999} for a selection of table-top Michelson interferometer designs used for science communication. 
- 
-
-A commonly-used analogy in explaining gravitational-wave science is sound. 
-Signals of binary black hole and neutron star mergers can be converted into audio as an aid to explanations~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}~\footnote{When introducing the acoustic analogy to lay audiences, it is important to emphasize that gravitational waves are not sound. For example, gravitational waves can propagate in a vacuum, whereas sound cannot.}.
-Sound vibrations provide a simple means to move the components of a demonstration interferometer. 
-The vibrations move the mirrors, changing the length of the interferometer arms, and the resulting interference pattern. 
-We use sound throughout this work as a means of simulating gravitational-wave-like signals and the data analysis and signal processing techniques used to detect them.
-
+The complex detection and analysis techniques used in the gravitational wave community can be demonstrated using a table-top experiment, such as the one presented here.
+Refs.~\cite{TTExhibit:2020,TTExhibit:online,AMIGO:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999} provide a selection of other table-top Michelson interferometer designs used for science communication. 
+In addition to this, gravitational-wave signals from binary black hole and neutron star mergers are often converted to audio signals~\footnote{When introducing the acoustic analogy to lay audiences, it is important to emphasize that gravitational waves are not sound. For example, gravitational waves can propagate in a vacuum, whereas sound cannot.} to aid in explanations.~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}.
+This analogue allows scientists to use sound vibrations as a simple means to move the components of a demonstration interferometer. The vibrations move the mirrors, changing the length of the interferometer arms, and thus changing in the interference pattern.
+We use audio signals throughout this work to simulate gravitational-wave-like signals and to demonstrate different data analysis and signal processing techniques used to recover such signals.
 
 
 \begin{figure}
 	\includegraphics[width=0.49\textwidth]{figures/ifo_schematic_webcam_edit.pdf}
 	\caption{\label{fig:ifo_schematic_webcam}
 Schematic of the table-top Michelson interferometer. 
-The laser (top-left) is a Class 2 $532\,{\rm nm}$ laser~\cite{ThorLabsIFO}. 
-The beam is first reflected from a mirror at a right angle and then focused at a converging lens before reaching the beamsplitter which is $50$/$50$ in reflection and transmission. 
+The output of a Class 2 $532\,{\rm nm}$ laser~\cite{ThorLabsIFO} (top-left) is reflected from a mirror at a right angle. The beam then passes through a converging lens before reaching the beamsplitter which is $50$/$50$ in reflection and transmission. 
 The split beams are reflected from mirrors (M1 and M2) at the ends of the interferometer arms and are recombined at the beamsplitter. 
-The beam is enlarged by a diverging lens after the beamsplitter. 
-The interference pattern is projected onto a screen and recorded using a commercial webcam connected to a personal computer (PC). 
-A speaker fixed to the back of M2 provides the signal input from the PC.  
+The output interference pattern is enlarged using a diverging lens, projected onto a screen, and recorded using a commercial webcam connected to a personal computer (PC). 
+A speaker fixed to the back of M2 is used to inject audio signals from the PC into the interferometer.
     }
 \end{figure}
 
 
-The Michelson interferometer configuration used in this work is shown schematically in Fig.~\ref{fig:ifo_schematic_webcam}.
-It is constructed on a $450 \times 450 \,{\rm mm} $ optical breadboard. 
-The laser (top-left) has a wavelength of $532\,{\rm nm}$.
-In the configuration shown in Fig.~\ref{fig:ifo_schematic_webcam} the laser beam is first reflected from a mirror which turns the beam $90^{\circ}$ (to save space on the optical breadboard). 
-The beam passes through a converging lens and then to the beamsplitter, which is $50$/$50$ reflection and transmission. 
-The beams are reflected by mirrors at the end of each of the two arms ($\approx 7.5\,{\rm cm}$ and $\approx 10.0\,{\rm cm}$ long) and are recombined at the beamsplitter. 
-The resulting interference pattern is projected onto a screen and recorded by a webcam. 
+The optical configuration of the Michelson interferometer used in this work is shown in Fig.~\ref{fig:ifo_schematic_webcam}.
+It is assembled on a $450 \times 450 \,{\rm mm} $ optical breadboard and uses as a source a green eye-safe laser (top-left) with peak emission at $532\,{\rm nm}$.
+The output of the laser is first reflected off a mirror which turns the beam $90^{\circ}$ (to save space on the optical breadboard and to have greater control of the alignment of the interferometer).
+After passing through a converging lens of focal length (FL = \jam{???}), the laser beam is incident on a beamsplitter, which reflects half of the light towards mirror 1 (M1) and transmits the other half to mirror 2 (M2). 
+A $0.5\,{\rm W}$ speaker is fixed to the back of M2 using commercial adhesive putty and serves as a controllable source of vibrations. This speaker is one of a pair of commercial, USB-powered speakers, fed by a $3.5\,{\rm mm}$ jack and driven by a PC. The other speaker in the pair is kept face-down and as far away from the interferometer as possible to prevent it from acting as a second source.
+The beams are reflected by mirrors M1 and M2, located at the end of (approximately) $7.5\,{\rm cm}$ and $10.0\,{\rm cm}$ long arms.
+The beams recombine at the beamsplitter and produce an interference pattern that is then enlarged using a diverging lens of FL = \jam{???}, and projected onto a screen.
+The interference pattern, as shown by the photograph in Fig.~\ref{fig:interference_pattern}, is a set of concentric light and dark rings (fringes). 
+A change in the relative length of the arms causes these rings to move radially in or outwards.
+% Ring interference patterns like this are often used in gravitational-wave table-top demonstrations to allow changes in the pattern to be easily viewed. 
+An intensity time series of some point in the interference pattern is recorded by a webcam (or later, a photodiode) for data analysis to extract the signal injected at the speaker.
 
 
 \begin{figure}
  \begin{center}
-  \includegraphics[width=.45\textwidth]{figures/webcam_still0_crop.pdf}
+  \includegraphics[height=.45\textwidth, angle=-90]{figures/webcam_still0_star.pdf}
  \end{center}
  \caption{\label{fig:interference_pattern}
-Michelson interference pattern as viewed by an off-axis webcam (which is why the pattern is elliptical). 
-The red dot marks where the intensity time series is measured. 
+The interference pattern produced by the table-top Michelson interferometer.
+This image was taken with the webcam off the beam axis, which may explain why the (predicted spherical) pattern appears elliptical.
+The pink star indicates the point where the intensity time series measurements were taken.
 The central bright fringe of the interference pattern is approximately $5\,{\rm mm}$ in diameter. 
 }
 \end{figure}
 
-The interference pattern is a ring of interference fringes as shown by the photograph in Fig.~\ref{fig:interference_pattern}. 
-The pattern is enlarged by a diverging lens between the beamsplitter and the screen to aid in viewing. 
-A change in the relative length of the interferometer arms results in the interference rings moving radially inwards or outwards. 
-Ring interference patterns like this are often used in gravitational-wave table-top demonstrations to allow changes in the pattern to be easily viewed. 
+The motion of the interference fringes follows the motion of M2, and therefore of the speaker.
+The amplitude of these motions is given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
+If the relative change in the length of the arms is kept small enough, the intensity of the interference pattern at any point on the screen oscillates at the same frequency as the injected audio.
+But if the relative change in the length of the arms is large enough for multiple fringes to pass over the measured point in a single speaker deformation, then over-counting (artificially) raises the measured frequency.
+As such, any motion of the fringes must be kept small by playing the sound softly through the speaker.
+Even without over-counting, large fringe motions display a nonlinear relation between the intensity fluctuations and injected audio, leading to troublesome---but physically interesting---phenomena (e.g frequency doubling).
+We derive this nonlinear relationship between the length difference of the arms and the intensity of the pattern at some point on the screen in Appendix~\ref{app:intensity_derivation}.
 
 
-A $0.5\,{\rm W}$ speaker is fixed to the back of one of the mirrors (M2 in Fig.~\ref{fig:ifo_schematic_webcam}), providing a controllable source of vibrations. 
-The speaker is one half of a pair of commercial, USB-powered speakers fed by a $3.5\,{\rm mm}$ jack and driven by a PC. 
-It is attached to the back of the mirror using commercial adhesive putty. 
-The other speaker in the pair is kept face-down and as far away from the interferometer as the cables allow to reduce its impact as a second source of vibrations. 
+In the following section, we start simply by injecting and recovering a audio signal of constant frequency (a single tone).
 
-
-The motion of the interference fringes follows the motion of the mirror, and therefore the speaker. 
-If the fringe motion is small, then changes in the intensity at some point on the screen occur at the same frequency as the injected audio but with amplitude given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
-If the fringe motion is large enough for multiple fringes to pass over the measured point in a single speaker deformation, then over-counting artificially raises the measured frequency. As such, any motion of the fringes must be kept small by playing sound softly through the speaker.
-Even without over-counting, large fringe motions introduce a nonlinear relation between the intensity fluctuations and injected audio, leading to troublesome---but physically interesting!---phenomena like frequency doubling.
-We derive the nonlinear relation between the separation of the mirrors and the intensity of the pattern at some point on the screen in Appendix~\ref{app:intensity_derivation}. 
-
-
-Data can be recorded via a webcam (as shown in Fig.~\ref{fig:ifo_schematic_webcam}) or photodiode. 
-In Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} a webcam is used. 
-In Section~\ref{sec:optical_microphone}, which considers more complex audio, we turn to a photodiode because it offers a higher sample rate than the webcam. 
+% Data can be recorded via a webcam (as shown in Fig.~\ref{fig:ifo_schematic_webcam}) or photodiode. 
+% In Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} a webcam is used. 
+% In Section~\ref{sec:optical_microphone}, which considers more complex audio, we turn to a photodiode because it offers a higher sample rate than the webcam. 
 
 
 \end{document}
