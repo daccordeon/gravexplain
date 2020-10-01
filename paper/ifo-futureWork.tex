@@ -1,49 +1,41 @@
 
 \documentclass[paper-main.tex]{subfiles}
-
-
 \begin{document}
+
+
+The optical microphone experiment described here can be used to demonstrate and teach a variety of topics including basic optics and photodiode circuits, to signals processing and speech enhancement. Here we consider further extensions and improvements to the experiment such as noise isolation, transfer function analysis, speech recognition, and control systems.
+
+
+An initial improvement could be to better isolate the experiment, especially from the sources of mains noise. As the Raspberry Pi demands little power and connects to USB it could instead be powered with a commercial battery rather than the mains supply. All other components of the circuit, including the photodiode are connected to the Pi. The laser is DC powered through a converter, so should not couple noise from the mains into the interferometer. Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}.
+%With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
+
+
+We can consider improving the stability of the optical microphone components. A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 
+
+
+We can also benefit from fully characterizing the transfer function of the system as it provides the exact information of how audio signal couples through the interferometer. The total transfer function would start with the voltage being sent to the speaker and end with the voltage recorded by the Pi. It also would include any inherent non-linearities in the speaker, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode. The schematic in Fig.~\ref{fig:pipeline_highlighted} shows the signal flow through the system.
+% commented out whilst James is checking this
+% jam: I'm pretty confident this is what Rob said. 
+%With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
+%\jam{[check with Rob et al. about the veracity of this]}
+
+A voluminous literature exists on using a hidden Markov model (HMM) trained on phonemes to recognize speech~\cite{HMM_english}. These could perform the final stage of speech enhancement for the optical microphone. Interestingly, this connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a HMM, albeit of a different type. Alternatively, machine learning solutions exist throughout the field that are able to compete with statistical techniques such as the logMMSE estimator~\cite{SEGAN}.
+
+
+We could also use more traditional techniques such as wavelet transform (WT) \citep{nason1995stationary} to extract the signal from noise, and compare these with the above methods. WT provides both time and frequency information, making it easier to pinpoint the origin of noise with respect to time. The authors in Refs.~\cite{tufekci2000feature,agbinya1996discrete} also proposed using WT for speech recognition. 
+
+
+Finally, considering the desire to demonstrate continuous GW analysis, further improvement of the optical microphone could lead to more advanced demonstration of techniques such as aiming or locking two or more optical microphones in an array.
+
 
 \begin{figure*}
 	\includegraphics[height=.99\textwidth, angle=-90]{figures/pipeline.pdf}
 	\caption{
-Flowchart for the optical microphone transfer function. 
+Flowchart for the signal through the optical microphone. The transfer function would have to account for each stage. 
 The stage inside the red-dash box is analysed in Appendix~\ref{app:intensity_derivation}. Understanding the other stages is one aim of future work. 
 }
 	\label{fig:pipeline_highlighted}
 \end{figure*}
-
-
-The optical microphone experiment describe here can be used to convey a variety of topics as a teaching tool. 
-Here we consider a selection of further extensions to the experiment touching on noise isolation, transfer function analysis, speech recognition, and control systems. 
-
-
-An initial improvement is to better isolate the experiment from interference, such as the mains supply. 
-The Raspberry Pi is USB powered and requires low power so it can instead be powered by a commercial external phone battery rather than the mains. 
-Everything else in the circuit, including the photodiode, is connected to the Pi. 
-The laser is DC powered through a converter, so should not introduce mains harmonics itself. 
-Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}
-
-%With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
-
-A second improvement is to measure the full model of the transfer function of the system, providing information about how the audio signal couples with the interferometer.
-% commented out whilst James is checking this
-%With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
-%\jam{[check with Rob et al. about the veracity of this]}
-The transfer function starts from the voltage sent to the speaker and ends with the voltage recorded by the Pi. 
-It includes any non-linearities in the speaker itself, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode reading. 
-A schematic of the full optical microphone transfer function is shown in Fig.~\ref{fig:pipeline_highlighted}.
-
-A voluminous literature exists about using a hidden Markov model (HMM) trained against phonemes to recognize speech~\cite{HMM_english}. 
-Interestingly, this connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. 
-Alternatively, machine learning solutions exist throughout the field that are able to compete~\cite{SEGAN} with statistical techniques like the logMMSE estimator.
-
-Other traditional signal processing methods for extracting spectrogram-like wavelet transform (WT) \citep{nason1995stationary} can also be implemented and compared with HMM. 
-WT provides both time and frequency information, making it easier to pinpoint the origin of noise respect to time. 
-In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT is also proposed for speech recognition. 
-
-Finally, we can also consider how to improve the stability of the optical microphone components.
-A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 
 
 %To remove the mains hum we could also monitor it separately from the interferometer and subtract the sinusoids with the right phase and amplitude in real (not frequency) space to avoid the problems of Section~\ref{sec:simple_filters}. 
 %This could be done with the existing signals if the recording duration is long enough to precisely measure the phase and amplitude over a large number of cycles.
