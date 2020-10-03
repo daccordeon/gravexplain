@@ -194,6 +194,13 @@ We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}
 We use the built-in MATLAB filter design toolbox, the (amplitude) response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
 The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}, respectively. We see that the mains harmonics are significantly attenuated in comparison to the results shown in Fig.~\ref{fig:noiseSubtract}. 
 
+Although the notch filter removes the mains hum sound (mostly), the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. Evidently, this is due to loss of voice information under the filter.
+
+% This effect will become more severe if the original human spectrum overlaps with the hum spectrum by a large amount.
+To overcome this, we turn to more advanced techniques starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimises an estimate of the original signal. 
+% By purely minimizing the "distance" between estimated signal (filtered human voice) and observed signal (original human voice), we hope that we keep signal part undisturbed while filtering out noise. 
+
+
 
 \begin{figure*}
 \begin{center}
@@ -309,8 +316,7 @@ The Wiener filter makes use of statistical information from the speech data and 
 
 
 By combining the notch and Wiener filter, we can trade off between the two and achieve an overall better performance, as can be seen visibly in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener}.
-
-
+The filtered voice after the combined notch and Wiener filter is enhanced compared to either alone. The mains noise is all but removed and more voice information is retained. However, the recovered voice still sounds muffled and is not understandable.
 
 
 %The combination of the notch filter and the Wiener filter produces a cleaner signal than either individually. 
