@@ -4,17 +4,16 @@
 
 In 2015, the first detection of gravitational waves from the merger of two black holes marked a breakthrough in modern astrophysics and revealed a new means to observe the universe~\cite{GW150914}.
 % What are gws and gw detectors 
-Gravitational waves, predicted by Albert Einstein in his theory of general relativity~\cite{Einstein:1916}, are disturbances in spacetime caused by the acceleration of asymmetric massive objects.
+Gravitational waves are a prediction of Albert Einstein's theory of general relativity~\cite{Einstein:1916}, 
+They are disturbances in spacetime caused by the acceleration of asymmetric massive objects.
 The effect of gravitational waves is a change in lengths: a `stretching and squeezing' of the distance between objects. 
-Ground-based gravitational-wave observatories such as the Advanced Laser Interferometer Gravitational-wave Observatory (aLIGO~\cite{AdvancedLIGO:2015}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013} use the interference of laser light to measure changes in distance. 
+Ground-based gravitational-wave observatories such as the Advanced Laser Interferometer Gravitational-wave Observatory (LIGO~\cite{AdvancedLIGO:2015}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013} use the interference of laser light to measure changes in distance. 
 Gravitational-wave observatories are extremely complex but are fundamentally based on the Michelson interferometer. 
 Table-top interferometers are commonly used in undergraduate laboratory experiments~\cite{UgoliniEtAl:2019} and to demonstrate the science of gravitational wave detection to non-specialist audiences~\cite{ThorLabsIFO,NikhefIFO,AMIGO:online,TTExhibit:2020,LIGOIFOGlue,LIGOIFOMagnets}.
 
 
 % CW 
-To date the network of gravitational-wave observatories has observed short-duration transient signals from the mergers of 
-binary black holes~\cite{GW150914,GW151226,GW170104,GW170814,GW190521,GWTC-1:2018}, 
-binary neutron stars~\cite{GW170817,GW170817multi,GW190425,GWTC-1:2018} and recently an observation of a black hole with an object that could either have been a neutron star or a black hole~\cite{GW190814}. 
+To date the network of gravitational-wave observatories has observed short-duration transient signals from the mergers of binary black holes~\cite{GW150914,GW151226,GW170104,GW170814,GW190521,GWTC-1:2018}, binary neutron stars~\cite{GW170817,GW170817multi,GW190425,GWTC-1:2018}, and recently the merger of black hole with an object that could either have been a neutron star or a black hole~\cite{GW190814}. 
 However, the network is also searching for continuous gravitational waves: persistent, periodic, near-monochromatic signals, which are yet to be detected. 
 Continuous waves may be emitted at a constant frequency or may wander slowly in frequency over time. 
 Rotating neutron stars are prime candidates for continuous wave emission, especially those in low mass X-ray binaries (LMXB), where the neutron star is in orbit with a low mass stellar companion.
@@ -25,18 +24,26 @@ Scorpius X-1 is an LMXB which is particularly bright in X-rays, making it a prim
 Numerous, as yet unsuccessful, searches have been performed for Scorpius X-1 and other LMXBs~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, RadiometerO1O2:2019, SearchRadiometerO1:2017, SearchCrossCorrO1:2017, ScoX1ViterbiO1:2017, SearchTwoSpecS6:2017, MiddletonEtAlO2LMXBs:2020}. 
 
 
-In this paper, we present a table-top Michelson interferometer as a `toy' gravitational-wave detector designed to detect sound instead of gravitational waves. 
-The demonstration can be used to teach topics ranging from continuous-wave detection and analysis to electronics, signal processing, and speech enhancement. 
-%% I don't like the use of ``freedom to explore''.
-Additionally, it allows students in courses such as physics and electrical engineering to explore the response of an accessible, yet nontrivial, opto-mechanical system using a hierarchy of data analysis techniques of increasing complexity, including those used in the search for continuous waves in LIGO and Virgo data~\cite{ScoX1O2Viterbi:2019, SuvorovaEtAl:2017,SuvorovaEtAl:2016}. 
+% changed present to use, as this is not the first time a Michelson has been presented as a tpy GW detector - hannah
+In this paper, we use a table-top Michelson interferometer as a `toy' gravitational-wave detector designed to detect sound instead of gravitational waves. 
+% re-added "as an undergraduate experiment to be clear we are not talking about school teaching - hannah
+As an undergraduate lab experiment, the demonstration can be used to teach topics ranging from continuous-wave detection and analysis to electronics, signal processing, and speech enhancement. 
+%% I don't like the use of ``freedom to explore''. 
+% removed Additionally - I don't think it is neccessary - hannah
+It allows students in courses such as physics and electrical engineering to explore the response of an accessible, yet nontrivial, opto-mechanical system using a hierarchy of data analysis techniques of increasing complexity, including those used in the search for continuous waves in LIGO and Virgo data~\cite{ScoX1O2Viterbi:2019, SuvorovaEtAl:2017,SuvorovaEtAl:2016}. 
 % This demonstration can be adapted to an effective outreach tool to explain gravitational wave science to a non-specialist audience.
-This demonstration also has the potential to be used as an outreach tool alongside other exhibitions~\cite{TTExhibit:2020,LIGOScienceEducationCentre:online,GravityDiscoveryCentre:online}, online data analysis tutorials~\cite{GWOSC:online,LOSC:2015}, phone applications~\cite{LaserLabs:online,SciVR:online,chirp:online}, online games~\cite{BlackHoleHunter:online}, and musical performances~\cite{ArthurJeffesMusic:online,GravitySynthLeonTrimble:online} which have been developed by gravitational wave research groups around the world. These tools allow scientists to cater to the increased public and media interest in this field and explain gravitational wave science to a non-specialist audience.
+% Rephrased as this kind of sounds like we are an exhibition too [hannah] - This demonstration also has the potential to be used as an outreach tool alongside other exhibitions
+This demonstration also has the potential to be used as an outreach tool alongside a range of other public engagement demonstrations and activities including; hands-on demonstrations and exhibitions~\cite{TTExhibit:2020,CavagliaExhibit:2009,LIGOScienceEducationCentre:online,GravityDiscoveryCentre:online}, online data analysis tutorials~\cite{GWOSC:online,LOSC:2015}, phone applications~\cite{LaserLabs:online,SciVR:online,chirp:online}, online games~\cite{BlackHoleHunter:online}, and musical performances~\cite{ArthurJeffesMusic:online,GravitySynthLeonTrimble:online} which have been developed by gravitational-wave research groups around the world. 
+These tools allow scientists to cater to the increased public and media interest in this field and explain gravitational-wave science to a non-specialist audience.
 %\han{look up Sarah Farmer's project}
 
 
-The design of the interferometer is detailed in Section~\ref{sec:ifo} and we demonstrate observing a single tone from a speaker in Section~\ref{sec:single_tone}. 
+This paper is laid out as follows. 
+In Section~\ref{sec:ifo} we detail the table-top interferometer design. 
+We demonstrate observing a single tone from a speaker in Section~\ref{sec:single_tone}. 
 In Section~\ref{sec:viterbi_wandering} we replace the single tone with a wandering frequency signal and analyse the signal using a hidden Markov model technique (the Viterbi algorithm) from continuous wave searches. 
-In Section~\ref{sec:optical_microphone}, we demonstrate capture and playback of complex audio, such as music and speech, to varying degrees of success.
+In Section~\ref{sec:optical_microphone}, we demonstrate capture and playback of complex audio, such as music and speech.
+% removed as there's not space to really say what this means here: to varying degrees of success.
 This demonstration of an ‘optical microphone’ (using light to capture sound) serves as a more general exhibition of signal processing. 
 We suggest avenues of future work in Section~\ref{sec:future_work} and draw conclusions in ~\ref{sec:conclusions}. 
 Appendix~\ref{app:code} collects the software and scripts used to produce this work.
