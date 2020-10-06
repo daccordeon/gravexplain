@@ -173,7 +173,8 @@ We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}
 
 We use the built-in MATLAB filter design toolbox in this work. 
 The amplitude response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
-The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the third panel of Fig.~\ref{fig:timeNotchWiener} and the first panel of Fig.~\ref{fig:freqNotchWiener}, respectively. We see that the mains harmonics are significantly attenuated in comparison to the results shown in Fig.~\ref{fig:noiseSubtract}. 
+The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fourth row of Fig.~\ref{fig:NotchWienerCombined}.
+We see that the mains harmonics are significantly attenuated in comparison to the results shown in Fig.~\ref{fig:noiseSubtract}. 
 
 Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. Evidently, this is due to loss of voice information under the filter.
 
@@ -181,37 +182,44 @@ Although the notch filter removes much of the mains hum sound, the filtered reco
 To overcome this, we turn to more advanced techniques starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimises an estimate of the original signal. 
 % By purely minimizing the "distance" between estimated signal (filtered human voice) and observed signal (original human voice), we hope that we keep signal part undisturbed while filtering out noise. 
 
-
-
-
-
-
-
 \begin{figure*}
-\begin{center}
-\includegraphics[width=\textwidth,trim={1cm 8.2cm 1 8.3cm},clip]{figures/timeSeriesNotchWiener.pdf}
-\end{center}
-\caption{\label{fig:timeNotchWiener}
-Timeseries results for the notch and Wiener filters. 
-The first panel shows the original speech recording which was played from the speaker. 
-The second panel shows the data from the optical microphone before any filters are applied. 
-The third and fourth panels show results after applying the notch and Wiener filter respectively. 
-Finally, the fifth panel shows the result of applying both the notch and Wiener filter. 
-}
+	\begin{center}
+	\includegraphics[width=\textwidth]{figures/notch_and_wiener_superplot.pdf}
+	\end{center}
+	\caption{\label{fig:NotchWienerCombined}
+	Time series (left column) and frequency spectrum (right column) results for the notch and Wiener filters.
+	The first row shows the original speech recording.
+	The second row shows the raw output from the optical microphone.
+	The third row shows the naive technique of subtracting off the noise spectrum from the recorded spectrum.
+	The fourth, fifth, and sixth rows show the results of applying the notch filter, the Wiener filter, and both combined, respectively.
+	}
 \end{figure*}
 
 
-\begin{figure*}
-\begin{center}
-\includegraphics[width=\textwidth,trim={0cm 8.2cm 0cm 8cm},clip]{figures/freqNotchWiener.pdf}
-\end{center}
-\caption{\label{fig:freqNotchWiener}
-Frequency spectrum results for the notch and Wiener filters. 
-The first and second panels show the results of applying the notch and Wiener filter respectively.
-The third panel shows the spectrum after applying both the notch and Wiener filters. 
-The first, second, and third panels show the spectrum of the timeseries show in the third, fourth, and fifth panels of Fig.~\ref{fig:timeNotchWiener} respectively. 
-}
-\end{figure*}
+% \begin{figure*}
+% \begin{center}
+% \includegraphics[width=\textwidth,trim={1cm 8.2cm 1 8.3cm},clip]{figures/timeSeriesNotchWiener.pdf}
+% \end{center}
+% \caption{\label{fig:timeNotchWiener}
+% Timeseries results for the notch and Wiener filters. 
+% The first panel shows the original speech recording which was played from the speaker. 
+% The second panel shows the data from the optical microphone before any filters are applied. 
+% The third and fourth panels show results after applying the notch and Wiener filter respectively. 
+% Finally, the fifth panel shows the result of applying both the notch and Wiener filter. 
+% }
+% \end{figure*}
+
+% \begin{figure*}
+% \begin{center}
+% \includegraphics[width=\textwidth,trim={0cm 8.2cm 0cm 8cm},clip]{figures/freqNotchWiener.pdf}
+% \end{center}
+% \caption{\label{fig:freqNotchWiener}
+% Frequency spectrum results for the notch and Wiener filters. 
+% The first and second panels show the results of applying the notch and Wiener filter respectively.
+% The third panel shows the spectrum after applying both the notch and Wiener filters. 
+% The first, second, and third panels show the spectrum of the timeseries show in the third, fourth, and fifth panels of Fig.~\ref{fig:timeNotchWiener} respectively. 
+% }
+% \end{figure*}
 
 %A notch filter attenuates signals in specific frequency bands. 
 %We apply a $15$ cascaded notched filter to remove the mains noise and its harmonics up to $750\,{\rm Hz}$. 
@@ -239,6 +247,7 @@ If we assume that: i) $\textbf{x}$ is wide sense stationary~\footnote{ A random 
 \end{equation}
 where $\textbf{h}=\{h(0),\dots h(n)\}$ represents the coefficients of an $n$th order Wiener filter.
 % What this sentence is trying to convey is not clear to me
+%% just trying to say that we can make the assumptions that we do because the Wiener filter appears to work well under them - J
 %These assumptions are to be justified by the efficacy of the Wiener filter.
 %Given the observation data $\mathbf{x}$, our goal is to estimate $\mathbf{s}$ so that the error between $\mathbf{x}$ and the estimate ${\hat{\mathbf{s}}}$ is minimized in the mean square sense,
 %\begin{equation}
@@ -298,7 +307,8 @@ In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:wiener-
 A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
 The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
 
-In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The effects of applying the Wiener filter to the time series and frequency spectrum are shown in the fourth panel of Fig.~\ref{fig:timeNotchWiener} and the second panel of Fig.~\ref{fig:freqNotchWiener}, respectively. We see a significant improvement in the time series of the recovered signal, however a strong noise hum persists, audibly. 
+In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The time series and frequency spectrum after applying the Wiener filter are shown in the fifth row of Fig.~\ref{fig:NotchWienerCombined}.
+We see a significant improvement in the time series of the recovered signal, however a strong noise hum persists, audibly. 
 %The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
 %It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
 %\han{should we add more details here too?} \jam{[seconded]}
@@ -314,7 +324,7 @@ Here we experiment with applying a combination of the cascaded notch and the Wie
 The Wiener filter makes use of statistical information from the speech data and noise. It amplifies the part of the signal with high SNR, while suppressing the parts with low SNR. It is implemented in the form of a finite response filter, which ensures linear phase response and stability (both desirable), but at the cost of high orders computationally. By comparison, the notch filter is based on directly removing the unwanted frequency components. It is implemented in the form of an infinite impulse response filter. Although it significantly decreases the order of the overall filter, it unavoidably introduces nonlinear phase and instability. 
 
 
-By combining the notch and Wiener filter, we can trade off between the two and achieve an overall better performance, as can be seen visibly in the final panels of Figs.~\ref{fig:timeNotchWiener} and ~\ref{fig:freqNotchWiener}.
+By combining the notch and Wiener filter, we can trade off between the two and achieve an overall better performance, as can be seen in the bottom row of Fig.~\ref{fig:NotchWienerCombined}.
 The filtered voice after the combined notch and Wiener filter is enhanced compared to either alone. The mains noise is all but removed and more voice information is retained. However, the recovered voice still sounds muffled and is not understandable.
 
 
