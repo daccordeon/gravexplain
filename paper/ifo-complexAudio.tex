@@ -50,11 +50,11 @@ The schematic is identical to Figure~\ref{fig:interference_pattern} except that 
 	\label{fig:ifo_schematic_podo}
 \end{figure}
 
-\begin{figure*}
-	\includegraphics[width=.7\textwidth]{figures/setup_pic2.pdf}
+\begin{figure}
+	\includegraphics[width=.49\textwidth]{figures/setup_pic2.pdf}
 \caption{Photograph of the optical microphone. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
 	\label{fig:setup_pic2}
-\end{figure*}
+\end{figure}
 
 
 \subsection{Anti-aliased output}
@@ -82,26 +82,49 @@ After filtering we see strong attenuation of all frequencies outside the band, b
 Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum and its harmonics, but also to ultimately improve the speech intelligibility of the recording (to be able to understand the words). We start with some naive approaches and then move to traditional signal processing filters like band-passing and cascaded notches. We finish by combining these with advanced statistical techniques like a Wiener filter and the logMMSE estimator. As an illustrative example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
 
 \begin{figure*}
-\begin{center}
-% trim order is <left> <lower> <right> <upper>
-\includegraphics[width=\textwidth,trim={1cm 8.5cm 1cm 8cm},clip]{figures/freqSpectrumOriginalNoiseSubtracted.pdf}
-\end{center}
-\caption{\label{fig:noiseSubtract}
-Frequency spectrum of a $1\,{\rm s}$ signal before the use of filters. 
-The first panel shows the original frequency spectrum of the human voice recording (saying ``A cathode ...''). 
-The second panel shows the spectrum recorded after the signal passes through the optical microphone (sampled at $16\,000\,{\rm Hz}$).
-The third panel shows a noise-only recording from the optical microphone when no audio signal is being played. 
-The fourth panel shows the result of subtracting the noise-only spectrum in the third panel from the recording in the second panel. 
-We see no obvious improvement from this method. 
-}
+	\begin{center}
+    %% trim order is <left> <lower> <right> <upper>
+	\includegraphics[width=\textwidth,trim={1cm 4.5cm 1cm 3.5cm},clip]{figures/notch_and_wiener_superplot_v2.pdf}
+	\end{center}
+	\caption{\label{fig:BackgroundNotchWienerCombined}
+	Time series (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
+	The first and second rows show the original speech recording and raw output from the optical microphone respectively. 
+    The third row shows a background noise recording from the optical microphone when no audio signal is played. 
+    The fourth row shows the result of subtracting the background noise spectrum in the third row from the recording in the second row. 
+	%The second row shows the raw output from the optical microphone.
+	%The third row shows the naive technique of subtracting off the noise spectrum from the recorded spectrum.
+	The fifth, sixth, and seventh rows show the results of applying the notch filter, the Wiener filter, and both combined, respectively.
+	}
 \end{figure*}
 
-The Fourier spectrum of the source signal is shown in the first panel of Fig.~\ref{fig:noiseSubtract}. The second panel shows the spectrum of the raw optical microphone recording of the signal. The third panel of Fig.~\ref{fig:noiseSubtract} shows a background spectrum of the optical microphone, as shown previously in the top panel Fig.~\ref{fig:psd_noise}.
 
-Given that we have access to the background noise spectrum, an intuitive way to remove noise is via subtracting the noise spectrum from the recorded spectrum. The fourth panel of Fig.~\ref{fig:noiseSubtract} shows the spectrum obtained after subtracting the background noise spectrum. We see no obvious improvement, which may be attributed to a time-variant noise spectrum the cause of which is unidentified. %Why the noise sources are time-varying is a fact yet to be determined.
+%\begin{figure*}
+%\begin{center}
+%% trim order is <left> <lower> <right> <upper>
+%\includegraphics[width=\textwidth,trim={1cm 8.5cm 1cm 8cm},clip]{figures/freqSpectrumOriginalNoiseSubtracted.pdf}
+%\end{center}
+%\caption{\label{fig:noiseSubtract}
+%Frequency spectrum of a $1\,{\rm s}$ signal before the use of filters. 
+%The first panel shows the original frequency spectrum of the human voice recording (saying ``A cathode ...''). 
+%The second panel shows the spectrum recorded after the signal passes through the optical microphone (sampled at $16\,000\,{\rm Hz}$).
+%The third panel shows a noise-only recording from the optical microphone when no audio signal is being played. 
+%The fourth panel shows the result of subtracting the noise-only spectrum in the third panel from the recording in the second panel. 
+%We see no obvious improvement from this method. 
+%}
+%\end{figure*}
+
+Results for a selection of filters are collated in Fig.~\ref{fig:BackgroundNotchWienerCombined} where the left and right columns show timeseries and Fourier spectrum results respectively. 
+The first and second rows of Fig.~\ref{fig:BackgroundNotchWienerCombined} shows the source signal and the raw optical microphone recording respectively. 
+The third row shows a background spectrum of the optical microphone, as shown previously in the top panel Fig.~\ref{fig:psd_noise}.
+
+%The Fourier spectrum of the source signal is shown in the first panel of Fig.~\ref{fig:BackgroundNotchWienerCombined}. The second panel shows the spectrum of the raw optical microphone recording of the signal. The third panel of Fig.~\ref{fig:noiseSubtract} shows a background spectrum of the optical microphone, as shown previously in the top panel Fig.~\ref{fig:psd_noise}.
+
+Given that we have access to the background noise spectrum, an intuitive way to remove noise is via subtracting the noise spectrum from the recorded spectrum. 
+The fourth panel of Fig.~\ref{fig:BackgroundNotchWienerCombined} shows the spectrum obtained after subtracting the background noise spectrum. 
+We see no obvious improvement, which may be attributed to a time-variant noise spectrum the cause of which is unidentified. %Why the noise sources are time-varying is a fact yet to be determined.
 
 
-Beyond this naive approach, we apply a range of filters to the data.
+Beyond this na\"{i}ve approach, we apply a range of filters to the data.
 In signals processing, the ideal filter would be one that:
 %\begin{itemize}
 i) completely attenuates the undesired parts of the spectrum, 
@@ -152,7 +175,7 @@ The effect of applying this filter to the background noise PSD can be seen in th
 \subsubsection{Cascade notch filter}
 \begin{figure*}
 \begin{center}
-\includegraphics[width=.9\textwidth]{figures/notch_filter_response}
+\includegraphics[width=.9\textwidth]{figures/notch_filter_response.jpg}
 \end{center}
 \caption{\label{fig:notchMagResponse}
 Magnitude response for the first five notches of the $15$ cascaded notch filter described by Eqns.~\ref{eqn:notch} and ~\ref{eqn:notch15}. 
@@ -173,8 +196,8 @@ We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}
 
 We use the built-in MATLAB filter design toolbox in this work. 
 The amplitude response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
-The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fourth row of Fig.~\ref{fig:NotchWienerCombined}.
-We see that the mains harmonics are significantly attenuated in comparison to the results shown in Fig.~\ref{fig:noiseSubtract}. 
+The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fifth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
+We see that the mains harmonics are significantly attenuated in comparison background subtracted results shown in the fourth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
 
 Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. Evidently, this is due to loss of voice information under the filter.
 
@@ -182,18 +205,6 @@ Although the notch filter removes much of the mains hum sound, the filtered reco
 To overcome this, we turn to more advanced techniques starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimises an estimate of the original signal. 
 % By purely minimizing the "distance" between estimated signal (filtered human voice) and observed signal (original human voice), we hope that we keep signal part undisturbed while filtering out noise. 
 
-\begin{figure*}
-	\begin{center}
-	\includegraphics[width=\textwidth]{figures/notch_and_wiener_superplot.pdf}
-	\end{center}
-	\caption{\label{fig:NotchWienerCombined}
-	Time series (left column) and frequency spectrum (right column) results for the notch and Wiener filters.
-	The first row shows the original speech recording.
-	The second row shows the raw output from the optical microphone.
-	The third row shows the naive technique of subtracting off the noise spectrum from the recorded spectrum.
-	The fourth, fifth, and sixth rows show the results of applying the notch filter, the Wiener filter, and both combined, respectively.
-	}
-\end{figure*}
 
 
 % \begin{figure*}
@@ -307,7 +318,7 @@ In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:wiener-
 A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
 The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
 
-In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The time series and frequency spectrum after applying the Wiener filter are shown in the fifth row of Fig.~\ref{fig:NotchWienerCombined}.
+In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The time series and frequency spectrum after applying the Wiener filter are shown in the sixth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
 We see a significant improvement in the time series of the recovered signal, however a strong noise hum persists, audibly. 
 %The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
 %It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
@@ -324,7 +335,7 @@ Here we experiment with applying a combination of the cascaded notch and the Wie
 The Wiener filter makes use of statistical information from the speech data and noise. It amplifies the part of the signal with high SNR, while suppressing the parts with low SNR. It is implemented in the form of a finite response filter, which ensures linear phase response and stability (both desirable), but at the cost of high orders computationally. By comparison, the notch filter is based on directly removing the unwanted frequency components. It is implemented in the form of an infinite impulse response filter. Although it significantly decreases the order of the overall filter, it unavoidably introduces nonlinear phase and instability. 
 
 
-By combining the notch and Wiener filter, we can trade off between the two and achieve an overall better performance, as can be seen in the bottom row of Fig.~\ref{fig:NotchWienerCombined}.
+By combining the notch and Wiener filter, we can trade off between the two and achieve an overall better performance, as can be seen in the bottom row of Fig.~\ref{fig:BackgroundNotchWienerCombined}..
 The filtered voice after the combined notch and Wiener filter is enhanced compared to either alone. The mains noise is all but removed and more voice information is retained. However, the recovered voice still sounds muffled and is not understandable.
 
 
@@ -347,7 +358,20 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
 
 \subsubsection{logMMSE estimator}
 \label{sec:logmmse}
-% logMMSE
+
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/combined_timeseries_melatos.pdf}
+	\caption{Time series of an adult male voice (saying ``A cathode ...'') showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.}
+	\label{fig:logMMSE_timeseries}
+\end{figure*}
+
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/combined_spectrum_melatos.pdf}
+	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot.}
+	\label{fig:logMMSE_spectrum}
+\end{figure*}
+
 
 %probably a bit too causal language 
 %What we’re attempting here is not new, 
@@ -363,17 +387,7 @@ This estimator is based on speech enhancement techniques discussed in Ref.~\cite
 %Applying this estimator to the optical microphone output produced dramatically cleaner results. 
  
 
-\begin{figure*}
-	\includegraphics[width=\textwidth]{figures/combined_timeseries_melatos.pdf}
-	\caption{Time series of an adult male voice (saying ``A cathode ...'') showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.}
-	\label{fig:logMMSE_timeseries}
-\end{figure*}
 
-\begin{figure*}
-	\includegraphics[width=\textwidth]{figures/combined_spectrum_melatos.pdf}
-	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot.}
-	\label{fig:logMMSE_spectrum}
-\end{figure*}
 
 The results of the logMMSE estimator are shown in Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum}. The top two panels of each figure show the original speech signal and anti-aliased reading from the optical microphone for ease of comparison. The third panel of Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} show the time series and corresponding spectral amplitude respectively after applying the logMMSE estimator. We see significant attenuation of the mains harmonics as well as a general smoothing of the spectrum. The logMMSE method indeed removes most of the background noise, but does not significantly enhance the speech as the voice sounds muffled and indistinct.
 % suggest remove as it's just rephrasing what's already been said
