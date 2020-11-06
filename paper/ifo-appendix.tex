@@ -42,7 +42,7 @@ I(t) = 2 A^2 \left[ 1 + \cos{\left( 2 k d(t) \cos{\theta} \right) } \right]  \la
 \end{equation}
 Equation~\ref{eqn:intensity2} shows that $I(t)$ and $d(t)$ are related nonlinearly. 
 Near a bright fringe, where one has $\cos{[2kd\cos{(\theta)}]} \approx 1$, the nonlinearity is quadratic, with $\delta I \propto (\delta d)^2$ for small $\delta d$. 
-Consequently, an oscillation of the form $\delta d \propto \exp{( -i \Omega t )}$ in the arm length difference produces a DC signal and a frequency-double signal $\propto \exp{(-2i\Omega t)}$ in $\delta I$. 
+Consequently, an oscillation of the form $\delta d \propto \exp{( -i \Omega t )}$ in the arm length difference produces a DC signal and a frequency-doubled signal $\propto \exp{(-2i\Omega t)}$ in $\delta I$. 
 This is discussed further in Sec.~\ref{sec:ifo}.
 
 
@@ -92,7 +92,7 @@ The log likelihood assuming Gaussian noise is given by
 \log \mathcal{L} &=& -\frac{1}{2}(n|n)\,, \\
                  &=& -\frac{1}{2}(x-s|x-s)\,, \\ 
                  &=& -\frac{1}{2}(x|x) - \frac{A^2}{2} (\cos[\omega t + \phi] | \cos[\omega t + \phi]) \\ &&+ A (x | \cos[\omega t +\phi])\,, \\ 
-                 &=& -\frac{1}{2}(x|x) - \frac{A^2}{4} + A (x | \cos[\omega t +\phi])\,, \label{eqn:logLike}\\ 
+                 &=& -\frac{1}{2}(x|x) - \frac{A^2}{4} + A (x | \cos[\omega t +\phi])\,, \label{eqn:logLike}
 \end{eqnarray}
 where we define the inner product between $u(t)$ and $v(t)$ as $(u|v) = \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data (and the last line assumes that $T>>1/\omega$ so that $(\cos[\omega t + \phi] | \cos[\omega t + \phi])\approx{1/2}$). 
 
@@ -113,7 +113,7 @@ This appendix contains some details regarding the implementation of the Viterbi 
 The Viterbi algorithm is a classic method in signal processing, whose theoretical underpinnings and implementation are easily accessible to undergraduate students. 
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
-\subsection{Pseudocode}
+%\subsection{Pseudocode}
 Here we give pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalised between $(0, 1)$ as multiplicative weights, but to avoid underflow we take the logarithm and consider them as additive weights.
 
 Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices. We restrict paths to only move one cell up or down at a time (or stay constant).
@@ -177,8 +177,9 @@ It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bc
 	\caption{\label{fig:circuit_diagram}
 Circuit diagram for reading the photodiode. 
 The photodiode is connected in reverse-bias across an op-amp. 
-The analog op-amp output is passed through a Sallen-Key anti-aliasing filter tuned to 16kHz, then into an analog-to-digital converter (ADC). 
+The analog op-amp output is passed through a Sallen-Key anti-aliasing filter tuned to $16\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
 The digitised signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.
+This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online} and is available from~\url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}.
 }
 \end{figure*}
 

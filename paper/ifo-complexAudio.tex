@@ -5,6 +5,7 @@
 
 % Optical microphone
 % aim of optical microphone: play back injected sounds
+In this section we explore how this demonstration can be used to teach a selection of signal processing techniques.
 A natural successor to constant and wandering tones is complex audio, such as music and speech. As complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not directly applicable here. Instead, in this section, we use the interferometer as an `optical microphone' to detect and play back complex audio signals (i.e.\ using light to capture sound).
 In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 The device has precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defence industry and that operate on a variety of related principles.
@@ -41,21 +42,28 @@ An updated schematic is shown in Fig.~\ref{fig:ifo_schematic_podo} and a photogr
 See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circuit. 
 
 
-\begin{figure}
-	\includegraphics[width=0.49\textwidth]{figures/ifo_schematic_photodiode_edit.pdf}
+\begin{figure*}
+	\includegraphics[width=0.44\textwidth]{figures/ifo_schematic_photodiode_edit.pdf}
+	\includegraphics[width=0.52\textwidth]{figures/setup_pic2.pdf}
 	\caption{
-Michelson interferometer schematic. 
-The schematic is identical to Figure~\ref{fig:interference_pattern} except that the data is now recorded using a photodiode and Raspberry Pi instead of a webcam. 
+Left: Michelson interferometer schematic. 
+The schematic is identica.l to Figure~\ref{fig:interference_pattern} except that the data is now recorded using a photodiode and Raspberry Pi instead of a webcam. 
+Right: photograph of the optical microphone. 
+The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. 
+In the main image, the photodiode is placed behind the cloth screen. 
+The inset shows a face-on view of the photodiode with the covering screen removed. 
+See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.
 }
 	\label{fig:ifo_schematic_podo}
-\end{figure}
+\end{figure*}
 
+\begin{comment}
 \begin{figure}
 	\includegraphics[width=.49\textwidth]{figures/setup_pic2.pdf}
 \caption{Photograph of the optical microphone. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
 	\label{fig:setup_pic2}
 \end{figure}
-
+\end{comment}
 
 \subsection{Anti-aliased output}
 \label{sec:initialResultsOpMic}
@@ -131,13 +139,14 @@ i) completely attenuates the undesired parts of the spectrum,
 ii) does not change the rest of the spectrum, and 
 iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
 %\end{itemize}
-However, these three conditions are cannot all hold at once and any filter must compromise between them. 
+However, these three conditions cannot all hold at once and any filter must compromise between them. 
 
 
 
 \subsubsection{Comb filter}
 
 Simply zeroing the frequency bins corresponding to the harmonics of the $50\,{\rm Hz}$ mains signal is unsuccessful. This effectively multiplies the spectrum by a rectangular comb filter. It does remove the mains harmonics, but audibly ruins the rest of the signal due to lack of smoothness. This is because applying a filter in frequency space is equivalent to convolving the signal with the inverse Fourier transform of that filter. The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is some combination of sinc functions, which significantly corrupt the signal. 
+See also Section~\ref{sec:notch} where we explore a notch filter. 
 
 %A smoother comb filter significantly attenuates the spectrum between each harmonic so that the signal is no longer audible. 
 % \jam{[re:comb filters. When I tried to comb filter it either was too sharp and so jumbled the whole signal in convolution. Or if smooth attenuated the signal away into noise. At least, that's what I remember. Changrong has a comb filter section anyway so I am happy dropping my unsuccessful attempts.]}
@@ -173,6 +182,7 @@ The effect of applying this filter to the background noise PSD can be seen in th
 
 
 \subsubsection{Cascade notch filter}
+\label{sec:notch}
 \begin{figure*}
 \begin{center}
 \includegraphics[width=.9\textwidth]{figures/notch_filter_response.jpg}
@@ -245,14 +255,14 @@ A Wiener filter is an advanced statistical technique that estimates the injected
 \begin{equation}
     \mathbf{x}=\mathbf{s}+\mathbf{w}\,.
 \end{equation}
-Given the observed data $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the (Bayesian) mean square error (MSE), as defined in Eq.~\ref{eq:BMSE}, between the two.
+Given the observed data $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the Bayesian mean square error (BMSE) between the two, defined as 
 \begin{equation}
 \label{eq:BMSE}
 \text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,,
 \end{equation}
 
 
-If we assume that: i) $\textbf{x}$ is wide sense stationary~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in R$, if (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
+If we assume that: i) $\textbf{x}$ is \emph{wide sense stationary}~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in R$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
 \begin{equation}
 \hat{{s}}[n]=\sum_{k=0}^{n}h[k]x[n-k]\,,
 \end{equation}
@@ -314,9 +324,9 @@ If we let the Wiener filter be non-causal (i.e. we estimate the current signal b
 where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high, and attenuates the signal where the SNR is low. The causal Wiener filter (that only makes estimates based on past observations) is similar. More detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
 % That this filter is non-causal makes it unsuitable for real time signal processing 
 
-In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}, and set the length of the filter to $n=100$. 
-A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
-The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
+%In this work, we construct a causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}, and set the length of the filter to $n=100$. 
+%A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
+%The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
 
 In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The time series and frequency spectrum after applying the Wiener filter are shown in the sixth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
 We see a significant improvement in the time series of the recovered signal, however a strong noise hum persists, audibly. 
@@ -394,7 +404,10 @@ The results of the logMMSE estimator are shown in Figs.~\ref{fig:logMMSE_timeser
 %, with the words unable to be understood.
 
 
-We find some improvement with music over speech. After applying the logMMSE estimator, simple chords and drums can be heard, however more composite sounds and complex melodies cannot be heard clearly. Our observations suggest that this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins sometimes can’t be heard at all. This could be a perceptual effect or a frequency dependence somewhere in the optical microphone.
+We find some improvement with music over speech. After applying the logMMSE estimator, simple chords and drums can be heard, however more composite sounds and complex melodies cannot be heard clearly. 
+%Our observations suggest that this is especially true for instruments of certain timbres (harmonic profiles), in particular flutes and violins sometimes can’t be heard at all. 
+Our observations suggest that this is especially true for certain instruments, in particular flutes and violins sometimes can’t be heard at all. 
+This could be a perceptual effect or a frequency dependence somewhere in the optical microphone.
 %, although the exact cause is yet to be determined.  - repetition
 Speculating, perhaps the speaker-mirror coupling is stronger at low frequencies and thus instruments like electric bass and drums are louder in the results.
 

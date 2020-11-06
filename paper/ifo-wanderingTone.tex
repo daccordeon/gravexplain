@@ -13,7 +13,8 @@ The audio analogue to these continuous wave signals is a tone that wanders in fr
 \end{comment}
 
 % the signal and the analogy we use
-Continuous gravitational waves may not be monochromatic, unlike the signal considered in Section~\ref{sec:single_tone}.  
+Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational waves may not be monochromatic.
+%Continuous gravitational waves may not be monochromatic, unlike the signal considered in Section~\ref{sec:single_tone}.  
 A continuous-wave signal may wander slowly in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
 The audio analogue is a tone that wanders in frequency: a note that changes in pitch. 
 
@@ -21,18 +22,18 @@ The audio analogue is a tone that wanders in frequency: a note that changes in p
 The analysis techniques used in this section are inspired by those used to search for continuous waves from spinning neutron stars in LIGO and Virgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 Continuous wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
-In this context significantly means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
+In this context \emph{significantly} means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
 One method to search for a wandering signal is to split the time series data into several shorter segments which are analysed individually.%, and then recombine them under some continuity assumption to coherently analyse the whole set. 
 % I think the following is more accurate. The antenna beam pattern is used to compute a detection statistic. Which detection statistic to use depends on the type of target. -Hannah
-A detection statistic is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
+
+A \emph{detection statistic} is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
 In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}. 
 %Most continuous wave searches use detection statistics to quantify the likelihood of a signal being present in the data at each frequency for each timeseries segment. 
 %The detection statistic used depends on the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun, and the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
-Which detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
+The choice of detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
 In this work, we take the discrete Fourier transform of each timeseries segment and use its amplitude at each frequency as a detection statistic.
 This maximises the likelihood of detecting a sinusoidal signal in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
-The detection statistic is normalised for convenience. 
-The detection statistics from each segment are combined to form a grid in time and frequency (a spectrogram). 
+The detection statistic is normalised for convenience and we use them to form a grid in  time and frequency (a spectrogram). 
 % moved one sentence up 
 %We also normalise the detection statistics for convenience.
 
@@ -43,7 +44,7 @@ In a HMM, the frequency state of the signal is unknown, or hidden, and can under
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. The detection statistic (observable) relates the hidden states of the system to the observed data.
 The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequence of states given the sequence of observables.
 %To perform the task of recovering the signal, we use the Viterbi algorithm~\cite{Viterbi:1967} to efficiently find the most probable path through the spectrogram given the sequence of observations.
-This method is used in continuous wave searches for a variety of astrophysical targets~\cite{ScoX1O2Viterbi:2019,ScoX1ViterbiO1:2017,MillhouseStrangMelatos:2020,JonesSun:2020,MiddletonEtAlO2LMXBs:2020,PostMergerRemnantSearch:2019,SunEtAlSNR:2018,viterbi_application}.
+This method is used in continuous wave searches for a variety of astrophysical targets~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, SunEtAlSNR:2018, viterbi_application} and forms the basis of the analysis in this section. 
  
 
 In Section~\ref{sec:viterbi} we review the Viterbi algorithm and its application to this work. 
@@ -96,7 +97,8 @@ Here we describe the algorithm in pseudocode while referring to the schematic in
 
 \item Each state $f_j$ at $t=t_{N_t}$ has some value ${\rm Pr}[f(t_{N_t})=f_j]$ (Eqn.~\ref{eqn:recursiveViterbi}), which represents the probability of the most likely path that ends in state $f_j$ at $t_{N_t}$. The Viterbi algorithm then selects the terminating frequency bin $f(t_{N_t})$ with the highest probability, marked by (b) in Fig.~\ref{fig:viterbi}.
 
-\item The Viterbi path (the overall best path) is then found by backtracking along the stored best connections at each $t_i$ (see also Appendix~\ref{app:viterbi}). In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c) and is highlighted in orange.
+\item The last step is to find the Viterbi path (the overall best path that terminates in the frequency bin with the highest probability in step 4). The Viterbi path is found by backtracking along the stored best connections at each $t_i$ (see also Appendix~\ref{app:viterbi}). In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c) and is highlighted in orange.
+%\item The Viterbi path (the overall best path) is then found by backtracking along the stored best connections at each $t_i$ (see also Appendix~\ref{app:viterbi}). In Fig.~\ref{fig:viterbi}, we see that the path ending at (b) started at (c) and is highlighted in orange.
 \end{enumerate}
 
 In the following section, we use the Viterbi algorithm to recover a slowly wandering signal.
@@ -140,14 +142,17 @@ At $150\,{\rm s}$ the data appears anomalous, which may be due to some backgroun
 % throughout this section we are using present tense, should this be changed to past tense?
 % I think we should go for present tense throughout - hannah
 
-A sinusoidal signal with slowly decaying amplitude is played through the speaker to mimic a slowly wandering signal. 
+To simulate a slowly wandering signal we modulate the frequency sinusoidally with a modulation amplitude that decays with time. 
+%A sinusoidal signal with slowly decaying amplitude is played through the speaker to mimic a slowly wandering signal. 
 We use an identical set up to that shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
 %A sinusoidal signal with a slowly decaying amplitude is injected into the interferometer using the speaker in the setup shown in Fig~\ref{fig:ifo_schematic_webcam} to mimic a slowly wandering signal. The particular choice of signal is arbitrary as any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm. The output of the interferometer is recorded via a webcam as in Section~\ref{sec:single_tone}. 
 In this section we test the Viterbi algorithm’s ability to recover the wandering signal.
 
 
+
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal. 
-The overlaid pink dots show the injected signal and the white crosses show the recovered Viterbi path.% I think this is already defined and seems like repetition:(the most likely path through the data according to the Viterbi algorithm). 
+For the purposes of this demonstration we use a signal that can easily be identified  in the spectrogram, however real continuous wave signals have much lower amplitudes. 
+The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.% I think this is already defined and seems like repetition:(the most likely path through the data according to the Viterbi algorithm). 
 The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root mean square (RMS) fractional error $E_{\rm rms}$ along the path which is defined as 
 \begin{equation}
 E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}^2} \right] ^{1/2}

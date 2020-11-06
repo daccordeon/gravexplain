@@ -8,8 +8,9 @@ However their design is fundamentally based on the Michelson interferometer, an 
 In a Michelson interferometer, laser light is split by a beamsplitter into two perpendicular arms (see Fig.~\ref{fig:ifo_schematic_webcam}). 
 Mirrors at the end of each arm reflect the two beams back to the beamsplitter where they recombine to produce an interference pattern, 
 The resulting interference pattern is dependent on the relative distance travelled by the beams. 
-Current generation gravitational-wave observatories have ${\rm km}$-scale arms ($4\,{\rm km}$ and $3\,{\rm km}$ at LIGO and Virgo respectively). 
-They are able to measure minuscule changes in distance due to gravitational-waves, e.g. the first detection of a binary black hole merger changed the relative length of the two arms by $10^{-21}$, a distance smaller than the width of a proton~\cite{GW150914}.
+Current generation gravitational-wave observatories have ${\rm km}$-scale arms (with arm lengths $4\,{\rm km}$ and $3\,{\rm km}$ at LIGO and Virgo respectively). 
+They are able to measure minuscule changes in distance due to gravitational-waves, e.g. the first detection of a binary black hole merger produced a strain of $10^{-21}$, corresponding to a change in distance which is a fraction of the width of a proton. 
+%changed the relative length of the two arms by $10^{-21}$, a distance smaller than the width of a proton~\cite{GW150914}.
 
 \begin{comment}
 Gravitational-wave detectors such as LIGO and Virgo are large, complex experiments. However, their design is based fundamentally on a Michelson interferometer, an optical configuration commonly used in undergraduate laboratories.
@@ -22,12 +23,13 @@ The first detection of a binary black hole merger changed the relative length of
 \end{comment}
 
 
-Detection and analysis techniques used by the gravitational-wave community can be demonstrated using table-top equipment (see Refs.~\cite{TTExhibit:2020,TTExhibit:online,AMIGO:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999} provide a selection of other table-top Michelson interferometer designs used for science communication).
+
 % I rephrased to lead with the analogy here and removed 'often' as GW signals are only really listened to for public engagement interest - hannah
 Sound is a commonly-used analogy when explaining gravitational-wave science. 
 Gravitational-wave signals from binary black hole and neutron star mergers can be converted to audio signals~\footnote{When introducing the acoustic analogy to lay audiences, it is important to emphasize that gravitational waves are not sound. For example, gravitational waves can propagate in a vacuum, whereas sound cannot. Gravitational waves also travel at the speed of light and are not longitudinal waves.} to aid in explanations~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}.
 % rephrased as this what we are doing, rather than what scientists in general are doing
 %This analogue allows scientists to use sound vibrations as a simple means to move the components of a demonstration interferometer. 
+Detection and analysis techniques used by the gravitational-wave community can be demonstrated using table-top equipment (see Refs.~\cite{TTExhibit:2020,TTExhibit:online,AMIGO:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999} for a selection of other table-top Michelson interferometer designs used for science communication).
 Sound vibrations provide a simple means to move the components of a demonstration interferometer. 
 The vibrations move the mirrors, changing the length of the interferometer arms, and therefore the interference pattern.
 We use audio signals throughout this work to simulate gravitational-wave-like signals.
@@ -57,6 +59,7 @@ The beams are reflected by mirrors M1 and M2, located at the end of $\approx 7.5
 The beams recombine at the beamsplitter and produce an interference pattern that is then enlarged using a diverging (bi-concave) lens of focal length $-25.0\,{\rm mm}$, and projected onto a screen.
 The interference pattern, as shown by the photograph in Fig.~\ref{fig:interference_pattern}, is a set of concentric light and dark rings (fringes). 
 A change in the relative length of the arms causes these rings to move radially in or outwards.
+Further design details for Michelson interferometers can be found in Ref.~\cite{TTExhibit:2020}.
 % Ring interference patterns like this are often used in gravitational-wave table-top demonstrations to allow changes in the pattern to be easily viewed. 
 % Why remove the sentence above? Rings are chosen rather than happening by default. - Hannah
 The intensity timeseries is recorded via webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}.
