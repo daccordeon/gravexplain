@@ -5,17 +5,26 @@
 
 % Optical microphone
 % aim of optical microphone: play back injected sounds
+% some editing in response to pnp
 In this section we explore how this demonstration can be used to teach a selection of signal processing techniques.
-A natural successor to constant and wandering tones is complex audio, such as music and speech. As complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not directly applicable here. Instead, in this section, we use the interferometer as an `optical microphone' to detect and play back complex audio signals (i.e.\ using light to capture sound).
+The apparatus used in Sections~\ref{sec:ifo} to~\ref{sec:viterbi_wandering} affords the opportunity to explore a range of signal processing techniques and filters of interest to undergraduate students and provide a foundations for many technical applications~\cite{DigitalProcingOfSpeechSignals:1978}. 
+We provide a series of example activities using complex audio (such as music and speech) as a natural successor to constant and wandering tones. 
+%A natural successor to constant and wandering tones is complex audio, such as music and speech. 
+As complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not directly applicable here. Instead, in this section, we use the interferometer as an \emph{optical microphone} to detect and play back complex audio signals (i.e.\ using light to capture sound).
 In doing so, we experiment with a hierarchy of passive filters which suppress noise yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
-The device has precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defence industry and that operate on a variety of related principles.
+A vast literature exists on signal processing with speech, however see Ref.~\cite{DigitalProcingOfSpeechSignals:1978} for introductory material including Fourier analysis and digital representations.
+Optical microphone devices have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defence industry and operate on a variety of related principles.
+  
+%An introduction to ..... can be found in Ref.~\cite{}, including 
+%A review of digital processing techniques for speech signals can be found 
 %It is also analogous to the detection of unmodelled gravitational-wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
 %It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
 
 
-We describe the additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and initial results in Section~\ref{sec:initialResultsOpMic}. Filter and speech enhancement techniques applied to the data are outlined in Section~\ref{sec:filters}.
 This section is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals.
-In addition to this, the optical microphone serves as an interesting independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories.
+Here, the optical microphone serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories.
+We describe the additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and initial results in Section~\ref{sec:initialResultsOpMic}. 
+A selection of filter and speech enhancement example activities using the optical microphone are outlined in Section~\ref{sec:filters}.
 
 
 
@@ -92,7 +101,7 @@ Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum an
 \begin{figure*}
 	\begin{center}
     %% trim order is <left> <lower> <right> <upper>
-	\includegraphics[width=\textwidth,trim={1cm 4.5cm 1cm 3.5cm},clip]{figures/notch_and_wiener_superplot_v2.pdf}
+	\includegraphics[width=\textwidth,trim={1cm 4.5cm 0.4cm 3.5cm},clip]{figures/notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:BackgroundNotchWienerCombined}
 	Time series (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
