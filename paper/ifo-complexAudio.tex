@@ -102,7 +102,7 @@ Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum an
 	\begin{center}
     %% trim order is <left> <lower> <right> <upper>
     % height=0.5\textheight,trim={1cm 4.5cm 0.4cm 3.5cm},clip
-	\includegraphics[height=0.85\textheight]{figures/notch_and_wiener_superplot_v2.pdf}
+	\includegraphics[width=.85\textwidth, trim={1cm 3cm 1cm 1cm}]{figures/notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:BackgroundNotchWienerCombined}
 	Time series (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
@@ -381,7 +381,7 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
 
 
 \begin{figure*}
-	\includegraphics[width=0.8\textwidth]{figures/combined_timeseries_melatos.pdf}
+	\includegraphics[width=0.8\textwidth]{figures/combined_timeseries_melatos_shift_source.pdf}
 	\caption{Time series of an adult male voice (saying ``A cathode ...'') showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). One second of the one minute recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.}
 	\label{fig:logMMSE_timeseries}
 \end{figure*}
