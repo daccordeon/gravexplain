@@ -38,8 +38,8 @@ The detection statistic is normalised for convenience and we use them to form a 
 %We also normalise the detection statistics for convenience.
 
 
-Following the method of Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}, we use a hidden Markov model (HMM) to recover the wandering signal from noisy data. 
-In a HMM, the frequency state of the signal is unknown, or hidden, and can undergo transitions at discrete times. 
+Following the method of Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}, we use a hidden Markov model to recover the wandering signal from noisy data. 
+In a hidden Markov model, the frequency state of the signal is unknown, or hidden, and can undergo transitions at discrete times. 
 %To do this, we define the frequency of the signal as a hidden (unknown) state which can undergo transitions at discrete times. 
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. The detection statistic (observable) relates the hidden states of the system to the observed data.
 The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequence of states given the sequence of observables.
