@@ -9,7 +9,7 @@ The optical microphone experiment described here can be used to demonstrate and 
 
 
 % reduced length
-Isolating the experiment from interference may provide some reduction in noise. 
+Isolating the experiment from interference may provide some noise reduction. 
 For example, the Raspberry Pi could be powered with a commercial battery instead of mains power. 
 %An initial improvement could be to better isolate the experiment, especially from the sources of mains noise. 
 %As the Raspberry Pi demands little power and connects to USB it could instead be powered with a commercial battery rather than the mains supply. 
@@ -18,7 +18,7 @@ All other components of the circuit draw power from the Pi, so this would isolat
 The laser is DC powered through a converter, so should not couple noise from the mains into the interferometer. 
 Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}.
 %With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
-A feedback loop control system can also be used to suppress unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational wave observatories. 
+A feedback loop control system can also be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational wave observatories. 
 %We can consider improving the stability of the optical microphone components. A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 
 
 
@@ -39,7 +39,7 @@ The total transfer function starts with the voltage being sent to the speaker an
 %With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
 %\jam{[check with Rob et al. about the veracity of this]}
 
-A voluminous literature exists on using hidden Markov models trained on phonemes to recognize speech~\cite{HMM_english}. These could perform the final stage of speech enhancement for the optical microphone. Interestingly, this coincidently connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. Alternatively, machine learning solutions exist throughout the field that are able to compete with statistical techniques such as the logMMSE estimator~\cite{SEGAN}.
+A voluminous literature exists on using hidden Markov models trained on phonemes to recognize speech~\cite{HMM_english}. These could perform the final stage of speech enhancement for the optical microphone. Interestingly, this coincidently connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. Alternatively, machine learning solutions exist throughout the field that can compete with statistical techniques such as the logMMSE estimator~\cite{SEGAN}.
 
 
 We could also use more traditional techniques such as wavelet transform (WT) \citep{nason1995stationary} to extract the signal from noise, and compare these with the above methods. WT provides both time and frequency information, making it easier to pinpoint the origin of noise with respect to time. In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT methods are proposed for speech recognition. 

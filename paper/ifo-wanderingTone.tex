@@ -26,12 +26,12 @@ In this context, ``significantly'' means across multiple frequency bins, where t
 One method to search for a wandering signal is to split the time series data into several shorter segments which are analysed individually.%, and then recombine them under some continuity assumption to coherently analyse the whole set. 
 % I think the following is more accurate. The antenna beam pattern is used to compute a detection statistic. Which detection statistic to use depends on the type of target. -Hannah
 
-A ``detection statistic'' is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
+A ``detection statistic'' is used to quantify the likelihood of a signal being present in the data at each frequency and time series segment. 
 In gravitational wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}. 
 %Most continuous wave searches use detection statistics to quantify the likelihood of a signal being present in the data at each frequency for each timeseries segment. 
 %The detection statistic used depends on the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun, and the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
 The choice of detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
-In this work, we take the discrete Fourier transform of each timeseries segment and use its amplitude at each frequency as a detection statistic.
+In this work, we take the discrete Fourier transform of each time series segment and use its amplitude at each frequency as a detection statistic.
 This maximises the likelihood of detecting a sinusoidal signal in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
 The detection statistic is normalised for convenience and we use it to form a grid in time and frequency (a spectrogram) which displays the frequency content of the signal over time. 
 % moved one sentence up 
@@ -114,7 +114,7 @@ In the following section, we use the Viterbi algorithm to recover a slowly wande
 A schematic diagram of the Viterbi algorithm. 
 Each circle represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
 Vertically, the grid starts from frequency $f_0$ at the bottom and ending at $f_{N_f}$ at the top. 
-The colour of each circle indicates the likelihood that a signal is present in the box, where a lighter colour corresponds to higher likelihood. 
+The colour of each circle indicates the likelihood that a signal is present in the box, where a lighter colour corresponds to a higher likelihood. 
 At each time, the paths can move up one $f$ bin, move down one $f$ bin, or stay at the same $f$ bin (shown by lines in the diagram). 
 Each circle has three paths leading to it, indicated by the lines. 
 The best path to each circle at each $t_i$ is highlighted in black. 
@@ -151,7 +151,7 @@ In this section we test the Viterbi algorithm’s ability to recover the wanderi
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal. 
-For the purposes of this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous wave signals to have far lower signal-to-noise ratios (SNR's). 
+For this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous wave signals to have far lower signal-to-noise ratios (SNR's). 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
 % I think this is already defined and seems like repetition:(the most likely path through the data according to the Viterbi algorithm). 
 The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
@@ -161,8 +161,8 @@ E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}
 where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths. Computing this for the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
 
 
-This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the algorithm is allowed to), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
-As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm is able to recover and continues to track the signal after the disturbance. 
+This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the algorithm is allowed to), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
+As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continues to track the signal after the disturbance. 
 %The Viterbi algorithm is somewhat robust against such disturbances, qualitatively recovering the injected path on the other side, as shown in Fig.~\ref{fig:viterbi_overlay}. 
 
 
