@@ -25,18 +25,14 @@ The webcam samples at a rate of $30\, {\rm Hz}$, which limits the spectral conte
 %The intensity of the interference pattern is measured at a single point on the screen using a commercial USB webcam (see Fig.~\ref{fig:ifo_schematic_webcam}). The webcam samples at a rate of $30\,{\rm Hz}$, which limits the spectral content of observable signals to below $15\,{\rm Hz}$, the Nyquist frequency. A tone with a frequency of $2.09\,{\rm Hz$} is played through the speaker for one minute and the interference pattern is recorded by the webcam.
 
 
-%The pixel intensity in the green-channel of the video (the webcam records in three colour channels: red, blue, and green) is used to approximate the total intensity of the interference pattern. 
-%This is because the laser emits monochromatic green light at $532\,{\rm nm}$.
 A tone with a frequency of $2.09\,{\rm Hz}$ is played through the speaker for one minute. 
 The amplitude of the Fourier transform of the recovered signal is shown in Fig.~\ref{fig:webcam_spectrum}. 
-% removed 'strong' as what does strong mean here?
 We measured a peak amplitude at $2.099\,{\rm Hz}$ with a full width half maximum (FWHM) of $0.033\,{\rm Hz}$. 
-%Although this range doesn't contain our injected frequency, the error is not substantial and cannot be heard by the (untrained) human ear.
 Two harmonics can also be seen at integer multiples of the peak frequency. 
 The peaks at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ have amplitudes of $0.103$ and $0.098$ as a fraction of the height of the main peak, respectively. They are likely due to the nonlinear response of the system discussed in Section~\ref{sec:ifo} and Appendix~\ref{app:intensity_derivation}.
 
 
-In the following section, we use a hidden Markov model technique, commonly used in continuous wave searches, to recover a slowly wandering frequency signal.
+In the following section, we use a hidden Markov model technique, commonly used in continuous-wave searches, to recover a slowly wandering frequency signal.
 
 
 \end{document}
