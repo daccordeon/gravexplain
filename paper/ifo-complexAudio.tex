@@ -66,7 +66,7 @@ See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circu
 \label{sec:initialResultsOpMic}
 
 %The source audio was played through the speaker with the optical microphone recording for the full duration of the audio (around a minute long for most sources). 
-We test the optical microphone with a variety of recordings, including speech from different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimise activity around the demonstration to reduce the amount of environmental noise coupling into the interferometer. The time series data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
+We test the optical microphone with a variety of recordings, including speech from different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimise activity around the demonstration to reduce the amount of environmental noise coupling into the interferometer. The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
 
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass hum throughout. This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., with the speaker switched off), as shown in the top panel of Fig.~\ref{fig:psd_noise}. The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ mains signal up to and beyond $8$th harmonic thereof. The mains signal is also present (but far weaker) in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. The appearance of harmonics of the mains noise is likely due to the non-linearity discussed in Appendix~\ref{app:intensity_derivation} (see also Ref.~\cite{feynman}). The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
 
@@ -97,7 +97,7 @@ As an illustrative example, we test all of these filters on the same $1\,{\rm s}
 	\includegraphics[width=.8\textwidth, trim={1cm 3cm 1cm 1cm}]{figures/notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:BackgroundNotchWienerCombined}
-	Time series (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
+	Timeseries (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
     The source signal, shown in the first row, is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode ...''). 
     The source signal is shifted by $0.12\,{\rm s}$ to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
 	The second row shows the raw output from the optical microphone when the input signal from the first row is played. 
@@ -123,7 +123,7 @@ As an illustrative example, we test all of these filters on the same $1\,{\rm s}
 %}
 %\end{figure*}
 
-Results for a selection of filters are collated in Fig.~\ref{fig:BackgroundNotchWienerCombined} where the left and right columns show time series and Fourier spectrum results, respectively. 
+Results for a selection of filters are collated in Fig.~\ref{fig:BackgroundNotchWienerCombined} where the left and right columns show timeseries and Fourier spectrum results, respectively. 
 The first and second rows of Fig.~\ref{fig:BackgroundNotchWienerCombined} show the source signal and the raw optical microphone recording, respectively. 
 The third row shows a background spectrum of the optical microphone, as shown previously in the top panel Fig.~\ref{fig:psd_noise}.
 
@@ -326,8 +326,8 @@ where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy da
 %A larger $n$ provides more smoothing of the input signal, however requires more computational memory. 
 %The choice of $n=100$ is a reasonable selection to balance smoothing and efficiency. 
 
-In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The time series and frequency spectrum after applying the Wiener filter are shown in the sixth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
-We see a significant improvement in the time series of the recovered signal, however, a strong noise hum persists, audibly. 
+In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The timeseries and frequency spectrum after applying the Wiener filter are shown in the sixth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
+We see a significant improvement in the timeseries of the recovered signal, however, a strong noise hum persists, audibly. 
 %The Wiener filter produces an estimated signal $\hat{x}$ using linear time-invariant filtering. 
 %It minimizes the mean square error $\mathbb{E}[(\hat{x}-x)^2]$ between $\hat{x}$ and the actual signal $x$~\citep{verhoeven2009robust}.
 %\han{should we add more details here too?} \jam{[seconded]}

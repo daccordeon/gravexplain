@@ -22,15 +22,15 @@ The analysis techniques used in this section are inspired by those used to searc
 Continuous-wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
 In this context, ``significantly'' means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
-One method to search for a wandering signal is to split the time series data into several shorter segments which are analysed individually.%, and then recombine them under some continuity assumption to coherently analyse the whole set. 
+One method to search for a wandering signal is to split the timeseries data into several shorter segments which are analysed individually.%, and then recombine them under some continuity assumption to coherently analyse the whole set. 
 % I think the following is more accurate. The antenna beam pattern is used to compute a detection statistic. Which detection statistic to use depends on the type of target. -Hannah
 
-A ``detection statistic'' is used to quantify the likelihood of a signal being present in the data at each frequency and time series segment. 
+A ``detection statistic'' is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
 In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}. 
 %Most continuous wave searches use detection statistics to quantify the likelihood of a signal being present in the data at each frequency for each timeseries segment. 
 %The detection statistic used depends on the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun, and the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
 The choice of detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
-In this work, we take the discrete Fourier transform of each time series segment and use its amplitude at each frequency as a detection statistic.
+In this work, we take the discrete Fourier transform of each timeseries segment and use its amplitude at each frequency as a detection statistic.
 This maximises the likelihood of detecting a sinusoidal signal in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
 The detection statistic is normalised for convenience and we use it to form a grid in time and frequency (a spectrogram) which displays the frequency content of the signal over time. 
 % moved one sentence up 
