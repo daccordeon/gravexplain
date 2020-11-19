@@ -47,6 +47,9 @@
 %\bibliographystyle{apsrev4-2}
 % \setlength{\parindent}{0pt}
 
+% inner product
+\newcommand{\ip}[2]{\langle #1,#2 \rangle}
+
 \newcommand{\jam}{\textcolor{magenta}}
 \newcommand{\han}{\textcolor{orange}}
 
@@ -178,20 +181,23 @@ OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitatio
 
 
 \begin{abstract}
-Gravitational-wave observatories around the world are searching for continuous waves: persistent signals from sources such as spinning neutron stars. 
+Gravitational wave observatories around the world are searching for continuous waves: persistent signals from sources such as spinning neutron stars. 
+% \jam{For the hyphen in "gravitational wave" versus "gravitational wave". I prefer the former, but either way, we should be consistent.}
 These searches use sophisticated statistical techniques to look for weak signals in noisy data. 
-In this paper, we demonstrate these techniques using a table-top model gravitational-wave detector (a Michelson interferometer), where sound is used as an analogue for gravitational waves. 
+In this paper, we demonstrate these techniques using a table-top model gravitational wave detector: a Michelson interferometer where sound is used as an analogue for gravitational waves. 
 Using signal processing techniques from continuous-wave searches we demonstrate the recovery of tones with constant and wandering frequencies. 
-We explore use of the interferometer as a teaching tool for educators in physics and electrical undergraduate laboratories with a range of example activities. 
-The interferometer is used as an \emph{optical microphone} to capture music and speech. 
+We explore use of the interferometer as a teaching tool for educators in physics and electrical undergraduate laboratories with a range of example activities.
+% \jam{We mention undergraduate labs twice, roll this sentence into the end? Also, electrical sounds weird, why the change from electrical engineering?}
+The interferometer is used as an ``optical microphone'' to capture music and speech. 
+% \jam{I changed all the \emph to ``'', feel free to change them back, but I think it is more explicit this way}
 A selection of filtering techniques are applied to recover the original signals from noisy data, including simple bandpass filtering, notch filters, a Weiner filter, and the statistical logMMSE method.
-Simple chords and drums are easily recovered, but complex music and speech are more challenging. 
-This demonstration has scope for use by undergraduate laboratories and can be adapted for use as an engagement tool for communicating gravitational-wave and signal-processing topics to non-specialist audiences. 
+Recordings of simple chords and drums are easily recovered, but complex music and speech are more challenging. 
+This demonstration has scope for use by undergraduate laboratories and can be adapted for use as an engagement tool for communicating gravitational wave and signal-processing topics to non-specialist audiences. 
 % rearranged in response to Anna's pnp review
 %Finally we use the interferometer as an `optical microphone' to capture music and speech and apply filtering techniques to recover the original signals from the noisy data. Such techniques include simple bandpass filtering, notch filters, a Weiner filter, and the statistical logMMSE method.  
 %Simple chords and drums are easily recovered, but complex music and speech are more challenging. 
 %This demonstration has scope for use in physics and electrical engineering undergraduate laboratories. 
-%It can also be adapted for use as an engagement tool for communicating gravitational-wave and signal-processing topics to non-specialist audiences. 
+%It can also be adapted for use as an engagement tool for communicating gravitational wave and signal-processing topics to non-specialist audiences. 
 \end{abstract}
 
 
@@ -237,7 +243,7 @@ This demonstration has scope for use by undergraduate laboratories and can be ad
 
 
 \begin{acknowledgments}
-The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance; Patrick Meyers, Margaret Millhouse, Sofia Suvorova for useful discussions; Patrick Clearwater, Patrick Meyers, Suk Yee Yong, Lucy Strang, Julian Carlin, Sanjaykumar Patil, and Alex Cameron for early work on the interferometer design requirements and construction; and the LIGO Education Public Outreach working group, in particular Anna Green, Lynn Cominsky and Sam Cooper for their helpful feedback and suggestions.  
+The authors are grateful to Jude Prezens, Alex Tolotchkoc, and Blake Molyneux for their technical advice and generous assistance; Patrick Meyers, Margaret Millhouse, Sofia Suvorova for useful discussions; Patrick Clearwater, Patrick Meyers, Suk Yee Yong, Lucy Strang, Julian Carlin, Sanjaykumar Patil, and Alex Cameron for early work on the interferometer design requirements and construction; and the LIGO Education Public Outreach working group, in particular, Anna Green, Lynn Cominsky and Sam Cooper, for their helpful feedback and suggestions.  
 This research is supported by the Australian Research Council Centre of Excellence for Gravitational Wave Discovery (OzGrav) (project number CE170100004). 
 Financial support towards hardware was provided by the Institute of Physics International Member Grant and the OzGrav Outreach Support scheme. 
 Travel support was provided by the Australian National University PhB Science program.

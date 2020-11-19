@@ -22,18 +22,18 @@ The audio analogue is a tone that wanders in frequency: a note that changes in p
 The analysis techniques used in this section are inspired by those used to search for continuous waves from spinning neutron stars in LIGO and Virgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 Continuous wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
-In this context \emph{significantly} means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
+In this context, ``significantly'' means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
 One method to search for a wandering signal is to split the time series data into several shorter segments which are analysed individually.%, and then recombine them under some continuity assumption to coherently analyse the whole set. 
 % I think the following is more accurate. The antenna beam pattern is used to compute a detection statistic. Which detection statistic to use depends on the type of target. -Hannah
 
-A \emph{detection statistic} is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
-In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}. 
+A ``detection statistic'' is used to quantify the likelihood of a signal being present in the data at each frequency and timeseries segment. 
+In gravitational wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}. 
 %Most continuous wave searches use detection statistics to quantify the likelihood of a signal being present in the data at each frequency for each timeseries segment. 
 %The detection statistic used depends on the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun, and the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
 The choice of detection statistic used depends on the type of target~\cite{JKS:1998,SuvorovaEtAl:2017}.
 In this work, we take the discrete Fourier transform of each timeseries segment and use its amplitude at each frequency as a detection statistic.
 This maximises the likelihood of detecting a sinusoidal signal in Gaussian noise, as described in Appendix~\ref{app:sinusoid_likelihood}. 
-The detection statistic is normalised for convenience and we use them to form a grid in  time and frequency (a spectrogram). 
+The detection statistic is normalised for convenience and we use it to form a grid in time and frequency (a spectrogram) which displays the frequency content of the signal over time. 
 % moved one sentence up 
 %We also normalise the detection statistics for convenience.
 
@@ -48,7 +48,7 @@ This method is used in continuous wave searches for a variety of astrophysical t
  
 
 In Section~\ref{sec:viterbi} we review the Viterbi algorithm and its application to this work. 
-In Section~\ref{sec:wanderingResults} we present results for recovery of a wandering audio frequency. 
+In Section~\ref{sec:wanderingResults} we present results for recovery of a wandering frequency audio signal. 
 
 
 
@@ -89,7 +89,7 @@ The Viterbi algorithm provides a computationally efficient method for finding th
 At every $t_i$ all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}). 
 Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}, where the circles indicate the elements in the spectrogram with the lighter colours corresponding to a higher likelihood. The implementation used in this work is available online (see Appendix~\ref{app:code}).
 \begin{enumerate}
-\item Starting at time $t_1$, each $f_j$ state can originate from three prior states at time $t_0$ (except for $f_0$ and $f_{N_f}$ which only have two). The paths between these states are indicated by the lines in Fig.~\ref{fig:viterbi}. At each $f_j$ state, we select the path with the highest $A[f(t_0),f(t_1)] {\rm Pr}[f(t_0)]$ as the most probable path. These choices are highlighted using the black lines in Fig.~\ref{fig:viterbi} while the grey lines show the rejected paths. For example, the most probable connection to the element labelled (a) is the one directly behind it (i.e., $f_4$). Therefore, this path is selected as the best path from $t_0$ to $t_1$. For backtracking at the end, the index of the most probable connection along with the current cost of the best path is stored for each node.
+\item Starting at time $t_1$, each $f_j$ state can originate from three prior states at time $t_0$ (except for $f_0$ and $f_{N_f}$ which only have two). The paths between these states are indicated by the lines in Fig.~\ref{fig:viterbi}. At each $f_j$ state, we select the path with the highest $A[f(t_0),f(t_1)] {\rm Pr}[f(t_0)]$ value as the most probable path. These choices are highlighted using the black lines in Fig.~\ref{fig:viterbi} while the grey lines show the rejected paths. For example, the most probable connection to the element labelled (a) is the one directly behind it (i.e., $f_4$). Therefore, this path is selected as the best path from $t_0$ to $t_1$. To allow backtracking at the end, the index of the most probable connection to a node along with the value of the best path to that node is stored, for each node.
 
 \item Moving to time $t_2$, again, we select the path which maximises the recursive quantity in Eqn.~\ref{eqn:recursiveViterbi} for each $f_j$. These are again shown by the solid black lines between the nodes at $t_1$ and $t_2$ in Fig.~\ref{fig:viterbi}.
 
@@ -112,13 +112,13 @@ In the following section, we use the Viterbi algorithm to recover a slowly wande
 \includegraphics[width=0.49\textwidth]{figures/viterbiDiagram.pdf}
 \caption{\label{fig:viterbi}
 A schematic diagram of the Viterbi algorithm. 
-Each box represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
+Each circle represents an element in the time-frequency grid starting from the instant $t_0$ on the left and ending at $t_{N_t}$ on the right. 
 Vertically, the grid starts from frequency $f_0$ at the bottom and ending at $f_{N_f}$ at the top. 
 The colour of each circle indicates the likelihood that a signal is present in the box, where a lighter colour corresponds to higher likelihood. 
 At each time, the paths can move up one $f$ bin, move down one $f$ bin, or stay at the same $f$ bin (shown by lines in the diagram). 
-Each circle has three paths leading to it indicated by the lines. 
+Each circle has three paths leading to it, indicated by the lines. 
 The best path to each circle at each $t_i$ is highlighted in black. 
-Some routes through the grid are found to be dead ends, such as the path ending at $t_1$ marked (a). 
+Some routes through the grid are found to be dead ends, with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a). 
 At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:recursiveViterbi}, marked (b). 
 The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
 }
@@ -132,10 +132,10 @@ The Viterbi path is the path leading to this circle, highlighted in orange from 
 \begin{figure*}
 	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
 	\caption{\label{fig:viterbi_overlay}
-Recovery of a wandering tone. 
-The spectrogram shows the observed frequency amplitude in each time-frequency bin. 
-The overlaid pink-dot and white-cross markers show the injected signal and recovered Viterbi path respectively. 
-On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover. 
+Recovery of a wandering tone using the Viterbi algorithm. 
+The spectrogram shows the observed frequency (Fourier) amplitude in each time-frequency bin. 
+The overlaid pink-dot and white-cross markers show the injected signal and recovered Viterbi path, respectively. 
+On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover, given a parameter for the rate of change of one frequency bin per time bin. 
 At $150\,{\rm s}$ the data appears anomalous, which may be due to some background noise. }
 \end{figure*}
  
@@ -144,16 +144,17 @@ At $150\,{\rm s}$ the data appears anomalous, which may be due to some backgroun
 
 To simulate a slowly wandering signal we modulate the frequency sinusoidally with a modulation amplitude that decays with time. 
 %A sinusoidal signal with slowly decaying amplitude is played through the speaker to mimic a slowly wandering signal. 
-We use an identical set up to that shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
+We use the same set-up as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
 %A sinusoidal signal with a slowly decaying amplitude is injected into the interferometer using the speaker in the setup shown in Fig~\ref{fig:ifo_schematic_webcam} to mimic a slowly wandering signal. The particular choice of signal is arbitrary as any injected path would have worked, as long as it changed slowly enough for the search parameters of the algorithm. The output of the interferometer is recorded via a webcam as in Section~\ref{sec:single_tone}. 
 In this section we test the Viterbi algorithm’s ability to recover the wandering signal.
 
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal. 
-For the purposes of this demonstration we use a signal that can easily be identified  in the spectrogram, however real continuous wave signals have much lower amplitudes. 
-The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.% I think this is already defined and seems like repetition:(the most likely path through the data according to the Viterbi algorithm). 
-The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root mean square (RMS) fractional error $E_{\rm rms}$ along the path which is defined as 
+For the purposes of this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous wave signals to have far lower signal-to-noise ratios (SNR's). 
+The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
+% I think this is already defined and seems like repetition:(the most likely path through the data according to the Viterbi algorithm). 
+The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
 \begin{equation}
 E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}^2} \right] ^{1/2}
 \end{equation}
