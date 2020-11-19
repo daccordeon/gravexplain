@@ -3,26 +3,18 @@
 \begin{document}
 
 
-% Optical microphone
-% aim of optical microphone: play back injected sounds
-% some editing in response to pnp
+
 In this section, we explore how this demonstration can be used to teach a selection of signal processing techniques.
-% changed ``affords the opportunity to explore'' to ``allows exploring''
 The apparatus used in Sections~\ref{sec:ifo} to~\ref{sec:viterbi_wandering} allows undergraduate students to explore a range of signal processing techniques and filters of interest and provides a foundation for many technical applications~\cite{DigitalProcingOfSpeechSignals:1978}. 
 We provide a series of example activities using complex audio (such as music and speech) as a natural successor to constant and wandering tones. 
-%A natural successor to constant and wandering tones is complex audio, such as music and speech. 
-As complex audio signals are not quasi-monochromatic, unlike continuous gravitational wave signals, the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not directly applicable here. Instead, in this section, we use the interferometer as an ``optical microphone'' to detect and playback complex audio signals (i.e.\ using light to capture sound).
+As complex audio signals are not quasi-monochromatic, unlike continuous gravitational-wave signals, the Viterbi algorithm as implemented in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
+Instead, in this section, we use the interferometer as an optical microphone to detect and playback complex audio signals (i.e.\ using light to capture sound).
 In doing so, we experiment with a hierarchy of passive filters which suppress noise, yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood matched filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 A vast literature exists on signal processing with speech, see Ref.~\cite{DigitalProcingOfSpeechSignals:1978} for introductory material including Fourier analysis and digital representations.
 Optical microphone devices have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defence industry and operate on a variety of related principles.
-  
-%An introduction to ..... can be found in Ref.~\cite{}, including 
-%A review of digital processing techniques for speech signals can be found 
-%It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae~\cite{}\han{to do - add citation}. 
-%It is also analogous to the detection of unmodelled gravitational wave signals, e.g. broadband bursts from supernovae. [refs; my last sentence can be improved]
 
 
-This section is indirectly related to the advanced signal processing techniques required to extract gravitational wave signals.
+This section is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals.
 Here, the optical microphone serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories.
 We describe the additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and initial results in Section~\ref{sec:initialResultsOpMic}. 
 A selection of filter and speech enhancement example activities using the optical microphone are outlined in Section~\ref{sec:filters}.
@@ -31,7 +23,23 @@ A selection of filter and speech enhancement example activities using the optica
 
 \subsection{Hardware modifications for the optical microphone}
 \label{sec:photodiode}
-% advanced method: explain how we capture data
+
+
+\begin{figure*}
+	\includegraphics[width=0.44\textwidth]{figures/ifo_schematic_photodiode_edit.pdf}
+	\includegraphics[width=0.52\textwidth]{figures/setup_pic2.pdf}
+	\caption{
+Left: the updated Michelson interferometer schematic. 
+The schematic is identical to Figure~\ref{fig:interference_pattern} except that the data is now recorded using a photodiode and Raspberry Pi instead of a webcam. 
+Right: a photograph of the optical microphone. 
+The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. 
+In the main image, the photodiode is placed behind the cloth screen. 
+The inset shows a face-on view of the photodiode with the covering screen removed. 
+See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.
+}
+	\label{fig:ifo_schematic_podo}
+\end{figure*}
+
 
 
 The human ear can hear frequencies in the range of $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. Speech intelligibility (being able to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to (and beyond) $8\,{\rm kHz}$~\cite{speech_intelligibility}. Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
@@ -52,28 +60,7 @@ An updated schematic and a photograph of the entire optical microphone are shown
 See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circuit. 
 
 
-\begin{figure*}
-	\includegraphics[width=0.44\textwidth]{figures/ifo_schematic_photodiode_edit.pdf}
-	\includegraphics[width=0.52\textwidth]{figures/setup_pic2.pdf}
-	\caption{
-Left: the updated Michelson interferometer schematic. 
-The schematic is identical to Figure~\ref{fig:interference_pattern} except that the data is now recorded using a photodiode and Raspberry Pi instead of a webcam. 
-Right: a photograph of the optical microphone. 
-The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. 
-In the main image, the photodiode is placed behind the cloth screen. 
-The inset shows a face-on view of the photodiode with the covering screen removed. 
-See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.
-}
-	\label{fig:ifo_schematic_podo}
-\end{figure*}
 
-\begin{comment}
-\begin{figure}
-	\includegraphics[width=.49\textwidth]{figures/setup_pic2.pdf}
-\caption{Photograph of the optical microphone. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. The interferometer is laid out as in Figure~\ref{fig:ifo_schematic_podo}. In the main image, the photodiode is placed behind the cloth screen. The inset shows a face-on view of the photodiode with the covering screen removed. See Appendix~\ref{app:circuit_diagram} for a circuit diagram and detailed photograph of the circuit.}
-	\label{fig:setup_pic2}
-\end{figure}
-\end{comment}
 
 \subsection{Anti-aliased output}
 \label{sec:initialResultsOpMic}
@@ -87,7 +74,8 @@ The raw output of the optical microphone (with anti-aliasing) is noisy with a lo
 \begin{figure}
 	\includegraphics[width=.49\textwidth]{figures/psd_butterworth_14_6.pdf}
 	\caption{\label{fig:psd_noise}
-Power spectral density (PSD) of background noise (top panel) from the optical microphone (with the speaker off), and the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
+Top: power spectral density (PSD) of background noise from the optical microphone (with the speaker off). 
+Bottom: the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
 We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most likely from the photodiode circuit and the room’s lighting and cooling). Otherwise, the PSD is fairly white. 
 After filtering we see strong attenuation (at least 3~dB) of all frequencies outside the band, but little change to the harmonics within the band.
 }
@@ -97,7 +85,10 @@ After filtering we see strong attenuation (at least 3~dB) of all frequencies out
 \subsection{A hierarchy of filters}
 \label{sec:filters}
 
-Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum and its harmonics, but also to ultimately improve the speech intelligibility of the recording (to be able to understand the words spoken). We start with some naive approaches and then move to traditional signal processing filters like band-passing and cascaded notches. We finish by combining these with advanced statistical techniques like a Wiener filter and the logMMSE estimator. As an illustrative example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
+Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum and its harmonics, but also to ultimately improve the speech intelligibility of the recording (to be able to understand the words spoken). 
+We start with some na{\"i}ve approaches and then move to traditional signal processing filters (band-passing and cascaded notches). 
+We finish by combining these with advanced statistical techniques (Wiener filter and the logMMSE estimator). 
+As an illustrative example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
 
 \begin{figure*}
 	\begin{center}
@@ -107,11 +98,11 @@ Here, we describe several filters used to remove the $50\,{\rm Hz}$ mains hum an
 	\end{center}
 	\caption{\label{fig:BackgroundNotchWienerCombined}
 	Time series (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
-	The first and second rows show the original speech recording and raw output from the optical microphone, respectively. 
+    The source signal, shown in the first row, is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode ...''). 
+    The source signal is shifted by $0.12\,{\rm s}$ to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
+	The second row shows the raw output from the optical microphone when the input signal from the first row is played. 
     The third row shows a background noise recording from the optical microphone when no audio signal is played. 
     The fourth row shows the result of subtracting the background noise spectrum in the third row from the recording in the second row. 
-	%The second row shows the raw output from the optical microphone.
-	%The third row shows the naive technique of subtracting off the noise spectrum from the recorded spectrum.
 	The fifth, sixth, and seventh rows show the results of applying the notch filter, the Wiener filter, and both combined, respectively.
 	}
 \end{figure*}
@@ -139,20 +130,17 @@ The third row shows a background spectrum of the optical microphone, as shown pr
 %The Fourier spectrum of the source signal is shown in the first panel of Fig.~\ref{fig:BackgroundNotchWienerCombined}. The second panel shows the spectrum of the raw optical microphone recording of the signal. The third panel of Fig.~\ref{fig:noiseSubtract} shows a background spectrum of the optical microphone, as shown previously in the top panel Fig.~\ref{fig:psd_noise}.
 
 Given that we have access to the background noise spectrum, an intuitive way to remove noise is via subtracting the noise spectrum from the recorded spectrum. 
-The fourth panel of Fig.~\ref{fig:BackgroundNotchWienerCombined} shows the spectrum obtained after subtracting the background noise spectrum. 
+The fourth row of Fig.~\ref{fig:BackgroundNotchWienerCombined} shows the spectrum obtained after subtracting the background noise spectrum. 
 We see no obvious improvement, which may be attributed to a time-variant noise spectrum, the cause of which is unidentified. %Why the noise sources are time-varying is a fact yet to be determined.
 
 
-Beyond this naive approach, we apply a range of filters to the data.
-% \jam{changed na\"{i}ve to naive, if you change this back please do it globally}
+Beyond this na{\"i}ve approach, we apply a range of filters to the data.
 In signals processing, the ideal filter would be one that:
-%\begin{itemize}
 i) completely attenuates the undesired parts of the spectrum, 
 ii) does not change the rest of the spectrum, and 
 iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
-%\end{itemize}
 However, these three conditions cannot all hold at once and any filter must compromise between them, as we will see below. 
-
+The following sections describe a series of example analyses with the optical microphone.
 
 
 \subsubsection{Rectangular comb filter}
@@ -178,7 +166,7 @@ Often in speech processing, the logarithm of the signal is taken since the ampli
 	\label{fig:butterworth}
 \end{figure}
 
-A general band-pass filter combines a high-pass filter and a low-pass filter to smoothly attenuate frequencies outside of some band (alt.\ pass-band). A Butterworth band-pass filter is a particular band-pass filter such that the frequency response (the attenuation at each frequency) is ``maximally flat'' within the band. The Butterworth low-pass component is given by Eqn.~\ref{eq:butterworth} and is combined with a similar high-pass filter to form the band-pass filter.
+A general band-pass filter combines a high-pass filter and a low-pass filter to smoothly attenuate frequencies outside of some band (alt.\ pass-band). A Butterworth band-pass filter is a particular band-pass filter such that the frequency response (the attenuation at each frequency) is ``maximally flat'' within the band. The Butterworth low-pass component is given by %Eqn.~\ref{eq:butterworth}
 
 \begin{equation}
 \label{eq:butterworth}
@@ -186,8 +174,8 @@ H(\omega) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2
 \end{equation}
 % commenting to send to co-authors
 %\jam{[Andrew wanted a quantitative comment about what the Butterworth does to the PSD, what do I use?]}
-
-In the above expression, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here, a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
+and is combined with a similar high-pass filter to form the band-pass filter.
+In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here, a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
 
 The effect of applying this filter to the background noise PSD can be seen in the bottom panel of Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e., in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
 
@@ -204,12 +192,12 @@ Amplitude (magnitude) response for the first five notches of fifteen for the cas
 }
 \end{figure*}
 
-One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the naive zeroing of each frequency (which looks like a rectangular comb). The complex frequency response of a typical infinite impulse response (IIR) notch filter can be written as \citep{10.5555/541204}
+One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). The complex frequency response of a typical infinite impulse response (IIR) notch filter can be written as \citep{10.5555/541204}
 \begin{equation}
     \label{eqn:notch}
-    H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}
+    H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}\,,
 \end{equation}
-Where $z$ is the complex frequency and $\alpha$ and $\beta$ are parameters that control the filter. $w_0=\cos^{-1}(\beta)$ is the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$ is the bandwidth of the notch (which determines how quickly the response changes around the notched frequency).
+where $z$ is the complex frequency and $\alpha$ and $\beta$ are parameters that control the filter. $w_0=\cos^{-1}(\beta)$ is the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$ is the bandwidth of the notch (which determines how quickly the response changes around the notched frequency).
 We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}$ notch centred on the $k^\mathrm{th}$ harmonic of the $50\,{\rm Hz}$ mains signal, where $k=0,2,\dots,14$. When then choose the bandwidth and order (here equal to six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
 \begin{equation}
     \label{eqn:notch15}
@@ -222,10 +210,8 @@ The time series and spectrum obtained after applying the cascade notch filter to
 We see that the mains harmonics are significantly attenuated in comparison background subtracted results shown in the fourth row of Fig.~\ref{fig:BackgroundNotchWienerCombined}.
 
 Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. This is due to loss of voice information under the filter.
-
-% This effect will become more severe if the original human spectrum overlaps with the hum spectrum by a large amount.
 To overcome this, we turn to more advanced techniques, starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimises an estimate of the original signal. 
-% By purely minimizing the "distance" between estimated signal (filtered human voice) and observed signal (original human voice), we hope that we keep signal part undisturbed while filtering out noise. 
+
 
 
 
@@ -264,17 +250,16 @@ To overcome this, we turn to more advanced techniques, starting with the Wiener 
 \subsubsection{Wiener filter}
 \label{sec:Wiener}
 
-A Wiener filter is an advanced statistical technique that estimates the injected signal given prior information about the injected spectrum and the reference spectrum of the background noise. Let the observed noisy speech signal sequence be given as $\mathbf{x}=(x(0),\dots, x(N-1))$, where $N$ is the length of the data sequence. It is the sum of the original injected signal $\mathbf{s}=(s(0),\dots,s(N-1))$, and the noise sequence $\mathbf{w}=(w(0),\dots,w(N-1))$, 
+A Wiener filter is an advanced statistical technique that estimates the injected signal given prior information about the injected spectrum and the reference spectrum of the background noise. 
+The observed noisy speech signal sequence is given as $\mathbf{x}=(x(0),\dots, x(N-1))$, where $N$ is the length of the data sequence and $\mathbf{x}$ is the sum of the original injected signal $\mathbf{s}=(s(0),\dots,s(N-1))$, and the noise sequence $\mathbf{w}=(w(0),\dots,w(N-1))$, 
 \begin{equation}
     \mathbf{x}=\mathbf{s}+\mathbf{w}\,.
 \end{equation}
-Given the observed data $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the Bayesian mean-square-error (BMSE) between the two, defined as 
+Given $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the Bayesian mean-square-error (BMSE) between the two, defined as 
 \begin{equation}
 \label{eq:BMSE}
-\text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,,
+\text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,.
 \end{equation}
-
-
 If we assume that: i) $\textbf{x}$ is ``wide sense stationary''~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in R$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
 \begin{equation}
 \hat{{s}}[n]=\sum_{k=0}^{n}h[k]x[n-k]\,,
@@ -332,7 +317,7 @@ r_{ss}[n] &~=~& E[s(i)~s(i+n)] \,.
 If we let the Wiener filter be non-causal (i.e. we estimate the current signal based on both past \emph{and future} observations), then we can represent Eqn.~\ref{eqn:wiener-hopf} in the frequency domain as
 \begin{equation}
 \label{eqn:wiener}
-    H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}
+    H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}\,,
 \end{equation}
 where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (that only makes estimates based on past observations) is similar. More detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
 % That this filter is non-causal makes it unsuitable for real time signal processing 
@@ -378,11 +363,32 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
 
 % Note that we also replicated the Viterbi algorithm results from before with the photodiode, but only with the mains hum removed and high-passing above 100Hz, else the algorithm never selected the signal. Except for being over audible frequencies, there isn’t much difference in the tracking once these filters are applied.
 
+% I just combined these into a single figure and also moved some of the intro text about the signal into fig 8 so that it is clear we are all talking about the same data in these plots - hannah
+\begin{figure*}
+	%\includegraphics[width=0.49\textwidth]{figures/combined_timeseries_melatos_shift_source.pdf}
+	%\includegraphics[width=0.49\textwidth]{figures/combined_spectrum_melatos.pdf}
+    \includegraphics[height=0.57\textheight]{figures/combined_timeseries_melatos_shift_source_tall.pdf}
+    \includegraphics[height=0.57\textheight]{figures/combined_spectrum_melatos_tall.pdf}
+    \caption{\label{fig:logMMSE_timeseries_freqspectrum}
+Timeseries (left column) and frequency spectrum (right columns) results with the logMMSE estimator. 
+The original source signal and optical microphone recording in the top and middle panels respectively are for comparison and are identical to those shown in the top two panels in Fig.~\ref{fig:BackgroundNotchWienerCombined} (again, the source signal is shifted by $0.12\,{\rm s}$). 
+The bottom-left panel shows the timeseries of the recording after filtering with the logMMSE estimator, where the rise at the start of the timeseries is expected when filtering a signal of finite duration.
+The bottom-right panel shows the corresponding frequency spectrum with the logMMSE estimator. 
+The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude $2$ which otherwise dominate the plot. 
+The change in scale from the top panel is not of concern as the ear hears the relative frequency content and normalisation of the timeseries fixes any scaling. 
+% my feeling is not to include this sentence here as it is hard to be certain what the noise and what is the input signal for this plot without further investigation - hannah
+%The bottom two panels also show a broad feature from around $750\,{\rm Hz}$ to $1200\,{\rm Hz}$, the origin of which is yet to be determined.
+    }
+\end{figure*}
+
 
 \subsubsection{logMMSE estimator}
 \label{sec:logmmse}
 
 
+
+
+\begin{comment}
 \begin{figure*}
 	\includegraphics[width=0.8\textwidth]{figures/combined_timeseries_melatos_shift_source.pdf}
 	\caption{Time series of an adult male voice (saying ``A cathode ...'') showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). The source signal is shifted by $0.12$ s to the right to synchronise the manual delay from starting to play the source through the speaker and starting the recording at the Raspberry Pi. One second of the one minute long recording is shown. The rise at the start of the bottom panel is expected when filtering a signal of finite duration.}
@@ -394,7 +400,7 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
 	\caption{Spectrum of optical microphone recording of the same adult male voice in Fig.~\ref{fig:logMMSE_timeseries} showing the source (top panel), the optical microphone recording (middle panel), and the recording after filtering with the logMMSE estimator (bottom panel). The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude 2 which otherwise dominate the plot. The change in scale from the top panel is not of concern as the ear hears the relative frequency content and normalisation of the time series fixes any scaling. The bottom two panels also show a broad feature from around $750\,{\rm Hz}$ to $1200\,{\rm Hz}$, the origin of which is yet to be determined.}
 	\label{fig:logMMSE_spectrum}
 \end{figure*}
-
+\end{comment}
 
 %probably a bit too causal language 
 %What we’re attempting here is not new, 
@@ -412,7 +418,11 @@ This estimator is based on speech enhancement techniques discussed in Ref.~\cite
 
 
 
-The results of the logMMSE estimator are shown in Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum}. The top two panels of each figure show the original speech signal and anti-aliased reading from the optical microphone for ease of comparison. The third panel of Figs.~\ref{fig:logMMSE_timeseries} and~\ref{fig:logMMSE_spectrum} shows the time series and corresponding spectral amplitude respectively after applying the logMMSE estimator. We see significant attenuation of the mains harmonics as well as a general smoothing of the spectrum. The logMMSE method indeed removes most of the background noise but does not significantly enhance the speech as the voice sounds muffled and indistinct.
+The timeseries and frequency spectrum results of the logMMSE estimator are shown in Fig.~\ref{fig:logMMSE_timeseries_freqspectrum}. 
+The top two rows show the original speech signal and anti-aliased reading from the optical microphone for ease of comparison (identical to the top two rows in Fig.~\ref{fig:BackgroundNotchWienerCombined}). 
+The third row shows the timeseries and corresponding spectral amplitude after applying the logMMSE estimator. 
+We see significant attenuation of the mains harmonics as well as a general smoothing of the spectrum. 
+The logMMSE method indeed removes most of the background noise but does not significantly enhance the speech as the voice sounds muffled and indistinct.
 % suggest remove as it's just rephrasing what's already been said
 %, with the words unable to be understood.
 
@@ -423,8 +433,6 @@ Our observations suggest that this is especially true for certain instruments, i
 This could be a perceptual effect or a frequency dependence somewhere in the optical microphone.
 %, although the exact cause is yet to be determined.  - repetition
 Speculating, perhaps the speaker-mirror coupling is stronger at low frequencies and thus instruments like electric bass and drums are louder in the results.
-
-
 To address these problems, we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
 %Or if instead they are present in the noisy data but we need better techniques to extract them. - should probably justify what you mean by better if you are going to say it here, but I think enough is discussed in section VI for it not to be necessary here - hannah 
 To determine this requires a better understanding of the system, as discussed in Section~\ref{sec:future_work}.

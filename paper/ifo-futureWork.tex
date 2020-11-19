@@ -8,18 +8,14 @@
 The optical microphone experiment described here can be used to demonstrate and teach a variety of topics, including basic optics and photodiode circuits, to signals processing and speech enhancement. Here, we consider further extensions and improvements to the experiment such as noise isolation, transfer function analysis, speech recognition, and control systems.
 
 
-% reduced length
+
 Isolating the experiment from interference may provide some noise reduction. 
 For example, the Raspberry Pi could be powered with a commercial battery instead of mains power. 
-%An initial improvement could be to better isolate the experiment, especially from the sources of mains noise. 
-%As the Raspberry Pi demands little power and connects to USB it could instead be powered with a commercial battery rather than the mains supply. 
 All other components of the circuit draw power from the Pi, so this would isolate the circuit from the mains. 
-%All other components of the circuit, including the photodiode are connected to the Pi. 
 The laser is DC powered through a converter, so should not couple noise from the mains into the interferometer. 
 Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}.
-%With the interferometer in a dark room and under a box to better isolate from any ambient light or air currents, this would hopefully remove (or better separate) all sources of the 50Hz mains hum from the optical microphone.
-A feedback loop control system can also be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational wave observatories. 
-%We can consider improving the stability of the optical microphone components. A feedback loop control system can be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}. 
+A feedback loop control system can also be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational-wave observatories. 
+
 
 
 \begin{figure*}
@@ -31,8 +27,7 @@ The stage inside the red-dash box is analysed in Appendix~\ref{app:intensity_der
 	\label{fig:pipeline_highlighted}
 \end{figure*}
 
-A thorough characterisation of the systems transfer function would allow us to understand how audio signals couple through the interferometer. 
-%We can also benefit from fully characterizing the transfer function of the system as it provides the exact information of how audio signal couples through the interferometer. 
+A thorough characterisation of the system's transfer function would allow us to understand how audio signals couple through the interferometer. 
 The total transfer function starts with the voltage being sent to the speaker and ends with the voltage recorded by the Pi. It also would include any inherent non-linearities in the speaker, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode. The schematic in Fig.~\ref{fig:pipeline_highlighted} shows the abstract signal flow through the system.
 % commented out whilst James is checking this
 % jam: I'm pretty confident this is what Rob said. 
@@ -44,15 +39,8 @@ A voluminous literature exists on using hidden Markov models trained on phonemes
 
 We could also use more traditional techniques such as wavelet transform (WT) \citep{nason1995stationary} to extract the signal from noise, and compare these with the above methods. WT provides both time and frequency information, making it easier to pinpoint the origin of noise with respect to time. In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT methods are proposed for speech recognition. 
 
-Returning to the demonstration of continuous gravitational wave analysis, further extensions could include analysing data from multiple interferometers to extract directional information for audio signals. Although, this would require coupling from a separate noise source instead of from a speaker attached directly to one of the mirrors of the interferometer. 
-%Finally, considering the desire to demonstrate continuous wave analysis, further improvements to the optical microphone could lead to more advanced demonstration of techniques such as aiming or locking two or more optical microphones in an array.
-% I think locking is the wrong word to use here as it is a word used a lot in GW instrumentation (an interferometer can be 'locked' on its own). I've tried to rephrase based on what I think you are getting at. -hannah
-
-
-
-
-%To remove the mains hum we could also monitor it separately from the interferometer and subtract the sinusoids with the right phase and amplitude in real (not frequency) space to avoid the problems of Section~\ref{sec:simple_filters}. 
-%This could be done with the existing signals if the recording duration is long enough to precisely measure the phase and amplitude over a large number of cycles.
+Returning to the demonstration of continuous gravitational-wave analysis, further extensions could include analysing data from multiple interferometers to extract directional information for audio signals. 
+This would require coupling from a separate noise source instead of from a speaker attached directly to one of the mirrors of the interferometer. 
 
 
 
