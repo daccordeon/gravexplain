@@ -1,0 +1,82 @@
+This is to keep track of our changes. We'll use it to write our cover letter to AJP. 
+
+###############################################################################
+###############################################################################
+
+Editor Comments 
+
+This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who mightbe very interested in duplicating your apparatus.  Here are some of my concerns.  
+
+1.Simple things: Convert footnotes to endnotes, blending them in with the bibliography.  Also, use US English (color, not colour; defense, not defence, etc.). 
+>
+
+2.Section III.  How was the Fourier transform generated?  (software?)
+>
+
+3.Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up wellin color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reasonI didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio.4.Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
+>
+
+5.Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.  
+> optical microphone point - I did some reshuffling so that the optical microphone concept is introduced in a separate paragraph and expanded on it a little to try and improve clarity. [Hannah]
+
+
+6.Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
+>
+
+7.Much of your description of the various filters should be moved to Supplementary Materials and/or referenced.  This is a physics audience.  More interesting is your observation that all filters degrade the signal in some way, i.e., they are all compromises.  You could usefully expand that argument without becoming overly mathematical.  
+>
+
+8.Where in your flowchart are the various filters you describe?  Are the codes for them readily available?  How does one implement a filter?  
+>
+
+So you see that I’m asking for a major revision of your manuscript.  I hope this does not discourage you.  My goal is to expand the size of the audience reading your article, and to increase its utility for that group of educators.  I look forward to a revised manuscript.
+
+
+###############################################################################
+###############################################################################
+
+R3 Comments
+
+The paper describes a table top interferometer for demonstrating the basic operating principles of gravitational wave (GW) detectors. Audio signals are used to demonstrate gravitational wave data analysis techniques for the detection and estimation of signals in noisy data. The paper is well written and will be of interest to educators who wish to provide some hands-on training to students in GW astronomy. I have some comments below that the authors should address.
+
+-- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
+
+-- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
+
+-- Is Eq. 1 correct? The LHS is a marginal probability while the RHS is a joint probability. Shouldn't there be a marginalization on the RHS?
+
+-- The normalization used for F(t_i, f_j) should be defined explicitly. 
+
+-- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
+
+-- The Viterbi algorithm used in this paper falls along the general lines of finding the optimal path through a chirplet graph (which includes the spectrogram) that has been explored extensively in the GW literature. More broadly, the detection and estimation of chirp signals, which leave a track in the time-frequency plane, has been a topic of many papers. For the benefit of the readers, the authors should provide an expanded literature review in Sec. IV A and state clearly if their approach is new and, if so, how it differs from the existing ones. A partial list of papers is given below:     
+* E. Chassande-Mottin and A. Pai, Phys. Rev. D 73, 042003 (2006). 
+* E. J. Candes, P. R. Charlton, and H. Helgason, Classical Quantum Gravity 25, 184020 (2008).   
+* W. G. Anderson and R. Balasubramanian, Phys. Rev. D 60, 102001 
+(1999).   
+* P. Addesso, M. Longo, S. Marano, V. Matta, I. Pinto, and M. Principe, in 2015 3rd International Workshop on  Compressed Sensing Theory and its Applications to Radar, Sonar and Remote Sensing (CoSeRa) (IEEE, New York, 2015), p. 154.   
+* E. Thrane et al., Phys. Rev. D 83, 083004 (2011).   
+* E. Thrane and M. Coughlin, Phys. Rev. D 89, 063012 (2014).    
+* S. D. Mohanty, Phys. Rev. D  D 96, 102008 (2017).   
+* Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 97, 104057 (2018).
+> [from Hannah] These papers are addressing how to detect an unknown chirp signal from a compact binary merger. I think it may be relevant in some cases, but will take a look at the papers. We should also emphasise that the analysis is not new and that we have referenced the papers for the techniques we use. 
+
+-- Sec VC: I feel that this section too long and is trying to fit too much of digital signal processing (DSP) in a limited space. The topic of digital filtering is not something that Physics undergraduates (or even graduates) are usually familiar with and requires a more gentle introduction than provided here. For example, the term "IIR" is introduced without explaining what the impulse response of a filter is (and there is no mention of FIR filters). Similarly, Eq. 4 looks like a Z-transform, and advanced topic in itself, but this is not mentioned and instead the term "complex frequency" is used that is likely to be unfamiliar to most readers. (Incidentally, there seems to be a notational inconsistency across the two sides of Eq.3: 'f' and 'omega'.) To improve the readability of the paper, the authors should consider shortening this section by focussing on only the filtering procedure that worked the best. References to DSP textbooks may be provided for the interested reader to acquire background material. 
+> to do 
+
+-- While the authors have applied standard filtering methods in Sec. VC, the removal of high power line features from data in GW detectors is done using more sophisticated approaches. For example, cross-channel regression, linear predictive filtering, Kalman filtering etc. There are also some non-linear and non-parametric methods that have been explored in the GW literature. This point should be mentioned in the paper.
+
+-- The axes label for frequency is not consistent across the figures: in some plots it is "f/Hz" and others "f(Hz)".
+
+-- This is not a comment but just my curiosity: How strong is the effect of mechanical vibrations of the camera or photodiode mount on the observed signal?
+
+
+###############################################################################
+###############################################################################
+
+R1 Comments
+
+This is a very interesting paper written in a clear and informativelanguage. However, I don’t think that it suits the style of papers in AJP because it represents a novel idea of teaching and exploring gravitational waves with audio signals. After reading and inspection of the manuscript I came to the  conclusion  that it is a  research  paper  which should pass  through critical discussion  with researchers  from gravitational  wave  communitywho  should  confirm  that  the audio signals produced in the way proposed in the manuscript,canindeed mimicrealgravitational wave signalswithout confusionof students and teachers. Gravitational waves are transverse-traceless while the sound waves are purely longitudinal. In this respect there is no analogy between gravitational waves and audio signals whatsoever. At the same time,the principles of extraction of signal from noise andthe filtering techniqueworked out in the manuscriptare applicable in a wide range of physical disciplines andmay be useful for the gravitational wave communityas well. On the other hand, I cannot imagine how teachers of physics will explain the complexity of the Winer filter, the Markov chain, the Viterbi algorithm to high school students or even to undergraduatestudentsin university college. Signal  processing technique is based  on a  high  level  mathematics (statistics, probability theory, stochastic processes, etc.) and engineering. In my opinion, the paper is too complicated both technically and mathematicallyfor publishing in AJP. I am convinced that this is a very good and high-quality research  paper but  my  fair  opinion  is  thatthe authorsshould submit  it  to  Physical Review D or another peer-review physics journal. 
+
+> Thoughts on this [Hannah]: The use of audio as an analogy to gravitational waves is not novel to this work. Sound has been used in numerous situations to convey the concept of gravitational wave signals to general audiences [will add references]. It is of course true that sound is not the same as gravitational waves, however in this work we are focusing on the extraction of a signal from an interferometer to demonstrate a series of analysis techniques, some of which are related to gravitational wave analysis. [will think about this some more and very happy to hear other thoughts on how we respond here -Hannah]
+
