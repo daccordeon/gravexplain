@@ -12,7 +12,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 > Done at least some of the US spellings [please correct as you spot them] 
 
 2.Section III.  How was the Fourier transform generated?  (software?)
->
+> yes - check with James
 
 3.Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
 > [Hannah] on Markov process. added sentence on Markov processes: "In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal)."
@@ -22,21 +22,28 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 
 4.Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
-> 
+> I think this is the Fourier amplitude normalised 0,1 - James is that right?
 
 5.Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.  
 > [from Hannah] optical microphone point - I did some reshuffling so that the optical microphone concept is introduced in a separate paragraph and expanded on it a little to try and improve clarity. 
-> 
+> Removed fig 6 - do we want the photo in the supplementary material? 
+> To do: cloth screen. 
+
+
 
 
 6.Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
->
+> Check with James and Changrong
+
 
 7.Much of your description of the various filters should be moved to Supplementary Materials and/or referenced.  This is a physics audience.  More interesting is your observation that all filters degrade the signal in some way, i.e., they are all compromises.  You could usefully expand that argument without becoming overly mathematical.  
->
+> Agreed, we have moved the majority of this section to Supplementary Material
+> to do - expansion on compromises 
+
 
 8.Where in your flowchart are the various filters you describe?  Are the codes for them readily available?  How does one implement a filter?  
->
+> Check with James / Changrong - add Changrong's scripts to git
+
 
 So you see that I’m asking for a major revision of your manuscript.  I hope this does not discourage you.  My goal is to expand the size of the audience reading your article, and to increase its utility for that group of educators.  I look forward to a revised manuscript.
 
@@ -56,7 +63,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 > to do check with Andrew about this, I'm not sure I follow what they are suggesting [Hannah]
 
 -- The normalization used for F(t_i, f_j) should be defined explicitly. 
-> to do check with James
+> to do check with James what was used 
 
 -- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
 
