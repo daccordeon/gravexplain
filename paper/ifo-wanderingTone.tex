@@ -14,10 +14,13 @@ The audio analogue to these continuous wave signals is a tone that wanders in fr
 
 
 Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational-waves may not be monochromatic.
-A continuous-wave signal may wander slowly in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
+A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
 The audio analogue is a tone that wanders in frequency: a note that changes in pitch. 
 
-% the data analysis techniques we draw from 
+
+
+A Fourier transform applied to the whole dataset (as in Section~\ref{todo}) is not well suited to the wandering frequency case, as the signal can be spread across multiple frequency bins making it challenging or perhaps impossible to detect. 
+%A different means of detection is needed for a signal which has a randomly wandering frequency. 
 The analysis techniques used in this section are inspired by those used to search for continuous waves from spinning neutron stars in LIGO and Virgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 Continuous-wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
@@ -38,6 +41,7 @@ The detection statistic is normalised for convenience and we use it to form a gr
 
 
 Following the method of Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}, we use a hidden Markov model to recover the wandering signal from noisy data. 
+In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal). 
 In a hidden Markov model, the frequency state of the signal is unknown, or hidden, and can undergo transitions at discrete times. 
 %To do this, we define the frequency of the signal as a hidden (unknown) state which can undergo transitions at discrete times. 
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. The detection statistic (observable) relates the hidden states of the system to the observed data.
@@ -58,13 +62,23 @@ In Section~\ref{sec:wanderingResults} we present results for recovery of a wande
 \label{sec:viterbi}
 
 
-
-The spectrogram schematic, as shown in Fig.~\ref{fig:viterbi}, has $N_t$ time and $N_f$ frequency bins. 
+We use the schematic in Fig.~\ref{fig:viterbi} to aid our explanation of the method. 
+It represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins. 
 We label the elements of the time and frequency  grid as $t_i$ and $f_j$ respectively, where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
-The normalised Fourier amplitude $F(t_i,f_j)$ is the detection statistic. 
+We use the normalised Fourier amplitude $F(t_i,f_j)$ as the detection statistic, which is represented by the shading of each grid point (lighter corresponds to higher value). 
 
 
-The objective is to find the most likely path through the grid given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. This information is encoded in the transition probability matrix $A(f_k,f_m)$, which describes the probability of system transitioning from state $f_i$ at $t_i$ to a state $f_{j}$ at $t_{i+1}$. Here, we allow the frequency of the signal to either (a) stay in the same bin; (b) move up by a single frequency bin; or (c) move down by a single frequency bin at each transition. We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
+%The spectrogram schematic, as shown in Fig.~\ref{fig:viterbi}, has $N_t$ time and $N_f$ frequency bins. 
+%We label the elements of the time and frequency  grid as $t_i$ and $f_j$ respectively, where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
+%The normalised Fourier amplitude $F(t_i,f_j)$ is the detection statistic. 
+
+
+The objective is to find the most likely path through the grid given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
+In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
+This information is encoded in the transition probability matrix $A(f_k,f_m)$, which describes the probability of system transitioning from state $f_i$ at $t_i$ to a state $f_{j}$ at $t_{i+1}$. 
+Here, we allow the frequency of the signal to either (a) stay in the same bin; (b) move up by a single frequency bin; or (c) move down by a single frequency bin at each transition. 
+The possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
+We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 
 
 
@@ -76,13 +90,15 @@ The probability of the system having frequency $f_j$ at any later time $t_{i+1}$
                      &\times {\rm Pr}[f(t_i)].
 \label{eqn:recursiveViterbi}
 \end{eqnarray}
+for any path through the grid. 
 The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes ${\rm Pr}[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
 We can then maximize the latter quantity over $0 \leq j \leq N_f$ to find the optimal Viterbi path overall, i.e. terminating in any frequency bin. 
 
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
 At every $t_i$ all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}). 
-Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}, where the circles indicate the elements in the spectrogram with the lighter colours corresponding to a higher likelihood. The implementation used in this work is available online (see Appendix~\ref{app:code}).
+Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}.%, where the circles indicate the elements in the spectrogram with the lighter colours corresponding to a higher likelihood. 
+The implementation used in this work is available online (see Appendix~\ref{app:code}).
 \begin{enumerate}
 \item Starting at time $t_1$, each $f_j$ state can originate from three prior states at time $t_0$ (except for $f_0$ and $f_{N_f}$ which only have two). The paths between these states are indicated by the lines in Fig.~\ref{fig:viterbi}. At each $f_j$ state, we select the path with the highest $A[f(t_0),f(t_1)] {\rm Pr}[f(t_0)]$ value as the most probable path. These choices are highlighted using the black lines in Fig.~\ref{fig:viterbi} while the grey lines show the rejected paths. For example, the most probable connection to the element labelled (a) is the one directly behind it (i.e., $f_4$). Therefore, this path is selected as the best path from $t_0$ to $t_1$ for $f_4$. To allow backtracking at the end, the index of the most probable connection to a node along with the value of the best path to that node is stored, for each node.
 
