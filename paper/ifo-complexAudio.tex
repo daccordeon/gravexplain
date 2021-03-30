@@ -8,7 +8,7 @@ As complex audio signals are not quasi-monochromatic, the Viterbi algorithm as a
 Instead we use a hierarchy of passive filters which suppress noise, yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
 Here we treat the Michelson interferometer as an optical microphone, where a laser beam is used to detect sound vibrations. 
-Optical microphone devices have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defence industry and operate on a variety of related principles.
+Optical microphone devices have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles.
 Our objective is to play a recording of speech or music through the speaker attached to mirror M1 (see Fig.XXXX), record the interference pattern, and then recover the original signal via a selection of signal processing techniques. 
 
 
@@ -44,7 +44,7 @@ See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circu
 \label{sec:initialResultsOpMic}
 
 %The source audio was played through the speaker with the optical microphone recording for the full duration of the audio (around a minute long for most sources). 
-We test the optical microphone with a variety of recordings, including speech from different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimise activity around the demonstration to reduce environmental noise coupling into the interferometer. 
+We test the optical microphone with a variety of recordings, including speech from different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
 The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. 
 When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
 

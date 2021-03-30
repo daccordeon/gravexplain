@@ -8,7 +8,8 @@ Editor Comments
 This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns.  
 
 1.Simple things: Convert footnotes to endnotes, blending them in with the bibliography.  Also, use US English (color, not colour; defense, not defence, etc.). 
->
+> Footnotes in bibliography -> Done
+> Done at least some of the US spellings [please correct as you spot them] 
 
 2.Section III.  How was the Fourier transform generated?  (software?)
 >

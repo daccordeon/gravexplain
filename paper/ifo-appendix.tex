@@ -117,7 +117,7 @@ The Viterbi algorithm is a classic method in signal processing, whose theoretica
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here we give pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalised between $(0, 1)$ as multiplicative weights, but to avoid numerical underflow we take the logarithm and consider them as additive weights.
+Here we give pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalized between $(0, 1)$ as multiplicative weights, but to avoid numerical underflow we take the logarithm and consider them as additive weights.
 
 Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant).
 
