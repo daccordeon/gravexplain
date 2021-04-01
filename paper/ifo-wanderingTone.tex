@@ -75,7 +75,7 @@ We use the normalized Fourier amplitude $F(t_i,f_j)$ as the detection statistic,
 
 The objective is to find the most likely path through the grid given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
 In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
-This information is encoded in the transition probability matrix $A(f_k,f_m)$, which describes the probability of system transitioning from state $f_i$ at $t_i$ to a state $f_{j}$ at $t_{i+1}$. 
+This information is encoded in the transition probability matrix $A(f_k,f_m)$, which describes the probability of system transitioning from state $f_k$ at $t_i$ to a state $f_{m}$ at $t_{i+1}$. 
 Here, we allow the frequency of the signal to either (a) stay in the same bin; (b) move up by a single frequency bin; or (c) move down by a single frequency bin at each transition. 
 The possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
 We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
@@ -83,16 +83,26 @@ We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for 
 
 
 We define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
-The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
+A specific path (which may not be optimal) is written as $f(t_0), f(t_1),..., f(t_n)$. 
+The probability of this specific path given the data is 
 \begin{eqnarray}
-{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
-                     &\times A[f(t_{i+1}),f(t_i)]  \nonumber \\
-                     &\times {\rm Pr}[f(t_i)].
-\label{eqn:recursiveViterbi}
+{\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}] =
+          F[t_n,f(t_n)] A[f(t_n),f(t_n-1)]
+          \times... A[f(t_1),f(t_0)] F[t_0,f(t_0)]\,,
+\label{eqn:pathprob}
 \end{eqnarray}
-for any path through the grid. 
-The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes ${\rm Pr}[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
-We can then maximize the latter quantity over $0 \leq j \leq N_f$ to find the optimal Viterbi path overall, i.e. terminating in any frequency bin. 
+The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises $Pr[ f(t_0), f(t_1),... f(t_n) | data]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
+We note that there is no marginalization used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:probpath} are both evaluated for a specific path and then we mazimise over all such paths to find the optimal Viterbi path. 
+%The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
+%\begin{eqnarray}
+%{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
+%                     &\times A[f(t_{i+1}),f(t_i)]  \nonumber \\
+%                     &\times {\rm Pr}[f(t_i)].
+%\label{eqn:recursiveViterbi}
+%\end{eqnarray}
+%for any path through the grid. 
+%The sequence $f(t_0),f(t_1),\dots,f(t_{N_t})$ that maximizes ${\rm Pr}[f(t_{N_t}) = f_j]$ is the optimal Viterbi path terminating in the frequency bin $f_j$. 
+%We can then maximize the latter quantity over $0 \leq j \leq N_f$ to find the optimal Viterbi path overall, i.e. terminating in any frequency bin. 
 
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
