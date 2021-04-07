@@ -20,7 +20,7 @@ The current build and sample data can be found at:
 \label{app:intensity_derivation}
 
 Part of the transfer function for the optical microphone relates the change in intensity, $\delta I$, at a point $P$ in the interference pattern, given a small change, $\delta d$, in the difference between the arm lengths of the mirrors. 
-Let $\theta$ be the angle between the optical axis and the ray from the centre of the relevant mirror to the point $P$. 
+Let $\theta$ be the angle between the optical axis and the ray from the center of the relevant mirror to the point $P$. 
 %Let the point be at angle $\theta$ on the screen (in the far-field) above the central ray as measured from the mirrors. 
 %Noting circular symmetry as to not specify exactly where in the fringe the point is.
 At $P$, two rays meet, one from each mirror, with total electric field amplitude $E_1(t) + E_2(t)$ and 
@@ -88,7 +88,7 @@ Then we describe the signal as
 s(t) = A \cos{\omega t + \phi}\,,
 \end{equation}
 where $A$, $\omega$, and $\phi$ are the amplitude, angular frequency and phase of the signal respectively. 
-The log likelihood assuming Gaussian noise is given by
+The log-likelihood assuming Gaussian noise is given by
 \begin{eqnarray}
 \log \mathcal{L} &=& -\frac{1}{2}\ip{n}{n}\,, \\
                  &=& -\frac{1}{2}\ip{x-s}{x-s}\,, \\ 
@@ -117,7 +117,7 @@ The Viterbi algorithm is a classic method in signal processing, whose theoretica
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here we give pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalized between $(0, 1)$ as multiplicative weights, but to avoid numerical underflow we take the logarithm and consider them as additive weights.
+Here we give some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes normalized between $(0, 1)$ as multiplicative weights, but to avoid numerical underflow we take the logarithm and consider them as additive weights.
 
 Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant).
 
@@ -172,7 +172,9 @@ Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additiv
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 
 Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram. 
-It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. A photo of the breadboard and Raspberry Pi pins is shown in Figure~\ref{fig:circuit_pic3}. The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an ADC to a Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
+It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. 
+A photo of the breadboard and Raspberry Pi pins is shown in the Supplementary Material.
+The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an ADC to a Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
 
 
 \begin{figure*}
@@ -181,16 +183,8 @@ It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bc
 Circuit diagram for reading the photodiode. 
 The photodiode is connected in reverse-bias across an op-amp. 
 The op-amp output is passed through a Sallen-Key anti-aliasing filter tuned to $16\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
-The digitised signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.
+The digitized signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.
 This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online} and is available from~\url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}.
-}
-\end{figure*}
-
-
-\begin{figure*}%[H]
-	\includegraphics[width=0.5\textwidth]{figures/circuit_pic3.pdf}
-	\caption{\label{fig:circuit_pic3}
-Photodiode circuit assembled on breadboard. The leads from the photodiode enter from the left of the picture. The Raspberry Pi is shown at the top of the picture.
 }
 \end{figure*}
 

@@ -12,7 +12,7 @@ The optical microphone experiment described here can be used to demonstrate and 
 Isolating the experiment from interference may provide some noise reduction. 
 For example, the Raspberry Pi could be powered with a commercial battery instead of mains power. 
 All other components of the circuit draw power from the Pi, so this would isolate the circuit from the mains. 
-The laser is DC powered through a converter, so should not couple noise from the mains into the interferometer. 
+The laser is DC-powered through a converter, so the laser should not couple noise from the mains into the interferometer. 
 Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}.
 A feedback loop control system can also be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational-wave observatories. 
 
@@ -22,13 +22,14 @@ A feedback loop control system can also be used to suppress any unwanted movemen
 	\includegraphics[height=.8\textwidth, angle=-90]{figures/pipeline.pdf}
 	\caption{
 Flowchart for the signal through the optical microphone. The transfer function would have to account for each stage. 
-The stage inside the red-dash box is analysed in Appendix~\ref{app:intensity_derivation}. Understanding the other stages is one aim of future work. 
+The stage inside the red-dash box is analyzed in Appendix~\ref{app:intensity_derivation}. Understanding the other stages is one aim of future work. Not shown are the signal processing filters that are performed on the PC once the data is transferred off the Pi.
 }
 	\label{fig:pipeline_highlighted}
 \end{figure*}
 
 A thorough characterization of the system's transfer function would allow us to understand how audio signals couple through the interferometer. 
 The total transfer function starts with the voltage being sent to the speaker and ends with the voltage recorded by the Pi. It also would include any inherent non-linearities in the speaker, the speaker-mirror coupling, the path length to intensity relation (Appendix~\ref{app:intensity_derivation}), and the photodiode. The schematic in Fig.~\ref{fig:pipeline_highlighted} shows the abstract signal flow through the system.
+It does not include other potential pathways for signal flow such as acoustomechanical vibrations of the webcam or photodiode mount which could also be examined.
 % commented out whilst James is checking this
 % jam: I'm pretty confident this is what Rob said. 
 %With perfect knowledge of the transfer function, signal recovery is limited by the signal-to-noise ratio as an optimal matched filter could be constructed.
@@ -39,9 +40,9 @@ A voluminous literature exists on using hidden Markov models trained on phonemes
 
 We could also use more traditional techniques such as wavelet transform (WT) \citep{nason1995stationary} to extract the signal from noise, and compare these with the above methods. WT provides both time and frequency information, making it easier to pinpoint the origin of noise with respect to time. In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT methods are proposed for speech recognition. 
 
-Returning to the demonstration of continuous gravitational-wave analysis, further extensions could include analysing data from multiple interferometers to extract directional information for audio signals. 
-This would require coupling from a separate noise source instead of from a speaker attached directly to one of the mirrors of the interferometer. 
-
+Returning to the demonstration of continuous gravitational-wave analysis, further extensions could include analyzing data from multiple interferometers to extract directional information for audio signals. 
+This would require increasing the sensitivity of the optical microphone to pick up the signal from a distant source instead of from a speaker attached directly to one of the mirrors of the interferometer.
+Another extension would be to demonstrate the Doppler effect and the continuous-wave techniques used in the literature to address it by moving the optical table on some kind of circular track with frequency far higher than the wandering signal and placing a distant signal source at different positions above or beside the track -- or perhaps more practically the source could move instead of the detector.
 
 
 

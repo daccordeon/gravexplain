@@ -5,11 +5,11 @@
 In this section, we explore how this demonstration can be used to teach a selection of signal processing techniques. 
 We use complex audio signals (such as music and speech) as a natural successor to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} respectively.
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm as applied in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
-Instead we use a hierarchy of passive filters which suppress noise, yet make no assumption about the specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
+Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
-Here we treat the Michelson interferometer as an optical microphone, where a laser beam is used to detect sound vibrations. 
-Optical microphone devices have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles.
-Our objective is to play a recording of speech or music through the speaker attached to mirror M1 (see Fig.XXXX), record the interference pattern, and then recover the original signal via a selection of signal processing techniques. 
+Here we use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
+Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. We use the term ``optical microphone'' to distinguish this technology from those previous technologies.
+Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
 
 
 This analysis is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals. 
@@ -19,32 +19,33 @@ A selection of filters are applied to the data, details of which are presented i
 
 
 \subsection{Hardware modifications for the optical microphone}
-\label{sec:initialResultsOpMic}
+\label{sec:photodiode}
 The human ear can hear frequencies in the range of $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
 Speech intelligibility (being able to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$~\cite{speech_intelligibility}. Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). 
 This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
 To overcome this issue, we use a photodiode\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
 
-We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together make a photo-detector that produces a voltage dependent on the incident intensity. 
-The photodiode records the interference pattern at roughly the same off-centre position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, again chosen arbitrarily.
-The photodiode is mounted on a cloth screen re-purposed from the dismantled commercial speaker, with the electrical leads connected underneath the screen. 
+We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together make a photo-detector that produces a voltage that depends on the incident intensity. 
+The photodiode records the interference pattern at roughly the same off-center position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, again chosen arbitrarily.
+The photodiode is mounted on a piece of cloth stretched over a plastic frame, with the electrical leads connected underneath the cloth.
+This cloth screen mount was the ``grill cloth'' from the front of a dismantled commercial speaker, re-purposed. 
 The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online} (henceforth: Pi), which provides a convenient means to record the photodiode data.
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. Resources for using the Pi and photodiode are described in Appendix~\ref{app:circuit_diagram}.
 
 Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing\footnote{Folding of frequencies greater than half the sampling rate.} into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
-This component attenuates any frequencies above $8\,{\rm kHz}$, before they are digitally sampled. We also place a second cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC.
+This component attenuates any frequencies above $8\,{\rm kHz}$, before they are digitally sampled. We also place a second cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was also re-purposed grill cloth from a commercial speaker.
 % It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
 %An updated schematic and a photograph of the entire optical microphone are shown in the left and right panels of Fig.~\ref{fig:ifo_schematic_podo}, respectively.
-See Appendix~\ref{app:circuit_diagram} for a diagram and photograph of the circuit. 
+See Appendix~\ref{app:circuit_diagram} for a diagram of the circuit. 
 \han{[Hannah] I've removed the second schematic and photo for now - could be an option for the photo to go in the appendix / supplement if we want to show the physical set up?}
 
 \subsection{Anti-aliased output}
 \label{sec:initialResultsOpMic}
 
 %The source audio was played through the speaker with the optical microphone recording for the full duration of the audio (around a minute long for most sources). 
-We test the optical microphone with a variety of recordings, including speech from different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
+We test the optical microphone with a variety of recordings, including the speech of different people and music ranging from simple melodies and rhythms to songs. During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
 The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. 
 When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
 
@@ -73,29 +74,32 @@ After filtering we see strong attenuation (at least 3~dB) of all frequencies out
 \label{sec:opticalMicResults}
 \han{[Hannah] keen to hear other's thoughts, but I think it would be cool to show the notch+wiener combined and the logmmse as the results? They could be placed in a single figure for ease of comparison with time \& spectrum columns and rows: 1. original signal, 2. raw output, 3. combined cascaded notch and Wiener, 4. logMMSE}
 
-We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics, and also to improve speech intelligibility of the recording. 
-The accompanying supplementary material describes a range of analysis techniques which can be used as examples for the undergraduate laboratory. 
+We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics, and also to improve the speech intelligibility of the recording. 
+The accompanying supplementary material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
 All filters are tested on the same $1\,{\rm s}$ long speech recording. 
 
 
 In signal processing, the ideal filter would be one that:
-i) completely attenuates the undesired parts of the spectrum, 
-ii) does not change the rest of the spectrum, and 
-iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
-However, these three conditions cannot all hold at once and any filter must compromise between them. \han{[Notes] editor's comments suggest expanding on this?}
-Here we present results of two analysis.
+(i) completely attenuates the undesired parts of the spectrum, 
+(ii) does not change the rest of the spectrum, and 
+(iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
+However, these three conditions cannot all hold at once. For example, if conditions (i) and (ii) hold, then the filter must be discontinuous at the boundary of the undesired region but this implies that the filter has ``infinite latency'' and so will affect (or damage) the time domain signal for infinite time~\cite{10.5555/151045}. Therefore, any filter must compromise between these three conditions. For speech intelligibility, this means that either: (i) some noise remains in the filtered recording, (ii) some of the speech content is lost as certain important frequencies are attenuated, or (iii) the speech is somewhat distorted in time. All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
+\han{[Notes] editor's comments suggest expanding on this?}
+% https://en.wikipedia.org/wiki/Filter_(signal_processing)
+
+Here we present the results of two analyses using advanced signal processing techniques.
 They are briefly described and the results shown (see Supplementary Material for details). 
 
-Firstly, we consider two signal processing techniques used in combination: the cascaded notch and Wiener filter. 
-A notch filter remove signals within a specific frequency range \han{ref}. 
+Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter. 
+A notch filter removes signals within a specific frequency range \han{ref}. 
 In our case, we would like to remove the $50\,{\rm Hz}$ mains noise and harmonics. 
-Therefore, we use a cascaded notch filter where each notch is centred at each of the harmonics. 
-The Wiener filter is an advanced statistical technique which makes used of statistical information from the speech data and noise. 
+Therefore, we use a cascaded notch filter where each notch is centered at each of the harmonics. 
+The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
 It amplifies parts of the signal with high SNR while suppressing pares with low SNR. 
 
 \han{refer to figure.. } shows our results.
 We find that the combined cascaded notch and Wiener filter produces a better result than either alone. 
-Most of the mains noise is removed, however the recovered voice sounds muffled and is not understandable. 
+Most of the mains noise is removed, however, the recovered voice sounds muffled and is not understandable. 
 
 Secondly, we apply a speech enhancement technique. 
 Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square-error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
@@ -103,8 +107,8 @@ We use an existing implementation of the logMMSE~\cite{logmmse}.
 
 
 \han{refer to figure} 
-After applying the logMMSE estimator we see significant attenuation of the mains harmonics and a general smoothing of the spectrum. 
-Most of the background noise is removed, however the logMMSE does not significantly enhance the speech as the voice sounds muffled and indistinct.
+After applying the logMMSE estimator we see significant attenuation of the mains harmonics and general smoothing of the spectrum. 
+Most of the background noise is removed, however, the logMMSE does not significantly enhance the speech as the voice sounds muffled and indistinct.
 We find some improvement with music over speech. 
 Simple chords and drums can be heard, however more composite sounds and complex melodies cannot be heard clearly. 
 Our observations suggest that this is especially true for certain instruments, in particular flutes and violins sometimes can’t be heard at all. 

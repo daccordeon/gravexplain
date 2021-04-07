@@ -39,9 +39,19 @@
 \han{Notes - I've just made a start at moving material over. We will need to go through once we make final decisions on what to show in the main text / when new figures ready to check things}
 
 
-In section V of the main article, we use the inerferoeter as an optical microphone. 
-We use signal processing techniques to recover audio signals o speech and music. 
-In this supplementary material we provide futher details of a selection of analysis applied to the data which may be considered for undergraduate laboratory examples.  
+\begin{figure*}
+	\includegraphics[width=0.59\textwidth]{figures/setup_pic2.pdf}
+	\includegraphics[width=0.4\textwidth]{figures/circuit_pic3.pdf}
+	\caption{
+Left: A photograph of the optical microphone with an inset of the photodiode. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. In the main image, the photodiode is placed behind a cloth screen as explained in the main article. The inset shows a face-on view of the photodiode with the cloth screen removed. 
+Right: A photograph of the photodiode circuit assembled on a breadboard. The leads from the photodiode enter from the left of the picture. The Raspberry Pi is shown at the top of the picture.
+}
+	\label{fig:photographs_of_optical_microphone_and_circuit}
+\end{figure*}
+
+In Section~V of the main article, we use the interferometer as an optical microphone. Photographs of the physical apparatus of the optical microphone are shown in Fig.~\ref{fig:photographs_of_optical_microphone_and_circuit}.
+We use signal processing techniques to recover audio signals of speech and music. 
+In this supplementary material we provide further details of a selection of analysis applied to the data which may be considered for undergraduate laboratory examples.  
 We start with some na{\"i}ve approaches and then move to traditional signal processing filters (band-passing and cascaded notches). 
 We finish by combining these with advanced statistical techniques (Wiener filter and the logMMSE estimator). 
 As an illustrative example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
