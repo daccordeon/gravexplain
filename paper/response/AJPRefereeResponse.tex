@@ -22,7 +22,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 2. Section III.  How was the Fourier transform generated?  (software?)
 \begin{itemize}
-\item  \todo{...}
+\item We have added a sentence (``The Discrete Fourier transform was calculated using the NumPy package for Python.''), a citation (to the creators of NumPy), and a footnote (to the documentation).
 \end{itemize}
 
 \noindent 3.Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
@@ -35,15 +35,17 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
 \begin{itemize}
-\item  \todo{...}
+\item An explanation of the color coding has been added to the caption.
+\item \todo{compare to without VA}
+\item \todo{compare to LIGO literature}
 \end{itemize}
 
 
 \noindent 5. Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.
 \begin{itemize}
 \item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discission of it to improve clarity. (Section V, paragraph 2)
-\item Fig. 6: agreed, we have removed this figure. \todo{decide if we want the photo in supplementary material}
-\item \todo{clarification of cloth screen }
+\item Fig. 6: we have removed this figure and moved the photo to the Supplementary Material.
+\item Cloth screen: we have added an additional sentence explaining the cloth screen mount and the source of the cloth screen cover (it is the ``grill cloth'' and plastic frame from a dismantled commercial speaker).
 \end{itemize}  
 
 
@@ -64,6 +66,9 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 8.Where in your flowchart are the various filters you describe?  Are the codes for them readily available?  How does one implement a filter?  
 \begin{itemize}
+\item Added an explanation in the caption that the filters are performed separately, after the data is gathered.
+\item Most of the code is readily available on the provided GitHub with the exception of the Weiner filtering results. The provided code is documented and commented if someone wanted to replicate the filter implementations.
+\item \todo{We may need to have access to Changrong's processing code}
 \item \todo{...}
 \end{itemize}
 
@@ -80,6 +85,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent 
 -- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
 \begin{itemize}
+\item A mention has been made in the Future Work as to demonstrating the Doppler effect.
 \item \todo{...}
 \end{itemize}
 
@@ -104,7 +110,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
 \begin{itemize}
-\item \todo{...}
+\item Mention of this is now made both at the introduction of the plot and in the Viterbi algorithm section -- this implementation does assume white noise.
 \end{itemize}
 
 \noindent
@@ -144,7 +150,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 -- This is not a comment but just my curiosity: How strong is the effect of mechanical vibrations of the camera or photodiode mount on the observed signal?
 
 \begin{itemize}
-\item \todo{...}
+\item This is unknown to us but has now been mentioned in Future Work.
 \end{itemize}
 
 
