@@ -80,14 +80,14 @@ The possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
 We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 
 
-
+The signal is equally likely to start in any frequency bin (i.e. the prior is flat). 
 We define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
 A specific path (which may not be optimal) is written as $f(t_0), f(t_1),..., f(t_n)$. 
 The probability of this specific path given the data is 
 \begin{eqnarray}
-{\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}] =
-          F[t_n,f(t_n)] A[f(t_n),f(t_n-1)]
-          \times... A[f(t_1),f(t_0)] F[t_0,f(t_0)]\,,
+{\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}] = &&
+          F[t_n,f(t_n)] A[f(t_n),f(t_n-1)] \nonumber \\
+          && \times... A[f(t_1),f(t_0)] F[t_0,f(t_0)] \nonumber \\\,,
 \label{eqn:pathprob}
 \end{eqnarray}
 The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises $Pr[ f(t_0), f(t_1),... f(t_n) | data]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
