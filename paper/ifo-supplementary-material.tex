@@ -63,6 +63,7 @@ As an illustrative example, we test all of these filters on the same $1\,{\rm s}
 	\includegraphics[width=.8\textwidth, trim={1cm 3cm 1cm 1cm}]{figures/notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:BackgroundNotchWienerCombined}
+	\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}
 	Timeseries (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
     The source signal, shown in the first row, is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode ...''). 
     The source signal is shifted by $0.12\,{\rm s}$ to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
@@ -119,7 +120,7 @@ In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass But
 The effect of applying this filter to the background noise PSD can be seen in the bottom panel of Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e., in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
 
 \begin{figure}
-	\includegraphics[width=.49\textwidth]{figures/psd_butterworth_14_6.pdf}
+	\includegraphics[width=.45\textwidth]{figures/psd_butterworth_14_6.pdf}
 	\caption{\label{fig:psd_noise}
 Top: power spectral density (PSD) of background noise from the optical microphone (with the speaker off). 
 Bottom: the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
@@ -132,14 +133,14 @@ After filtering we see strong attenuation (at least 3~dB) of all frequencies out
 \subsection{Cascade notch filter}
 
 \label{sec:notch}
-\begin{figure*}
+\begin{figure}
 \begin{center}
-\includegraphics[width=.9\textwidth]{figures/notch_filter_response.jpg}
+\includegraphics[width=.45\textwidth]{figures/cascaded_notch_response_plot.pdf}
 \end{center}
 \caption{\label{fig:notchMagResponse}
 Amplitude (magnitude) response for the first five notches of fifteen for the cascaded notch filter described by Eqs.~\ref{eqn:notch} and~\ref{eqn:notch15}. 
 }
-\end{figure*}
+\end{figure}
 
 One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). The complex frequency response of a typical infinite impulse response (IIR) notch filter can be written as \citep{10.5555/541204}
 \begin{equation}
@@ -256,6 +257,7 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
     \includegraphics[height=0.57\textheight]{figures/combined_timeseries_melatos_shift_source_tall.pdf}
     \includegraphics[height=0.57\textheight]{figures/combined_spectrum_melatos_tall.pdf}
     \caption{\label{fig:logMMSE_timeseries_freqspectrum}
+\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}    
 Timeseries (left column) and frequency spectrum (right columns) results with the logMMSE estimator. 
 The original source signal and optical microphone recording in the top and middle panels respectively are for comparison and are identical to those shown in the top two panels in Fig.~\ref{fig:BackgroundNotchWienerCombined} (again, the source signal is shifted by $0.12\,{\rm s}$). 
 The bottom-left panel shows the timeseries of the recording after filtering with the logMMSE estimator, where the rise at the start of the timeseries is expected when filtering a signal of finite duration.
