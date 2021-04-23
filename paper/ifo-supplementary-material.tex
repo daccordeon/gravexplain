@@ -32,7 +32,7 @@
 
 \begin{document}
 
-\title{Supplementary Material} 
+\title{Supplementary material for \\Continuous gravitational waves in the lab: recovering audio signals with a table-top optical microphone} 
 \maketitle
 
 \section{Optical microphone signal processing}
@@ -69,14 +69,17 @@ A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_m
 %notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:op_mic_results}
-	\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}
+	%\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}
 	Timeseries (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
-    The source signal, shown in the first row, is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode ...''). 
-    The source signal is shifted by $0.12\,{\rm s}$ to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
-	The second row shows the raw output from the optical microphone when the input signal from the first row is played. 
+    The top two rows are the input signal and raw output (identical to the top two rows in Fig.~7 in the main article). 
+    %The source signal, shown in the first row, is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode ...''). 
+    %The source signal is shifted by $0.12\,{\rm s}$ to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
+	%The second row shows the raw output from the optical microphone when the input signal from the first row is played. 
     The third row shows a background noise recording from the optical microphone when no audio signal is played. 
     The fourth row shows the result of subtracting the background noise spectrum in the third row from the recording in the second row. 
-	The fifth, sixth, and seventh rows show the results of applying the notch filter, the Wiener filter, and both combined, respectively.
+	The fifth and sixth rows show the results of applying the cascaded-notch filter and Wiener filter respectively.
+    The seventh shows the results of applying both the cascaded-notch and Wiener filter (identical to the third row in Fig.~7 in the main article).
+    The eight row shows the results of applying the logMMSE estimator (identical to the fourth row in Fig.~7 in the main article). 
 	}
 \end{figure}
 
@@ -281,13 +284,14 @@ The filtered voice after the combined notch and Wiener filter is enhanced compar
 \subsection{logMMSE estimator}
 \label{sec:logmmse}
 
+\begin{comment}
 \begin{figure*}
 	%\includegraphics[width=0.49\textwidth]{figures/combined_timeseries_melatos_shift_source.pdf}
 	%\includegraphics[width=0.49\textwidth]{figures/combined_spectrum_melatos.pdf}
     \includegraphics[height=0.57\textheight]{figures/combined_timeseries_melatos_shift_source_tall.pdf}
     \includegraphics[height=0.57\textheight]{figures/combined_spectrum_melatos_tall.pdf}
     \caption{\label{fig:logMMSE_timeseries_freqspectrum}
-\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}    
+\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}    - done 
 Timeseries (left column) and frequency spectrum (right columns) results with the logMMSE estimator. 
 The original source signal and optical microphone recording in the top and middle panels respectively are for comparison and are identical to those shown in the top two panels in Fig.~\ref{fig:BackgroundNotchWienerCombined} (again, the source signal is shifted by $0.12\,{\rm s}$). 
 The bottom-left panel shows the timeseries of the recording after filtering with the logMMSE estimator, where the rise at the start of the timeseries is expected when filtering a signal of finite duration.
@@ -296,7 +300,7 @@ The spectrum shows only a detail of the total frequency domain (there is little 
 The change in scale from the top panel is not of concern as the ear hears the relative frequency content and normalisation of the timeseries fixes any scaling. 
     }
 \end{figure*}
-
+\end{comment}
 
 
 
