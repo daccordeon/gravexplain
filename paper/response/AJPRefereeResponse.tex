@@ -57,6 +57,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 6. Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
 \begin{itemize}
 \item The Butterworth filter has strongly attenuated the signal outside the passband.
+\item \todo{They will also expect a change to the paper as it is a point of confusing - e.g. clarify the reason in the figure caption.}
 \end{itemize}
 
 
@@ -135,7 +136,8 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Sec VC: I feel that this section too long and is trying to fit too much of digital signal processing (DSP) in a limited space. The topic of digital filtering is not something that Physics undergraduates (or even graduates) are usually familiar with and requires a more gentle introduction than provided here. For example, the term "IIR" is introduced without explaining what the impulse response of a filter is (and there is no mention of FIR filters). Similarly, Eq. 4 looks like a Z-transform, and advanced topic in itself, but this is not mentioned and instead the term "complex frequency" is used that is likely to be unfamiliar to most readers. (Incidentally, there seems to be a notational inconsistency across the two sides of Eq.3: 'f' and 'omega'.) To improve the readability of the paper, the authors should consider shortening this section by focussing on only the filtering procedure that worked the best. References to DSP textbooks may be provided for the interested reader to acquire background material. 
 \begin{itemize}
-\item \todo{...}
+\item We have move the majority of Section VC to Supplementary Material and now only include highlight results in the main text (the combined notch and Wiener filter and the logMMSE estimator). In the Supplementary Material we have expanded the description of the impulse response of a filter mentioning both IIR and FIR. We have also added some text saying that Eq. 2 in the Supplementary Material (previously Eq. 4 in the main text) is a Z-tranform. We have corrected the inconsistency in Eq. 1 in the Supplementary Material (previously Eq. 3 in the main text). 
+\todo{add some references to DSP textbooks.}
 \end{itemize}
 
 \noindent
@@ -147,12 +149,11 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The axes label for frequency is not consistent across the figures: in some plots it is "f/Hz" and others "f(Hz)".
 \begin{itemize}
-\item Fixed this.
+\item Thank you, we have corrected the axis labels and they are now consistent.
 \end{itemize}
 
 \noindent
 -- This is not a comment but just my curiosity: How strong is the effect of mechanical vibrations of the camera or photodiode mount on the observed signal?
-
 \begin{itemize}
 \item This is unknown to us but has now been mentioned in Future Work.
 \end{itemize}
