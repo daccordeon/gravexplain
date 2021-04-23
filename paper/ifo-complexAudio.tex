@@ -76,9 +76,28 @@ We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most li
 \label{sec:opticalMicResults}
 \han{[Hannah] keen to hear other's thoughts, but I think it would be cool to show the notch+wiener combined and the logmmse as the results? They could be placed in a single figure for ease of comparison with time \& spectrum columns and rows: 1. original signal, 2. raw output, 3. combined cascaded notch and Wiener, 4. logMMSE}
 
-We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics, and also to improve the speech intelligibility of the recording. 
-The accompanying supplementary material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
+\begin{figure*}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/combined_highlight_results_melatos_labelled.pdf}
+\caption{\label{fig:notchWienerLogMMSEResults}
+Timeseries (left column) and frequency spectrum (right column) results with the optical microphone. 
+The original input signal in the first row is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode''). 
+\han{In the previous version of the plot we shifted the top timeseires by 0.12 seconds and wrote: 
+``The source signal is shifted by 0.12 s to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker.'' - need to correct}
+The second row shows the raw output from the optical microphone when the input from the first row is played. 
+The third row shows the result of applying the notch and Wiener filter combined. 
+The fourth row shows the result of applying the logMMSE estimator, where the rise at the start of the timeseries is an expected effect when filtering a signal of finite duration. 
+}
+\end{center}
+\end{figure*}
+
+We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics, and also to improve the speech intelligibility of the recording.
+The accompanying Supplementary Material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
 All filters are tested on the same $1\,{\rm s}$ long speech recording.
+The results of this section are shown in Fig.~\ref{fig:notchWienerLogMMSEResults} which we refer to throughout. 
+In Fig.~\ref{fig:notchWienerLogMMSEResults} the left and right columns show the timeseries and frequency spectrum respectively. 
+The first row shows the input signal played through the speaker (see Fig.~\ref{fig:ifo_schematic_webcam}). 
+The second row shows the raw output from the photodiode recording. 
 
 
 
@@ -87,7 +106,6 @@ In signal processing, the ideal filter would be one that:
 (ii) does not change the rest of the spectrum, and 
 (iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
 However, these three conditions cannot all hold at once. For example, if conditions (i) and (ii) hold, then the filter must be discontinuous at the boundary of the undesired region but this implies that the filter has ``infinite latency'' and so will affect (or damage) the time domain signal for infinite time~\cite{10.5555/151045}. Therefore, any filter must compromise between these three conditions. For speech intelligibility, this means that either: (i) some noise remains in the filtered recording, (ii) some of the speech content is lost as certain important frequencies are attenuated, or (iii) the speech is somewhat distorted in time. All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
-\han{[Notes] editor's comments suggest expanding on this?}
 % https://en.wikipedia.org/wiki/Filter_(signal_processing)
 
 
@@ -96,18 +114,18 @@ The techniques are only briefly described here and we refer the reader to the ac
 
 
 Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter. 
-A notch filter removes signals within a specific frequency range \han{ref}. 
+A notch filter removes signals within a specific frequency range. 
 In this case, our aim is to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
-The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. \han{ref}
-It amplifies parts of the signal with high SNR while suppressing pares with low SNR. 
-The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\fixme{XXXXX} where the timeseries and spectrum are shown by the left and right panels respectively. 
+The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
+It amplifies parts of the signal with high signal-to-noise (SNR) ratio while suppressing parts with low SNR. 
+The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\ref{fig:notchWienerLogMMSEResults} where the timeseries and spectrum are shown by the left and right panels respectively. 
 Most of the mains noise is removed, however, the recovered voice sounds muffled and is not understandable. 
 
 
 Secondly, we apply a speech enhancement technique. 
 Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square-error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
 We use an existing implementation of the logMMSE from~\cite{logmmse}.  
-The logMMSE estimator results are shown in the bottom panel of Fig.~\fixme{XXXXX}. 
+The logMMSE estimator results are shown in the bottom panel of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 
 Most of the background noise is removed, however, the logMMSE does not significantly enhance the speech as the voice sounds muffled and indistinct.
 We find some improvement with music over speech. 
