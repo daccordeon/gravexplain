@@ -81,8 +81,7 @@ We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most li
 \caption{\label{fig:notchWienerLogMMSEResults}
 Timeseries (left column) and frequency spectrum (right column) results with the optical microphone. 
 The original input signal in the first row is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode''). 
-\han{In the previous version of the plot we shifted the top timeseires by 0.12 seconds and wrote: 
-``The source signal is shifted by 0.12 s to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker.'' - need to correct}
+ The input signal is shifted by 0.12 s to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. \han{check this is still true for new versions}
 The second row shows the raw output from the optical microphone when the input from the first row is played. 
 The third row shows the result of applying the notch and Wiener filter combined. 
 The fourth row shows the result of applying the logMMSE estimator, where the rise at the start of the timeseries is an expected effect when filtering a signal of finite duration. 
