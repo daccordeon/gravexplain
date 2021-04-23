@@ -128,7 +128,7 @@ A general band-pass filter combines a high-pass filter and a low-pass filter to 
 
 \begin{equation}
 \label{eq:butterworth}
-H(\omega) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
+H(f) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
 \end{equation}
 and is combined with a similar high-pass filter to form the band-pass filter.
 In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here, a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
@@ -158,13 +158,27 @@ Amplitude (magnitude) response for the first five notches of fifteen for the cas
 }
 \end{figure}
 
-One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). The complex frequency response of a typical infinite impulse response (IIR) notch filter can be written as \citep{10.5555/541204}
+One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). 
+
+\han{The impulse response describes the reaction of a system to an input signal as a function of time. 
+If a system is linear and time-invarient, the output signals are completely determined for any input signal using the impulse response. 
+Finite inpulse response (FIRs) filters have finite length (they equal zero outside of a finite range). 
+By contrast an infinite impulse response (IIR) filter has infinite length due to feedback. 
+Typically FIR filters outperform IIR filters as they are always stable. 
+However, IIR filters normally require fewer coefficients which in turn speeds up signal processing in comparison to FIR filters. 
+}
+
+\han{In this work we opt for a IIR notch filter. 
+We write the filter in the form of a Z-transform, in which a discrete-time signal is converted to the complex frequency domain $z=e^{jf}$. 
+The IIR notch filter we use here is given by~\citep{10.5555/541204} }
 \begin{equation}
     \label{eqn:notch}
     H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}\,,
 \end{equation}
-where $z$ is the complex frequency and $\alpha$ and $\beta$ are parameters that control the filter. $w_0=\cos^{-1}(\beta)$ is the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$ is the bandwidth of the notch (which determines how quickly the response changes around the notched frequency).
-We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}$ notch centred on the $k^\mathrm{th}$ harmonic of the $50\,{\rm Hz}$ mains signal, where $k=0,2,\dots,14$. When then choose the bandwidth and order (here equal to six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
+where $\alpha$ and $\beta$ are parameters that control the filter. 
+In Eqn.~\ref{eqn:notch}, $w_0=\cos^{-1}(\beta)$ is the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$ is the bandwidth of the notch (which determines how quickly the response changes around the notched frequency).
+We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}$ notch centred on the $k^\mathrm{th}$ harmonic of the $50\,{\rm Hz}$ mains signal, where $k=0,2,\dots,14$. 
+We choose the bandwidth and order (here equal to six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
 \begin{equation}
     \label{eqn:notch15}
     H(z) = \prod_{k=0}^{14} H_k(z).
