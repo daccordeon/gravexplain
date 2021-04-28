@@ -38,7 +38,7 @@
 \section{Optical microphone signal processing}
 
 
-In Section~V in the main article, we use the interferometer as an optical microphone; audio signals are used to vibrate the interferometer mirrors and the signals are recovered from a timeseries of the interference pattern changing.
+In Section~V in the main article, we use the interferometer as an optical microphone; audio signals are used to vibrate the interferometer mirrors, the changing interference pattern is recorded, and we aim to recover the original signal from the resulting timeseries data.
 In this Supplementary Material we include a selection of signal processing techniques applied to the data which may be considered for undergraduate laboratory examples. 
 We start with some na{\"i}ve approaches and then move to traditional signal processing filters (band-passing and cascaded notches). 
 We finish by combining these with advanced statistical techniques (Wiener filter and the logMMSE estimator). 
@@ -55,7 +55,7 @@ Right: A photograph of the photodiode circuit assembled on a breadboard. The lea
 \end{figure*}
 
 
-All analysis is done using the photodiode set-up as described in Section~V.A. of the main text. 
+All analysis is done using the photodiode set-up as described in Section~V.A. in the main text. 
 A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_microphone_and_circuit} with the interferometer and circuit shown on the left and right respectively. 
 
 
@@ -82,18 +82,18 @@ A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_m
 
 
 
-Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which re refer to throughout the text. 
+Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which we refer to throughout this Supplementary Material. 
 The left and right columns show timeseries and Fourier spectrum results, respectively. 
-The first and second rows of Fig.~\ref{fig:op_mic_results} show the source signal and the raw optical microphone recording, respectively. 
-The third row shows a background spectrum of the optical microphone. 
-The following sections describe each of the analysis in turn. 
+The first and second rows of Fig.~\ref{fig:op_mic_results} show the original source signal and the raw optical microphone recording, respectively. 
+The following sections describe a sequence of analysis techniques and a selection of results are presented in Fig.~\ref{fig:op_mic_results}.
 
 
 
 \subsection{Background noise subtraction}
 
-An inituitive way to remove noise is by directly subtracting the background noise (third row of Fig.~\ref{fig:op_mic_results}) from the recorded spectrum. 
-The fourth row of Fig.~\ref{fig:op_mic_results} shows the spectrum obtained after subtracting the background noise spectrum. 
+An inituitive way to remove noise is by directly subtracting the background noise from the recorded spectrum. 
+The third row in Fig.~\ref{fig:op_mic_results} shows the interferometer background noise when there is no input signal.
+The fourth row shows the spectrum obtained after subtracting the background noise spectrum, i.e. the result of subtracting the third row from the second row. 
 We see no obvious improvement, which may be attributed to a time-variant noise spectrum, the cause of which is unidentified. 
 
 
@@ -160,17 +160,17 @@ Amplitude (magnitude) response for the first five notches of fifteen for the cas
 
 One method to remove mains noise and its harmonics is to use a sequence of notch filters centred at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). 
 
-\han{The impulse response describes the reaction of a system to an input signal as a function of time. 
+The impulse response describes the reaction of a system to an input signal as a function of time. 
 If a system is linear and time-invarient, the output signals are completely determined for any input signal using the impulse response. 
 Finite inpulse response (FIRs) filters have finite length (they equal zero outside of a finite range). 
 By contrast an infinite impulse response (IIR) filter has infinite length due to feedback. 
 Typically FIR filters outperform IIR filters as they are always stable. 
 However, IIR filters normally require fewer coefficients which in turn speeds up signal processing in comparison to FIR filters. 
-}
 
-\han{In this work we opt for a IIR notch filter. 
+
+In this work we opt for a IIR notch filter. 
 We write the filter in the form of a Z-transform, in which a discrete-time signal is converted to the complex frequency domain $z=e^{jf}$. 
-The IIR notch filter we use here is given by~\citep{10.5555/541204} }
+The IIR notch filter we use here is given by~\citep{10.5555/541204}, 
 \begin{equation}
     \label{eqn:notch}
     H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}\,,
@@ -265,14 +265,16 @@ We see a significant improvement in the timeseries of the recovered signal, howe
 \subsection{Combined notch and Wiener filter}
 
 Here, we experiment with applying a combination of the cascaded notch and the Wiener filter to the recorded speech signal. 
-The results of this analysis are described in the main paper in section \han{VC} and figure \han{XX}. 
+The results of this analysis also are described in Section V.C. in the main text. 
 
 
 The Wiener filter makes use of statistical information from the speech data and noise. It amplifies the part of the signal with high SNR while suppressing the parts with low SNR (see above Sec.~\ref{sec:Wiener}). It is implemented in the form of a finite response filter, which ensures linear phase response and stability (both desirable), but at the cost of high orders computationally. By comparison, the notch filter is based on directly removing the unwanted frequency components. It is implemented in the form of an infinite impulse response filter. Although it significantly decreases the order of the overall filter, it unavoidably introduces nonlinear phase and instability. 
 
 
-By combining the notch and Wiener filter, we can trade-off between the two and achieve an overall better performance, as can be seen in the bottom row of Fig.~\ref{fig:op_mic_results}.
-The filtered voice after the combined notch and Wiener filter is enhanced compared to either alone. The mains noise is all but removed and more voice information is retained. However, the recovered voice still sounds muffled and is not understandable.
+By combining the notch and Wiener filter, we can trade-off between the two and achieve an overall better performance, as can be seen in the seventh row in Fig.~\ref{fig:op_mic_results}.
+The filtered voice after the combined notch and Wiener filter is enhanced compared to either alone. 
+The mains noise is all but removed and more voice information is retained. 
+However, the recovered voice still sounds muffled and is not understandable.
 
 
 
@@ -303,10 +305,12 @@ The change in scale from the top panel is not of concern as the ear hears the re
 
 Speech enhancement of noisy channels is a classic problem in signal processing. 
 In Ref.~\cite{SubjectiveComparison}, a comparison is made of $13$ speech enhancement methods, finding the log minimum mean-square-error (logMMSE) estimator to be the best, qualitatively, at recovering speech. 
-This estimator is based on speech enhancement techniques discussed in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and minimises the mean-square-error (MSE) of the estimate from the injected signal, like the Wiener filter above, except that is measures the MSE between the logarithm of the Fourier amplitudes. This is motivated by the fact that the logarithm approximates the response of the human ear~\cite{SubjectiveComparison}. We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}) to the recorded signal.
+This estimator is based on speech enhancement techniques discussed in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and minimises the mean-square-error (MSE) of the estimate from the injected signal, like the Wiener filter above, except that it measures the MSE between the logarithm of the Fourier amplitudes. This is motivated by the fact that the logarithm approximates the response of the human ear~\cite{SubjectiveComparison}. We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}) to the recorded signal.
 
+The final row in Fig.~\ref{fig:op_mic_results} shows the results of the logMMSE estimator.
+Again there is significant noise reduction, however the speech remains indistict.
+The logMMSE results are also presented in Section V.C. in the main text. 
 
-\han{results for the logmmse estimator are shown in the main paper in section VC and figure X}
 
 
 \bibliographystyle{myunsrt}
