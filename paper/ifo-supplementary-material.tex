@@ -84,7 +84,7 @@ A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_m
 
 Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which we refer to throughout this Supplementary Material. 
 The left and right columns show timeseries and Fourier spectrum results, respectively. 
-The first and second rows of Fig.~\ref{fig:op_mic_results} show the original source signal and the raw optical microphone recording, respectively. 
+The first and second rows in Fig.~\ref{fig:op_mic_results} show the original source signal and the raw optical microphone recording, respectively. 
 The following sections describe a sequence of analysis techniques and a selection of results are presented in Fig.~\ref{fig:op_mic_results}.
 
 
@@ -133,7 +133,7 @@ H(f) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
 and is combined with a similar high-pass filter to form the band-pass filter.
 In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here, a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
 
-The effect of applying this filter to the background noise PSD can be seen in the bottom panel of Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e., in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
+The effect of applying this filter to the background noise PSD can be seen in the bottom panel in Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e., in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
 
 \begin{figure}
 	\includegraphics[width=.45\textwidth]{figures/psd_butterworth_14_6.pdf}
@@ -186,8 +186,8 @@ We choose the bandwidth and order (here equal to six) of each notch to avoid dis
 
 We use the built-in MATLAB filter design toolbox in this work~\cite{MATLAB}. 
 The amplitude (magnitude) response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
-The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fifth row of Fig.~\ref{fig:op_mic_results}.
-We see that the mains harmonics are significantly attenuated in comparison background subtracted results shown in the fourth row of Fig.~\ref{fig:op_mic_results}.
+The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fifth row in Fig.~\ref{fig:op_mic_results}.
+We see that the mains harmonics are significantly attenuated in comparison background subtracted results shown in the fourth row in Fig.~\ref{fig:op_mic_results}.
 
 Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. This is due to loss of voice information under the filter.
 To overcome this, we turn to more advanced techniques, starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimises an estimate of the original signal. 
@@ -258,7 +258,7 @@ If we let the Wiener filter be non-causal (i.e. we estimate the current signal b
 where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (that only makes estimates based on past observations) is similar. More detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
 
 
-In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The timeseries and frequency spectrum after applying the Wiener filter are shown in the sixth row of Fig.~\ref{fig:op_mic_results}.
+In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The timeseries and frequency spectrum after applying the Wiener filter are shown in the sixth row in Fig.~\ref{fig:op_mic_results}.
 We see a significant improvement in the timeseries of the recovered signal, however, a strong noise hum persists, audibly. 
 
 
