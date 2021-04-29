@@ -14,13 +14,13 @@ Dear Joseph Amato,
 We thank you and the referees for your helpful comments and suggestions. 
 We address the comments below in turn. 
 
-\subsection*{Editors comments (Joseph Amato)}
+\subsection*{Comments from editor, Joseph Amato}
 
 This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns.  \\
 
 \noindent 1. Simple things: Convert footnotes to endnotes, blending them in with the bibliography.  Also, use US English (color, not colour; defense, not defence, etc.). 
 \begin{itemize}
-\item Done: we have moved the footnotes to the bibliography
+\item We have moved the footnotes to the bibliography
 \item \todo{Work in progress, please correct any that have not been fixed yet}
 \end{itemize}
 
@@ -29,20 +29,20 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \item We have added a sentence (``The Discrete Fourier transform was calculated using the NumPy package for Python.''), a citation (to the creators of NumPy), and a footnote (to the documentation).
 \end{itemize}
 
-\noindent 3.Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
+\noindent 3. Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
 \begin{itemize}
 \item We have added a sentence to explain Markov process: ``In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal).''
-\item We have lightened the colour scheme used in the Fig. 4 schematic to aid with black and white printing. It is also now a similar colour scheme to the spectrogram in Fig. 5 in order to make it clearer that we are simulating a spectrogram with this schematic. When we introduce Fig. 5 we now also refer back to Fig. 4 to indicate that the schematic represents a similified version of the results shown in Fig. 5. 
-\item \han{[Hannah] The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone of section III is recovered easily using a Fourier transform, however if the signal frequency changes randomly over time, this will reduce the Fourier transform's ability to identify the signal as the signal power iss spread across multiple frequency bins. We have added some text at the start of Section IV (paragraph 2) and at the end of Section IV. B. to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
-\item We have also revied the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
+\item We have lightened the colour scheme used in the Fig. 4 schematic to aid with black and white printing. Our intention is that the Fig. 4 schematic be interpreted as a simplified version of the Fig. 5 spectrogram result. To clarify this we have made the colour scheme of the schmatic more consistent with that of Fig. 5 and we have refered back to the schematic when we first introduce Fig. 5. 
+\item The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes randomly over time, this will reduce the Fourier transform's ability to identify the signal as the signal power is spread across multiple frequency bins. We have added some text at the start of Section IV (paragraph 2) and at the end of Section IV. B. to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
+\item We have also revised the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
 \end{itemize}
 
 
 \noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
 \begin{itemize}
-\item An explanation of the color coding has been added to the caption.
-\item \todo{compare to without VA}
-\item \todo{compare to LIGO literature}
+\item The color coding represents the logarithm of the absolute value of the discrete Fourier transform. We have clarified this in the caption.
+\item \todo{compare to without VA?}
+\item The heatmap is similar to the figures in LIGO-Virgo-KAGRA publications which show transient gravitational-wave signals, but not identical. Those figures normally show Q-tranforms [described in Chatterji, et al., Classical Quantum Gravity 21, S1809 (2004)] whereas we show the Fourier transform in this work. 
 \end{itemize}
 
 
@@ -58,15 +58,13 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 6. Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
 \begin{itemize}
 \item The Butterworth filter has strongly attenuated the signal outside the passband.
-\item \todo{They will also expect a change to the paper as it is a point of confusing - e.g. clarify the reason in the figure caption.}
+\item \todo{They will also expect a change to the paper as it is a point of confusion - e.g. clarify the reason in the figure caption.}
 \end{itemize}
 
 
 \noindent 7. Much of your description of the various filters should be moved to Supplementary Materials and/or referenced.  This is a physics audience.  More interesting is your observation that all filters degrade the signal in some way, i.e., they are all compromises.  You could usefully expand that argument without becoming overly mathematical.
 \begin{itemize}
-\item Agreed, we have moved the majority of this section to Supplementary Matrial
-\item \todo{decide what we will show in main text}
-\item \todo{expansion on compromises discussion}
+\item Agreed, we have moved the majority of this section to Supplementary Material. We have chosen to show two highlight results in the main text (the combined notch plus Wiener filter and the logMMSE estimator), but we refer the reader to the Supplementary Material for the details of these methods. We have also expanded the discussion on filters more generally in the main text. 
 \end{itemize}
 
 
@@ -79,7 +77,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \end{itemize}
 
 
-\noindent So you see that I’m asking for a major revision of your manuscript.  I hope this does not discourage you.  My goal is to expand the size of the audience reading your article, and to increase its utility for that group of educators.  I look forward to a revised manuscript.
+\noindent So you see that I'm asking for a major revision of your manuscript.  I hope this does not discourage you.  My goal is to expand the size of the audience reading your article, and to increase its utility for that group of educators.  I look forward to a revised manuscript.
 
 
 
@@ -100,7 +98,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item We have clarified this in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin given the observable data. In Section IV.A. we have expanded our description og gravitational wave analysis and refered to both the transission matrix and emission matix by name to reduce confusion. \todo{...}
+\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin given the observable data. In Section IV.A. we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion. 
 \end{itemize}
 
 \noindent
@@ -140,7 +138,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Sec VC: I feel that this section too long and is trying to fit too much of digital signal processing (DSP) in a limited space. The topic of digital filtering is not something that Physics undergraduates (or even graduates) are usually familiar with and requires a more gentle introduction than provided here. For example, the term "IIR" is introduced without explaining what the impulse response of a filter is (and there is no mention of FIR filters). Similarly, Eq. 4 looks like a Z-transform, and advanced topic in itself, but this is not mentioned and instead the term "complex frequency" is used that is likely to be unfamiliar to most readers. (Incidentally, there seems to be a notational inconsistency across the two sides of Eq.3: 'f' and 'omega'.) To improve the readability of the paper, the authors should consider shortening this section by focussing on only the filtering procedure that worked the best. References to DSP textbooks may be provided for the interested reader to acquire background material. 
 \begin{itemize}
-\item We have move the majority of Section VC to Supplementary Material and now only include highlight results in the main text (the combined notch and Wiener filter and the logMMSE estimator). In the Supplementary Material we have expanded the description of the impulse response of a filter mentioning both IIR and FIR. We have also added some text saying that Eq. 2 in the Supplementary Material (previously Eq. 4 in the main text) is a Z-tranform. We have corrected the inconsistency in Eq. 1 in the Supplementary Material (previously Eq. 3 in the main text). 
+\item We have move the majority of Section VC to Supplementary Material and now only include highlight results in the main text (the combined notch plus Wiener filter and the logMMSE estimator). In the Supplementary Material we have expanded the description of the impulse response of a filter mentioning both IIR and FIR. We have also added some text saying that Eqn. 2 in the Supplementary Material (previously Eqn. 4 in the main text) is a Z-tranform. We have corrected the inconsistency in Eqn. 1 in the Supplementary Material (previously Eqn. 3 in the main text). 
 \todo{add some references to DSP textbooks.}
 \end{itemize}
 
