@@ -22,7 +22,7 @@ A feedback loop control system can also be used to suppress any unwanted movemen
 	\includegraphics[height=.8\textwidth, angle=-90]{figures/pipeline.pdf}
 	\caption{
 Flowchart for the signal through the optical microphone. The transfer function would have to account for each stage. 
-The stage inside the red-dash box is analyzed in Appendix~\ref{app:intensity_derivation}. Understanding the other stages is one aim of future work. Not shown are the signal processing filters that are performed on the PC once the data is transferred off the Pi.
+The stage inside the blue-dashed box is analyzed in Appendix~\ref{app:intensity_derivation}. Understanding the other stages is one aim of future work. Not shown are the signal processing filters that are performed on the PC once the data is transferred off the Pi.
 }
 	\label{fig:pipeline_highlighted}
 \end{figure*}
@@ -42,7 +42,7 @@ We could also use more traditional techniques such as wavelet transform (WT) \ci
 
 Returning to the demonstration of continuous gravitational-wave analysis, further extensions could include analyzing data from multiple interferometers to extract directional information for audio signals. 
 This would require increasing the sensitivity of the optical microphone to pick up the signal from a distant source instead of from a speaker attached directly to one of the mirrors of the interferometer.
-Another extension would be to demonstrate the Doppler effect and the continuous-wave techniques used in the literature to address it by moving the optical table on some kind of circular track with frequency far higher than the wandering signal and placing a distant signal source at different positions above or beside the track -- or perhaps more practically the source could move instead of the detector.
+Another extension would be to demonstrate the Doppler effect and the continuous-wave techniques used in the literature to address it by moving the optical table on some kind of circular track with period far shorter than the time it takes the signal to significantly wander in frequency. Then, by placing a distant signal source at different positions above or beside the track -- or perhaps more practically the source could move instead of the detector, an analogous Doppler effect could be observed.
 
 
 

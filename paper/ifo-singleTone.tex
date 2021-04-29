@@ -11,7 +11,9 @@ The plot also shows two harmonics at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ with 
 }	
 \end{figure}
 
-% rearranged as I found this section to switch between method and results too much, I've tried this order now: intro, webcam and data specifics, injection, and results. 
+
+
+% rearranged as I found this section to not switch between method and results too much, I've tried this order now: intro, webcam and data specifics, injection, and results. 
 
 Continuous-wave searches look for nearly monochromatic signals. In this section, we consider a simple sinusoidal tone at a single, constant frequency. %should be a single constant frequency *signal*?
 
@@ -29,7 +31,7 @@ A tone with a frequency of $2.09\,{\rm Hz}$ is played through the speaker for on
 The amplitude of the Fourier transform of the recovered signal is shown in Fig.~\ref{fig:webcam_spectrum}. The Discrete Fourier transform was calculated using the NumPy package for Python~\cite{numpy}~\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html}}.
 We measured a peak amplitude at $2.099\,{\rm Hz}$ with a full width half maximum (FWHM) of $0.033\,{\rm Hz}$.
 Two harmonics can also be seen at integer multiples of the peak frequency. 
-The peaks at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ have amplitudes of $0.103$ and $0.098$ as a fraction of the height of the main peak, respectively. They are likely due to the nonlinear response of the system discussed in Section~\ref{sec:ifo} and Appendix~\ref{app:intensity_derivation}. Also note that the noise appears to rise at lower frequencies.
+The peaks at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ have amplitudes of $0.103$ and $0.098$ as a fraction of the height of the main peak, respectively. They are likely due to the nonlinear response of the system discussed in Section~\ref{sec:ifo} and Appendix~\ref{app:intensity_derivation}. Also, note that the noise appears to rise at lower frequencies.
 
 
 In the following section, we use a hidden Markov model technique, commonly used in continuous-wave searches, to recover a slowly wandering frequency signal.

@@ -14,7 +14,7 @@
    viewBox="0 0 248.01041 43.525302"
    version="1.1"
    id="svg8"
-   sodipodi:docname="pipeline (copy).svg"
+   sodipodi:docname="pipeline.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <defs
      id="defs2">
@@ -48,9 +48,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="538.64823"
-     inkscape:cy="103.30282"
+     inkscape:zoom="1.979899"
+     inkscape:cx="472.50715"
+     inkscape:cy="54.954648"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,11 +60,11 @@
      fit-margin-right="0.5"
      fit-margin-bottom="0.5"
      showguides="false"
-     inkscape:window-width="1778"
-     inkscape:window-height="954"
-     inkscape:window-x="481"
-     inkscape:window-y="65"
-     inkscape:window-maximized="0" />
+     inkscape:window-width="2602"
+     inkscape:window-height="1713"
+     inkscape:window-x="134"
+     inkscape:window-y="55"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -328,7 +328,7 @@
        style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.28599989;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        sodipodi:type="star" />
     <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.51693887;stroke-miterlimit:4;stroke-dasharray:3.10163328, 3.10163328;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#1f77b4;stroke-width:0.517;stroke-miterlimit:4;stroke-dasharray:3.102, 3.10199999999999987;stroke-dashoffset:0;stroke-opacity:1"
        id="rect908"
        width="132.59169"
        height="22.222645"

@@ -4,6 +4,7 @@
 \begin{document}
 % I've rephrased the first part of this section a lot and provide some justification below
 % I think we need to lead with the details of the signal here (similar to the last section), not the specifics of the data analysis as the issues seem confused here. The fact that long data sets are analysed is not because of the signal wandering, if anything that's an argument against analysing long data sets to make detection easier, it's because the signal has low amplitude. Also what is the justification of the "(but not always)" statement, do you have a reference? - hannah
+% Hmm, not sure where I got "(but not always)" from but if I didn't note it down then then I have no idea why now. Re: long time sensing, I was trying to justify that frequencies can wander but I prefer your rewrite. - James
 
 
 \begin{comment}
@@ -12,6 +13,14 @@ The frequency of a continuous wave signals may wander significantly over this ti
 The audio analogue to these continuous wave signals is a tone that wanders in frequency; a note that changes pitch. Here, we adapt the data analysis technique used to search for slowly wandering continuous waves signals from spinning neutron stars in aLIGO and aVirgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 \end{comment}
 
+\begin{figure}
+	\includegraphics[width=.45\textwidth]{figures/viterbi_comparison_entire_spectrum_viterbi_test_webcam.pdf}
+	\caption{\label{fig:viteri_comparison_webcam_spectrum}
+Why we use the Viterbi algorithm to recover wandering frequency signals: Here we plot the Fourier amplitude of the intensity pattern against frequency as in Fig.~\ref{fig:webcam_spectrum} for the entire timeseries of the wandering frequency signal in Fig.~\ref{fig:viterbi_overlay}. Instead of resolving definite peaks like the constant frequency signal shown in Fig.~\ref{fig:webcam_spectrum}, we only see inconclusive peaks at 5.7~Hz and 10.7~Hz that correspond to the long amount of time that the wandering frequency spends near those values and/or its amplitude there, as seen in the pink dots in Fig.~\ref{fig:viterbi_overlay}. With the signal spread out over the frequency bins, we are unable to reliably detect it above the noise and therefore we use the Viterbi algorithm instead.
+The large values at low frequencies below 0.1~Hz are similar to those in Fig.~\ref{fig:webcam_spectrum} and can be ignored as they are likely inaccurate due to the short length of the signal relative to their period (i.e.\ 300~s only contains 30~periods of a 0.1~Hz signal), but this feature would require further research to fully determine its origin. %maybe could be from the long period (100~s) variation?
+}
+\end{figure}
+
 
 Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational waves may not be monochromatic.
 A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
@@ -19,12 +28,12 @@ The audio analog is a tone that wanders in frequency: a note that changes in pit
 
 
 
-A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case, as the signal can be spread across multiple frequency bins making it challenging or perhaps impossible to detect. 
+A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case, as the signal can be spread across multiple frequency bins making it challenging or perhaps impossible to detect, as shown in Fig.~\ref{fig:viteri_comparison_webcam_spectrum}.
 %A different means of detection is needed for a signal which has a randomly wandering frequency. 
 
-In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which is able to track the signal's frequency over time~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
-The analysis described and presented in this section is directly inspired by real continuous wave searches~\cite{} 
-In section~\ref{sec:realCWSearches} we breifly review the analysis method used by LIGO and Virgo, in section~\ref{} we describe the methods as applied in this work, and in section~\cite{} we our results of recovering a wandering frequency signal using the table-top interferometer. 
+In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
+The analysis described and presented in this section is directly inspired by real continuous-wave searches~\cite{} 
+In section~\ref{sec:realCWSearches} we briefly review the analysis method used by LIGO and Virgo, in section~\ref{} we describe the methods as applied in this work, and in section~\cite{} we our results of recovering a wandering frequency signal using the table-top interferometer. 
 
 \subsection{Continuous wave analysis with real data}
 \label{sec:realCWSearches}
@@ -47,17 +56,17 @@ The transitions are Markovian in that the hidden state (i.e.\ frequency) of the 
 A detection statistic relates the observed data to the hidden state and quantifies the likelihood of a signal being present in the data at each frequency and time bin.
 This likelihood is also called the emission matrix in gravitational-wave literature.  
 In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
-If searching for continuous waves from a neutron star in a binary (such as a LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
+If searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
 
 
 In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
 This is called the transition probability matrix. 
-In LMXB searches, the transition matrix allows the signal frequency to (a) stay in the same frequency bin, (b) moup a single frequency bin, or (c) move down a frequency bin at each time step~\cite{}. 
-In supernova remnanat searches, source frequency is expected to decrease over time, therefore the allowable transitions are to either remain in the same frequency bin or move down one frequency bin~\cite{}. 
+In LMXB searches, the transition matrix allows the signal frequency to (a) stay in the same frequency bin, (b) move up a single frequency bin, or (c) move down a frequency bin at each time step~\cite{}. 
+In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to either remain in the same frequency bin or move down one frequency bin~\cite{}. 
 
 
 The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequence of states given the sequence of observables.
-In the next section we describe our application of the Viterbi method and our choice of detection statistic. 
+In the next section, we describe our application of the Viterbi method and our choice of detection statistic. 
 
 
 
@@ -69,13 +78,13 @@ In the next section we describe our application of the Viterbi method and our ch
 \includegraphics[width=0.49\textwidth]{figures/viterbiDiagramBlue.pdf}
 \caption{\label{fig:viterbi}
 Schematic diagram of the Viterbi algorithm. 
-The circles represent elements in a time-frequency grid, labelled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
+The circles represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
 The color of each circle represents the likelihood of a signal being present in each time-frequency element.
-The dark blue to light green gradient corresponds to low to high likelihood values in arbitrary units for the purpose of this schematic. 
+The dark blue to light green gradient corresponds to low to high likelihood values in arbitrary units for this schematic. 
 The objective is to find the most probable path of a signal through the grid from left to right.
 All possible paths are shown by the lines. 
-The black lines show the best path to each circle and gray lines show rejected paths. 
-Some routes though the grid result in dead ends with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a).
+The black lines show the best path to each circle and the gray lines show rejected paths. 
+Some routes through the grid result in dead-ends with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a).
 At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:pathprobability}, marked (b). 
 The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
 %A schematic diagram of the Viterbi algorithm. 
@@ -104,9 +113,9 @@ The Viterbi path is the path leading to this circle, highlighted in orange from 
 
 
 The timeseries data from the interferometer is first split into segments. 
-We take the discrete Fourier transform of each timeseries segment and use the normalised Fourier amplitude $F(t_i,f_j)$ as the detection statistic (this is the emission matrix).
-Assuming Gaussian noise, this detection statistic choice maximises the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
-The detection statistic is normalized for convenience and we use it to form a grid in time and frequency (a spectrogram). \han{add normalization - ask James}
+We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ as the detection statistic (this is the emission matrix).
+Assuming Gaussian noise, this detection statistic choice maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
+The detection statistic is normalized for convenience by dividing each value by the maximum Fourier amplitude in the grid (such that $\max_{i,j} F(t_i,f_j) = 1$).
 
 
 
@@ -125,7 +134,7 @@ The color of the circles represents the detection statistic $F(t_i,f_j)$ at each
 
 The objective is to find the most likely path through the grid given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
 The transition probability matrix, $A(f_k,f_m)$, describes the probability of system transitioning from state $f_k$ at $t_i$ to a state $f_{m}$ at $t_{i+1}$. 
-Here, we allow the frequency of the signal to either (a) stay in the same bin; (b) move up by a single frequency bin; or (c) move down by a single frequency bin at each transition A 
+Here, we allow the frequency of the signal to either (a) stay in the same bin, (b) move up by a single frequency bin, or (c) move down by a single frequency bin at each transition A. 
 We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 All possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
 The different colorings of the lines are explained below. 
@@ -143,7 +152,7 @@ The probability of a specific path given the data is
 \label{eqn:pathprobability}
 \end{eqnarray}
 The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises $Pr[ f(t_0), f(t_1),... f(t_n) | data]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
-We note that there is no marginalization used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we mazimise over all such paths to find the optimal Viterbi path. 
+We note that there is no marginalization used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 %The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
 %\begin{eqnarray}
 %{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
@@ -165,7 +174,7 @@ The implementation used in this work is available online (see Appendix~\ref{app:
 The paths between these states are indicated by the lines in Fig.~\ref{fig:viterbi}. 
 At each $f_j$ state, we select the path with the highest $A[f(t_0),f(t_1)] {\rm Pr}[f(t_0)]$ value as the most probable path. 
 These choices are highlighted using the black lines in Fig.~\ref{fig:viterbi} while the gray lines show the rejected paths. 
-For example, the most probable connection to the element labelled (a) is the one directly behind it (i.e., $f_4$). 
+For example, the most probable connection to the element labeled (a) is the one directly behind it (i.e., $f_4$). 
 Therefore, this path is selected as the best path from $t_0$ to $t_1$ for $f_4$.
 To allow backtracking at the end, the index of the most probable connection to a node along with the value of the best path to that node is stored, for each node.
 
@@ -176,7 +185,7 @@ Rejected paths are again shown by gray lines.
 \item Step 2 is repeated until the end of the grid ($t=t_{N_t}$) is reached with only the best paths being stored at each iteration. 
 
 \item We have now found the most probable path to each $f_j$ at $t=t_{N_t}$ and its probability (Eqn.~\ref{eqn:pathprobability}). 
-We select the terminating frequency bin $f(t_{N_t})$ with the highest probability labelled as (b) in Fig.~\ref{fig:viterbi}.
+We select the terminating frequency bin $f(t_{N_t})$ with the highest probability labeled as (b) in Fig.~\ref{fig:viterbi}.
 
 \item The final step is to find the Viterbi path (the overall best path that terminates in the frequency bin with the highest probability in step 4). 
 The Viterbi path is found by backtracking along the stored best connections at each $t_i$ (see also Appendix~\ref{app:viterbi}). 
@@ -185,9 +194,9 @@ In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) high
 \end{enumerate}
 
 In continuous wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency could be changing unpredictably over time.
-A Fourier transform of the entire dataset as described in Section~\ref{sec:single_tone} would split the signal power between multiple frequency bins and could result it in being undetectable under the noise. 
+A Fourier transform of the entire dataset as described in Section~\ref{sec:single_tone} would split the signal power between multiple frequency bins and could result in the signal being undetectable under the noise. 
 The Viterbi algorithm's strength lies in its ability to track such signals through the data.
-In the following section we present the results of using the Viterbi algorithm with the table-top interferometer data. 
+In the following section, we present the results of using the Viterbi algorithm with the table-top interferometer data. 
 % - just simiplifed this discussion a little and added a reference to the CW searches
 %The key to the Viterbi algorithm is that we can use the signal's correlation in time to improve the signal-to-noise ratio of the frequency of the wandering signal at a particular time. Since the noise is assumed to not be correlated in time, if the detection statistic at a given frequency is high at a particular time and at neighboring frequencies at neighboring times then the likelihood that the given frequency at that particular time is from the wandering signal increases. By iterating this process through the grid for a suitable choice of the window of neighboring frequencies and times, the Viterbi algorithm is well-suited to finding wandering signals.
 
@@ -208,7 +217,7 @@ In the following section we present the results of using the Viterbi algorithm w
 	\includegraphics[width=\textwidth]{figures/expt_overlay_2_viterbi_test_webcam.pdf}
 	\caption{\label{fig:viterbi_overlay}
 Recovery of a wandering tone using the Viterbi algorithm.
-The spectrogram (heatmap) coloring indicates the value of the detection statistic (here, the logarithm of the absolute value of the discrete Fourier transform) in each time-frequency bin -- with brighter colours indicating higher values. 
+The spectrogram (heat-map) coloring indicates the value of the detection statistic (here, the logarithm of the absolute value of the discrete Fourier transform) in each time-frequency bin -- with brighter colors indicating higher values. 
 The overlaid pink-dot and white-cross markers show the injected signal and recovered Viterbi path, respectively. 
 On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover, given a parameter for the rate of change of one frequency bin per time bin. 
 At $150\,{\rm s}$ the data appears anomalous, which may be due to some transient background noise. }
@@ -219,11 +228,11 @@ We simulate a slowly wandering signal by modulating the frequency sinusoidally w
 We use the same set-up as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
 In this section, we test the Viterbi algorithm’s ability to recover the wandering signal. 
 Note that we implicitly approximate the noise at the webcam as white (uniform in frequency) in this implementation of the Viterbi algorithm. 
-This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum} but is a resonable approximation for the higher-frequency (around 5~Hz) wandering frequency signals that we use.
+This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum} but is a reasonable approximation for the higher-frequency (around 5~Hz) wandering frequency signals that we use.
 
 
 
-The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heatmap shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
+The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heat-map shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
 In this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous-wave signals to have far lower signal-to-noise ratios. 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
 The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 

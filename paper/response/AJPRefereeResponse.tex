@@ -4,19 +4,23 @@
 \usepackage{xcolor}
 \newcommand{\todo}{\textcolor{blue}}
 \newcommand{\han}{\textcolor{orange}}
+\newcommand{\jam}{\textcolor{magenta}}
 
 
 \begin{document}
 
-\todo{Opening comments}
+\todo{Opening comments}\\
+
+
 Dear Joseph Amato, 
 
 We thank you and the referees for your helpful comments and suggestions. 
 We address the comments below in turn. 
 
 \subsection*{Comments from editor, Joseph Amato}
-
-This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns.  \\
+\begin{quote}
+This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns.
+\end{quote}
 
 \noindent 1. Simple things: Convert footnotes to endnotes, blending them in with the bibliography.  Also, use US English (color, not colour; defense, not defence, etc.). 
 \begin{itemize}
@@ -41,7 +45,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
 \begin{itemize}
 \item The color coding represents the logarithm of the absolute value of the discrete Fourier transform. We have clarified this in the caption.
-\item \todo{compare to without VA?}
+\item Without using the VA the signal becomes spread out over the frequency bins and might not rise above the noise. We have now explained this and added a plot that shows the Fourier spectrum of the entire timeseries.
 \item The heatmap is similar to the figures in LIGO-Virgo-KAGRA publications which show transient gravitational-wave signals, but not identical. Those figures normally show Q-tranforms [described in Chatterji, et al., Classical Quantum Gravity 21, S1809 (2004)] whereas we show the Fourier transform in this work. 
 \end{itemize}
 
@@ -57,8 +61,9 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 6. Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
 \begin{itemize}
-\item The Butterworth filter has strongly attenuated the signal outside the passband.
-\item \todo{They will also expect a change to the paper as it is a point of confusion - e.g. clarify the reason in the figure caption.}
+\item The Butterworth filter has strongly attenuated the signal outside the passband, this sharp drop-off at low frequencies would appear shallower when shown against a logarithmic scale for frequency as is sometimes done. A note has been made in the Supplementary Material where this plot has been moved to.
+% (this sharp drop-off would appear shallower when shown against a logarithmic scale for frequency)
+% \item \todo{They will also expect a change to the paper as it is a point of confusion - e.g. clarify the reason in the figure caption.}
 \end{itemize}
 
 
@@ -83,8 +88,9 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \subsection*{Comments from R3}
 
-
-The paper describes a table top interferometer for demonstrating the basic operating principles of gravitational wave (GW) detectors. Audio signals are used to demonstrate gravitational wave data analysis techniques for the detection and estimation of signals in noisy data. The paper is well written and will be of interest to educators who wish to provide some hands-on training to students in GW astronomy. I have some comments below that the authors should address.\\
+\begin{quote}
+The paper describes a table top interferometer for demonstrating the basic operating principles of gravitational wave (GW) detectors. Audio signals are used to demonstrate gravitational wave data analysis techniques for the detection and estimation of signals in noisy data. The paper is well written and will be of interest to educators who wish to provide some hands-on training to students in GW astronomy. I have some comments below that the authors should address.
+\end{quote}
 
 \noindent 
 -- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
@@ -110,7 +116,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The normalization used for $F(t_i, f_j)$ should be defined explicitly. 
 \begin{itemize}
-\item \todo{...}
+\item This has now been done. Each value is divided by the maximum value in the grid such that $\max_{i,j} F(t_i, f_j) = 1$.
 \end{itemize}
 
 \noindent
@@ -151,7 +157,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The axes label for frequency is not consistent across the figures: in some plots it is "f/Hz" and others "f(Hz)".
 \begin{itemize}
-\item Thank you, we have corrected the axis labels and they are now consistent.
+\item We have corrected the axis labels and they are now consistent.
 \end{itemize}
 
 \noindent
@@ -164,14 +170,19 @@ The paper describes a table top interferometer for demonstrating the basic opera
 
 \subsection{Comments from R1}
 
-This is a very interesting paper written in a clear and informative language. However, I don’t think that it suits the style of papers in AJP because it represents a novel idea of teaching and exploring gravitational waves with audio signals. After reading and inspection of the manuscript I came to the  conclusion  that it is a  research  paper  which should pass  through critical discussion  with researchers  from gravitational  wave  community who  should  confirm  that  the audio signals produced in the way proposed in the manuscript,can indeed mimic real gravitational wave signalswithout confusionof students and teachers. Gravitational waves are transverse-traceless while the sound waves are purely longitudinal. In this respect there is no analogy between gravitational waves and audio signals whatsoever. At the same time,the principles of extraction of signal from noise andthe filtering techniqueworked out in the manuscriptare applicable in a wide range of physical disciplines andmay be useful for the gravitational wave communityas well. On the other hand, I cannot imagine how teachers of physics will explain the complexity of the Winer filter, the Markov chain, the Viterbi algorithm to high school students or even to undergraduatestudentsin university college. Signal  processing technique is based  on a  high  level  mathematics (statistics, probability theory, stochastic processes, etc.) and engineering. In my opinion, the paper is too complicated both technically and mathematicallyfor publishing in AJP. I am convinced that this is a very good and high-quality research  paper but  my  fair  opinion  is  thatthe authorsshould submit  it  to  Physical Review D or another peer-review physics journal. 
+\begin{quote}
+This is a very interesting paper written in a clear and informative language. However, I don’t think that it suits the style of papers in AJP because it represents a novel idea of teaching and exploring gravitational waves with audio signals. After reading and inspection of the manuscript I came to the  conclusion  that it is a  research  paper  which should pass  through critical discussion  with researchers  from gravitational  wave  community who  should  confirm  that  the audio signals produced in the way proposed in the manuscript, can indeed mimic real gravitational wave signals without confusion of students and teachers. Gravitational waves are transverse-traceless while the sound waves are purely longitudinal. In this respect there is no analogy between gravitational waves and audio signals whatsoever. At the same time, the principles of extraction of signal from noise and the filtering technique worked out in the manuscript are applicable in a wide range of physical disciplines and may be useful for the gravitational wave community as well. On the other hand, I cannot imagine how teachers of physics will explain the complexity of the Wiener filter, the Markov chain, the Viterbi algorithm to high school students or even to undergraduate students in university college. Signal processing technique is based  on a  high  level  mathematics (statistics, probability theory, stochastic processes, etc.) and engineering. In my opinion, the paper is too complicated both technically and mathematically for publishing in AJP. I am convinced that this is a very good and high-quality research  paper but  my  fair  opinion  is  that the authors should submit  it  to  Physical Review D or another peer-review physics journal. 
+\end{quote}
+
 \begin{itemize}
 \item \todo{...}
+\item \han{> Thoughts on this [Hannah]: The use of audio as an analogy to gravitational waves is not novel to this work. Sound has been used in numerous situations to convey the concept of gravitational wave signals to general audiences [will add references]. It is of course true that sound is not the same as gravitational waves, however in this work we are focusing on the extraction of a signal from an interferometer to demonstrate a series of analysis techniques, some of which are related to gravitational wave analysis. [will think about this some more and very happy to hear other thoughts on how we respond here -Hannah]}
+\item \jam{(1) The audio analogy is not novel, (2) the interferometer is a toy model for demonstration and teaching not for research, i.e.\ I doubt our analysis techniques are useful to the gravitational wave community in any novel way, (3) as long as we are clear in the text (todo added below) about the difference and that we are demonstrating the analysis techniques then I think that there isn't an issue, (4) we have heavily edited the signal processing section and worked on the Viterbi algorithm section which I believe (the Viterbi algorithm) is understandable to even high-school students if the explanation without using Markov models or Fourier transforms is given, i.e. the pseudocode.  - James}
+\item \todo{Clearly state the differences between gravitational waves and sound waves in the text but reiterate that despite these differences our demonstration is still useful to explain signal analysis techniques used for gravitational waves.}
 \end{itemize}
 
 
 
-\han{> Thoughts on this [Hannah]: The use of audio as an analogy to gravitational waves is not novel to this work. Sound has been used in numerous situations to convey the concept of gravitational wave signals to general audiences [will add references]. It is of course true that sound is not the same as gravitational waves, however in this work we are focusing on the extraction of a signal from an interferometer to demonstrate a series of analysis techniques, some of which are related to gravitational wave analysis. [will think about this some more and very happy to hear other thoughts on how we respond here -Hannah]}
 
 \end{document}
 

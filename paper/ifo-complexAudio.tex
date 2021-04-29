@@ -15,8 +15,8 @@ Our objective is to play a recording of speech or music through the speaker atta
 This analysis is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals. 
 Instead, the apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
-A selection of filters are applied to the data, details of which are presented in Supplementary Material. 
-We present the two best performing analyses from our Supplementary Material in Section~\ref{sec:opticalMicResults}. 
+A selection of filters is applied to the data, details of which are presented in Supplementary Material. 
+We present the two best-performing analyses from our Supplementary Material in Section~\ref{sec:opticalMicResults}. 
 
 
 \subsection{Hardware modifications for the optical microphone}
@@ -77,11 +77,11 @@ We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most li
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=\textwidth]{figures/combined_highlight_results_melatos_labelled.pdf}
+\includegraphics[width=0.8\textwidth]{figures/combined_highlight_results_melatos_labelled.pdf}
 \caption{\label{fig:notchWienerLogMMSEResults}
 Timeseries (left column) and frequency spectrum (right column) results with the optical microphone. 
 The original input signal in the first row is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode''). 
- The input signal is shifted by 0.12 s to the right to synchronise the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
+ The input signal is shifted by 0.12 s to the right to synchronize the manual delay from starting the recording with the Raspberry Pi and starting to play the source through the speaker. 
 The second row shows the raw output from the optical microphone when the input from the first row is played. 
 The third row shows the result of applying the notch and Wiener filter combined. 
 The fourth row shows the result of applying the logMMSE estimator, where the rise at the start of the timeseries is an expected effect when filtering a signal of finite duration. 
@@ -107,13 +107,13 @@ However, these three conditions cannot all hold at once. For example, if conditi
 % https://en.wikipedia.org/wiki/Filter_(signal_processing)
 
 
-In this section we present results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
+In this section, we present results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
 The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and some other analysis techniques. 
 
 
 Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter. 
 A notch filter removes signals within a specific frequency range. 
-In this case, our aim is to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
+We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
 It amplifies parts of the signal with high signal-to-noise (SNR) ratio while suppressing parts with low SNR. 
 The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\ref{fig:notchWienerLogMMSEResults} where the timeseries and spectrum are shown by the left and right panels respectively. 
