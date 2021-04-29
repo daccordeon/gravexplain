@@ -32,8 +32,9 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 3.Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
 \begin{itemize}
 \item We have added a sentence to explain Markov process: ``In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal).''
-\item \todo{image colours}
-\item \han{[Hannah] The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals (rather than an improvement in SNR). The single constant tone of section III is recovered easily using a Fourier transform, however if the signal frequency changes randomly over time, this will reduce the Fourier transform's ability to identify the signal as it is spread across multiple frequency bins. [Added sentence at start of section IV, para 2 to explain that Fourier transform of whole data set is not well suited here]}
+\item We have lightened the colour scheme used in the Fig. 4 schematic to aid with black and white printing. It is also now a similar colour scheme to the spectrogram in Fig. 5 in order to make it clearer that we are simulating a spectrogram with this schematic. When we introduce Fig. 5 we now also refer back to Fig. 4 to indicate that the schematic represents a similified version of the results shown in Fig. 5. 
+\item \han{[Hannah] The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone of section III is recovered easily using a Fourier transform, however if the signal frequency changes randomly over time, this will reduce the Fourier transform's ability to identify the signal as the signal power iss spread across multiple frequency bins. We have added some text at the start of Section IV (paragraph 2) and at the end of Section IV. B. to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
+\item We have also revied the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
 \end{itemize}
 
 
@@ -90,14 +91,16 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent 
 -- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
 \begin{itemize}
-\item A mention has been made in the Future Work as to demonstrating the Doppler effect.
+\item We have including some details on this in the description of detection statistics in section IV.A. and have also added that Doppler modulation of the source also needs to be taken into account if searching for a neutron star in a binary. 
 \item \todo{...}
+\item A mention has been made in the Future Work as to demonstrating the Doppler effect.
+ \todo{...}
 \end{itemize}
 
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item \todo{...}
+\item We have clarified this in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin given the observable data. In Section IV.A. we have expanded our description og gravitational wave analysis and refered to both the transission matrix and emission matix by name to reduce confusion. \todo{...}
 \end{itemize}
 
 \noindent
@@ -115,7 +118,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
 \begin{itemize}
-\item Mention of this is now made both at the introduction of the plot and in the Viterbi algorithm section -- this implementation does assume white noise.
+\item We do assume that the noise is white in our analysis. We have added some text to clarify this at the start of Section IV.C.
 \end{itemize}
 
 \noindent
@@ -129,7 +132,8 @@ The paper describes a table top interferometer for demonstrating the basic opera
 * S. D. Mohanty, Phys. Rev. D  D 96, 102008 (2017).   \\
 * Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 97, 104057 (2018).\\
 \begin{itemize}
-\item \todo{...}
+\item The Viterbi algorithm is not a new approach for gravitational wave analysis. It is used in many searches for continuous waves to date \todo{refs} and the methods papers are Refs \todo{refs}. We use these existing methods as inspiration and apply them to this table-top experiment in order to demonstrate the real gravitaitonal wave searches using sound. It is important to clarify that we are not searching for chirp signals in this work, we are simulating a signal with wandering frequency as an analoge to continuous wave signals whose frequencies can wander stochastically over time. 
+\item [what we have done]. We have clarified that the method is not new in a new subsection in section IV (section IV A) reviewing how these methods are used in gravitational wave analysis before describing our application of the methods in this work. \todo{We also add references to a ......}
 \item \han{[from Hannah] These papers are addressing how to detect an unknown chirp signal from a compact binary merger. I think it may be relevant in some cases, but will take a look at the papers. We should also emphasise that the analysis is not new and that we have referenced the papers for the techniques we use. }
 \end{itemize}
 
