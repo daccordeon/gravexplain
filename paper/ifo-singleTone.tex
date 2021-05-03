@@ -17,8 +17,8 @@ The plot also shows two harmonics at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ with 
 
 Continuous-wave searches look for nearly monochromatic signals. In this section, we consider a simple sinusoidal tone at a single, constant frequency. %should be a single constant frequency *signal*?
 
-As described in Section~\ref{sec:ifo}, the audio signal is played through a speaker fixed to the back of M2. 
-The intensity of the interference pattern is measured at a single point on the screen, indicated by the pink star in Fig~\ref{fig:interference_pattern}. 
+As described in Section~\ref{sec:ifo}, the audio signal is played through a speaker fixed to the back of M2 (see Fig.~\ref{fig:ifo_schematic_webcam}). 
+The intensity of the interference pattern is measured at a single point on the screen, indicated by the pink star in Fig.~\ref{fig:interference_pattern}. 
 The webcam records video in three color channels; red, blue, and green. 
 We use the green channel as an approximation of the total intensity produced by the monochromatic green laser.
 The webcam samples at a rate of $30\, {\rm Hz}$, which limits the spectral content of observable signals to less than $15\,{\rm Hz}$, the Nyquist frequency. 
@@ -34,7 +34,7 @@ Two harmonics can also be seen at integer multiples of the peak frequency.
 The peaks at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ have amplitudes of $0.103$ and $0.098$ as a fraction of the height of the main peak, respectively. They are likely due to the nonlinear response of the system discussed in Section~\ref{sec:ifo} and Appendix~\ref{app:intensity_derivation}. Also, note that the noise appears to rise at lower frequencies.
 
 
-In the following section, we use a hidden Markov model technique, commonly used in continuous-wave searches, to recover a slowly wandering frequency signal.
+In the following section, we use a hidden Markov model technique, commonly used in continuous-wave searches, to recover a signal with a slowly changing frequency.
 
 
 \end{document}

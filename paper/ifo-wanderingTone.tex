@@ -13,13 +13,6 @@ The frequency of a continuous wave signals may wander significantly over this ti
 The audio analogue to these continuous wave signals is a tone that wanders in frequency; a note that changes pitch. Here, we adapt the data analysis technique used to search for slowly wandering continuous waves signals from spinning neutron stars in aLIGO and aVirgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 \end{comment}
 
-\begin{figure}
-	\includegraphics[width=.45\textwidth]{figures/viterbi_comparison_entire_spectrum_viterbi_test_webcam.pdf}
-	\caption{\label{fig:viteri_comparison_webcam_spectrum}
-Why we use the Viterbi algorithm to recover wandering frequency signals: Here we plot the Fourier amplitude of the intensity pattern against frequency as in Fig.~\ref{fig:webcam_spectrum} for the entire timeseries of the wandering frequency signal in Fig.~\ref{fig:viterbi_overlay}. Instead of resolving definite peaks like the constant frequency signal shown in Fig.~\ref{fig:webcam_spectrum}, we only see inconclusive peaks at 5.7~Hz and 10.7~Hz that correspond to the long amount of time that the wandering frequency spends near those values and/or its amplitude there, as seen in the pink dots in Fig.~\ref{fig:viterbi_overlay}. With the signal spread out over the frequency bins, we are unable to reliably detect it above the noise and therefore we use the Viterbi algorithm instead.
-The large values at low frequencies below 0.1~Hz are similar to those in Fig.~\ref{fig:webcam_spectrum} and can be ignored as they are likely inaccurate due to the short length of the signal relative to their period (i.e.\ 300~s only contains 30~periods of a 0.1~Hz signal), but this feature would require further research to fully determine its origin. %maybe could be from the long period (100~s) variation?
-}
-\end{figure}
 
 
 Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational waves may not be monochromatic.
@@ -28,18 +21,33 @@ The audio analog is a tone that wanders in frequency: a note that changes in pit
 
 
 
-A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case, as the signal can be spread across multiple frequency bins making it challenging or perhaps impossible to detect, as shown in Fig.~\ref{fig:viteri_comparison_webcam_spectrum}.
+We first demonstrate why a Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case.
+As shown in Fig.~\ref{fig:viterbi_comparison_webcam_spectrum}, the signal is spread across multiple frequency bins, making it challenging or in some cases impossible to detect.
 %A different means of detection is needed for a signal which has a randomly wandering frequency. 
 
-In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
-The analysis described and presented in this section is directly inspired by real continuous-wave searches~\cite{} 
-In section~\ref{sec:realCWSearches} we briefly review the analysis method used by LIGO and Virgo, in section~\ref{} we describe the methods as applied in this work, and in section~\cite{} we our results of recovering a wandering frequency signal using the table-top interferometer. 
+In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
+The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
+In section~\ref{sec:realCWSearches} we briefly review the analysis method used by LIGO and Virgo, in Section~\ref{sec:viterbi} we describe the methods as applied in this work, and in section~\ref{sec:wanderingResults} we show results for recovering a wandering frequency signal using the table-top interferometer. 
+
+\begin{figure}
+	\includegraphics[width=.45\textwidth]{figures/viterbi_comparison_entire_spectrum_viterbi_test_webcam.pdf}
+	\caption{\label{fig:viterbi_comparison_webcam_spectrum}
+Fourier amplitude identical to that shown in Fig.~\ref{fig:webcam_spectrum}, except using a signal which has a slowly changing frequency instead of a constant frequency signal.
+The signal is spread between many frequency bins. 
+We see peaks at $5.7\,{\rm Hz}$ and $10.7\,{\rm Hz}$ and refer the reader forward to Fig.~\ref{fig:viterbi_overlay} to see the frequency evolution of this signal. 
+A single Fourier transform of the entire dataset is not well suited to detecting signals with wandering frequencies.
+% just making this a little more concise 
+%Why we use the Viterbi algorithm to recover wandering frequency signals: Here we plot the Fourier amplitude of the intensity pattern against frequency as in Fig.~\ref{fig:webcam_spectrum} for the entire timeseries of the wandering frequency signal in Fig.~\ref{fig:viterbi_overlay}. Instead of resolving definite peaks like the constant frequency signal shown in Fig.~\ref{fig:webcam_spectrum}, we only see inconclusive peaks at 5.7~Hz and 10.7~Hz that correspond to the long amount of time that the wandering frequency spends near those values and/or its amplitude there, as seen in the pink dots in Fig.~\ref{fig:viterbi_overlay}. With the signal spread out over the frequency bins, we are unable to reliably detect it above the noise and therefore we use the Viterbi algorithm instead.
+%The large values at low frequencies below 0.1~Hz are similar to those in Fig.~\ref{fig:webcam_spectrum} and can be ignored as they are likely inaccurate due to the short length of the signal relative to their period (i.e.\ 300~s only contains 30~periods of a 0.1~Hz signal), but this feature would require further research to fully determine its origin. %maybe could be from the long period (100~s) variation?
+}
+\end{figure}
+
 
 \subsection{Continuous wave analysis with real data}
 \label{sec:realCWSearches}
 
 The methods used here are directly inspired by LIGO-Virgo continuous wave searches. 
-For further details on these methods see Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017} and for searches performed using them see Refs.\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, SunEtAlSNR:2018, viterbi_application}. \han{check for new papers}
+For further details on these methods see Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017} and for searches performed using them see Refs.\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, SunEtAlSNR:2018, viterbi_application}. \han{check for new papers - add Deeksha's paper}
 
 Continuous-wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
@@ -194,7 +202,7 @@ In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) high
 \end{enumerate}
 
 In continuous wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency could be changing unpredictably over time.
-A Fourier transform of the entire dataset as described in Section~\ref{sec:single_tone} would split the signal power between multiple frequency bins and could result in the signal being undetectable under the noise. 
+A Fourier transform of the entire dataset splits the signal power between multiple frequency bins and could result in the signal being undetectable under the noise (see Fig.~\ref{fig:viterbi_comparison_webcam_spectrum}). 
 The Viterbi algorithm's strength lies in its ability to track such signals through the data.
 In the following section, we present the results of using the Viterbi algorithm with the table-top interferometer data. 
 % - just simiplifed this discussion a little and added a reference to the CW searches

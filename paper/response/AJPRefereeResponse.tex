@@ -30,30 +30,30 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 2. Section III.  How was the Fourier transform generated?  (software?)
 \begin{itemize}
-\item We have added a sentence (``The Discrete Fourier transform was calculated using the NumPy package for Python.''), a citation (to the creators of NumPy), and a footnote (to the documentation).
+\item Yes, the Fourier transform was generated using software. We have added a sentence to Section III (``The Discrete Fourier transform was calculated using the NumPy package for Python.''), a citation (to the creators of NumPy), and a footnote (to the documentation).
 \end{itemize}
 
 \noindent 3. Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
 \begin{itemize}
 \item We have added a sentence to explain Markov process: ``In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal).''
-\item We have lightened the colour scheme used in the Fig. 4 schematic to aid with black and white printing. Our intention is that the Fig. 4 schematic be interpreted as a simplified version of the Fig. 5 spectrogram result. To clarify this we have made the colour scheme of the schmatic more consistent with that of Fig. 5 and we have refered back to the schematic when we first introduce Fig. 5. 
-\item The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes randomly over time, this will reduce the Fourier transform's ability to identify the signal as the signal power is spread across multiple frequency bins. We have added some text at the start of Section IV (paragraph 2) and at the end of Section IV. B. to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
+\item We have lightened the colour scheme used in the Fig. 4 schematic to aid with black and white printing. Our intention is that the Fig. 4 schematic be interpreted as a simplified version of the Fig. 5 spectrogram result. To clarify this we have made the colour scheme of the schematic more consistent with that of Fig. 5 and we have refered back to the schematic when we first introduce Fig. 5. 
+\item The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes over time, the signal power is spread across multiple frequency bins. We have added a new figure to illustrate this (Fig. 4) and some text at the start of Section IV (paragraph 2) and at the end of Section IV. B. to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
 \item We have also revised the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
 \end{itemize}
 
 
-\noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this “heatmap” the same representation as is often shown in LIGO publications?
+\noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this ``heatmap'' the same representation as is often shown in LIGO publications?
 \begin{itemize}
 \item The color coding represents the logarithm of the absolute value of the discrete Fourier transform. We have clarified this in the caption.
 \item Without using the VA the signal becomes spread out over the frequency bins and might not rise above the noise. We have now explained this and added a plot that shows the Fourier spectrum of the entire timeseries.
-\item The heatmap is similar to the figures in LIGO-Virgo-KAGRA publications which show transient gravitational-wave signals, but not identical. Those figures normally show Q-tranforms [described in Chatterji, et al., Classical Quantum Gravity 21, S1809 (2004)] whereas we show the Fourier transform in this work. 
+\item The heatmap is similar to the figures in LIGO-Virgo-KAGRA publications which show transient gravitational-wave signals, but not identical. Those figures normally show Q-transforms [described in Chatterji, et al., Classical Quantum Gravity 21, S1809 (2004)] whereas we show the Fourier transform in this work. We have not drawn comparisons the the Q-transform plots in order to avoid confusion.
 \end{itemize}
 
 
 \noindent 5. Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.
 \begin{itemize}
 \item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discission of it to improve clarity. (Section V, paragraph 2)
-\item Fig. 6: we have removed this figure and moved the photo to the Supplementary Material.
+\item Fig. 6: agreed, we have removed this figure and moved the photo to the Supplementary Material.
 \item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantelled commercial speaker used in the demonstration. We have added a sentence to Section V.A. to clarify.
 \end{itemize}  
 
@@ -116,7 +116,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The normalization used for $F(t_i, f_j)$ should be defined explicitly. 
 \begin{itemize}
-\item This has now been done. Each value is divided by the maximum value in the grid such that $\max_{i,j} F(t_i, f_j) = 1$.
+\item Each value is divided by the maximum value in the grid such that $\max_{i,j} F(t_i, f_j) = 1$. We have added this information to section IV.B.
 \end{itemize}
 
 \noindent
