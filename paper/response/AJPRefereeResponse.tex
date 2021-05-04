@@ -128,17 +128,28 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The Viterbi algorithm used in this paper falls along the general lines of finding the optimal path through a chirplet graph (which includes the spectrogram) that has been explored extensively in the GW literature. More broadly, the detection and estimation of chirp signals, which leave a track in the time-frequency plane, has been a topic of many papers. For the benefit of the readers, the authors should provide an expanded literature review in Sec. IV A and state clearly if their approach is new and, if so, how it differs from the existing ones. A partial list of papers is given below: \\    
 * E. Chassande-Mottin and A. Pai, Phys. Rev. D 73, 042003 (2006). \\
+% Detection of chirps with model of physically realistic GW mergers. Parametric model 
 * E. J. Candes, P. R. Charlton, and H. Helgason, Classical Quantum Gravity 25, 184020 (2008).   \\
+% dynamical programming to find chirping signals. Finding chirp-like signals that are otherwise unmodelled. Non parametric model. 
 * W. G. Anderson and R. Balasubramanian, Phys. Rev. D 60, 102001 (1999).   \\
+% Real-time detection of poorly modelled and unmodelled sources
 * P. Addesso, M. Longo, S. Marano, V. Matta, I. Pinto, and M. Principe, in 2015 3rd International Workshop on  Compressed Sensing Theory and its Applications to Radar, Sonar and Remote Sensing (CoSeRa) (IEEE, New York, 2015), p. 154.   \\
+% unmodelled transient detection for chirps and burst signals 
 * E. Thrane et al., Phys. Rev. D 83, 083004 (2011).   \\
+% long transient search (signals lasting many seconds or weeks). Pattern recognition, not match filter
 * E. Thrane and M. Coughlin, Phys. Rev. D 89, 063012 (2014).    \\
+% unmodelled transient searches - all sky
 * S. D. Mohanty, Phys. Rev. D  D 96, 102008 (2017).   \\
+% chirp searches
 * Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 97, 104057 (2018).\\
+% chirplet search
+
 \begin{itemize}
-\item The Viterbi algorithm is not a new approach for gravitational wave analysis. It is used in many searches for continuous waves to date \todo{refs} and the methods papers are Refs \todo{refs}. We use these existing methods as inspiration and apply them to this table-top experiment in order to demonstrate the real gravitaitonal wave searches using sound. It is important to clarify that we are not searching for chirp signals in this work, we are simulating a signal with wandering frequency as an analoge to continuous wave signals whose frequencies can wander stochastically over time. 
-\item [what we have done]. We have clarified that the method is not new in a new subsection in section IV (section IV A) reviewing how these methods are used in gravitational wave analysis before describing our application of the methods in this work. \todo{We also add references to a ......}
-\item \han{[from Hannah] These papers are addressing how to detect an unknown chirp signal from a compact binary merger. I think it may be relevant in some cases, but will take a look at the papers. We should also emphasise that the analysis is not new and that we have referenced the papers for the techniques we use. }
+\item The hidden Markov model (HMM) and Viterbi algorithm is not a new approach for gravitational wave analysis. It is used in many searches for continuous waves to date (see Refs.\todo{refs}) and the methods papers are described in Refs \todo{refs}. We use these existing methods as inspiration and apply them to this table-top experiment in order to demonstrate a gravitational wave analysis using sound. The HMM and Viterbi method enable a search for persistent gravitational waves where the signal model allows for the continuous wave frequency to change unpredictably over months and years. We note that many of the papers listed above are about searching for transient signals rather than the persistent signals considered here. 
+\item We have added a new subsection (Section IV. A. in the revised draft) to emphasise that these techniques are not new and that they are inspired by real continuous wave searches. In this section we have pointed the reader to the search papers and methods papers that use HMM and Viterbi. We have also added references to other (non-Viterbi) continuous wave search methods. Finally we point the interested reader, who would like to know more about chirp or transient searches, to the papers listed above. 
+%It is important to clarify that we are not searching for chirp signals in this work, we are simulating a signal with wandering frequency as an analoge to continuous wave signals whose frequencies can wander stochastically over time. 
+%\item [what we have done]. We have clarified that the method is not new in a new subsection in section IV (section IV A) reviewing how these methods are used in gravitational wave analysis before describing our application of the methods in this work. %\todo{We also add references to a ......}
+%\item \han{[from Hannah] These papers are addressing how to detect an unknown chirp signal from a compact binary merger. I think it may be relevant in some cases, but will take a look at the papers. We should also emphasise that the analysis is not new and that we have referenced the papers for the techniques we use. }
 \end{itemize}
 
 \noindent
