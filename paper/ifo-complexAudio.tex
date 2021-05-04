@@ -54,11 +54,18 @@ When processing the results, we restrict our analysis to only the first $10\,{\r
 
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass hum throughout. 
 This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., with the speaker switched off), as shown in Fig.~\ref{fig:psd_noise}. 
-The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ mains signal up to and beyond $8$th harmonic thereof. 
+The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond $8$th harmonic thereof. 
 The mains signal is also present (but far weaker) in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
 Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. 
 The appearance of harmonics of the mains noise is likely due to the non-linearity discussed in Appendix~\ref{app:intensity_derivation} (see also Ref.~\cite{feynman}). 
 The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
+
+
+Environmental noise reduction is an active area of research for gravitational-wave detectors~\cite{EfflerEtAl:2015}.
+In some cases environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
+Where this is not possible, noise subtraction can be done after data collection~\cite{DriggersEtAl:2019, DavisEtAl:2019}. 
+One example is removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. 
+ 
 
 
 \begin{figure}
