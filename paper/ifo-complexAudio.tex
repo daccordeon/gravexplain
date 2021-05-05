@@ -7,7 +7,7 @@ We use complex audio signals (such as music and speech) as a natural successor t
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm as used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
-Here we use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
+We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
 Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. 
 %We use the term ``optical microphone'' to distinguish this technology from those previous technologies.
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
@@ -16,8 +16,7 @@ Our objective is to play a recording of speech or music through the speaker atta
 This analysis is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals. 
 Instead, the apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
-A selection of filters is applied to the data, details of which are presented in Supplementary Material. 
-For introductory information on digital signal processing, we refer the reader to a selection of textbooks~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045}. 
+We consider a selection of filter techniques, details of which can be found in the Supplementary Material and we refer the reader to Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045} for further information on digital signal processing. 
 In Section~\ref{sec:opticalMicResults} we present the two best-performing analyses from our Supplementary Material. 
 
 
@@ -72,7 +71,7 @@ One example is removal of spectral noise lines from the United States power grid
 
 
 \begin{figure}
-	\includegraphics[width=.45\textwidth]{figures/psd_podo_14_6.pdf}
+	\includegraphics[width=.5\textwidth]{figures/psd_podo_14_6.pdf}
 	\caption{\label{fig:psd_noise}
 Power spectral density (PSD) of background noise from the optical microphone (with the speaker off). 
 % Bottom: the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
@@ -121,7 +120,7 @@ In this section, we present results of two advanced signal processing analysis t
 The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and some other analysis techniques. 
 
 
-Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter. 
+Firstly, we consider two signal processing techniques used in combination: the cascaded notch~\cite{10.5555/541204} and the Wiener filter~\cite{10.5555/151045}. 
 A notch filter removes signals within a specific frequency range. 
 We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
