@@ -8,7 +8,8 @@ As complex audio signals are not quasi-monochromatic, the Viterbi algorithm as u
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
 Here we use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
-Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. We use the term ``optical microphone'' to distinguish this technology from those previous technologies.
+Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. 
+%We use the term ``optical microphone'' to distinguish this technology from those previous technologies.
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
 
 
@@ -16,7 +17,9 @@ This analysis is indirectly related to the advanced signal processing techniques
 Instead, the apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
 A selection of filters is applied to the data, details of which are presented in Supplementary Material. 
-We present the two best-performing analyses from our Supplementary Material in Section~\ref{sec:opticalMicResults}. 
+For introductory information on digital signal processing, we refer the reader to a selection of textbooks~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045}. 
+In Section~\ref{sec:opticalMicResults} we present the two best-performing analyses from our Supplementary Material. 
+
 
 
 \subsection{Hardware modifications for the optical microphone}
@@ -84,7 +87,7 @@ We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most li
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{figures/combined_highlight_results_melatos_labelled.pdf}
+\includegraphics[width=0.95\textwidth]{figures/combined_highlight_results_melatos_labelled.pdf}
 \caption{\label{fig:notchWienerLogMMSEResults}
 Timeseries (left column) and frequency spectrum (right column) results with the optical microphone. 
 The original input signal in the first row is a $1\,{\rm s}$ recording of an adult male voice (saying ``A cathode''). 
