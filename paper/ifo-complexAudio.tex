@@ -17,7 +17,7 @@ This analysis is indirectly related to the advanced signal processing techniques
 In addition, the apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
 We consider a selection of filter techniques, details of which can be found in the Supplementary Material and we refer the reader to Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045} for further information on digital signal processing. 
-In Section~\ref{sec:opticalMicResults} we present the two best-performing analyses from our Supplementary Material. 
+In Section~\ref{sec:opticalMicResults}, we present the two best-performing analyses from our Supplementary Material. 
 
 
 
@@ -26,7 +26,7 @@ In Section~\ref{sec:opticalMicResults} we present the two best-performing analys
 The human ear can hear frequencies in the range of $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
 Speech intelligibility (being able to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$~\cite{speech_intelligibility}. Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). 
 This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
-To overcome this issue, we use a photodiode\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
+To overcome this issue, we use a photodiode~\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
 
 We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together make a photo-detector that produces a voltage that depends on the incident intensity. 
 The photodiode records the interference pattern at roughly the same off-center position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, again chosen arbitrarily.
@@ -37,8 +37,8 @@ The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit an
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. 
 Resources for using the Pi and photodiode, including a circuit diagram, are described in Appendix~\ref{app:circuit_diagram}.
 
-Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing\footnote{Folding of frequencies greater than half the sampling rate.} into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
-This component attenuates any frequencies above $8\,{\rm kHz}$, before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing~\footnote{Folding of frequencies greater than half the sampling rate.} into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
+This component attenuates any frequencies above $8\,{\rm kHz}$ before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
 % It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
 
@@ -64,9 +64,9 @@ The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750
 
 
 Environmental noise reduction is an active area of research for gravitational-wave detectors~\cite{EfflerEtAl:2015}.
-In some cases environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
+In some cases, environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
 Where this is not possible, noise subtraction can be done after data collection~\cite{DriggersEtAl:2019, DavisEtAl:2019}. 
-One example is removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. 
+One example is the removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. %United States's?
  
 
 
@@ -118,7 +118,7 @@ All three of these cases can, when taken to the extreme, make the speech intelli
 % All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
 
 
-In this section, we present results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
+In this section, we present the results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
 The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and some other analysis techniques. 
 
 
@@ -132,7 +132,7 @@ Most of the mains noise is removed, however, the recovered voice sounds muffled 
 
 
 Secondly, we apply a speech enhancement technique. 
-Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square-error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
+Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
 We use an existing implementation of the logMMSE from~\cite{logmmse}.  
 The logMMSE estimator results are shown in the bottom panel of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 

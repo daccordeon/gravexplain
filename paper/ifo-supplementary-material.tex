@@ -168,8 +168,8 @@ In Section~V in the main article, we use the interferometer as an optical microp
 In this Supplementary Material, we include a selection of signal processing techniques applied to the data which may be considered for undergraduate laboratory examples. 
 We start with some na{\"i}ve approaches and then move to traditional signal processing filters (band-passing and cascaded notches). 
 We finish by combining these with advanced statistical techniques (Wiener filter and the logMMSE estimator). 
-As an illustrative example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
-For more information about the techniques used here see also Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045}.
+As an example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
+For more information about the techniques used here see Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045}.
 
 \begin{figure*}
 	\includegraphics[height=0.41\textwidth]{figures/setup_pic2.pdf}
@@ -182,8 +182,8 @@ Right: A photograph of the photodiode circuit assembled on a breadboard. The lea
 \end{figure*}
 
 
-All analysis is done using the photodiode set-up as described in Section~V.A. in the main text. 
-A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_microphone_and_circuit} with the interferometer and circuit shown on the left and right respectively. 
+All analysis is done using the photodiode set-up as described in Section~V.A. in the main article. 
+A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_microphone_and_circuit} with the interferometer and circuit shown on the left and right, respectively. 
 
 
 \begin{figure}
@@ -212,13 +212,13 @@ A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_m
 Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which we refer to throughout this Supplementary Material. 
 The left and right columns show timeseries and Fourier spectrum results, respectively. 
 The first and second rows in Fig.~\ref{fig:op_mic_results} show the original source signal and the raw optical microphone recording, respectively. 
-The following sections describe a sequence of analysis techniques and a selection of results are presented in Fig.~\ref{fig:op_mic_results}.
+The following sections describe a sequence of analysis techniques and a selection of their results is presented in Fig.~\ref{fig:op_mic_results}.
 
 
 
 \subsection{Background noise subtraction}
 
-An intuitive way to remove noise is by directly subtracting the background noise from the recorded spectrum. 
+The first technique we consider is quite intuitive: we try to remove noise by directly subtracting the background noise from the recorded spectrum. 
 The third row in Fig.~\ref{fig:op_mic_results} shows the interferometer background noise when there is no input signal.
 The fourth row shows the spectrum obtained after subtracting the background noise spectrum, i.e.\ the result of subtracting the third row from the second row. 
 We see no obvious improvement, which may be attributed to a time-variant noise spectrum, the cause of which is unidentified. 
@@ -227,7 +227,8 @@ We see no obvious improvement, which may be attributed to a time-variant noise s
 
 \subsection{Rectangular comb filter}
 
-Simply zeroing the frequency bins corresponding to the harmonics of the $50\,{\rm Hz}$ mains signal is unsuccessful. 
+Since the mains harmonics are present in the signal, we try to selectively remove them.
+However, simply zeroing the frequency bins corresponding to the harmonics of the $50\,{\rm Hz}$ mains signal is unsuccessful. 
 This effectively multiplies the spectrum by a rectangular comb filter. 
 It does remove the mains harmonics, but audibly ruins the rest of the signal due to lack of smoothness. 
 This is because applying a filter in frequency space is equivalent to convolving the time-domain signal with the inverse Fourier transform of that filter. 
@@ -258,9 +259,9 @@ A general band-pass filter combines a high-pass filter and a low-pass filter to 
 H(f) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
 \end{equation}
 and is combined with a similar high-pass filter to form the band-pass filter.
-In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here, a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
+In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here: a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency ($3\,{\rm kHz}$) cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
 
-The effect of applying this filter to the background noise PSD can be seen in the bottom panel in Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e., in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
+The effect of applying this filter to the background noise PSD can be seen in the bottom panel in Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e.\ those in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
 
 \begin{figure}
 	\includegraphics[width=.5\textwidth]{figures/psd_butterworth_14_6.pdf}
@@ -307,7 +308,7 @@ The IIR notch filter we use here is given by~\citep{10.5555/541204},
 where $\alpha$ and $\beta$ are parameters that control the filter. 
 These parameters determine $w_0=\cos^{-1}(\beta)$, the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch, and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$, the bandwidth of the notch which determines how quickly the response changes around the notched frequency.
 We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}$ notch centered on the $k^\mathrm{th}$ harmonic of the $50\,{\rm Hz}$ mains signal, where $k=0,2,\dots,14$. 
-We choose the bandwidth and order (here equal to six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
+We choose the bandwidth and order (here order six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
 \begin{equation}
     \label{eqn:notch15}
     H(z) = \prod_{k=0}^{14} H_k(z).
@@ -316,9 +317,9 @@ We choose the bandwidth and order (here equal to six) of each notch to avoid dis
 We use the built-in MATLAB filter design toolbox in this work~\cite{MATLAB}. 
 The amplitude (magnitude) response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
 The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fifth row in Fig.~\ref{fig:op_mic_results}.
-We see that the mains harmonics are significantly attenuated compared to the background subtracted results shown in the fourth row in Fig.~\ref{fig:op_mic_results}.
+We see that the mains harmonics are significantly attenuated compared to the background-subtracted results shown in the fourth row in Fig.~\ref{fig:op_mic_results}.
 
-Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively it sounds more like a drum than a human voice. This is due to the loss of voice information under the filter.
+Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively, it sounds more like a drum than a human voice. This is due to the loss of voice information under the filter.
 To overcome this, we turn to more advanced techniques, starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimizes an estimate of the original signal. 
 
 
@@ -334,7 +335,7 @@ The observed noisy speech signal sequence is given as $\mathbf{x}=(x(0),\dots, x
 \begin{equation}
     \mathbf{x}=\mathbf{s}+\mathbf{w}\,.
 \end{equation}
-Given $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the Bayesian mean-square-error (BMSE) between the two, defined as 
+Given $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the original signal $\textbf{s}$ such that we minimise the Bayesian mean-square error (BMSE) between the two, defined as 
 \begin{equation}
 \label{eq:BMSE}
 \text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,.
@@ -384,7 +385,7 @@ If we let the Wiener filter be non-causal (i.e. we estimate the current signal b
 \label{eqn:wiener}
     H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}\,,
 \end{equation}
-where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (that only makes estimates based on past observations) is similar. A more detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
+where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (which only makes estimates based on past observations) is similar. A more detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
 
 
 In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The timeseries and frequency spectrum after applying the Wiener filter are shown in the sixth row in Fig.~\ref{fig:op_mic_results}.
@@ -394,7 +395,7 @@ We see a significant improvement in the timeseries of the recovered signal, howe
 \subsection{Combined notch and Wiener filter}
 
 Here, we experiment with applying a combination of the cascaded notch and the Wiener filter to the recorded speech signal. 
-The results of this analysis also are described in Section V.C. in the main text. 
+The results of this analysis also are described in Section V.C. in the main article. 
 
 
 The Wiener filter makes use of statistical information from the speech data and noise. It amplifies the part of the signal with high SNR while suppressing the parts with low SNR (see above Sec.~\ref{sec:Wiener}). It is implemented in the form of a finite response filter, which ensures linear phase response and stability (both desirable), but at the cost of high orders computationally. By comparison, the notch filter is based on directly removing the unwanted frequency components. It is implemented in the form of an infinite impulse response filter. Although it significantly decreases the order of the overall filter, it unavoidably introduces nonlinear phase and instability. 
@@ -433,12 +434,12 @@ The change in scale from the top panel is not of concern as the ear hears the re
 
 
 Speech enhancement of noisy channels is a classic problem in signal processing. 
-In Ref.~\cite{SubjectiveComparison}, a comparison is made of $13$ speech enhancement methods, finding the log minimum mean-square-error (logMMSE) estimator to be the best, qualitatively, at recovering speech. 
-This estimator is based on speech enhancement techniques discussed in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and minimizes the mean-square-error (MSE) of the estimate from the injected signal, like the Wiener filter above, except that it measures the MSE between the logarithm of the Fourier amplitudes. This is motivated by the fact that the logarithm approximates the response of the human ear~\cite{SubjectiveComparison}. We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}) to the recorded signal.
+In Ref.~\cite{SubjectiveComparison}, a comparison is made of $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech. 
+This estimator is based on speech enhancement techniques discussed in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and minimizes the mean-square error (MSE) of the estimate from the injected signal, like the Wiener filter above, except that it measures the MSE between the logarithm of the Fourier amplitudes. This is motivated by the fact that the logarithm approximates the response of the human ear~\cite{SubjectiveComparison}. We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}) to the recorded signal.
 
 The final row in Fig.~\ref{fig:op_mic_results} shows the results of the logMMSE estimator.
 Again there is significant noise reduction, however, the speech remains indistinct.
-The logMMSE results are also presented in Section V.C. in the main text. 
+The logMMSE results are also presented in Section V.C. in the main article. 
 
 
 

@@ -28,7 +28,7 @@ As shown in Fig.~\ref{fig:viterbi_comparison_webcam_spectrum}, the signal is spr
 
 In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
 The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
-In section~\ref{sec:realCWSearches} we briefly review the analysis method used by LIGO and Virgo, in Section~\ref{sec:viterbi} we describe the methods as applied in this work, and in section~\ref{sec:wanderingResults} we show results for recovering a wandering frequency signal using the table-top interferometer. 
+In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo, in Section~\ref{sec:viterbi}, we describe the methods as applied in this work, and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
 \begin{figure}
 	\includegraphics[width=.5\textwidth]{figures/viterbi_comparison_entire_spectrum_viterbi_test_webcam.pdf}
@@ -49,7 +49,7 @@ A single Fourier transform of the entire dataset is not well suited to detecting
 
 \han{from Andrew: sec IVA, first para - since ref mentioned other searches, it would be good to have 1-2 brief sentences accompanying the references which mention what those "other searches" are (broad categories, for instance, just so that there is some guidance for the reader)}
 
-The methods used here are  inspired by LIGO-Virgo continuous wave searches. 
+The methods used here are inspired by LIGO-Virgo continuous wave searches. 
 For further details on these methods and searches see Refs.~\cite{SuvorovaEtAl:2016, SuvorovaEtAl:2017, ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, BeniwalEtAl:2021, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, BayleyEtAlSOAP:2019, SunEtAlSNR:2018}.
 For other continuous wave search analyses not discussed here, see for example Refs.\cite{UnknownNSSearchO3a:2021, EinsteinAtHomeO2:2021, MSPSearchO3O2O1:2020, RadiometerO1O2:2019, SearchCrossCorrO1:2017, SearchTwoSpecS6:2017, VirgoCrabVelaSearch:2015, StackSlide:2012} and for further information on searching for transient gravitational wave signals, see for example Refs.~\cite{MillhouseEtAl:2018, Mohanty:2017, AddessoEtAl:2016, ThraneCoughlin:2014, ThraneEtAl:2011, CandesEtAl:2008, ChassandeMottinArchana:2006, AndersonBalasubramanian:1999}.
 
@@ -148,7 +148,7 @@ The probability of a specific path given the data is
           && \times... A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,,
 \label{eqn:pathprobability}
 \end{eqnarray}
-The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises $Pr[ f(t_0), f(t_1),... f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
+The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
 We note that there is no marginalization used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 %The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
 %\begin{eqnarray}
@@ -164,7 +164,7 @@ We note that there is no marginalization used in this method; the left-hand-side
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
 At every $t_i$ all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}). 
-Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}.%, where the circles indicate the elements in the spectrogram with the lighter colors corresponding to a higher likelihood. 
+Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}. %, where the circles indicate the elements in the spectrogram with the lighter colors corresponding to a higher likelihood. 
 The implementation used in this work is available online (see Appendix~\ref{app:code}).
 \begin{enumerate}
 \item Starting at time $t_1$, each $f_j$ state can originate from three prior states at time $t_0$ (except for the edge cases $f_0$ and $f_{N_f}$ which only have two). 
@@ -216,8 +216,8 @@ In the following section, we present the results of using the Viterbi algorithm 
 Recovery of a wandering tone using the Viterbi algorithm.
 The spectrogram (heat-map) coloring indicates the value of the detection statistic (here, the logarithm of the absolute value of the discrete Fourier transform) in each time-frequency bin -- with brighter colors indicating higher values. 
 The overlaid pink-dot and white-cross markers show the injected signal and recovered Viterbi path, respectively. 
-On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover, given a parameter for the rate of change of one frequency bin per time bin. 
-At $150\,{\rm s}$ the data appears anomalous, which may be due to some transient background noise. }
+On the left, before $\sim 15\,{\rm s}$, the signal changes frequency too quickly for the Viterbi algorithm to recover, given that the algorithm is restricted to only change by one frequency bin per time bin. 
+At $150\,{\rm s}$, the data appears anomalous, which may be due to some transient background noise. }
 \end{figure*}
  
 
@@ -241,7 +241,7 @@ For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms
 
 
 
-This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
+This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
 As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continues to track the signal after the disturbance. 
 %The Viterbi algorithm is somewhat robust against such disturbances, qualitatively recovering the injected path on the other side, as shown in Fig.~\ref{fig:viterbi_overlay}. 
 

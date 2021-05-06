@@ -33,7 +33,7 @@ If the unperturbed difference between the arm lengths is $d$, then the path diff
 
 The intensity $I(t)$ at $P$ is then the norm squared of the total electric field amplitude,
 \begin{equation}
-I(t) = \lvert A e^{i (k L - \omega t)}  + A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \rvert^2\,.
+I(t) = \left| A e^{i (k L - \omega t)}  + A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \right|^2\,.
 \label{eqn:intensity1}    
 \end{equation}
 Some elementary trigonometry yields
@@ -118,9 +118,9 @@ The Viterbi algorithm is a classic method in signal processing, whose theoretica
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here we present some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
+Here, we present some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
 
-Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the edge cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode).
+Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the edge cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode below).
 
 \begin{algorithmic}
 \Function{Viterbi}{$X$}
@@ -182,9 +182,9 @@ The design was based off standard examples found online of photo-detectors~\cite
 	\includegraphics[width=.8\textwidth]{figures/circuit_diagram_2.pdf}
 	\caption{\label{fig:circuit_diagram}
 Circuit diagram for reading the photodiode. 
-The photodiode is connected in reverse-bias across an op-amp. 
-The op-amp output is passed through a Sallen-Key anti-aliasing filter tuned to $16\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
-The digitized signal is then read by the special purpose input (SPI) pins of a Raspberry Pi in standard configuration.
+The photodiode is connected in reverse-bias across an op-amp (pale-red box). 
+The op-amp output is passed through a Sallen-Key anti-aliasing filter (pale-blue box) tuned to $16\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
+The digitized signal is then read by the special-purpose input (SPI) pins of a Raspberry Pi in standard configuration.
 This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online} and is available from~\url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}.
 }
 \end{figure*}
