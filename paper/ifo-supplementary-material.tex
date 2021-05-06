@@ -32,7 +32,7 @@
 
 \begin{document}
 
-\title{Supplementary material for \\Continuous gravitational waves in the lab: recovering audio signals with a table-top optical microphone} 
+\title{Supplementary Material for \\Continuous gravitational waves in the lab: recovering audio signals with a table-top optical microphone} 
 
 
 
@@ -239,7 +239,7 @@ See also Section~\ref{sec:notch} where we explore a notch filter.
 \subsection{High-pass filter}
 
 A high-pass filter smoothly attenuates frequencies below some cut-off frequency. 
-Applying a high-pass filter, with a cut-off frequency around $150\,{\rm Hz}$, to the signal spectrum works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics. However, the mains harmonics above $100\,{\rm Hz}$ remain. Using a high-pass filter with a higher cut-off can be used to mitigate this issue. However, it makes the played-back signal unrecognizable as the region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of speech and music~\cite{speech_intelligibility}.
+Applying a high-pass filter, with a cut-off frequency around $150\,{\rm Hz}$, to the signal spectrum works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics. However, the mains harmonics above $100\,{\rm Hz}$ remain. A high-pass filter with a higher cut-off can be used to mitigate this issue. However, it makes the played-back signal unrecognizable as the region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of speech and music~\cite{speech_intelligibility}.
 Often in speech processing, the logarithm of the signal is taken since the amplitude information seems to be more important to intelligibility than the phase information to the human ear~\cite{SubjectiveComparison}. However, applying a high-pass filter to the logarithm of the signal spectrum does not significantly improve on the above simple high-pass filter.
 
 
@@ -247,7 +247,7 @@ Often in speech processing, the logarithm of the signal is taken since the ampli
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{figures/butterworth_150_3000.pdf}
-	\caption{Butterworth bandpass filter frequency response. Any amplitude beyond $-3\,{\rm dB}$ is significant attenuation (half power). The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band characteristic of the Butterworth filter.}
+	\caption{Butterworth bandpass filter frequency response. Any amplitude below $-3\,{\rm dB}$ is significant attenuation (less than half the power at that frequency remains). The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band characteristic of the Butterworth filter.}
 	\label{fig:butterworth}
 \end{figure}
 
@@ -268,7 +268,9 @@ The effect of applying this filter to the background noise PSD can be seen in th
 Top: power spectral density (PSD) of background noise from the optical microphone (with the speaker off). 
 Bottom: the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
 We see strong power from the $50\,{\rm Hz}$ mains hum and its harmonics (most likely from the photodiode circuit and the room’s lighting and cooling). Otherwise, the PSD is fairly white. 
-After filtering we see significant attenuation (at least 3~dB) of all frequencies outside the band, including around 100~dB near 0~Hz due to even stronger attenuation far from the band (this sharp drop-off at low frequencies would be more similar to the high-frequency (3~kHz) behaviour if shown against a logarithmic scale for frequency as is sometimes done). However, the filter has little change on the harmonics within the band.
+After filtering, we see significant attenuation (at least 3~dB) of all frequencies outside the band.
+However, the filter has little change on the harmonics within the band.
+The sharp drop-off at low frequencies, around 100~dB near 0~Hz, is due to stronger attenuation far from the band and would appear shallower if shown against a logarithmic scale for frequency as in Fig.~\ref{fig:butterworth}.
 }
 \end{figure}
 
@@ -303,7 +305,7 @@ The IIR notch filter we use here is given by~\citep{10.5555/541204},
     H(z)=\frac{1+\alpha}{2}\frac{1-2\beta z^{-1}+z^{-2}}{1-\beta(1+\alpha)z^{-1}+\alpha z^{-2}}\,,
 \end{equation}
 where $\alpha$ and $\beta$ are parameters that control the filter. 
-In Eqn.~\ref{eqn:notch}, $w_0=\cos^{-1}(\beta)$ is the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$ is the bandwidth of the notch (which determines how quickly the response changes around the notched frequency).
+These parameters determine $w_0=\cos^{-1}(\beta)$, the frequency that is completely attenuated (zeroed or ``notched'') at the centre of the notch, and $B_w=\cos^{-1}[2\alpha/(1+\alpha^2)]$, the bandwidth of the notch which determines how quickly the response changes around the notched frequency.
 We find that a sequence of $15$ notches works well here, with the $k^\mathrm{th}$ notch centered on the $k^\mathrm{th}$ harmonic of the $50\,{\rm Hz}$ mains signal, where $k=0,2,\dots,14$. 
 We choose the bandwidth and order (here equal to six) of each notch to avoid disturbing useful signals while still allowing for uncertainty in the location of each harmonic of the mains signal. The response of this cascaded notch filter $H(z)$ is the product of the responses of each of the individual $H_k(z)$ notches,
 \begin{equation}
@@ -337,7 +339,7 @@ Given $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the or
 \label{eq:BMSE}
 \text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,.
 \end{equation}
-If we assume that: i) $\textbf{x}$ is ``wide sense stationary''~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in R$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
+If we assume that: i) $\textbf{x}$ is ``wide sense stationary''~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in \mathbb{R}$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
 \begin{equation}
 \hat{{s}}[n]=\sum_{k=0}^{n}h[k]x[n-k]\,,
 \end{equation}
