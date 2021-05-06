@@ -108,12 +108,14 @@ The second row shows the raw output from the photodiode recording.
 
 
 
+% https://en.wikipedia.org/wiki/Filter_(signal_processing)
 In signal processing, the ideal filter would be one that:
 (i) completely attenuates the undesired parts of the spectrum, 
 (ii) does not change the rest of the spectrum, and 
 (iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
-However, these three conditions cannot all hold at once. For example, if conditions (i) and (ii) hold, then the filter must be discontinuous at the boundary of the undesired region but this implies that the filter has ``infinite latency'' and so will affect (or damage) the time domain signal for infinite time~\cite{10.5555/151045}. Therefore, any filter must compromise between these three conditions. For speech intelligibility, this means that either: (i) some noise remains in the filtered recording, (ii) some of the speech content is lost as certain important frequencies are attenuated, or (iii) the speech is somewhat distorted in time. All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
-% https://en.wikipedia.org/wiki/Filter_(signal_processing)
+However, these three conditions cannot all hold at once. For example, if conditions (i) and (ii) hold, then the filter must be discontinuous at the boundary of the undesired region but this implies that the filter has ``infinite latency'' and so will affect (or damage) the time domain signal for infinite time~\cite{10.5555/151045}. Therefore, any filter must compromise between these three conditions. For speech intelligibility, this means that either: (i) some noise remains in the filtered recording, (ii) some of the speech content is lost as certain important frequencies are attenuated, or (iii) the speech is somewhat distorted in time.
+All three of these cases can, when taken to the extreme, make the speech intelligibility worse than the unfiltered recording, i.e.\ the results can be worse than doing no filtering. Therefore, we choose filters that compromise between achieving the three conditions.
+% All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
 
 
 In this section, we present results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 

@@ -85,7 +85,7 @@ x(t) = s(t) + n(t)\,,
 where $s(t)$ and $n(t)$ are the signal and noise respectively. 
 Then we describe the signal as 
 \begin{equation}
-s(t) = A \cos\left({\omega t + \phi}\right)\,,
+s(t) = A \cos\left[{\omega t + \phi}\right]\,,
 \end{equation}
 where $A$, $\omega$, and $\phi$ are the amplitude, angular frequency and phase of the signal respectively. 
 The log-likelihood assuming Gaussian noise is given by
@@ -104,7 +104,8 @@ The maximum likelihood is then,
 \label{eqn:maxLogLike}
 \log \mathcal{L}_\mathrm{max} = - \frac{1}{2} \ip{x}{x} + \ip{x}{\cos[\omega t + \phi]}^2\,. 
 \end{eqnarray}
-Focusing on the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum log-likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, baring the constant factor $\ip{x}{x}$.  
+From the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum log-likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
+%baring the constant factor $\ip{x}{x}$.  
 
 
 
@@ -117,9 +118,9 @@ The Viterbi algorithm is a classic method in signal processing, whose theoretica
 The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here we give some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights, but to avoid numerical underflow we take the logarithm and consider them as additive weights.
+Here we present some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
 
-Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant).
+Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the edge cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode).
 
 \begin{algorithmic}
 \Function{Viterbi}{$X$}
@@ -133,8 +134,8 @@ Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additiv
     \For{each column $i=1,\ldots,N_t$}
 	    \For{each row $j=0,\ldots,N_f$}
 		
-	    	\State $Y_{i,j} \gets \underset{k \in \{-1,0,1\}}{\max} (Y_{i-1,j+k} + X_{i,j})$
-	    	\State $Z_{i,j} \gets j + \underset{k \in \{-1,0,1\}}{\arg\max} (Y_{i-1,j+k} + X_{i,j})$
+	    	\State $Y_{i,j} \gets X_{i,j} + \underset{k \in \{-1,0,1\}}{\max} (Y_{i-1,j+k})$
+	    	\State $Z_{i,j} \gets j + \underset{k \in \{-1,0,1\}}{\arg\max} (Y_{i-1,j+k})$
    
 	    \EndFor
     \EndFor
