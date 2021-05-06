@@ -13,11 +13,10 @@ The frequency of a continuous wave signals may wander significantly over this ti
 The audio analogue to these continuous wave signals is a tone that wanders in frequency; a note that changes pitch. Here, we adapt the data analysis technique used to search for slowly wandering continuous waves signals from spinning neutron stars in aLIGO and aVirgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 \end{comment}
 
-\han{from Andrew:
-sec IV, para 1, 1st sentence - seems to contradict sec III - I think what we really mean is "Although continuous grav wave signals are nearly monochromatic, the long observing times (~ 1 yr) mean that searches are sensitive to very small frequency drifts. A typical observation involves ~1e10 wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation."
-}
 
-Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational waves may not be monochromatic.
+
+Although continuous gravitational waves are nearly monochromatic, the long observing times ($\sim 1\,{\rm yr}$) mean that searches are sensitive to very small frequency drifts. 
+A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation. 
 A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
 The audio analog is a tone that wanders in frequency: a note that changes in pitch. 
 
@@ -242,7 +241,7 @@ For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms
 
 
 
-This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the algorithm is allowed to), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
+This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
 As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continues to track the signal after the disturbance. 
 %The Viterbi algorithm is somewhat robust against such disturbances, qualitatively recovering the injected path on the other side, as shown in Fig.~\ref{fig:viterbi_overlay}. 
 
