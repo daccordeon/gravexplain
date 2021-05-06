@@ -14,8 +14,8 @@
 \noindent Dear Joseph Amato, \\
 
 \noindent We thank you and the referees for your helpful comments and suggestions. 
-We address the comments below in turn. 
-Ad we have made many changes throughout the manuscript, we have not highlighted them within the manuscript, instead we have pointed to each of the changes in our responses below. 
+We agree with all the recommendations and address the comments below in turn. 
+As we have made many changes throughout the manuscript, we have not highlighted them within the manuscript, instead we have pointed to each of the changes in our responses below. 
 
 \subsection*{Comments from editor, Joseph Amato}
 \begin{quote}
@@ -40,7 +40,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \item Markov process: We have added a sentence to explain Markov process in Section IV A, ``In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal).''
 \item Figure 4: We have lightened the color scheme used in the Figure 4 schematic to aid with black and white printing. The colors represent a gradient rather than a discrete shading and we now use a blue/green color palette to clarify this. Our intention is that the Figure 4 schematic be interpreted as a simplified version of the Figure 6 (previously Figure 5) spectrogram result. To clarify this we have made the colour scheme of the schematic more consistent with that of Figure 6 and we have referred back to the schematic when we first introduce Figure 6. 
 \item The grey paths in Figure 4 are those that have been rejected at each timestep. We have clarified this in the text and caption. 
-\item The hidden Markov model and Viterbi algorithm's strength is in it's ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes over time, the signal power is spread across multiple frequency bins. We have added a new figure to illustrate this (Figure 4) and some text at the start of Section IV (paragraph 2) and at the end of Section IV B to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
+\item The hidden Markov model and Viterbi algorithm's strength is in its ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes over time, the signal power is spread across multiple frequency bins. We have added a new figure to illustrate this (Figure 4) and some text at the start of Section IV (paragraph 2) and at the end of Section IV B to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
 \item We have also revised the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
 \item[]
 \end{itemize}
@@ -57,8 +57,8 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 5. Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.
 \begin{itemize}
-\item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discussion of it to improve clarity. (Section V, paragraph 2)
-\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify.
+\item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discussion of it to improve clarity (Section V, paragraph 2).
+\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify. \han{clarify cloth screen given Andrew's comment}
 \item Figure 6: agreed, we have removed this figure and moved the photo to the Supplementary Material.
 \item []
 \end{itemize}  
@@ -101,7 +101,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent 
 -- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
 \begin{itemize}
-\item We have including some details on how the detection statistic is used to take account of the Earth's motion around the Sun in Section IV A. We and have also noted that Doppler modulation of the source also needs to be taken into account if searching for a neutron star in a binary. 
+\item We have including some details on how the detection statistic is used to take account of the Earth's motion around the Sun in Section IV A. We and have also noted that Doppler modulation of the source also needs to be taken into account if searching for a neutron star in a binary. \han{gramma}
 \item It would indeed be very nice to modify the setup to show the Doppler effect. We have added some possible ways to explore this topic in our future work discussion in Section VI. 
 \item[]
 \end{itemize}
@@ -109,7 +109,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin given the observable data. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion. 
+\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion. \han{from Andrew: p4, top point - "given the observable data" -> "conditional on the observed data" - and just mention that the conditionality is dropped from the notation [if true] to avoid clutter}
 \item[]
 \end{itemize}
 
@@ -130,7 +130,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
 \begin{itemize}
-\item We do indeed assume that the noise is white in our analysis. We have added some text to clarify this assumption in the first paragraph of Section IV C.
+\item We do indeed assume that the noise is white in our analysis. This assumption is consistent with the use of Viterbi for continuous wave searches, where white noise is assumed even though LIGO noise is not white\han{todo get refs for this}. We have added some text to clarify this assumption in the first paragraph of Section IV C.
 \item[]
 \end{itemize}
 
@@ -154,6 +154,7 @@ $\ast$ Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 9
 % chirplet search 
 
 \begin{itemize}
+\item We agree and have expanded the text to include the suggested references (see below). 
 \item The hidden Markov model (HMM) and Viterbi algorithm is not a new approach for gravitational wave analysis. It is used in many searches for continuous waves to date (for example Abbott et al., Phys. Rev. D, 100(12):122002, Dec 2019) and the methods papers are described in Suvorova et al., Phys. Rev. D, 96(10):102006, November 2017 and Suvorova et al. Phys. Rev. D, 93(12):123009, June 2016. We have clarified throughout the paper that these methods are not new and that we use real continuous wave searches as inspiration for our table-top demonstration. The HMM and Viterbi method enable a search for persistent gravitational waves where the signal model allows for the continuous wave frequency to change unpredictably over months and years. We note that many of the papers listed above are about searching for transient signals rather than the persistent signals considered here. 
 \item We have added a new subsection (Section IV A in the revised draft) to emphasise that these techniques are not new and that they are inspired by real continuous wave searches. In this section we have pointed the reader to the search papers and methods papers that use HMM and Viterbi. We have also added references to other (non-Viterbi) continuous wave search methods. Finally we point the interested reader, who would like to know more about chirp or transient searches, to the papers suggested above. 
 \item[]
@@ -204,7 +205,7 @@ This is a very interesting paper written in a clear and informative language. Ho
 
 \begin{itemize}
 \item Suitability for AJP: We thank you for the recommendations regarding the suitability and complexity of this manuscript. Following the advice of the editor and referee R3, we have moved the majority of Section V to Supplementary Material so that the main text is now less technical and the interested reader can still see our selection of analysis examples. We now only focus on two highlight results in the main text Section V. We have also clarified our description of the Viterbi method following recommendations from the editor and R3. 
-\item Use of audio signals: We agree that there is indeed a fundamental difference between sound waves and gravitational waves. In the Section II we have clarified that we are using sound as an analogy. For the purposes of this table-top experiment, we require a signal that behaves similar to gravitational waves in that it alters the interference pattern produced by a Michelson interferometer. Using a speaker and audio signals provides a simple and relatively cost effective means to do this, compared to for example, a piezo-electric crystal fixed to the back of a mirror as used in some gravitational wave demonstrations (e.g. Cooper et al., arXivv e-prints 2004.03052, 2020). The main focus of this study is the extraction of a signal from interferometer data using a series of analysis techniques, some of which are inspired by continuous gravitational wave searches. We also note that the use of sound as an analogy to gravitational-wave signals is not novel and is used by many gravitational-wave research groups to aid in their explanations (for example Sounds of Spacetime \texttt{https://www.
+\item Use of audio signals: We agree that there is indeed a fundamental difference between sound waves and gravitational waves. In the Section II we have clarified that we are using sound as an analogy. For the purposes of this table-top experiment, we require a signal that behaves similar to gravitational waves in that it alters the interference pattern produced by a Michelson interferometer. Using a speaker and audio signals provides a simple and relatively cost effective means to do this, compared to for example, a piezo-electric crystal fixed to the back of a mirror as used in some gravitational wave demonstrations (e.g. Cooper et al., arXivv e-prints 2004.03052, 2020). The main focus of this study is the extraction of a signal from interferometer data using a series of analysis techniques, some of which are inspired by continuous gravitational wave searches. However we emphasize that both the simulated signal and the extraction approaches in the table-top experiment differ from real gravitational-wave experiments in many important ways, e.g. diurnal amplitude modulation, Doppler frequency modulation due to proper motion of the source, colored noise, nonstationary glitches in the operation of the interferometer, quantum effects in the measurement, and so on. The table-top system represents a simplified analogy of a research-level system and real signals.  We also note that the use of sound as an analogy to gravitational-wave signals is not novel and is used by many gravitational-wave research groups to aid in their explanations (for example Sounds of Spacetime \texttt{https://www.
 soundsofspacetime.org/} and Black Hole Hunter \texttt{blackholehunter.org})
 \item[]
 %\item \han{> Thoughts on this [Hannah]: The use of audio as an analogy to gravitational waves is not novel to this work. Sound has been used in numerous situations to convey the concept of gravitational wave signals to general audiences [will add references]. It is of course true that sound is not the same as gravitational waves, however in this work we are focusing on the extraction of a signal from an interferometer to demonstrate a series of analysis techniques, some of which are related to gravitational wave analysis. [will think about this some more and very happy to hear other thoughts on how we respond here -Hannah]}
