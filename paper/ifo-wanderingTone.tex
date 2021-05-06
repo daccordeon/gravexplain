@@ -13,7 +13,9 @@ The frequency of a continuous wave signals may wander significantly over this ti
 The audio analogue to these continuous wave signals is a tone that wanders in frequency; a note that changes pitch. Here, we adapt the data analysis technique used to search for slowly wandering continuous waves signals from spinning neutron stars in aLIGO and aVirgo data~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
 \end{comment}
 
-
+\han{from Andrew:
+sec IV, para 1, 1st sentence - seems to contradict sec III - I think what we really mean is "Although continuous grav wave signals are nearly monochromatic, the long observing times (~ 1 yr) mean that searches are sensitive to very small frequency drifts. A typical observation involves ~1e10 wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation."
+}
 
 Unlike the signal considered in Section~\ref{sec:single_tone}, continuous gravitational waves may not be monochromatic.
 A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
@@ -46,6 +48,8 @@ A single Fourier transform of the entire dataset is not well suited to detecting
 \subsection{Continuous wave analysis with real data}
 \label{sec:realCWSearches}
 
+\han{from Andrew: sec IVA, first para - since ref mentioned other searches, it would be good to have 1-2 brief sentences accompanying the references which mention what those "other searches" are (broad categories, for instance, just so that there is some guidance for the reader)}
+
 The methods used here are  inspired by LIGO-Virgo continuous wave searches. 
 For further details on these methods and searches see Refs.~\cite{SuvorovaEtAl:2016, SuvorovaEtAl:2017, ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, BeniwalEtAl:2021, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, BayleyEtAlSOAP:2019, SunEtAlSNR:2018}.
 For other continuous wave search analyses not discussed here, see for example Refs.\cite{UnknownNSSearchO3a:2021, EinsteinAtHomeO2:2021, MSPSearchO3O2O1:2020, RadiometerO1O2:2019, SearchCrossCorrO1:2017, SearchTwoSpecS6:2017, VirgoCrabVelaSearch:2015, StackSlide:2012} and for further information on searching for transient gravitational wave signals, see for example Refs.~\cite{MillhouseEtAl:2018, Mohanty:2017, AddessoEtAl:2016, ThraneCoughlin:2014, ThraneEtAl:2011, CandesEtAl:2008, ChassandeMottinArchana:2006, AndersonBalasubramanian:1999}.
@@ -64,7 +68,7 @@ The transitions are Markovian in that the hidden state (i.e.\ frequency) of the 
 
 
 A detection statistic relates the observed data to the hidden state and quantifies the likelihood of a signal being present in the data at each frequency and time bin.
-This likelihood is also called the emission matrix in gravitational-wave literature.  
+This likelihood is also called the emission probability in gravitational-wave literature.  
 In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
 If searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
 
@@ -113,7 +117,7 @@ The Viterbi path is the path leading to this circle, highlighted in orange from 
 
 
 The timeseries data from the interferometer is first split into segments. 
-We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ as the detection statistic (this is the emission matrix).
+We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ as the detection statistic (this is the emission probability).
 Assuming Gaussian noise, this detection statistic choice maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
 The detection statistic is normalized for convenience by dividing each value by the maximum Fourier amplitude in the grid (such that $\max_{i,j} F(t_i,f_j) = 1$).
 
@@ -235,6 +239,7 @@ E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}
 \end{equation}
 where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths, respectively. 
 For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
+
 
 
 This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than the algorithm is allowed to), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
