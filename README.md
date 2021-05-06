@@ -3,8 +3,10 @@
 *GravExplain: Continuous gravitational wave searches in a table-top experiment*
 
 James Gardner: OzGrav-Australian National University
+
 Hannah Middleton, Changrong Liu, Andrew Melatos, Robin Evans, William Moran: OzGrav-Melbourne University and Department of Electrical and Electronic Engineering, University of Melbourne
 *(these authors all contributed to the code, for the full list of authors and affiliations see the paper)*
+
 April 2021
 
 Current build found [here](https://github.com/daccordeon/gravexplain).
@@ -72,4 +74,4 @@ Directory structure:
     ├── mock_continuous_signal.py (simulates applying the Viterbi algorithm to a noisy signal)
     └── defunct_open_cv.ipynb (defunct functions produced while learning the openCV library)
 ```
-[//]: # tree -I '*.pdf|*.png|*.svg|*.jpg'
+[//]: # (tree -I '*.pdf|*.png|*.svg|*.jpg')
