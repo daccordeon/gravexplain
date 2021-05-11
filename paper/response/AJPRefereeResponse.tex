@@ -58,7 +58,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 5. Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.
 \begin{itemize}
 \item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discussion of it to improve clarity (Section V, paragraph 2).
-\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify. \han{clarify cloth screen given Andrew's comment}
+\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify. %\han{clarify cloth screen given Andrew's comment}
 \item Figure 6: agreed, we have removed this figure and moved the photo to the Supplementary Material.
 \item []
 \end{itemize}  
@@ -109,7 +109,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion. \han{from Andrew: p4, top point - "given the observable data" -> "conditional on the observed data" - and just mention that the conditionality is dropped from the notation [if true] to avoid clutter}
+\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion.% \han{from Andrew: p4, top point - "given the observable data" -> "conditional on the observed data" - and just mention that the conditionality is dropped from the notation [if true] to avoid clutter}
 \item[]
 \end{itemize}
 
@@ -130,7 +130,8 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Looking at Fig. 3, it appears that the noise is not white and rises in power at lower frequencies. How is the color of the noise taken into account, if at all, in the HMM or the Viterbi algorithm? A discussion of this point should be included although it is fine to assume white noise as a first approximation. 
 \begin{itemize}
-\item We do indeed assume that the noise is white in our analysis. This assumption is consistent with the use of Viterbi for continuous-wave searches, where white noise is assumed even though LIGO noise is not white\han{todo get refs for this}. We have added some text to clarify this assumption in the first paragraph of Section IV C.
+\item We do indeed assume that the noise is white in our analysis. This assumption is consistent with the use of Viterbi for continuous-wave searches, where white noise is assumed even though LIGO noise is not white%\han{todo get refs for this}. 
+We have added some text to clarify this assumption in the first paragraph of Section IV C.
 \item[]
 \end{itemize}
 
