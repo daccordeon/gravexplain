@@ -109,7 +109,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item We have clarified the explanation of the HMM in the text. The detection statistic captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion.% \han{from Andrew: p4, top point - "given the observable data" -> "conditional on the observed data" - and just mention that the conditionality is dropped from the notation [if true] to avoid clutter}
+\item We have clarified the explanation of the HMM in the text. The detection statistic $F(t_i, f_j)$ captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data, where we have dropped the conditionally from the notation to avoid clutter. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion.
 \item[]
 \end{itemize}
 
