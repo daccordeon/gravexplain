@@ -2,9 +2,6 @@
 
 \usepackage{fullpage}
 \usepackage{xcolor}
-\newcommand{\todo}{\textcolor{blue}}
-\newcommand{\han}{\textcolor{orange}}
-\newcommand{\jam}{\textcolor{magenta}}
 
 
 \begin{document}
@@ -14,13 +11,11 @@
 \noindent Dear Joseph Amato, \\
 
 \noindent We thank you and the referees for your helpful comments and suggestions. 
-We agree with all the recommendations and address the comments below in turn. % surely, we only agree with ``most of'' the recommendations?
+We agree with all the recommendations and address the comments below in turn.
 As we have made many changes throughout the manuscript, we have not highlighted them within the manuscript, instead, we have pointed to each of the changes in our responses below. 
 
 \subsection*{Comments from editor, Joseph Amato}
-\begin{quote}
-This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns.
-\end{quote}
+This is an addendum to my decision letter and the two reviews of your manuscript.  I am satisfied that the reviewers read your work carefully, and that their recommendations are fair, thoughtful, and potentially useful.  While I sympathize with R1’s concern that the manuscript is better suited to a research journal, I think it could be revised to make a valuable contribution to AJP, which, as you know, is geared toward pedagogy.  So as I read your manuscript, I recorded things that were not sufficiently clear to me, supposing that the same things might not be clear to many AJP readers who might be very interested in duplicating your apparatus.  Here are some of my concerns. \\
 
 \noindent 1. Simple things: Convert footnotes to endnotes, blending them in with the bibliography.  Also, use US English (color, not colour; defense, not defence, etc.). 
 \begin{itemize}
@@ -38,8 +33,8 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 3. Section IV.  The term “Markov process” may not be familiar to readers.  Figure 4: The three shades (or are there four?) indicating probability do not show up well in color, and worse, will be indistinguishable in black/white.  I’m guessing that’s the reason I didn’t understand why certain paths were grey and not black.  While I applaud your efforts to explain the Viterbi algorithm (VA), I still think there’s room for improvement.  I don’t understand how it improves the signal to noise ratio. 
 \begin{itemize}
 \item Markov process: We have added a sentence to explain Markov processes in Section IV A, ``In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal).''
-\item Figure 4: We have lightened the color scheme used in the Figure 4 schematic to aid with black and white printing. The colors represent a gradient rather than a discrete shading and we now use a blue/green color palette to clarify this. We intend that the Figure 4 schematic be interpreted as a simplified version of the Figure 6 (previously Figure 5) spectrogram result. To clarify this we have made the color scheme of the schematic more consistent with that of Figure 6 and we have referred back to the schematic when we first introduce Figure 6. 
-\item The grey paths in Figure 4 are those that have been rejected at each timestep. We have clarified this in the text and caption. 
+\item Figure 5 schematic (previously Figure 4): We have lightened the color scheme used in the Figure 5 schematic to aid with black and white printing. The colors represent a gradient rather than a discrete shading and we now use a blue/green color palette to clarify this. We intend that the Figure 5 schematic be interpreted as a simplified version of the Figure 6 (previously Figure 5) spectrogram result. To clarify this we have made the color scheme of the schematic more consistent with that of Figure 6 and we have referred back to the schematic when we first introduce Figure 6. 
+\item The grey paths in Figure 5 are those that have been rejected at each timestep. We have clarified this in the text and caption. 
 \item The hidden Markov model and Viterbi algorithm's strength is in its ability to find randomly wandering signals. The single constant tone in section III is recovered easily using a Fourier transform, however if the signal frequency changes over time, the signal power is spread across multiple frequency bins. We have added a new figure to illustrate this (Figure 4) and some text at the start of Section IV (paragraph 2) and the end of Section IV B to explain that the Fourier transform of the whole dataset is not well suited to this type of signal.
 \item We have also revised the entire Section IV to improve clarity in our Viterbi algorithm explanation and motivation.
 \item[]
@@ -48,8 +43,8 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 4. Figure 5 is described as a heatmap.  Please explain, in the caption, what the color coding indicates.  Can you compare what is shown to what would be detected without using the VA?  Is this ``heatmap'' the same representation as is often shown in LIGO publications?
 \begin{itemize}
-\item Figure 5 (now Figure 6) colors: The color coding represents the logarithm of the absolute value of the discrete Fourier transform. We have added this to the caption.
-\item Comparison without VA: Without using the Viterbi algorithm the signal becomes spread out over the frequency bins and might not rise above the noise. We have now explained this and added a plot that shows the Fourier spectrum of the entire timeseries to illustrate that the Fourier transform is not well suited here. (See also our answer to point 3 above).
+\item Figure 6 (previously Figure 5) colors: The color coding represents the logarithm of the absolute value of the discrete Fourier transform. We have added this to the caption.
+\item Comparison without VA: Without using the Viterbi algorithm the signal becomes spread out over the frequency bins and might not rise above the noise. We have now explained this and added a new figure (Figure 4) that shows the Fourier spectrum of the entire timeseries to illustrate that the Fourier transform is not well suited here. (See also our answer to point 3 above).
 \item Heatmap representation: The heatmap is similar to the figures in LIGO-Virgo-KAGRA publications which show transient gravitational-wave signals, but not identical. Those figures normally show Q-transforms (described in Chatterji, et al., Classical Quantum Gravity 21, S1809 2004). Our work instead shows the Fourier transform at each time-frequency grid point in the spectrogram. We have decided not to draw comparisons to the Q-transform plots in our manuscript to avoid confusion.
 \item[]
 \end{itemize}
@@ -58,7 +53,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 5. Section V.  What do you mean by an optical microphone device?  “Cloth screen” over the photodiode?  Fig. 6 is unnecessary; the differences from Fig. 1 are explained clearly in the text.
 \begin{itemize}
 \item Optical microphone: we have rearranged the text so that the optical microphone concept is introduced in a separate paragraph and expanded our discussion of it to improve clarity (Section V, paragraph 2).
-\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify. %\han{clarify cloth screen given Andrew's comment}
+\item The cloth screen was used to reduce the intensity of light on the photodiode and avoid saturating the analog-to-digital converter. It was indeed an improvised solution using the ``grill cloth'' and plastic frame from the dismantled commercial speaker used in the demonstration. We have added a sentence to the end of Section V A to clarify. 
 \item Figure 6: agreed, we have removed this figure and moved the photo to the Supplementary Material.
 \item []
 \end{itemize}  
@@ -68,7 +63,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \noindent 6. Figure 7: why is there a -100 dB difference in the signal level from 7a to 7b?  
 \begin{itemize}
-\item The Butterworth filter has strongly attenuated the signal outside the passband, this sharp drop-off at low frequencies would appear shallower when shown against a logarithmic scale for frequency as in Fig.~3 in the Supplementary Material. A note has been made in the Supplementary Material where this plot has been moved to.
+\item The Butterworth filter has strongly attenuated the signal outside the passband, this sharp drop-off at low frequencies would appear shallower when shown against a logarithmic scale for frequency as in Figure~3 in the Supplementary Material. We have made a note of this in the Supplementary Material where this plot has been moved to.
 \item[]
 \end{itemize}
 
@@ -83,7 +78,7 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 \noindent 8. Where in your flowchart are the various filters you describe?  Are the codes for them readily available?  How does one implement a filter?  
 \begin{itemize}
 \item The filters are performed separately after the data is gathered. We have added a sentence to the figure caption to clarify this. 
-\item All of the code is readily available on the provided GitHub. The provided code is documented and commented to ease reproducing the results. For the double-blind peer review, we removed the link to our git repository from the manuscript. 
+\item All of the code is readily available on the provided GitHub. The provided code is documented and commented to ease reproducing the results. For the double-anonymous peer review, we removed the link to our git repository from the manuscript. 
 \item[]
 \end{itemize}
 
@@ -94,9 +89,8 @@ This is an addendum to my decision letter and the two reviews of your manuscript
 
 \subsection*{Comments from R3}
 
-\begin{quote}
-The paper describes a table top interferometer for demonstrating the basic operating principles of gravitational wave (GW) detectors. Audio signals are used to demonstrate gravitational wave data analysis techniques for the detection and estimation of signals in noisy data. The paper is well written and will be of interest to educators who wish to provide some hands-on training to students in GW astronomy. I have some comments below that the authors should address.
-\end{quote}
+
+The paper describes a table top interferometer for demonstrating the basic operating principles of gravitational wave (GW) detectors. Audio signals are used to demonstrate gravitational wave data analysis techniques for the detection and estimation of signals in noisy data. The paper is well written and will be of interest to educators who wish to provide some hands-on training to students in GW astronomy. I have some comments below that the authors should address. \\
 
 \noindent 
 -- The data analysis problems discussed in this paper are related to continuous wave searches. However, I did not find a mention of the key feature involved in these searches, namely, Doppler modulation of the signal frequency caused by the rotation of the Earth. This is the principal reason behind the extremely high computational cost of CW searches. A discussion of doppler modulation should be included. (It would be neat if the setup could be extended in the future to show the Doppler effect.)
@@ -109,7 +103,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- Is the HMM defined properly in Sec. IV A? The observables here are the amplitudes of the spectrogram pixels at a given time index and the hidden markov process is the underlying drift of frequency and amplitude of the signal. I was expecting to see a conditional pdf that connects the state of the underlying (suitably discretized) process to the observables. I don't see it.
 \begin{itemize}
-\item We have clarified the explanation of the HMM in the text. The detection statistic $F(t_i, f_j)$ captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data, where we have dropped the conditionally from the notation to avoid clutter. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission matrix by name to reduce confusion.
+\item We have clarified the explanation of the HMM in the text. The detection statistic $F(t_i, f_j)$ captures the likelihood of a signal being present in each time-frequency bin conditional on the observed data, where we have dropped the conditionally from the notation to avoid clutter. In Section IV A we have expanded our description of gravitational wave analysis and referred to both the transmission matrix and emission probability by name to reduce confusion.
 \item[]
 \end{itemize}
 
@@ -123,7 +117,7 @@ The paper describes a table top interferometer for demonstrating the basic opera
 \noindent
 -- The normalization used for $F(t_i, f_j)$ should be defined explicitly. 
 \begin{itemize}
-\item Each value is divided by the maximum value in the grid such that $\max_{i,j} F(t_i, f_j) = 1$. We have added this information to section IV B.
+\item Agreed, each value is divided by the maximum value in the grid such that $\max_{i,j} F(t_i, f_j) = 1$. We have added this information to section IV B.
 \item[]
 \end{itemize}
 
@@ -158,9 +152,6 @@ $\ast$ Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 9
 \item The hidden Markov model (HMM) and Viterbi algorithm is not a new approach for gravitational wave analysis. It is used in many searches for continuous waves to date (for example Abbott et al., Phys. Rev. D, 100(12):122002, Dec 2019) and the methods papers are described in Suvorova et al., Phys. Rev. D, 96(10):102006, November 2017 and Suvorova et al. Phys. Rev. D, 93(12):123009, June 2016. We have clarified throughout the paper that these methods are not new and that we use real continuous wave searches as inspiration for our table-top demonstration. The HMM and Viterbi method enable a search for persistent gravitational waves where the signal model allows for the continuous wave frequency to change unpredictably over months and years. We note that many of the papers listed above are about searching for transient signals rather than the persistent signals considered here. 
 \item We have added a new subsection (Section IV A in the revised draft) to emphasize that these techniques are not new and that they are inspired by real continuous wave searches. In this section, we have pointed the reader to the search papers and methods papers that use HMM and Viterbi. We have also added references to other (non-Viterbi) continuous-wave search methods. Finally, we point the interested reader, who would like to know more about chirp or transient searches, to the papers suggested above. 
 \item[]
-%It is important to clarify that we are not searching for chirp signals in this work, we are simulating a signal with wandering frequency as an analoge to continuous wave signals whose frequencies can wander stochastically over time. 
-%\item [what we have done]. We have clarified that the method is not new in a new subsection in section IV (section IV A) reviewing how these methods are used in gravitational wave analysis before describing our application of the methods in this work. %\todo{We also add references to a ......}
-%\item \han{[from Hannah] These papers are addressing how to detect an unknown chirp signal from a compact binary merger. I think it may be relevant in some cases, but will take a look at the papers. We should also emphasise that the analysis is not new and that we have referenced the papers for the techniques we use. }
 \end{itemize}
 
 \noindent
@@ -199,17 +190,13 @@ $\ast$ Margaret Millhouse, Neil J. Cornish, and Tyson Littenberg, Phys. Rev. D 9
 
 \subsection*{Comments from R1}
 
-\begin{quote}
-This is a very interesting paper written in a clear and informative language. However, I don’t think that it suits the style of papers in AJP because it represents a novel idea of teaching and exploring gravitational waves with audio signals. After reading and inspection of the manuscript I came to the  conclusion  that it is a  research  paper  which should pass  through critical discussion  with researchers  from gravitational  wave  community who  should  confirm  that  the audio signals produced in the way proposed in the manuscript, can indeed mimic real gravitational wave signals without confusion of students and teachers. Gravitational waves are transverse-traceless while the sound waves are purely longitudinal. In this respect there is no analogy between gravitational waves and audio signals whatsoever. At the same time, the principles of extraction of signal from noise and the filtering technique worked out in the manuscript are applicable in a wide range of physical disciplines and may be useful for the gravitational wave community as well. On the other hand, I cannot imagine how teachers of physics will explain the complexity of the Wiener filter, the Markov chain, the Viterbi algorithm to high school students or even to undergraduate students in university college. Signal processing technique is based  on a  high  level  mathematics (statistics, probability theory, stochastic processes, etc.) and engineering. In my opinion, the paper is too complicated both technically and mathematically for publishing in AJP. I am convinced that this is a very good and high-quality research  paper but  my  fair  opinion  is  that the authors should submit  it  to  Physical Review D or another peer-review physics journal. 
-\end{quote}
+This is a very interesting paper written in a clear and informative language. However, I don’t think that it suits the style of papers in AJP because it represents a novel idea of teaching and exploring gravitational waves with audio signals. After reading and inspection of the manuscript I came to the  conclusion  that it is a  research  paper  which should pass  through critical discussion  with researchers  from gravitational  wave  community who  should  confirm  that  the audio signals produced in the way proposed in the manuscript, can indeed mimic real gravitational wave signals without confusion of students and teachers. Gravitational waves are transverse-traceless while the sound waves are purely longitudinal. In this respect there is no analogy between gravitational waves and audio signals whatsoever. At the same time, the principles of extraction of signal from noise and the filtering technique worked out in the manuscript are applicable in a wide range of physical disciplines and may be useful for the gravitational wave community as well. On the other hand, I cannot imagine how teachers of physics will explain the complexity of the Wiener filter, the Markov chain, the Viterbi algorithm to high school students or even to undergraduate students in university college. Signal processing technique is based  on a  high  level  mathematics (statistics, probability theory, stochastic processes, etc.) and engineering. In my opinion, the paper is too complicated both technically and mathematically for publishing in AJP. I am convinced that this is a very good and high-quality research  paper but  my  fair  opinion  is  that the authors should submit  it  to  Physical Review D or another peer-review physics journal. \\
+
 
 \begin{itemize}
 \item Suitability for AJP: We thank you for the recommendations regarding the suitability and complexity of this manuscript. Following the advice of the editor and referee R3, we have moved the majority of Section V to Supplementary Material so that the main text is now less technical and the interested reader can still see our selection of analysis examples. We now only focus on two highlight results in the main text Section V. We have also clarified our description of the Viterbi method following recommendations from the editor and R3. 
 \item Use of audio signals: We agree that there is indeed a fundamental difference between sound waves and gravitational waves. In Section II, we have clarified that we are using sound as an analogy. For this table-top experiment, we require a signal that behaves similar to gravitational waves in that it alters the interference pattern produced by a Michelson interferometer. Using a speaker and audio signals provides a simple and relatively cost-effective means to do this, compared to, for example, a piezo-electric crystal fixed to the back of a mirror as used in some gravitational wave demonstrations (e.g. Cooper et al., arXivv e-prints 2004.03052, 2020). The main focus of this study is the extraction of a signal from interferometer data using a series of analysis techniques, some of which are inspired by continuous gravitational-wave searches. However we emphasize that both the simulated signal and the extraction approaches in the table-top experiment differ from real gravitational-wave experiments in many important ways, e.g. diurnal amplitude modulation, Doppler frequency modulation due to proper motion of the source, colored noise, nonstationary glitches in the operation of the interferometer, quantum effects in the measurement, and so on. The table-top system represents a simplified analogy of a research-level system and real signals.  We also note that the use of sound as an analogy to gravitational-wave signals is not novel and is used by many gravitational-wave research groups to aid in their explanations (for example Sounds of Spacetime \texttt{https://www.soundsofspacetime.org/} and Black Hole Hunter \texttt{blackholehunter.org})
 \item[]
-%\item \han{> Thoughts on this [Hannah]: The use of audio as an analogy to gravitational waves is not novel to this work. Sound has been used in numerous situations to convey the concept of gravitational wave signals to general audiences [will add references]. It is of course true that sound is not the same as gravitational waves, however in this work we are focusing on the extraction of a signal from an interferometer to demonstrate a series of analysis techniques, some of which are related to gravitational wave analysis. [will think about this some more and very happy to hear other thoughts on how we respond here -Hannah]}
-%\item \jam{(1) The audio analogy is not novel, (2) the interferometer is a toy model for demonstration and teaching not for research, i.e.\ I doubt our analysis techniques are useful to the gravitational wave community in any novel way, (3) as long as we are clear in the text (todo added below) about the difference and that we are demonstrating the analysis techniques then I think that there isn't an issue, (4) we have heavily edited the signal processing section and worked on the Viterbi algorithm section which I believe (the Viterbi algorithm) is understandable to even high-school students if the explanation without using Markov models or Fourier transforms is given, i.e. the pseudocode.  - James}
-%\item \todo{Clearly state the differences between gravitational waves and sound waves in the text but reiterate that despite these differences our demonstration is still useful to explain signal analysis techniques used for gravitational waves.}
 \end{itemize}
 
 
