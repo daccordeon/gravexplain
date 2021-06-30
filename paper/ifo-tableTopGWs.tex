@@ -9,15 +9,14 @@ In a Michelson interferometer, laser light is split by a beamsplitter into two p
 Mirrors at the end of each arm reflect the two beams back to the beamsplitter where they recombine to produce an interference pattern.
 The resulting interference pattern is dependent on the relative distance traveled by the beams. 
 Current generation gravitational-wave observatories have kilometer-scale arms (with arm lengths $4\,{\rm km}$ and $3\,{\rm km}$ at LIGO and Virgo, respectively). 
-They can measure minuscule changes in distance due to gravitational waves, e.g.\ the first detection of a binary black hole merger produced a strain of $10^{-21}$~\cite{GW150914}, corresponding to a change in distance which is a fraction of the width of a proton. 
+They can measure minuscule changes in distance due to gravitational waves; e.g., the first detection of a binary black hole merger produced a strain of $10^{-21}$~\cite{GW150914}, corresponding to a change in distance equal to a fraction of the width of a proton. 
 
 
 
 Sound is a commonly used analogy when explaining gravitational-wave science. 
 Gravitational-wave signals from binary black hole and neutron star mergers can be converted to audio signals~\footnote{When introducing the acoustic analogy to lay audiences, it is important to emphasize that gravitational waves are not sound. For example, gravitational waves can propagate in a vacuum, whereas sound cannot. Gravitational waves also travel at the speed of light and are not longitudinal waves.} to aid in explanations~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}.
 Detection and analysis techniques used by the gravitational-wave community can be demonstrated using table-top equipment (see Refs.~\cite{TTExhibit:2020,TTExhibit:online,AMIGO:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999} for a selection of other table-top Michelson interferometer designs used for science communication).
-Sound vibrations provide a simple means to move the components of a demonstration interferometer. 
-The vibrations move the mirrors, changing the length of the interferometer arms, and therefore the interference pattern.
+Sound vibrations provide a simple means to move the components of a demonstration interferometer, changing the length of the interferometer arms, and therefore the interference pattern.
 We use audio signals throughout this work to simulate gravitational-wave-like signals.
 
 
@@ -45,8 +44,8 @@ The beams recombine at the beamsplitter and produce an interference pattern that
 The interference pattern, as shown by the photograph in Fig.~\ref{fig:interference_pattern}, is a set of concentric light and dark rings (fringes). 
 A change in the relative length of the arms causes these rings to move radially in or outwards.
 Further design details for Michelson interferometers can be found in Ref.~\cite{TTExhibit:2020}.
-The intensity timeseries is recorded via webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}.
-In Section~\ref{sec:optical_microphone}, which considers more complex audio, the webcam is replaced with a photodiode, which offers a higher sample rate than the webcam. 
+\textbf{The intensity timeseries recorded by the webcam is discussed in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}.}
+When capturing more complex audio (Section~\ref{sec:optical_microphone}), the webcam is replaced by a photodiode, which offers a higher sample rate than the webcam. 
 
 
 
@@ -65,7 +64,7 @@ The central bright fringe of the interference pattern is approximately $5\,{\rm 
 The motion of the interference fringes follows the motion of M2, and therefore of the speaker.
 The amplitude of these motions is given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
 If the relative change in the length of the arms is kept small enough, then the intensity of the interference pattern at any point on the screen oscillates at the same frequency as the injected audio.
-But if the relative change in the length of the arms is large enough for multiple fringes to pass over the measured point in a single speaker deformation, then over-counting artificially raises the measured frequency.
+For larger relative length changes, multiple fringes will pass through the detection point during a single speaker oscillation, raising the measured frequency artificially. 
 As such, any motion of the fringes must be kept small by playing the sound softly through the speaker.
 % too much to have --- and () in the same sentence I think 
 Even without over-counting, large fringe motions display a nonlinear relation between the intensity fluctuations and injected audio, leading to troublesome---but physically interesting---phenomena like frequency doubling.
