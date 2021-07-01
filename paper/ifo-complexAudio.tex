@@ -2,9 +2,9 @@
 
 \begin{document}
 
-In this section, we explore how this demonstration can be used to teach a selection of signal processing techniques. 
-We use complex audio signals (such as music and speech) as a natural successor to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} respectively.
-As complex audio signals are not quasi-monochromatic, the Viterbi algorithm as used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
+In this section, we explore how our apparatus can be used to teach a selection of signal processing techniques. 
+We use complex audio signals (such as music and speech) as a natural successor to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, respectively.
+As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
 We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
@@ -16,7 +16,7 @@ Our objective is to play a recording of speech or music through the speaker atta
 This analysis is indirectly related to the advanced signal processing techniques required to extract gravitational-wave signals. 
 In addition, the apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
-We consider a selection of filter techniques, details of which can be found in the Supplementary Material and we refer the reader to Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045, DigitalProcingOfSpeechSignals:1978} for further information on digital signal processing. 
+We consider a selection of filter techniques, details of which can be found in the Supplementary Material, and we refer the reader to Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045, DigitalProcingOfSpeechSignals:1978} for further information on digital signal processing. 
 In Section~\ref{sec:opticalMicResults}, we present the two best-performing analyses from our Supplementary Material. 
 
 
@@ -28,7 +28,7 @@ Speech intelligibility (being able to understand speech) requires frequencies up
 This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
 To overcome this issue, we use a photodiode~\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
 
-We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together make a photo-detector that produces a voltage that depends on the incident intensity. 
+We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together produce a voltage that depends on the incident intensity. 
 The photodiode records the interference pattern at roughly the same off-center position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, again chosen arbitrarily.
 % I think this is probably not needed as I believe the editor comment is referring to the cloth screen over the photodiode, which is addressed below. 
 %The photodiode is mounted on a piece of cloth stretched over a plastic frame, with the electrical leads connected underneath the cloth.
@@ -54,24 +54,16 @@ During recordings, care is taken to minimize activity around the demonstration t
 The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. 
 When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
 
-The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass hum throughout. 
-This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., with the speaker switched off), as shown in Fig.~\ref{fig:psd_noise}. 
-The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond $8$th harmonic thereof. 
-The mains signal is also present (but far weaker) in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
+The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass continuous hum. 
+This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., with the speaker switched off), shown in Fig.~\ref{fig:psd_noise}. 
+The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond $8$th harmonic. 
+The mains signal is also present but far weaker in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
 Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. 
 The appearance of harmonics of the mains noise is likely due to the non-linearity discussed in Appendix~\ref{app:intensity_derivation} (see also Ref.~\cite{feynman}). 
 The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
+Environmental noise reduction for gravitational-wave detectors is an active area of research (see the accompanying Supplementary Material for further information and resources on this topic).
 
 
-Environmental noise reduction for gravitational-wave detectors is an active area of research~\cite{EfflerEtAl:2015}. 
-One such noise source is due to seismic ground motion from the Earth. 
-In gravitational-wave observatories, the optical components are suspended from a series of pendulums to achieve passive isolation, and feedback control loops provide active isolation\cite{MatichardEtAl:2015, AdvancedVirgo:2015}. 
-Such a system is beyond the scope of this article, however feedback control has been demonstrated in table-top Michelson interferometers designed for the undergraduate laboratory~\cite{LibbrechtBlack:2015}.
-Other sources of noise include acoustic sound waves (for example from nearby vehicles, wind, and components such as electric fans) and magnetic noise (for example from high-voltage power lines, building heaters and lights, or any electrical power circuit)~\cite{EfflerEtAl:2015,CironeEtAl:2019}.
-In some cases, environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
-Where this is not possible, noise subtraction can be done after data collection~\cite{DriggersEtAl:2019, DavisEtAl:2019}. 
-One example is the removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. %United States's?
- 
 
 
 \begin{figure}
@@ -105,8 +97,8 @@ The fourth row shows the result of applying the logMMSE estimator, where the ris
 We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics, and also to improve the speech intelligibility of the recording.
 The accompanying Supplementary Material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
 All filters are tested on the same $1\,{\rm s}$ long speech recording.
-The results of this section are shown in Fig.~\ref{fig:notchWienerLogMMSEResults} which we refer to throughout. 
-In Fig.~\ref{fig:notchWienerLogMMSEResults} the left and right columns show the timeseries and frequency spectrum respectively. 
+The results of this section are shown in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
+In the figure the left and right columns show the timeseries and frequency spectrum respectively. 
 The first row shows the input signal played through the speaker (see Fig.~\ref{fig:ifo_schematic_webcam}). 
 The second row shows the raw output from the photodiode recording. 
 
@@ -118,12 +110,13 @@ In signal processing, the ideal filter would be one that:
 (ii) does not change the rest of the spectrum, and 
 (iii) smoothly transitions between these regions, as to not damage the time domain signal when seen under convolution. 
 However, these three conditions cannot all hold at once. For example, if conditions (i) and (ii) hold, then the filter must be discontinuous at the boundary of the undesired region but this implies that the filter has ``infinite latency'' and so will affect (or damage) the time domain signal for infinite time~\cite{10.5555/151045}. Therefore, any filter must compromise between these three conditions. For speech intelligibility, this means that either: (i) some noise remains in the filtered recording, (ii) some of the speech content is lost as certain important frequencies are attenuated, or (iii) the speech is somewhat distorted in time.
-All three of these cases can, when taken to the extreme, make the speech intelligibility worse than the unfiltered recording, i.e.\ the results can be worse than doing no filtering. Therefore, we choose filters that compromise between achieving the three conditions.
+All three of these cases can, when taken to the extreme, make the speech intelligibility worse than the unfiltered recording. 
+Therefore, we choose filters that compromise between achieving the three conditions.
 % All three of these cases can, in extreme cases, worsen speech intelligibility beyond the unfiltered recording and so we choose filters that compromise between achieving the three conditions.
 
 
 In this section, we present the results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
-The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and some other analysis techniques. 
+The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and other analysis techniques. 
 
 
 Firstly, we consider two signal processing techniques used in combination: the cascaded notch~\cite{10.5555/541204} and the Wiener filter~\cite{10.5555/151045}. 
@@ -131,14 +124,14 @@ A notch filter removes signals within a specific frequency range.
 We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
 It amplifies parts of the signal with high signal-to-noise (SNR) ratio while suppressing parts with low SNR. 
-The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\ref{fig:notchWienerLogMMSEResults} where the timeseries and spectrum are shown by the left and right panels respectively. 
-Most of the mains noise is removed, however, the recovered voice sounds muffled and is not understandable. 
+The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
+Most of the mains noise is removed, however the recovered voice sounds muffled and is not understandable. 
 
 
 Secondly, we apply a speech enhancement technique. 
 Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
 We use an existing implementation of the logMMSE from~\cite{logmmse}.  
-The logMMSE estimator results are shown in the bottom panel of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
+The logMMSE estimator results are shown in the bottom panels of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 
 Most of the background noise is removed, however, the logMMSE does not significantly enhance the speech as the voice sounds muffled and indistinct.
 
