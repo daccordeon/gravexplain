@@ -18,17 +18,19 @@ The audio analogue to these continuous wave signals is a tone that wanders in fr
 Although continuous gravitational waves are nearly monochromatic, the long observing times ($\sim 1\,{\rm yr}$) mean that searches are sensitive to very small frequency drifts. 
 A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation. 
 A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars\cite{MelatosDouglassSimula:2015,Jones:2010}, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs~\cite{BildstenTB:1998}. 
-The audio analog is a tone that wanders in frequency: a note that changes in pitch. 
+The audio analog is a tone that wanders in frequency.
 
 
-
+%%%%%%%%%%%%%%%%%%%%%% Comment from editor to remove this figure
 We first demonstrate why a Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case.
 As shown in Fig.~\ref{fig:viterbi_comparison_webcam_spectrum}, the signal is spread across multiple frequency bins, making it challenging or in some cases impossible to detect.
+
+
 %A different means of detection is needed for a signal which has a randomly wandering frequency. 
 
 In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
 The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
-In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo, in Section~\ref{sec:viterbi}, we describe the methods as applied in this work, and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
+In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo; in Section~\ref{sec:viterbi}, we describe the methods as applied in this work; and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
 \begin{figure}
 	\includegraphics[width=.5\textwidth]{figures/viterbi_comparison_entire_spectrum_viterbi_test_webcam.pdf}
@@ -61,8 +63,8 @@ In this context, ``significantly'' means across multiple frequency bins, where t
 %One method to search for a wandering signal is to split the timeseries data into several shorter segments which are analyzed individually.
 
 
-In Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}, a hidden Markov model is used to search for continuous gravitational waves. 
-In a Markov process, the current state depends only on the previous state (in this case the state is the frequency of the signal). 
+In Refs.~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}, a ``hidden Markov model'' is used to search for continuous gravitational waves. 
+In a Markov process, the current state depends only on the previous state (in this case the ``state'' is the frequency of the signal). 
 In a hidden Markov model, the frequency state of the signal is unknown (hidden) and can undergo transitions at discrete times. 
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. 
 
@@ -70,12 +72,12 @@ The transitions are Markovian in that the hidden state (i.e.\ frequency) of the 
 A detection statistic relates the observed data to the hidden state and quantifies the likelihood of a signal being present in the data at each frequency and time bin.
 This likelihood is also called the emission probability in gravitational-wave literature.  
 In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
-If searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
+When searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
 
 
 In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
 This is called the transition probability matrix. 
-In LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin at each time step~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017,  MiddletonEtAlO2LMXBs:2020}. 
+For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017,  MiddletonEtAlO2LMXBs:2020}. 
 In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin~\cite{MillhouseStrangMelatos:2020, SunEtAlSNR:2018}. 
 
 
