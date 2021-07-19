@@ -143,7 +143,7 @@ The probability of a specific path given the data is
 \label{eqn:pathprobability}
 \end{eqnarray}
 The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
-We note that there is no marginalization \han([What does marginalization mean? Do you mean no hard barriers?]) used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
+We note that there is no marginalization \han{[What does marginalization mean? Do you mean no hard barriers?]} used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 %The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
 %\begin{eqnarray}
 %{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
@@ -157,7 +157,7 @@ We note that there is no marginalization \han([What does marginalization mean? D
 
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
-At every $t_i$ all but $N_f$ possible paths are eliminated (see also Ref.~\cite{ScoX1ViterbiO1:2017}). 
+At every $t_i$ all but $N_f$ possible paths are eliminated. 
 Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}. %, where the circles indicate the elements in the spectrogram with the lighter colors corresponding to a higher likelihood. 
 The implementation used in this work is available online (see Appendix~\ref{app:code}).
 \begin{enumerate}

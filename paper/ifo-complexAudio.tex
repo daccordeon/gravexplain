@@ -24,7 +24,8 @@ In Section~\ref{sec:opticalMicResults}, we present the two best-performing analy
 \subsection{Hardware modifications for the optical microphone}
 \label{sec:photodiode}
 The human ear can hear frequencies in the range of $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
-Speech intelligibility (being able to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$~\cite{speech_intelligibility}. Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). 
+Speech intelligibility (being able to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$. 
+Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). 
 This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
 To overcome this issue, we use a photodiode~\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
 
@@ -33,11 +34,11 @@ The photodiode records the interference pattern at roughly the same off-center p
 % I think this is probably not needed as I believe the editor comment is referring to the cloth screen over the photodiode, which is addressed below. 
 %The photodiode is mounted on a piece of cloth stretched over a plastic frame, with the electrical leads connected underneath the cloth.
 %This cloth screen mount was the ``grill cloth'' from the front of a dismantled commercial speaker, re-purposed. 
-The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2~\cite{RaspberryPi:online} (henceforth: Pi), which provides a convenient means to record the photodiode data.
+The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit analog-to-digital converter (ADC) connected to a Raspberry Pi Model 3 v1.2 (henceforth: Pi), which provides a convenient means to record the photodiode data.
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. 
 Resources for using the Pi and photodiode, including a circuit diagram, are described in Appendix~\ref{app:circuit_diagram}.
 
-Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing~\footnote{Folding of frequencies greater than half the sampling rate.} into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
 This component attenuates any frequencies above $8\,{\rm kHz}$ before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
 % It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).

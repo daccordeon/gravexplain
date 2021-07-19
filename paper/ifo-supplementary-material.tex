@@ -164,10 +164,11 @@ OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitatio
 Here we provide a selection of resources and reading material on the following topics: Section A \han{will list topics when finalised}
 
 
-\subsection{Gravitational wave obesrvations}
+\subsection{Gravitational-wave observatories and observations}
+The current network of ground-based gravitational-wave observatories includes the Advanced Laser Interferometer Gravitational-wave Observatory (LIGO~\cite{AdvancedLIGO:2015}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013}. 
 Gravitational waves have been observed from compact binary coalescences. 
 For more information on observations of binary black hole mergers see Refs~\cite{GW150914,GW151226,GW170104,GW170814,GW190521,GWTC-1:2018,GWTC-2:2020,GWTC-1:2018}, for binary neutron star mergers see Refs~\cite{GW170817,GW170817multi,GW190425,GWTC-1:2018,GWTC-2:2020} and for neutron star-black hole mergers~\cite{NSBH:2021,GW190814}.
-
+More information about gravitational waves can be found in Refs.~\cite{Maggiore:2007,CBCs:2014,ObsScenarioDoc:2020,Einstein:1916}.
 
 \subsection{Continuous wave searches}
 \label{sec:GWSsearches}
@@ -197,9 +198,19 @@ Where this is not possible, noise subtraction can be done after data collection~
 One example is the removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. %United States's?
  
 
-\subsection{Software}
+\subsection{Hardware and software}
+In Section~V in the main text, we make use of a Raspberry Pi to record data from the interferometer. 
+For further information and documentation see Refs~\cite{RaspberryPi:online,pidocumentation:online}.
+
 This work is implemented in Python Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. 
 We make use of Python packages: numpy~\cite{numpy}\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html}}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
+
+
+
+
+
+\subsection{speech}
+For more information on speech intelligibility see Refs.~\cite{speech_intelligibility}
 
 
 
@@ -301,6 +312,7 @@ See also Section~\ref{sec:notch} where we explore a notch filter.
 A high-pass filter smoothly attenuates frequencies below some cut-off frequency. 
 Applying a high-pass filter, with a cut-off frequency around $150\,{\rm Hz}$, to the signal spectrum works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics. However, the mains harmonics above $100\,{\rm Hz}$ remain. A high-pass filter with a higher cut-off can be used to mitigate this issue. However, it makes the played-back signal unrecognizable as the region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of speech and music~\cite{speech_intelligibility}.
 Often in speech processing, the logarithm of the signal is taken since the amplitude information seems to be more important to intelligibility than the phase information to the human ear~\cite{SubjectiveComparison}. However, applying a high-pass filter to the logarithm of the signal spectrum does not significantly improve on the above simple high-pass filter.
+
 
 
 \subsection{Butterworth band-pass filter}
