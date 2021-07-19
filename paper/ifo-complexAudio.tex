@@ -51,7 +51,7 @@ This component attenuates any frequencies above $8\,{\rm kHz}$ before they are d
 %The source audio was played through the speaker with the optical microphone recording for the full duration of the audio (around a minute long for most sources). 
 We test the optical microphone with a variety of recordings, including the speech of different people and music ranging from simple melodies and rhythms to songs. 
 During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
-The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python~\cite{scipy,python}. 
+The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python (see Appendix~\ref{app:code}). % moved refs \cite{scipy,python}. 
 When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
 
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass continuous hum. 

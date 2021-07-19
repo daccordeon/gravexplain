@@ -16,7 +16,7 @@ Here we consider the audio analog of a tone that wanders in frequency.
 
 A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case as the signal is spread across multiple frequency bin. 
 In continuous wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
-The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
+The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2017}. 
 In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo; in Section~\ref{sec:viterbi}, we describe the methods as applied in this work; and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
 % Removing figure after editor request. 
@@ -41,8 +41,7 @@ A single Fourier transform of the entire dataset is not well suited to detecting
 %\han{from Andrew: sec IVA, first para - since ref mentioned other searches, it would be good to have 1-2 brief sentences accompanying the references which mention what those "other searches" are (broad categories, for instance, just so that there is some guidance for the reader)}
 
 The methods used here are inspired by LIGO-Virgo continuous wave searches. 
-For further details on these methods and searches see Refs.~\cite{SuvorovaEtAl:2016, SuvorovaEtAl:2017, ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017, BeniwalEtAl:2021, MillhouseStrangMelatos:2020, JonesSun:2020, MiddletonEtAlO2LMXBs:2020, PostMergerRemnantSearch:2019, BayleyEtAlSOAP:2019, SunEtAlSNR:2018}.
-For a range of other continuous wave search methods we refer the reader to references in the Supplementary Material. 
+For further details on these methods and continuous wave searches generally we refer the reader to references in the Supplementary Material. 
 
 
 Continuous-wave searches are performed on long datasets, months to years in duration. 
@@ -51,7 +50,7 @@ In this context, ``significantly'' means across multiple frequency bins, where t
 %One method to search for a wandering signal is to split the timeseries data into several shorter segments which are analyzed individually.
 
 
-A ``hidden Markov model'' can be used to search for continuous gravitational waves~\cite{SuvorovaEtAl:2016,SuvorovaEtAl:2017}. 
+A ``hidden Markov model'' can be used to search for continuous gravitational waves~\cite{SuvorovaEtAl:2017}. 
 In a Markov process, the current state depends only on the previous state (in this case the ``state'' is the frequency of the signal). 
 In a hidden Markov model, the frequency state of the signal is unknown (hidden) and can undergo transitions at discrete times. 
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. 
@@ -65,8 +64,8 @@ When searching for continuous waves from a neutron star in a binary (such as an 
 
 In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
 This is called the transition probability matrix. 
-For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017,  MiddletonEtAlO2LMXBs:2020}. 
-In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin~\cite{MillhouseStrangMelatos:2020, SunEtAlSNR:2018}. 
+For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019}. 
+In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin (see the Supplementary Material for supernova remnant search references). 
 
 
 The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequence of hidden frequency states given the sequence of observables.
