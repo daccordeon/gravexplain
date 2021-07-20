@@ -10,8 +10,8 @@ This project is implemented in Python 3 scripts and jupyter notebooks and MATLAB
 We refer the reader to the Supplementary Material for software references. 
 %This project is implemented in Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. We used the Python packages of numpy~\cite{numpy}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
 The current build and sample data can be found at:
-\textbf{[Removed GitHub web-link for double-anonymous review.]}
-%\url{https://github.com/daccordeon/gravexplain}
+%\textbf{[Removed GitHub web-link for double-anonymous review.]}
+\url{https://github.com/daccordeon/gravexplain}
 % \begin{verbatim}
 % README
 % \end{verbatim}
@@ -115,13 +115,13 @@ From the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum log-li
 
 \section{Viterbi algorithm}
 \label{app:viterbi}
-\han{move to supp. matt.? }
 This appendix contains some details regarding the implementation of the Viterbi algorithm described in Section~\ref{sec:viterbi}. 
 The Viterbi algorithm~\cite{Viterbi:1967} is a classic method in signal processing, whose theoretical underpinnings and implementation are accessible to undergraduate students. 
-The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
+See the Supplementary Material for further resources and other pseudocode examples available online.
+% moved to supp. matt. The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here, we present some pseudocode of the implementation used in Section~\ref{sec:viterbi}. More general pseudocode complete with technical language is available elsewhere online~\cite{viterbipseudocode:online}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
+Here, we present some pseudocode of the implementation used in Section~\ref{sec:viterbi}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
 
 Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the edge cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode below).
 

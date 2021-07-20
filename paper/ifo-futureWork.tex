@@ -17,10 +17,9 @@ The experiment described here can be used to demonstrate and teach a variety of 
 Here, we consider further extensions and improvements to the experiment such as noise isolation, transfer function analysis, speech recognition, and control systems.
 
 
+
 Isolating the experiment from interference may provide some noise reduction. 
-For example, the Raspberry Pi could be powered with a commercial battery instead of mains power. 
-All other components of the circuit draw power from the Pi, so this would isolate the circuit from the mains. 
-The laser is DC-powered through a converter, so the laser should not couple noise from the mains into the interferometer. 
+The Raspberry Pi could be powered with a commercial battery instead of mains power, which may help to isolate the circuit from the mains as all other components draw power from the Pi (the laser is DC-powered through a converter).
 Transferring the circuit from a breadboard to a printed circuit board can also reduce interference~\cite{elfekey2013design}.
 A feedback loop control system can also be used to suppress any unwanted movement of the interferometer components~\citep{abbott2017exploring, Sekiguchi:2016bmv, verhoeven2009robust}, similar to methods used to isolate gravitational-wave observatories. 
 
@@ -37,7 +36,7 @@ These could perform the final stage of speech enhancement for the optical microp
 This coincidentally connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. Alternatively, machine learning solutions exist throughout the field that can compete with statistical techniques such as the logMMSE estimator~\cite{SEGAN}.
 
 
-More traditional techniques such as a wavelet transform (WT) \citep{nason1995stationary} could be used to extract the signal from noise, and compared with the above methods. 
+More traditional techniques such as a wavelet transform (WT)~\citep{nason1995stationary} could be used to extract the signal from noise, and compared with the above methods. 
 A WT provides both time and frequency information, making it easier to pinpoint the origin of noise with respect to time. 
 In Refs.~\cite{tufekci2000feature,agbinya1996discrete}, WT methods are proposed for speech recognition. 
 
