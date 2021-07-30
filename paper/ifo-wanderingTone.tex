@@ -62,7 +62,7 @@ In gravitational-wave data analysis, the detection statistic gives the likelihoo
 When searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
 
 
-In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over at each time. 
+In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over time. 
 This is called the transition probability matrix. 
 For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019}. 
 In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin (see the Supplementary Material for supernova remnant search references). 
@@ -106,7 +106,7 @@ The Viterbi path is the path leading to this circle, highlighted in orange from 
 
 
 The timeseries data from the interferometer is first split into segments. 
-We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude at frequency $f_j$ and time $t_i$, $F(t_i,f_j)$ as the detection statistic (this is the emission probability).
+We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ at frequency $f_j$ and time $t_i$, as the detection statistic (this is the emission probability).
 Assuming Gaussian noise, this detection statistic choice maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
 The detection statistic is normalized for convenience by dividing each value by the maximum Fourier amplitude in the grid (such that $\max_{i,j} F(t_i,f_j) = 1$).
 
@@ -116,7 +116,7 @@ The detection statistic is normalized for convenience by dividing each value by 
 Fig.~\ref{fig:viterbi} represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins.
 The circles represent the elements of the time and frequency grid, which are labelled as  
 $t_i$ and $f_j$ respectively, where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
-The shading of the circles represents the detection statistic $F(t_i,f_j)$ at each grid point, where dark corresponds to lower values and light to higher values. 
+The shading of the circles represents the detection statistic $F(t_i,f_j)$ (the observable) at each grid point, where dark corresponds to lower values and light to higher values. 
 
 
 The objective is to find the most likely path through the grid, given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
@@ -131,9 +131,11 @@ The different line colors are explained below.
 
 %Before beginning the analysis, we assume that the signal is equally likely to start in any frequency bin (i.e. the prior is flat). 
 %The first step of the analysis is to define the probability of the system having frequency $f_j$ at 
-\han{rephrase: `The first two sentences seem to contradict each other. Can you clarify?'}
-The signal is equally likely to start in any frequency bin (i.e. the prior is flat). 
-We define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
+
+
+Before we begin analysing the data, we have no prior knowledge as to which frequency bin the signal starts from (i.e. the prior is flat between the minimum and maximum frequency bins).
+
+At the first stage of the analysis, we define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
 A specific path (which may not be optimal) is written as $f(t_0), f(t_1),..., f(t_n)$. 
 The probability of a specific path given the data is 
 \begin{eqnarray}
@@ -143,7 +145,9 @@ The probability of a specific path given the data is
 \label{eqn:pathprobability}
 \end{eqnarray}
 The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
-We note that there is no marginalization \han{[What does marginalization mean? Do you mean no hard barriers?]} used in this method; the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
+We note that the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
+
+%We note that there is no marginalization the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 %The probability of the system having frequency $f_j$ at any later time $t_{i+1}$ is then defined recursively by
 %\begin{eqnarray}
 %{\rm Pr}[f(t_{i+1})=f_j] =~& F[t_{i+1},f(t_{i+1})] \nonumber \\
@@ -231,6 +235,7 @@ E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}
 \end{equation}
 where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths, respectively. 
 For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
+If we remove the first four time bins from the $E_{\rm rms}$ calculation, we find a slight improvement in recovery with $E_{\rm rms} = 0.044$.
 
 
 

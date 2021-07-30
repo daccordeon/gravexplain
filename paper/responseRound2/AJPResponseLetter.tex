@@ -23,28 +23,35 @@ Best wishes, \\
 Hannah (for the co-authors)
  
 \begin{itemize}
-\item p4 Figure 4 
+\item p4 (Figure 4 comments):  I think it is obvious that a single FT of a frequency-varying signal cannot capture the signal, so I don't see the need for Figure 4. 
 \begin{itemize}
-\item We are happy to remove figure 4. We added it only after the inital review in response to one suggestion of adding a comparison of what would be detected without using Viterbi, but I agree that it does not add much to the explanation. We have kept a shortened version of the higlighted text to explain and we have removed the figure. 
+\item We are happy to remove figure 4. We added it only after the inital review in response to one of the suggestions to add a comparison of what would be detected without using Viterbi. We agree, however, that it does not add much to the explanation. We have kept a shortened version of the higlighted text to explain why we cannot use the Fourier transform in this case and we have removed the figure. 
 \end{itemize}
 
-\item p4 Section IV A
+\item p4 Section IV A: I appreciate your desire to be all-inclusive, but is the highlighted text necessary? It is not directly related to the topic of your paper. 
 \begin{itemize}
-\item The expanded literature review here was one of the requests from Referee 3. We agree that they are tangentally related to the work presented, so we have instead moved them to the Further Reading section in the Supplementary Material. 
+\item This expanded literature review was one of the requests from Referee 3. We agree that they are tangentally related to the work presented, so we have instead moved them to the Further Reading section in the Supplementary Material. 
 \end{itemize}
 
-\item p5 Figure 5 [about Figure colour scheme]
+\item p5 Figure 5: This won't show up in B/W. How about indicating the probability by different sizes of the circles? 
 \begin{itemize}
-\item We found it very difficult to make a tidy figure using different sized circles. Instead, we have tried a gray color scheme, which looks okay and should be fine in black and white print. 
+\item We found it very difficult to make a tidy figure using different sized circles. Instead, we now use a gray color scheme, which looks clear and should be fine in black and white print. 
 \end{itemize}
 
-\item p5, right column, para 2, line 1
+\item p5, left column, para 1: Just to make sure I understand: the color of each circle is what you observe?
 \begin{itemize}
-\item I see what you mean. The first sentence refers to our ``prior beliefs'' before we look at any data. The second sentence is about the first step of the analysis once we have the data.  
-[to do]
+\item Yes, that's correct. We have added some clarification to the paragraph.
 \end{itemize}
 
-\item p5, right column, list item 1
+\item p5, right column, para 2: The first two sentences seem to contradict each other. Can you clarify? 
+\begin{itemize}
+\item The first sentence refers to our prior beleifs before we begin any analysis or look at the data. Without any prior knowledge, we believe that the signal is equally likely to have started in any frequency bin within the range considered. The second sentence is the first stage of the algorithm once we have begun the analysis and looked at the data. We have added clarification to the text to explain this. 
+\end{itemize}
+
+\item p5, right column, para 1: What does ``marginalisation'' mean? Do you mean no hard barriers?
+\item This statement was added in response to referee 3, who asked about marginalization and spotted an error in this equation in the initial version of the manuscript. If we have a probability distribution in multiple dimensions, but we only want to consider the probability distribution of a single dimension, we would sum over (or marginalize) all of the other unwanted dimensions. This is not what we are doing in this instance. The equation corresponds to a single probability related to a unique path. We added this statement about marginalization to ensure no confusion given the referee's question, however we believe the meaning is still maintained without it. We have removed the first part of this sentence, keeping only the second part. 
+
+\item p5, right column, list item 1: ``node'' meaning one of the circles in Fig. 5? 
 \begin{itemize}
 \item Yes, the nodes does mean the circles. Thank you, this was confusing and we've made the language more consistent now and refered to the circles when we first mention nodes.
 \end{itemize}
