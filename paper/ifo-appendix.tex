@@ -84,13 +84,32 @@ In this appendix, we demonstrate the modulus of the Fourier transform is an appr
 We describe the data as
 \begin{equation}
 x(t) = s(t) + n(t)\,, 
+\label{eqn:GNdata}
 \end{equation}
-where $s(t)$ and $n(t)$ are the signal and noise respectively. 
-Then we describe the signal as 
+where $s(t)$ and $n(t)$ are the signal and noise, respectively and  
 \begin{equation}
 s(t) = A \cos\left[{\omega t + \phi}\right]\,,
+\label{eqn:GNmodel}
 \end{equation}
-where $A$, $\omega$, and $\phi$ are the amplitude, angular frequency and phase of the signal respectively. 
+where $A$, $\omega$, and $\phi$ are the amplitude, angular frequency and phase of the signal, respectively. 
+
+The likelihood is proportional to the probability of observing the data given an assumed model of the signal~\cite{Jaynes:2003}.
+In this example the model is given by Eqn.~\ref{eqn:GNmodel}.
+Under the assumption of Gaussian noise, the log-likelihood is 
+\begin{equation}
+\log \mathcal{L} = -\frac{1}{2}\ip{n}{n}\,, 
+\end{equation}
+where we define the inner product between $u(t)$ and $v(t)$ as $\ip{u}{v} = \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data. 
+We replace $n$ by $x-s$ (Eqn.~\ref{eqn:GNdata}), so that 
+\begin{eqnarray}
+\log \mathcal{L} &=& -\frac{1}{2}\ip{x-s}{x-s}\,, \\ 
+                 &=& -\frac{1}{2}\ip{x}{x} - \frac{A^2}{2} \ip{\cos[\omega t + \phi]}{\cos[\omega t + \phi]} \nonumber\\
+                 &&+ A \ip{x}{\cos[\omega t + \phi]}\,,\\ 
+                 &=& -\frac{1}{2}\ip{x}{x} - \frac{A^2}{4} + A \ip{x}{\cos[\omega t + \phi]}\,,\label{eqn:logLike}
+\end{eqnarray}
+
+
+\begin{comment}
 The log-likelihood assuming Gaussian noise is given by
 \begin{eqnarray}
 \log \mathcal{L} &=& -\frac{1}{2}\ip{n}{n}\,, \\
@@ -100,6 +119,7 @@ The log-likelihood assuming Gaussian noise is given by
                  &=& -\frac{1}{2}\ip{x}{x} - \frac{A^2}{4} + A \ip{x}{\cos[\omega t + \phi]}\,,\label{eqn:logLike}
 \end{eqnarray}
 where we define the inner product between $u(t)$ and $v(t)$ as $\ip{u}{v} = \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data (and the last line assumes that $T\gg1/\omega$ so that $\ip{\cos[\omega t + \phi]}{\cos[\omega t + \phi]}\approx{1/2}$). 
+\end{comment}
 
 Maximising Eqn.~\ref{eqn:logLike} with respect to $A$ shows that the maximum likelihood is when $A = 2\ip{x}{\cos[\omega t + \phi]}$. 
 The maximum likelihood is then, 
@@ -107,7 +127,7 @@ The maximum likelihood is then,
 \label{eqn:maxLogLike}
 \log \mathcal{L}_\mathrm{max} = - \frac{1}{2} \ip{x}{x} + \ip{x}{\cos[\omega t + \phi]}^2\,. 
 \end{eqnarray}
-From the second term of Eqn~\ref{eqn:maxLogLike}, we see that the maximum log-likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
+From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum log-likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
 %baring the constant factor $\ip{x}{x}$.  
 
 
