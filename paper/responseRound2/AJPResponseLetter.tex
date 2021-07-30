@@ -56,40 +56,47 @@ Hannah (for the co-authors)
 \item Yes, the nodes does mean the circles. Thank you, this was confusing and we've made the language more consistent now and refered to the circles when we first mention nodes.
 \end{itemize}
 
-\item p5, right column, list item 3: ``In the exampler of Fig. 5, since A=1/3 or 0 for each transition, it looks like the selected path just links the states with the highest Fourier amplitude. Is it always that simple?''
+\item p5, right column, list item 3: In the example of Fig. 5, since A=1/3 or 0 for each transition, it looks like the selected path just links the states with the highest Fourier amplitude. Is it always that simple?
 \begin{itemize}
-\item That is a good point and it is not always so simple. In our Figure 5, we have made an example where the signal is particularly loud and can easily be seen by eye, but it is not always the case. In continuous-wave searches we expect that the signal cannot be seen by eye. It might also be the case that a loud single frequency-time bin is not part of Viterbi path recovered. [what to change?]
+\item That is a good point and it is not always so simple. In our Figure 5, we have made an example where the signal is particularly loud and can easily be seen by eye, but it is not always the case. In continuous-wave searches we expect that the signal cannot be seen by eye. It might also be the case that there are loud noise fluctuations in time-frequency bins. In this case they may not be selected by the Viterbi algorithm if the overall value of equation 5 is higher for the signal path than the paths containing the noise. 
 \end{itemize}
 
-\item p6, left column, after itemized list: ``delete `expeced to be' ''
+\item p6, left column, after itemized list: delete `expeced to be' 
 \begin{itemize}
-\item I think we should keep ``expected to be''. The reason is that continuous waves have not yet been detected and although of course we believe they are worth searching for, a more pessimistic person might argue that the signals might not be there at all! 
+\item We believe it is important to keep ``expected to be''. The reason is that continuous waves have not yet been detected and although of course we believe they are worth searching for, a more pessimistic person might argue that the signals may not be there at all! 
 \end{itemize}
 
-\item p6, left column: ``How does the assumption of white noise get inserted into the VA? How does this assumption affect the results?'' 
+\item p6, left column: How does the assumption of white noise get inserted into the VA? How does this assumption affect the results?
 \begin{itemize}
-\item [to do]
+\item The white noise assumption is implicit in that we do not build any knowledge of coloured noise into the analysis. This statement was added in response to referee 3's observation that the noise in our data is not white and they asked how or if we take account of this. We do not take account of non-white noise in our analysis (which is also consistent with LIGO analyses which assume white noise even though LIGO noise is not white). We also note that the narrow frequency range we consider is less impacted by the increase in noise at low frequency. We have added some details to clarify this in the text. 
 \end{itemize}
 
-\item p6 right column: ``If you elimintate the start-up points from the calculation, does E change significantly?''
+\item p6 right column: If you elimintate the start-up points from the calculation, does E change significantly?
 \begin{itemize}
 \item We have also computed the $E_{\rm rms}$ value when the first four time bins are ignored. We find a slight impovement in recovery and have added a sentence about this to the manuscript at the end of this paragraph. 
 \end{itemize}
 
-\item p7, Fig. 6: ``It looks like the frequency bins are 0.3 Hz wide and 3s long. Can you estimate the S/N ratio in this data set to illustrate the power of the VA?''
+\item p7, Fig. 6: It looks like the frequency bins are 0.3 Hz wide and 3s long. Can you estimate the S/N ratio in this data set to illustrate the power of the VA?
 \begin{itemize}
-\item We could estimate S/N for single time blocks of data, however we do not believe that a representative S/N can be estimated for the entire data set. 
+\item We can only estimate S/N for single time blocks of data, however we do not believe that a representative S/N can be estimated for the entire data set. 
 \end{itemize}
 
 \item p7, right column, Section V, para 2. ``Just to be clear, what have you changed from the apparatus in earlier sections (if anything), other than the photodiode described below? It reads like you have changed something.''
 \begin{itemize}
-\item The only thing we have changed is replacing the webcam with the photodiode. As we now using the interferometer to capture more complicated speech and music, we draw comparisons to laser microphones used in other fields.  [to do ]
+\item The only thing we have changed is replacing the webcam with the photodiode so that the apparatus can be used to capture higher frequency speech and music. In this section we use the interferometer to capture more complicated signals, so we draw comparisons to laser microphones used in other fields. We have added a sentence to this paragraph to clarify the apparatus changes. 
+\end{itemize}
+
+\item p8, left column: This paragraph adds very little new information to the topic of Section V, and interrupts the flow of the paper. I recommend shortening it. 
+\begin{itemize}
+\item Agreed. This paragraph was added in response to reviewer 3's request for us to mention other methods of noise reduction from the gravitational-wave literature. This seemed like the most appropriate place for it to go, however we agree that it is not closely related to the work presented here. We have shortened this discussion to a single sentence and moved the literature review to the Further Reading section in the Supplementary Material. 
 \end{itemize}
 
 \item p9 Figure 8: ``It's hard to judge the effectiveness of the filtering on speech intelligibility from the graphs. Here's an idea: we could attach a direct link to an audio clip for each row, perhaps a 10 second recitation of a familiar phrase. It would be available to online readers via s simple click. his ould enhance the discuation sigificantly.''
 \begin{itemize}
-\item [to do ]
+\item This sounds a great idea! We have collated the four sounds files in this directory \textcolor{orange}{add a link here}. Please let us know if you need any further details from us. 
 \end{itemize}
+
+
 
 \item p10 left column, para 2
 \begin{itemize}
