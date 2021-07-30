@@ -8,6 +8,7 @@ As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
 We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
+The only change to our apparatus is replacing the webcam with a photodiode to allow us to capture higher frequencies neccessary for speech and music (see Section~\ref{sec:photodiode}). 
 Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. 
 %We use the term ``optical microphone'' to distinguish this technology from those previous technologies.
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
@@ -58,7 +59,7 @@ When processing the results, we restrict our analysis to only the first $10\,{\r
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud bass continuous hum. 
 This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., with the speaker switched off), shown in Fig.~\ref{fig:psd_noise}. 
 The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond $8$th harmonic. 
-The mains signal is also present but far weaker in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
+The mains signal is also present, but far weaker, in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
 Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. 
 The appearance of harmonics of the mains noise is likely due to non-linearity in the system (see also Ref.~\cite{feynman}). 
 The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
@@ -125,14 +126,14 @@ A notch filter removes signals within a specific frequency range.
 We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
 It amplifies parts of the signal with high signal-to-noise (SNR) ratio while suppressing parts with low SNR. 
-The results of the combined cascaded notch and Wiener filter are shown in the third row of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
+The results of the combined cascaded notch and Wiener filter are shown in the third row in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 Most of the mains noise is removed, however the recovered voice sounds muffled and is not understandable. 
 
 
 Secondly, we apply a speech enhancement technique. 
 Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
 We use an existing implementation of the logMMSE from~\cite{logmmse}.  
-The logMMSE estimator results are shown in the bottom panels of Fig.~\ref{fig:notchWienerLogMMSEResults}. 
+The logMMSE estimator results are shown in the bottom panels in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 
 Most of the background noise is removed, however, the logMMSE does not significantly enhance the speech as the voice sounds muffled and indistinct.
 

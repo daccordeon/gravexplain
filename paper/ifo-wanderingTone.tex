@@ -222,7 +222,8 @@ We simulate a slowly wandering signal by modulating the frequency sinusoidally w
 We use the same set-up as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
 In this section, we test the Viterbi algorithm’s ability to recover the wandering signal. 
 Note that we implicitly approximate the noise at the webcam as white (uniform in frequency) in this implementation of the Viterbi algorithm. 
-This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum} but is a reasonable approximation for the higher-frequency (around 5~Hz) wandering frequency signals that we use.
+This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum}.
+However, White noise is a reasonable approximation for the narrow frequency range (around $3$--$11\,{\rm Hz}$) we use in this analysis. 
 
 
 
