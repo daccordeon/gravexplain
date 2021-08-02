@@ -152,21 +152,17 @@ OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitatio
 
 
 
-
-
-
-
-
 \maketitle
 
-\section{Further reading for gravitational wave search....}
+\section{Further reading and resources}
 
-Here we provide a selection of resources and reading material on the following topics: Section A \han{will list topics when finalised}
+Here we provide a selection of resources and reading material on topics related to this work. 
 
+\subsection{Gravitational-wave observatories}
+The current network of ground-based gravitational-wave observatories includes the Advanced Laser Interferometer Gravitational-wave Observatory (LIGO~\cite{AdvancedLIGO:2015} which includes two United States sites and third LIGO India site under construction in India~\cite{LIGOIndia:2021}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013}. 
 
-\subsection{Gravitational-wave observatories and observations}
-The current network of ground-based gravitational-wave observatories includes the Advanced Laser Interferometer Gravitational-wave Observatory (LIGO~\cite{AdvancedLIGO:2015}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013}. 
-Gravitational waves have been observed from compact binary coalescences. 
+\subsection{Gravitational-wave observations}
+Gravitational waves have been observed from compact binary coalescences~\cite{GW150914}. 
 For more information on observations of binary black hole mergers see Refs~\cite{GW150914,GW151226,GW170104,GW170814,GW190521,GWTC-1:2018,GWTC-2:2020,GWTC-1:2018}, for binary neutron star mergers see Refs~\cite{GW170817,GW170817multi,GW190425,GWTC-1:2018,GWTC-2:2020} and for neutron star-black hole mergers~\cite{NSBH:2021,GW190814}.
 More information about gravitational waves can be found in Refs.~\cite{Maggiore:2007,CBCs:2014,ObsScenarioDoc:2020,Einstein:1916}.
 
@@ -184,11 +180,11 @@ HMM continuous-wave searches have targeted low mass X-ray binaries~\cite{ScoX1O2
 
 A range of other continuous wave searches exist. 
 We refer the reader to Refs.~\cite{MSPSearchO3O2O1:2020, RadiometerO1O2:2019, SearchRadiometerO1:2017, KnownPulsarsO2:2019, SearchCrossCorrO1:2017, SearchTwoSpecS6:2017, VirgoCrabVelaSearch:2015, StackSlide:2012} for searches that consider particular targets or sky locations, and to Refs.~\cite{UnknownNSSearchO3a:2021, EinsteinAtHomeO2:2021, StackSlide:2012} for search methods that cover the entire sky. 
-For further information on searching for transient gravitational wave signals see for example Refs.~\cite{SuvorovaPowellMelatos:2019,MillhouseEtAl:2018, Mohanty:2017, AddessoEtAl:2016, ThraneCoughlin:2014, ThraneEtAl:2011, CandesEtAl:2008, ChassandeMottinArchana:2006, AndersonBalasubramanian:1999,}.
+For further information on searching for transient gravitational wave signals see for example Refs.~\cite{SuvorovaPowellMelatos:2019, MillhouseEtAl:2018, Mohanty:2017, AddessoEtAl:2016, ThraneCoughlin:2014, ThraneEtAl:2011, CandesEtAl:2008, ChassandeMottinArchana:2006, AndersonBalasubramanian:1999}.
 
 
 \subsection{Gravitational-wave engagement}
-Numerous engagement activities have been developed by gravitational-wave research groups around the world~\cite{TTExhibit:2020,CavagliaExhibit:2009, LIGOScienceEducationCentre:online, GravityDiscoveryCentre:online, GWOSC:online, LOSC:2015, LaserLabs:online, SciVR:online, chirp:online, BlackHoleHunter:online, ArthurJeffesMusic:online, GravitySynthLeonTrimble:online}. 
+Numerous engagement activities have been developed by gravitational-wave research groups around the world~\cite{TTExhibit:2021,CavagliaExhibit:2009, LIGOScienceEducationCentre:online, GravityDiscoveryCentre:online, GWOSC:online, LOSC:2015, LaserLabs:online, SciVR:online, chirp:online, BlackHoleHunter:online, ArthurJeffesMusic:online, GravitySynthLeonTrimble:online}. 
 Specific examples of using table-top interferometers as engagement or teaching tools include Refs.~\cite{TTExhibit:2021,UgoliniEtAl:2019,LibbrechtBlack:2015,AMIGO:online,FoxEtAl:1999} and parts lists or instructions can be found in Refs.~\cite{TTExhibit:online,LIGOIFOGlue,LIGOIFOMagnets,NikhefIFO,ThorLabsIFO}. 
 The analogy between sound and gravitational-wave signals is explored in Refs.~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}.
 
@@ -214,14 +210,16 @@ We make use of Python packages: numpy~\cite{numpy}\footnote{\url{https://numpy.o
 
 
 
-
-
-\subsection{speech}
-For more information on speech intelligibility see Refs.~\cite{speech_intelligibility}
+\subsection{Signal processing and speech}
+Information on the Sallen-Key filter used in Section~V.A. can be found in Ref.~\cite{sallen_key_filter}. 
+We refer the reader to Ref.~\cite{feynman} for details of the harmonics and non-linearity we observe in Section~V.B. 
+The cascaded notch and Wiener filter are described in Section~\ref{sec:opmic} in this Supplementary Material and also in  Refs.~\cite{10.5555/541204,10.5555/151045}.
+Further details about the logMMSE estimator can be found in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and for speech intelligibility see Refs.~\cite{speech_intelligibility,SubjectiveComparison}
 
 
 
 \section{Optical microphone signal processing}
+\label{sec:opmic}
 
 In Section~V in the main article, we use the interferometer as an optical microphone; audio signals are used to vibrate the interferometer mirrors, the changing interference pattern is recorded, and we aim to recover the original signal from the resulting timeseries data.
 In this Supplementary Material, we include a selection of signal processing techniques applied to the data which may be considered for undergraduate laboratory examples. 
