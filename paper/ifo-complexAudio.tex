@@ -39,7 +39,7 @@ The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit an
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. 
 Resources for using the Pi and photodiode, including a circuit diagram, are described the Supplementary Material.
 
-Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter~\cite{sallen_key_filter} tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
 This component attenuates any frequencies above $8\,{\rm kHz}$ before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
 % It’s not clear what limited the sample rate to 16kHz, but it was likely non-optimal reading of the ADC by the Pi script.
 % The ADC used (MCP3008) is quoted at 200kHz (or ksps, kilo samples per second).
@@ -61,7 +61,7 @@ This can be explained by looking at the power spectral density (PSD) of the back
 The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond $8$th harmonic. 
 The mains signal is also present, but far weaker, in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
 Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. 
-The appearance of harmonics of the mains noise is likely due to non-linearity in the system (see also Ref.~\cite{feynman}). 
+The appearance of harmonics of the mains noise is likely due to non-linearity in the system. 
 The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
 Environmental noise reduction for gravitational-wave detectors is an active area of research (see the accompanying Supplementary Material for further information and resources on this topic).
 
@@ -121,7 +121,8 @@ In this section, we present the results of two advanced signal processing analys
 The techniques are only briefly described here and we refer the reader to the accompanying Supplementary Material for further details and other analysis techniques. 
 
 
-Firstly, we consider two signal processing techniques used in combination: the cascaded notch~\cite{10.5555/541204} and the Wiener filter~\cite{10.5555/151045}. 
+
+Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter (see also the Supplementary Material). 
 A notch filter removes signals within a specific frequency range. 
 We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
@@ -131,7 +132,7 @@ Most of the mains noise is removed, however the recovered voice sounds muffled a
 
 
 Secondly, we apply a speech enhancement technique. 
-Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also Ref.~\cite{Ephraim1984SpeechEU_logMMSE} for details on the logMMSE estimator). 
+Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech (see also the Supplementary Material). 
 We use an existing implementation of the logMMSE from~\cite{logmmse}.  
 The logMMSE estimator results are shown in the bottom panels in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 

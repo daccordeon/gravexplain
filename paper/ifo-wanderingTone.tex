@@ -41,10 +41,10 @@ In gravitational-wave data analysis, the detection statistic gives the likelihoo
 When searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
 
 
-In continuous wave searches, a physical model of the target informs how far the frequency of the signal can wander over time. 
+In continuous-wave searches, a physical model of the target informs how far the frequency of the signal can wander over time. 
 This is called the transition probability matrix. 
 For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019}. 
-In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin (see the Supplementary Material for supernova remnant search references). 
+In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin (see the Supplementary Material for LMXB and supernova remnant search references). 
 
 
 The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequence of hidden frequency states given the sequence of observables.
@@ -60,26 +60,17 @@ In the next section, we describe our application of the Viterbi method and our c
 \includegraphics[width=0.5\textwidth]{figures/viterbiDiagramGrey.pdf}
 \caption{\label{fig:viterbi}
 Schematic diagram of the Viterbi algorithm. 
-The circles represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
-The shading of each circle represents the likelihood of a signal being present in each time-frequency element.
+The circular nodes represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
+The shading of each node represents the likelihood of a signal being present in each time-frequency element.
 The dark to light gradient corresponds to low to high likelihood values in arbitrary units for this schematic. 
 The objective is to find the most probable path of a signal through the grid from left to right.
 All possible paths are shown by the lines. 
-The black lines show the best path to each circle and the gray lines show rejected paths. 
+The black lines show the best path to each node and the gray lines show rejected paths. 
 Some routes through the grid result in dead-ends with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a).
-At $t=t_{N_t}$ the algorithm chooses the terminating frequency circle which has the highest value given by Eqn.~\ref{eqn:pathprobability}, marked (b). 
-The Viterbi path is the path leading to this circle, highlighted in orange from (b) to the start at (c). 
+At $t=t_{N_t}$ the algorithm chooses the terminating frequency node which has the highest value given by Eqn.~\ref{eqn:pathprobability}, marked (b). 
+The Viterbi path is the path leading to this node, highlighted in orange, from (b) to the start at (c). 
 }
 \end{figure}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -93,9 +84,9 @@ The detection statistic is normalized for convenience by dividing each value by 
 
 
 Fig.~\ref{fig:viterbi} represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins.
-The circles represent the elements of the time and frequency grid, which are labelled as  
-$t_i$ and $f_j$ respectively, where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
-The shading of the circles represents the detection statistic $F(t_i,f_j)$ (the observable) at each grid point, where dark corresponds to lower values and light to higher values. 
+The circlular nodes represent the elements of the time and frequency grid, which are labelled as  
+$t_i$ and $f_j$, respectively where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
+The shading of the nodes represents the detection statistic $F(t_i,f_j)$ (the observable) at each grid point, where dark corresponds to lower values and light to higher values. 
 
 
 The objective is to find the most likely path through the grid, given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
@@ -185,7 +176,7 @@ However, White noise is a reasonable approximation for the narrow frequency rang
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heat-map shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
-In this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous-wave signals to have far lower signal-to-noise ratios. 
+In this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous-wave signals to have far lower signal-to-noise ratios at each time step. 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
 The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
 \begin{equation}
@@ -193,11 +184,12 @@ E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}
 \end{equation}
 where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths, respectively. 
 For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
+
+
+
+This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. 
 If we remove the first four time bins from the $E_{\rm rms}$ calculation, we find a slight improvement in recovery with $E_{\rm rms} = 0.044$.
-
-
-
-This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
+One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
 As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continues to track the signal after the disturbance. 
 
 
