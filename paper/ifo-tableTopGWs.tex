@@ -15,7 +15,7 @@ They can measure minuscule changes in distance due to gravitational waves; e.g.,
 
 Sound is a commonly used analogy when explaining gravitational-wave science. 
 Gravitational-wave signals from binary black hole and neutron star mergers can be converted to audio signals~\footnote{When introducing the acoustic analogy to lay audiences, it is important to emphasize that gravitational waves are not sound. For example, gravitational waves can propagate in a vacuum, whereas sound cannot. Gravitational waves also travel at the speed of light and are not longitudinal waves.} to aid in explanations.
-Detection and analysis techniques used by the gravitational-wave community can be demonstrated using table-top equipment (see also the further reading section in supplementary material for a selection of other table-top Michelson interferometer designs used for science communication).
+Detection and analysis techniques used by the gravitational-wave community can be demonstrated using table-top equipment (see Ref.~\cite{TTExhibit:2021} as well as the further reading section in Supplementary Material for a selection of other table-top Michelson interferometer designs used for science communication).
 Sound vibrations provide a simple means to move the components of a demonstration interferometer, changing the length of the interferometer arms, and therefore the interference pattern.
 We use audio signals throughout this work to simulate gravitational-wave-like signals.
 
@@ -43,7 +43,7 @@ The beams are reflected by mirrors M1 and M2, located at the end of $\approx 7.5
 The beams recombine at the beamsplitter and produce an interference pattern that is then enlarged using a diverging (bi-concave) lens of focal length $-25.0\,{\rm mm}$, and projected onto a screen.
 The interference pattern, as shown by the photograph in Fig.~\ref{fig:interference_pattern}, is a set of concentric light and dark rings (fringes). 
 A change in the relative length of the arms causes these rings to move radially in or outwards.
-The intensity timeseries is recorded by webcam (Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}) or photodiode, which offers a higher sampling rate suitable for capturing more complex audio (Section~\ref{sec:optical_microphone}).
+The intensity timeseries is recorded by either a webcam (in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}) or a photodiode, which offers a higher sampling rate suitable for capturing more complex audio (in Section~\ref{sec:optical_microphone}).
 Further design details for Michelson interferometers can be found in Ref.~\cite{TTExhibit:2021}.
 
 
@@ -54,7 +54,7 @@ Further design details for Michelson interferometers can be found in Ref.~\cite{
  \end{center}
  \caption{\label{fig:interference_pattern}
 The interference pattern produced by the table-top Michelson interferometer.
-This image was taken with the webcam aligned off the beam axis. %, which may explain why the (predicted circular) pattern appears elliptical.
+This image was taken with the webcam aligned off the beam axis. 
 The pink star indicates the point where the intensity timeseries measurements were taken.
 The central bright fringe of the interference pattern is approximately $5\,{\rm mm}$ in diameter. 
 }
@@ -65,16 +65,8 @@ The amplitude of these motions is given by a transfer function that accounts for
 If the relative change in the length of the arms is kept small enough, then the intensity of the interference pattern at any point on the screen oscillates at the same frequency as the injected audio.
 For larger relative length changes, multiple fringes will pass through the detection point during a single speaker oscillation, raising the measured frequency artificially. 
 As such, any motion of the fringes must be kept small by playing the sound softly through the speaker.
-% too much to have --- and () in the same sentence I think 
 Even without over-counting, large fringe motions display a nonlinear relation between the intensity fluctuations and injected audio, leading to troublesome---but physically interesting---phenomena like frequency doubling.
 
-
-% removed as almost identical to the next sentence
-%In the following section, we start simply by injecting and recovering an audio signal of constant frequency (a single tone).
-
-% Data can be recorded via a webcam (as shown in Fig.~\ref{fig:ifo_schematic_webcam}) or photodiode. 
-% In Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering} a webcam is used. 
-% In Section~\ref{sec:optical_microphone}, which considers more complex audio, we turn to a photodiode because it offers a higher sample rate than the webcam. 
 
 
 \end{document}

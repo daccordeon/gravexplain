@@ -13,8 +13,8 @@ The plot also shows two harmonics at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ with 
 
 
 
-% rearranged as I found this section to not switch between method and results too much, I've tried this order now: intro, webcam and data specifics, injection, and results. 
-Continuous-wave searches look for nearly monochromatic signals~\cite{JKS:1998}. In this section, we consider a simple sinusoidal tone at a single, constant frequency. %should be a single constant frequency *signal*?
+Continuous-wave searches look for nearly monochromatic signals~\cite{JKS:1998}. In this section, we consider a simple sinusoidal tone at a single, constant frequency. 
+
 
 As described in Section~\ref{sec:ifo}, the audio signal is played through a speaker fixed to the back of M2 (see Fig.~\ref{fig:ifo_schematic_webcam}). 
 The intensity of the interference pattern is measured at a single point on the screen, indicated by the pink star in Fig.~\ref{fig:interference_pattern}. 
@@ -23,12 +23,9 @@ We use the green channel as an approximation of the total intensity produced by 
 The webcam samples at a rate of $30\, {\rm Hz}$, which limits the spectral content of observable signals to less than $15\,{\rm Hz}$, the Nyquist frequency. 
 
 
-%The intensity of the interference pattern is measured at a single point on the screen using a commercial USB webcam (see Fig.~\ref{fig:ifo_schematic_webcam}). The webcam samples at a rate of $30\,{\rm Hz}$, which limits the spectral content of observable signals to below $15\,{\rm Hz}$, the Nyquist frequency. A tone with a frequency of $2.09\,{\rm Hz$} is played through the speaker for one minute and the interference pattern is recorded by the webcam.
-
 
 A tone with a frequency of $2.09\,{\rm Hz}$ is played through the speaker for one minute. 
-The amplitude of the Fourier transform of the recovered signal is shown in Fig.~\ref{fig:webcam_spectrum}. The Discrete Fourier transform was calculated using the NumPy package for Python (see Appendix~\ref{app:code}).
-% moved refs~\cite{numpy}~\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html}}.
+The amplitude of the Fourier transform of the recovered signal is shown in Fig.~\ref{fig:webcam_spectrum}. The Discrete Fourier transform is calculated using the NumPy package for Python (see Appendix~\ref{app:code}).
 We measured a peak amplitude at $2.099\,{\rm Hz}$ with a full width half maximum (FWHM) of $0.033\,{\rm Hz}$.
 Two harmonics can also be seen at integer multiples of the peak frequency. 
 The peaks at $4.19\,{\rm Hz}$ and $6.28\,{\rm Hz}$ have amplitudes of $0.103$ and $0.098$ as a fraction of the height of the main peak, respectively. They are likely due to the nonlinear response of the system discussed in Section~\ref{sec:ifo}.
