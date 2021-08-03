@@ -3,7 +3,7 @@
 
 \begin{document}
 
-A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion flows from a stellar companion for neutron stars in binaries as in LMXBs.
+A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion from a stellar companion for neutron stars in binaries as in LMXBs.
 Although continuous gravitational waves are nearly monochromatic, the long observing times ($\sim 1\,{\rm yr}$) mean that searches are sensitive to very small frequency drifts. 
 A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation. 
 Here we consider the audio analog of a tone that wanders in frequency. 
@@ -21,7 +21,7 @@ In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used 
 
 
 The methods used here are inspired by LIGO and Virgo continuous-wave searches. 
-For further details on these methods and continuous-wave searches generally we refer the reader to references in the Supplementary Material. 
+For further details on these methods and continuous-wave searches, we refer the reader to the references in the Supplementary Material. 
 
 
 Continuous-wave searches are performed on long datasets, months to years in duration. 
@@ -75,9 +75,9 @@ The Viterbi path is the path leading to this node, highlighted in orange, from (
 
 
 
-The timeseries data from the interferometer is first split into segments. 
-We then take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ at frequency $f_j$ and time $t_i$, as the detection statistic (this is the emission probability).
-Assuming Gaussian noise, this detection statistic choice maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
+First, we split the timeseries data from the interferometer into segments. 
+Then, we take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ at frequency $f_j$ and time $t_i$, as the detection statistic (this is the emission probability).
+Assuming Gaussian noise, this detection statistic maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
 The detection statistic is normalized for convenience by dividing each value by the maximum Fourier amplitude in the grid (such that $\max_{i,j} F(t_i,f_j) = 1$).
 
 
@@ -85,13 +85,13 @@ The detection statistic is normalized for convenience by dividing each value by 
 
 Fig.~\ref{fig:viterbi} represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins.
 The circlular nodes represent the elements of the time and frequency grid, which are labelled as  
-$t_i$ and $f_j$, respectively where $i=0,1,2,...N_t$ and $j=0,1,2,...,N_f$. 
+$t_i$ and $f_j$, respectively where $i=0,1,2,\mathellipsis,N_t$ and $j=0,1,2,\mathellipsis,N_f$. 
 The shading of the nodes represents the detection statistic $F(t_i,f_j)$ (the observable) at each grid point, where dark corresponds to lower values and light to higher values. 
 
 
 The objective is to find the most likely path through the grid, given the observed data and any probabilistic constraints on how the frequency of the signal can wander from $t_i$ to $t_{i+1}$. 
 The transition probability matrix, $A(f_k,f_m)$, describes the probability of the system transitioning from state $f_k$ at $t_i$ to a state $f_{m}$ at $t_{i+1}$. 
-Here, we allow the frequency of the signal to either (a) stay in the same bin, (b) move up by a single frequency bin, or (c) move down by a single frequency bin at each transition. 
+Here, we allow the frequency of the signal to either (i) stay in the same bin, (ii) move up by a single frequency bin, or (iii) move down by a single frequency bin at each transition. 
 We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 All possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
 The different line colors are explained below. 
@@ -100,25 +100,25 @@ The different line colors are explained below.
 
 
 
-Before we begin analyzing the data, we have no prior knowledge as to which frequency bin the signal starts from (i.e. the prior is flat between the minimum and maximum frequency bins).
+Before we begin analyzing the data, we have no prior knowledge as to which frequency bin the signal starts in (i.e. the prior is flat between the minimum and maximum frequency bins).
 
 At the first stage of the analysis, we define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
-A specific path (which may not be optimal) is written as $f(t_0), f(t_1),..., f(t_n)$. 
+A specific path (which may not be optimal) is written as $f(t_0), f(t_1),\mathellipsis, f(t_n)$. 
 The probability of a specific path given the data is 
 \begin{eqnarray}
-{\rm Pr}[ f(t_0), f(t_1),... && f(t_n) | {\rm data}] = \nonumber\\
-          && F[t_n,f(t_n)] A[f(t_n),f(t_n-1)] \nonumber \\
-          && \times... A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,,
+{\rm Pr}[ f(t_0), f(t_1),&&\mathellipsis, f(t_n) | {\rm data}] \nonumber\\
+          && =F[t_n,f(t_n)] A[f(t_n),f(t_n-1)] \nonumber \\
+          && \times\mathellipsis\times A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,,
 \label{eqn:pathprobability}
 \end{eqnarray}
-The path $f^\ast(t_0),...,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),... f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
+The path $f^\ast(t_0),\mathellipsis,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),\mathellipsis, f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
 We note that the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
 At every $t_i$ all but $N_f$ possible paths are eliminated. 
-Here we describe the algorithm in pseudocode while referring to the schematic in Fig.~\ref{fig:viterbi}.  
-The implementation used in this work is available online (see Appendix~\ref{app:code}).
+Here we describe the algorithm while referring to the schematic in Fig.~\ref{fig:viterbi}.  
+The implementation used in this work is available online (see Appendix~\ref{app:code}) and we provide further information (including pseudocode) in Appendix~\ref{app:viterbi}.
 \begin{enumerate}
 \item Starting at time $t_1$, each $f_j$ node (circles in Fig~\ref{fig:viterbi}) can originate from three prior nodes at time $t_0$ (except for the edge cases $f_0$ and $f_{N_f}$ which only have two). 
 The paths between these nodes are indicated by the lines in Fig.~\ref{fig:viterbi}. 
@@ -171,18 +171,18 @@ We use the same set-up as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the o
 In this section, we test the Viterbi algorithm’s ability to recover the wandering signal. 
 Note that we implicitly approximate the noise at the webcam as white (uniform in frequency) in this implementation of the Viterbi algorithm. 
 This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum}.
-However, White noise is a reasonable approximation for the narrow frequency range (around $3$--$11\,{\rm Hz}$) we use in this analysis. 
+However, white noise is a reasonable approximation for the narrow frequency range (around $3$--$11\,{\rm Hz}$) we use in this analysis. 
 
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heat-map shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
 In this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous-wave signals to have far lower signal-to-noise ratios at each time step. 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
-The recovered Viterbi path is within one frequency bin ($\approx 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
+The recovered Viterbi path is within one frequency bin ($\sim 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
 \begin{equation}
 E_{\rm rms} = \left[ \frac{1}{N_t+1} \sum_{i=0}^{N_t} \frac{(I_i - R_i)^2}{{I_i}^2} \right] ^{1/2}\,,
 \end{equation}
-where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequency paths, respectively. 
+where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequencies at time $t_i$, respectively. 
 For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
 
 

@@ -7,7 +7,7 @@ James Gardner: OzGrav-Australian National University
 Hannah Middleton, Changrong Liu, Andrew Melatos, Robin Evans, William Moran: OzGrav-Melbourne University and Department of Electrical and Electronic Engineering, University of Melbourne
 *(these authors all contributed to the code, for the full list of authors and affiliations see the paper)*
 
-April 2021
+August 2021
 
 Current build found [here](https://github.com/daccordeon/gravexplain).
 
@@ -21,7 +21,7 @@ Guide to replicating results, please follow exactly:
 - This should produce all of the figures, as .pdf files, of the experimental results used as well as .wav recordings of the optical microphone results.
 - This ends the guide to replicating results directly. The user is invited to use the functionality of the various scripts to investigate their own recordings and, hopefully, reproduce the results shown.
 - To make your own recording with the photodiode and optical microphone set-up as described in the paper. Execute raspberry_pi_photodiode_adc.py with python3 inside the Raspberry Pi. This will produce a .csv of the recorded signal which can be transferred over for analysis.
-- Contact the authors for any technical enquiries at <u6069809@anu.edu.au>.
+- Contact the authors for any technical enquiries at <james.gardner@anu.edu.au>.
 
 Requirements:
 - ipython==5.5.0
