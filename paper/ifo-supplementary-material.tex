@@ -27,11 +27,11 @@
 
 
 
-\title{Supplementary Material for \\Continuous gravitational waves in the lab: recovering audio signals with a table-top optical microphone} 
+\title{Supplementary Material for \texorpdfstring{\\}{}Continuous gravitational waves in the lab: recovering audio signals with a table-top~optical microphone} 
 
 \input{authorList.tex}
 
-
+\date{\today}
 
 \maketitle
 
@@ -55,7 +55,7 @@ For further information about continuous waves from isolated neutron stars see f
 The methods used in Section~IV are inspired by hidden Markov model (HMM) searches for continuous gravitational waves. 
 The HMM method is described in Refs~\cite{SuvorovaEtAl:2017,SuvorovaEtAl:2016,BayleyEtAlSOAP:2019,Viterbi:1967} and further information in Ref.~\cite{JKS:1998}. 
 For more information on the Viterbi algorithm, the interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
-Alternative pseudocode examples (to that described the appendix) can be found online at Ref.~\cite{viterbipseudocode:online}.
+Alternative pseudocode examples (to that described in Appendix~C of the main paper) can be found online at Ref.~\cite{viterbipseudocode:online}.
 
 HMM continuous-wave searches have targeted low mass X-ray binaries~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017,MiddletonEtAlO2LMXBs:2020}, young supernova remnants~\cite{SNRO3a:2021,MillhouseStrangMelatos:2020,SunEtAlSNR:2018}, post merger remnants~\cite{PostMergerRemnantSearch:2019}, Fomalhaut b~\cite{JonesSun:2020}, and high energy TeV sources~\cite{BeniwalEtAl:2021}.
 
@@ -75,7 +75,7 @@ In Section~V~B in the main article, we see evidence for environmental noise in o
 In gravitational-wave detectors reducing and mitigating environmental noise is an active area of research~\cite{EfflerEtAl:2015}. 
 One such noise source is due to seismic ground motion from the Earth. 
 In gravitational-wave observatories, the optical components are suspended from a series of pendulums to achieve passive isolation, and feedback control loops provide active isolation\cite{MatichardEtAl:2015, AdvancedVirgo:2015}. 
-Such a system is beyond the scope of this article, however feedback control has been demonstrated in table-top Michelson interferometers designed for the undergraduate laboratory~\cite{LibbrechtBlack:2015}.
+Such a system is beyond the scope of this article, however, feedback control has been demonstrated in table-top Michelson interferometers designed for the undergraduate laboratory~\cite{LibbrechtBlack:2015}.
 Other sources of noise include acoustic sound waves (for example from nearby vehicles, wind, and components such as electric fans) and magnetic noise (for example from high-voltage power lines, building heaters and lights, or any electrical power circuit)~\cite{EfflerEtAl:2015,CironeEtAl:2019}.
 In some cases, environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
 Where this is not possible, noise subtraction can be done after data collection~\cite{DriggersEtAl:2019, DavisEtAl:2019}. 
@@ -86,7 +86,7 @@ One example is the removal of spectral noise lines from the United States power 
 In Section~V in the main text, we make use of a Raspberry Pi to record data from the interferometer. 
 For further information and documentation see Refs~\cite{RaspberryPi:online,pidocumentation:online}.
 
-This work is implemented in Python Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. 
+This work is implemented in Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. 
 We make use of Python packages: numpy~\cite{numpy}\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html}}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
 
 
@@ -114,7 +114,7 @@ For more information about the techniques used here see Refs.~\cite{Mitra:2011, 
 	\includegraphics[height=0.41\textwidth]{figures/circuit_pic3.pdf}
 	\caption{
 Left: A photograph of the optical microphone with an inset of the photodiode. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. In the main image, the photodiode is placed behind a cloth screen as explained in the main article. The inset shows a face-on view of the photodiode with the cloth screen removed. 
-Right: A photograph of the photodiode circuit assembled on a breadboard. The leads from the photodiode enter from the left of the picture. The Raspberry Pi  is shown at the top of the picture.
+Right: A photograph of the photodiode circuit assembled on a breadboard. The leads from the photodiode enter from the left of the picture. The Raspberry Pi is shown at the top of the picture.
 }
 	\label{fig:photographs_of_optical_microphone_and_circuit}
 \end{figure*}
@@ -126,7 +126,7 @@ A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_m
 % https://www.circuit-diagram.org/editor/
 % https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
 The photodiode circuit diagram is shown in Figure~\ref{fig:circuit_diagram}
-The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an analogy-to-digital converter ADC to a Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Raspberry Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
+The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an analogy-to-digital converter ADC to a Raspberry~Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Raspberry Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
 
 
 \begin{figure*}
@@ -146,7 +146,7 @@ This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiag
 	\begin{center}
     %% trim order is <left> <lower> <right> <upper>
     % height=0.5\textheight,trim={1cm 4.5cm 0.4cm 3.5cm},clip
-	\includegraphics[width=.5\textwidth]
+	\includegraphics[width=.48\textwidth]
 % trim={1cm 3cm 1cm 1cm}]
 {figures/combined_results_full_melatos_labelled.pdf}
 %notch_and_wiener_superplot_v2.pdf}
@@ -167,7 +167,7 @@ This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiag
 
 Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which we refer to throughout this Supplementary Material. 
 The left and right columns show timeseries and Fourier spectrum results, respectively. 
-The first and second rows in Fig.~\ref{fig:op_mic_results} show the original source signal and the raw optical microphone recording, respectively. 
+The first and second rows in Fig.~\ref{fig:op_mic_results} show the original, source signal and the raw optical microphone recording, respectively. 
 The following sections describe a sequence of analysis techniques and a selection of their results is presented in Fig.~\ref{fig:op_mic_results}.
 
 
@@ -301,7 +301,7 @@ Given $\textbf{x}$, our goal is to make an estimate $\hat{\textbf{s}}$ of the or
 \label{eq:BMSE}
 \text{BMSE}(\hat{\textbf{s}})=E[(\textbf{s}-\hat{\textbf{s}})^2]\,.
 \end{equation}
-If we assume that: i) $\textbf{x}$ is ``wide sense stationary''~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in \mathbb{R}$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; ii) the signal $\textbf{s}$ has a mean of zero; and iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
+If we assume that: (i) $\textbf{x}$ is ``wide sense stationary''~\footnote{ A random process $\{x(t)\}$ is wide sense stationary if, for all $t_1,t_2 \in \mathbb{R}$, (1) its mean is time invariant, i.e., $\mu_x(t_1)=\mu_x(t_2)=\text{constant}$; and (2) the autocorrelation depends only on the time difference, i.e., $R_x(t_1,t_2)=R_x(\tau),\tau=t_1-t_2$.} with zero mean; (ii) the signal $\textbf{s}$ has a mean of zero; and (iii) the noise $\textbf{w}$ is uncorrelated with the signal $\textbf{s}$, we can further express $\hat{\textbf{s}}$ to be a linear combination of present and past observed data
 \begin{equation}
 \hat{{s}}[n]=\sum_{k=0}^{n}h[k]x[n-k]\,,
 \end{equation}
@@ -346,7 +346,7 @@ If we let the Wiener filter be non-causal (i.e. we estimate the current signal b
 \label{eqn:wiener}
     H(f)=\frac{P_{ss}(f)}{P_{xx}(f)}=\frac{P_{ss}(f)}{P_{ss}(f)+P_{ww}(f)}\,,
 \end{equation}
-where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal to noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (which only makes estimates based on past observations) is similar. A more detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
+where $P_{xx}(f), P_{ss}(f), P_{ww}(f)$ are the spectra of the observed noisy data, the injected signal, and the background noise, respectively. Intuitively, from Eqn.~\ref{eqn:wiener}, we can see that the non-causal Wiener filter amplifies the input signal where the signal-to-noise ratio (SNR) is high and attenuates the signal where the SNR is low. The causal Wiener filter (which only makes estimates based on past observations) is similar. A more detailed analysis of both kinds of Wiener filters can be found in Ref.~\citep{10.5555/151045}.
 
 
 In this work, we construct a higher-order causal Wiener filter based on Eqn.~\ref{eqn:wiener-hopf}. A higher-order Wiener filter provides greater smoothing of the input signal but also increases the computational memory required. For this work, we choose a Wiener filter of order $n=100$ as it provides a reasonable balance between smoothing and efficiency. The timeseries and frequency spectrum after applying the Wiener filter are shown in the sixth row in Fig.~\ref{fig:op_mic_results}.
