@@ -74,7 +74,7 @@ Response to comments:
 
 \item p.5, right column, list item 3: In the example of Fig. 5, since A=1/3 or 0 for each transition, it looks like the selected path just links the states with the highest Fourier amplitude. Is it always that simple?
 \begin{itemize}
-\item That is a good point and it is not always so simple. In our Figure 5, we have made an example where the signal is particularly loud and can easily be seen by eye, but it is not always the case. In continuous-wave searches we expect that the signal cannot be seen by eye. It might also be the case that there are loud noise fluctuations in time-frequency bins. In this case they may not be selected by the Viterbi algorithm if the overall value of equation 5 is higher for the signal path than the paths containing the noise. 
+\item That is a good point and it is not always so simple. In our Figure 5, we have made an example where the signal is particularly loud and can easily be seen by eye, but it is not always the case. In continuous-wave searches we expect that the signal cannot be seen by eye. It might also be the case that there are loud noise fluctuations in time-frequency bins. In this case they may not be selected by the Viterbi algorithm if the overall value of equation 5 is higher for the signal path than the paths containing the noise. Even in the low signal-to-noise ratio regime, where the algorithm might be ``sidetracked'' by a loud burst of noise in a frequency-time bin, Viterbi still finds the optimal path. 
 \end{itemize}
 
 \item p.6, left column, after itemized list: delete `expected to be' 
@@ -84,7 +84,7 @@ Response to comments:
 
 \item p.6, left column: How does the assumption of white noise get inserted into the VA? How does this assumption affect the results?
 \begin{itemize}
-\item The white noise assumption is implicit in that we do not build any knowledge of coloured noise into the analysis. This statement was added in response to referee 3's observation that the noise in our data is not white and they asked how or if we take account of this. We do not take account of non-white noise in our analysis (which is also consistent with LIGO analyses which assume white noise even though LIGO noise is not white). We also note that the narrow frequency range we consider is less impacted by the increase in noise at low frequency. We have added some details to clarify this in the text. 
+\item The white noise assumption is implicit in that we do not build any knowledge of coloured noise into the analysis. This statement was added in response to referee 3's observation that the noise in our data is not white and they asked how or if we take account of this. We do not take account of non-white noise in our analysis (which is also consistent with LIGO analyses which assume white noise even though LIGO noise is not white). We also note that the narrow frequency range we consider is less impacted by the increase in noise at low frequency. We have added some details to clarify this in the text. In principle in a real continuous wave search you can work out thresholds for a detection in colored noise, and sometimes we do that for LIGO searches (e.g. Middleton et al., PRD, 2020), but it is too advanced for the demonstration project in this paper. 
 \end{itemize}
 
 \item p.6, right column: If you eliminate the start-up points from the calculation, does E change significantly?
@@ -94,7 +94,10 @@ Response to comments:
 
 \item p.7, Fig. 6: It looks like the frequency bins are 0.3 Hz wide and 3s long. Can you estimate the S/N ratio in this data set to illustrate the power of the VA?
 \begin{itemize}
-\item We can only estimate S/N for single time blocks of data, however we do not believe that a representative S/N can be estimated for the entire data set. We have clarified this in the text were we refer to the signal to noise ratio of real continuous-wave signals in Section IV.C.
+\item 
+We do not believe that a representative signal-to-noise ratio can be computed for the Viterbi algorithm path. 
+The signal-to-noise ratio could be computed for a single block of time or for the whole data set if we used a coherent matched filter over the whole data (e.g. an FFT), but it doesn't translate simply into a signal-to-noise ratio relevant to the Viterbi algorithm. 
+We have clarified this in the text were we refer to the signal-to-noise ratio of real continuous-wave signals (in single time steps) in Section IV.C. 
 \end{itemize}
 
 \item p.7, right column, Section V, para 2: Just to be clear, what have you changed from the apparatus in earlier sections (if anything), other than the photodiode described below? It reads like you have changed something.
