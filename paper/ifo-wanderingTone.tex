@@ -3,7 +3,7 @@
 
 \begin{document}
 
-A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion from a stellar companion for neutron stars in binaries as in LMXBs.
+A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion from a stellar companion for neutron stars in binaries as in LMXBs (see Ref.~\cite{SuvorovaEtAl:2017} and references therein).
 Although continuous gravitational waves are nearly monochromatic, the long observing times ($\sim 1\,{\rm yr}$) mean that searches are sensitive to very small frequency drifts. 
 A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation. 
 Here we consider the audio analog of a tone that wanders in frequency. 
@@ -12,7 +12,7 @@ Here we consider the audio analog of a tone that wanders in frequency.
 
 A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case as the signal is spread across multiple frequency bins. 
 In continuous-wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
-The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2017}. 
+The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2017} yet is pitched at a level appropriate for an undergraduate laboratory setting. 
 In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo; in Section~\ref{sec:viterbi}, we describe the methods as applied in this work; and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
 
@@ -107,7 +107,7 @@ A specific path (which may not be optimal) is written as $f(t_0), f(t_1),\mathel
 The probability of a specific path given the data is 
 \begin{eqnarray}
 {\rm Pr}[ f(t_0), f(t_1),&&\mathellipsis, f(t_n) | {\rm data}] \nonumber\\
-          && =F[t_n,f(t_n)] A[f(t_n),f(t_n-1)] \nonumber \\
+          && =F[t_n,f(t_n)] A[f(t_n),f(t_{n-1})] \nonumber \\
           && \times\mathellipsis\times A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,,
 \label{eqn:pathprobability}
 \end{eqnarray}
