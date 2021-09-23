@@ -11,7 +11,7 @@ Here we consider the audio analog of a tone that wanders in frequency.
 
 
 A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case as the signal is spread across multiple frequency bins. 
-In continuous-wave searches, the wandering frequency problem is solved using the Viterbi algorithm~\cite{Viterbi:1967}, which can track the signal's frequency over time.
+In continuous-wave searches, the wandering frequency problem is solved using the Viterbi algorithm,\cite{Viterbi:1967} which can track the signal's frequency over time.
 The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2017} yet is pitched at a level appropriate for an undergraduate laboratory setting. 
 In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo; in Section~\ref{sec:viterbi}, we describe the methods as applied in this work; and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
@@ -26,10 +26,10 @@ For further details on these methods and continuous-wave searches, we refer the 
 
 Continuous-wave searches are performed on long datasets, months to years in duration. 
 The frequency of the signal can wander significantly over the observation period. 
-In this context, ``significantly'' means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time~\cite{JKS:1998,ScoX1O2Viterbi:2019}.
+In this context, ``significantly'' means across multiple frequency bins, where the typical width of a frequency bin is the reciprocal of the total observation time.\cite{JKS:1998,ScoX1O2Viterbi:2019}
 
 
-A ``hidden Markov model'' can be used to search for continuous gravitational waves~\cite{SuvorovaEtAl:2017}. 
+A ``hidden Markov model'' can be used to search for continuous gravitational waves.\cite{SuvorovaEtAl:2017} 
 In a Markov process, the current state depends only on the previous state (in this case the ``state'' is the frequency of the signal). 
 In a hidden Markov model, the frequency state of the signal is unknown (hidden) and can undergo transitions at discrete times. 
 The transitions are Markovian in that the hidden state (i.e.\ frequency) of the system at any time depends solely on its state at the previous time. 
@@ -37,13 +37,13 @@ The transitions are Markovian in that the hidden state (i.e.\ frequency) of the 
 
 A detection statistic relates the observed data to the hidden state and quantifies the likelihood of a signal being present in the data at each frequency and time bin.
 This likelihood is also called the emission probability in gravitational-wave literature.  
-In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun~\cite{JKS:1998}.
-When searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used~\cite{SuvorovaEtAl:2017}. 
+In gravitational-wave data analysis, the detection statistic gives the likelihood of a signal given the antenna beam pattern of the detector, which varies as the Earth rotates and orbits the Sun.\cite{JKS:1998}
+When searching for continuous waves from a neutron star in a binary (such as an LMXB), the Doppler modulation of the source also needs to be taken into account and a different detection statistic is used.\cite{SuvorovaEtAl:2017}
 
 
 In continuous-wave searches, a physical model of the target informs how far the frequency of the signal can wander over time. 
 This is called the transition probability matrix. 
-For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step~\cite{ScoX1O2Viterbi:2019}. 
+For example, in LMXB searches, the transition matrix allows the signal frequency to (i) stay in the same frequency bin, (ii) move up a single frequency bin, or (iii) move down a frequency bin in each time step.\cite{ScoX1O2Viterbi:2019}
 In supernova remnant searches, source frequency is expected to decrease over time, therefore the allowable transitions are to (i) remain in the same frequency bin, or (ii) move down one frequency bin (see the Supplementary Material for LMXB and supernova remnant search references). 
 
 
@@ -57,19 +57,22 @@ In the next section, we describe our application of the Viterbi method and our c
 \label{sec:viterbi}
 
 \begin{figure}
-\includegraphics[width=0.5\textwidth]{figures/viterbiDiagramGrey.pdf}
+\begin{center}
+\includegraphics[width=0.48\textwidth]{figures/viterbiDiagramSizes.pdf}
 \caption{\label{fig:viterbi}
 Schematic diagram of the Viterbi algorithm. 
 The circular nodes represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
-The shading of each node represents the likelihood of a signal being present in each time-frequency element.
-The dark to light gradient corresponds to low to high likelihood values in arbitrary units for this schematic. 
+The size of the nodes represents the likelihood of a signal being present in each time-frequency element. 
+The small to large sizing corresponds to low to high likelihood values in arbitary units for this schematic. 
+The color gradient (online only) also represents the likelihood values where the dark blue corresponds to low likelihood and light green corresponds to high likelihood. 
 The objective is to find the most probable path of a signal through the grid from left to right.
 All possible paths are shown by the lines. 
 The black lines show the best path to each node and the gray lines show rejected paths. 
 Some routes through the grid result in dead-ends with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a).
 At $t=t_{N_t}$ the algorithm chooses the terminating frequency node which has the highest value given by Eqn.~\ref{eqn:pathprobability}, marked (b). 
-The Viterbi path is the path leading to this node, highlighted in orange, from (b) to the start at (c). 
+The Viterbi path is the path leading to this node, highlighted by the thick-black lines, from (b) to the start at (c). 
 }
+\end{center}
 \end{figure}
 
 
@@ -139,7 +142,7 @@ We select the terminating frequency bin $f(t_{N_t})$ with the highest probabilit
 
 \item The final step is to find the Viterbi path (the overall best path that terminates in the frequency bin with the highest probability in step 4). 
 The Viterbi path is found by backtracking along the stored best connections at each $t_i$ (see also Appendix~\ref{app:viterbi}). 
-In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) highlighted in orange.
+In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) highlighted by the thick-black lines.
 \end{enumerate}
 
 In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time.
