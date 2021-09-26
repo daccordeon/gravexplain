@@ -105,13 +105,13 @@ The different line colors are explained below.
 
 Before we begin analyzing the data, we have no prior knowledge as to which frequency bin the signal starts in (i.e. the prior is flat between the minimum and maximum frequency bins).
 
-At the first stage of the analysis, we define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic at that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
+\han{arrow?}At the first stage of the analysis, we define the probability of the system having frequency $f_j$ at the initial time $t_0$ to be equal to the (normalized) detection statistic of that state (i.e.\  ${\rm Pr}[f(t_0) = f_j] = F[t_0,f_j]$).
 A specific path (which may not be optimal) is written as $f(t_0), f(t_1),\mathellipsis, f(t_n)$. 
 The probability of a specific path given the data is 
 \begin{eqnarray}
 {\rm Pr}[ f(t_0), f(t_1),&&\mathellipsis, f(t_n) | {\rm data}] \nonumber\\
           && =F[t_n,f(t_n)] A[f(t_n),f(t_{n-1})] \nonumber \\
-          && \times\mathellipsis\times A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,,
+          && \times\mathellipsis\times A[f(t_1),f(t_0)] F[t_0,f(t_0)] \,.
 \label{eqn:pathprobability}
 \end{eqnarray}
 The path $f^\ast(t_0),\mathellipsis,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),\mathellipsis, f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
@@ -146,7 +146,7 @@ In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) high
 \end{enumerate}
 
 In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time.
-The Viterbi algorithm's strength lies in its ability to track such signals through the data.
+The Viterbi algorithm's strength lies in its ability to track such signals through the data \han{even in the presence of comparatively loud noise fluctuations in the time-frequency bins}.
 In the following section, we present the results of using the Viterbi algorithm with the table-top interferometer data. 
 
 
@@ -192,8 +192,9 @@ For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms
 
 This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. 
 If we remove the first four time bins from the $E_{\rm rms}$ calculation, we find a slight improvement in recovery with $E_{\rm rms} = 0.044$.
-One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
-As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continues to track the signal after the disturbance. 
+One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. 
+There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
+As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continue to track the signal after the disturbance. 
 
 
 

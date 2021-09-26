@@ -7,8 +7,9 @@ We use complex audio signals (such as music and speech) as a natural successor t
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
-We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.
-The only change to our apparatus is replacing the webcam with a photodiode to allow us to capture higher frequencies necessary for speech and music (see Section~\ref{sec:photodiode}). 
+\han{We use the Michelson interferometer as an ``optical mocrophone'' to detect sound, replacing the components of a conventional microphone with }
+\st{We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.}
+The only change to our apparatus is replacing the webcam with a photodiode to allow us to capture the higher frequencies necessary for speech and music (see Section~\ref{sec:photodiode}). 
 Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. 
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
 
@@ -35,7 +36,7 @@ The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit an
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. 
 Resources for using the Raspberry~Pi and photodiode, including a circuit diagram, are described in the Supplementary Material.
 
-Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening.
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening. \han{note}
 This component attenuates any frequencies above $8\,{\rm kHz}$ before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
 
 
@@ -90,7 +91,7 @@ We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics 
 The Supplementary Material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
 All filters are tested on the same $1\,{\rm s}$ long speech recording.
 The results of this section are shown in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
-In the figure, the left and right columns show the timeseries and frequency spectrum respectively. 
+In the figure, the left and right columns show the timeseries and frequency spectrum, respectively. 
 The first row shows the input signal played through the speaker (see Fig.~\ref{fig:ifo_schematic_webcam}). 
 The second row shows the raw output from the photodiode recording. 
 
@@ -108,18 +109,18 @@ All three of these cases can, when taken to the extreme, make the speech intelli
 Therefore, we choose filters that compromise between achieving the three conditions.
 
 
-In this section, we present the results of two advanced signal processing analysis techniques applied to the optical microphone recordings. 
+In this section, we present the results of two advanced signal processing techniques applied to the optical microphone recordings. 
 The techniques are only briefly described here and we refer the reader to the Supplementary Material for further details and other analysis techniques. 
 
 
 
 Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter (see also the Supplementary Material). 
 A notch filter removes signals within a specific frequency range. 
-We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered at each of the harmonics. 
+We want to remove the $50\,{\rm Hz}$ mains noise and harmonics, therefore we use a cascaded notch filter where each notch is centered on one of the harmonics. 
 The Wiener filter is an advanced statistical technique that makes use of statistical information from the speech data and noise. 
 It amplifies parts of the signal with high signal-to-noise ratio while suppressing parts with low signal-to-noise ratio. 
 The results of the combined cascaded notch and Wiener filter are shown in the third row in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
-Most of the mains noise is removed, however, the recovered voice sounds muffled and is not understandable. 
+Most of the mains noise is removed; however, the recovered voice sounds muffled and is not understandable. 
 
 
 Secondly, we apply a speech enhancement technique. 
@@ -127,14 +128,14 @@ Ref.~\cite{SubjectiveComparison} compares $13$ speech enhancement methods, findi
 We use an existing implementation of the logMMSE from Ref.~\cite{logmmse}.  
 The logMMSE estimator results are shown in the bottom panels in Fig.~\ref{fig:notchWienerLogMMSEResults}. 
 We see significant attenuation of the mains harmonics and general smoothing of the spectrum. 
-Most of the background noise is removed, however, the logMMSE still does not significantly enhance the speech as the voice sounds muffled and indistinct.
+Most of the background noise is removed; however, the logMMSE still does not significantly enhance the speech as the voice sounds muffled and indistinct.
 
 
 We find some improvement with music over speech. 
-Simple chords and drums can be heard after filtering, however, more composite sounds and complex melodies cannot be heard clearly. 
+Simple chords and drums can be heard after filtering, but more composite sounds and complex melodies cannot be heard clearly. 
 Our observations suggest that this is especially true for certain instruments; in particular flutes and violins sometimes can’t be heard at all. 
 This could be a perceptual effect or a frequency dependence somewhere in the optical microphone.
-Speculating, perhaps the speaker-mirror coupling is stronger at low frequencies and thus instruments like electric bass and drums are louder in the results.
+Speculating, perhaps the speaker-mirror coupling is stronger at low frequencies and thus instruments like electric bass and drums sound louder in the results.
 To address these problems, we need to determine whether the signals that are audibly missing (the diction in the speech and complex melodies in music) are indeed being transmitted through the optical microphone at all. 
 To determine this requires a better understanding of the system, as discussed in Section~\ref{sec:future_work}.
 

@@ -79,6 +79,7 @@ This is discussed further in Section~\ref{sec:ifo}.
 
 \section{Detecting a sinusoidal signal in Gaussian noise}
 \label{app:sinusoid_likelihood}
+\han{to do add notes from Andrew on this}
 %\jam{[to do! from Andrew: ``Write a short appendix proving that maximizing the likelihood exp(-n||n/2) with respect to A given a signal A cos (wt + phi) is the Fourier transform. Classic sig proc result useful for teachers to know.'']}
 In this appendix, we demonstrate that the modulus of the Fourier transform is an appropriate detection statistic when searching for a sinusoidal signal in Gaussian noise. 
 We describe the data as
@@ -176,7 +177,8 @@ See the Supplementary Material for further resources and other pseudocode exampl
 % moved to supp. matt. The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
 %\subsection{Pseudocode}
-Here, we present some pseudocode (below) of the implementation used in Section~\ref{sec:viterbi}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. To avoid numerical underflow we take the logarithm and consider them instead as additive weights.
+Here, we present some pseudocode (below) of the implementation used in Section~\ref{sec:viterbi}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. 
+To avoid numerical underflow we take the logarithm of the Fourier amplitudes, which we can equivalently use as additive weights.
 
 Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the boundary cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode below).
 
