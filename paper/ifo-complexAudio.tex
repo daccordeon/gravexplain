@@ -7,8 +7,8 @@ We use complex audio signals (such as music and speech) as a natural successor t
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
-\han{We use the Michelson interferometer as an ``optical mocrophone'' to detect sound, replacing the components of a conventional microphone with }
-\st{We use the Michelson interferometer as an ``optical microphone'', where a laser is used to detect sound instead of the electrical components in a conventional microphone.}
+
+We use the Michelson interferometer as an ``optical microphone'' to detect sound, replacing the components of a conventional microphone with a laser interferometer.
 The only change to our apparatus is replacing the webcam with a photodiode to allow us to capture the higher frequencies necessary for speech and music (see Section~\ref{sec:photodiode}). 
 Optical microphones have precedence in the laser microphones~\cite{laser_microphone} which are (or were historically) used in the defense industry and operate on a variety of related principles. 
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
