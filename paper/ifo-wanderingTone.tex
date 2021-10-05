@@ -63,7 +63,7 @@ In the next section, we describe our application of the Viterbi method and our c
 Schematic diagram of the Viterbi algorithm. 
 The circular nodes represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
 The size of the nodes represents the likelihood of a signal being present in each time-frequency element. 
-The small to large sizing corresponds to low to high likelihood values in arbitary units for this schematic. 
+The small to large sizing corresponds to low to high likelihood values in arbitrary units for this schematic. 
 The color gradient (online only) also represents the likelihood values where the dark blue corresponds to low likelihood and light green corresponds to high likelihood. 
 The objective is to find the most probable path of a signal through the grid from left to right.
 All possible paths are shown by the lines. 
@@ -144,7 +144,7 @@ The Viterbi path is found by backtracking along the stored best connections at e
 In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) highlighted by the thick-black lines.
 \end{enumerate}
 
-In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time.
+In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time. % how to hyphenate ``continuous gravitational wave searches''?
 The Viterbi algorithm's strength lies in its ability to track such signals through the data even in the presence of comparatively loud noise fluctuations in the time-frequency bins.
 In the following section, we present the results of using the Viterbi algorithm with the table-top interferometer data. 
 
