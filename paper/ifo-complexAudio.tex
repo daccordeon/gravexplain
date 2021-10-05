@@ -36,7 +36,7 @@ The voltage signal from the photo-detector is captured by an MCP3008 $10$-bit an
 Together, the circuit samples the signal at $\sim 16\,{\rm kHz}$. 
 Resources for using the Raspberry~Pi and photodiode, including a circuit diagram, are described in the Supplementary Material.
 
-Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter tuned to $16\,{\rm kHz}$ before the ADC to prevent this from happening. \han{note}
+Sampling any frequency component of the analog signal above the Nyquist frequency of $8\,{\rm kHz}$ leads to aliasing (folding of frequencies greater than half the sampling rate) into the detected range. We include an anti-aliasing Sallen-Key filter tuned to $8\,{\rm kHz}$ before the ADC to prevent this from happening. 
 This component attenuates any frequencies above $8\,{\rm kHz}$ before they are digitally sampled. We also place a cloth screen over the face of the photodiode to reduce the incident intensity and avoid saturating the ADC -- an improvised, physical solution that could instead be replaced by scaling down the voltage electronically. This cloth screen was re-purposed grill cloth from a commercial speaker.
 
 
