@@ -3,7 +3,7 @@
 \begin{document}
 
 In this section, we explore how our apparatus can be used to teach a selection of signal processing techniques. 
-We use complex audio signals (such as music and speech) as a natural successor to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, respectively.
+We use complex audio signals (such as music and speech) as natural successors to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, respectively.
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
 Instead, we use a hierarchy of passive filters which suppress noise, yet do not assume any specific form of the signal, unlike the Fourier-based maximum likelihood filter which is tuned to the sinusoidal signals in Section~\ref{sec:single_tone} and Appendix~\ref{app:sinusoid_likelihood}.
 
@@ -17,7 +17,7 @@ Our objective is to play a recording of speech or music through the speaker atta
 
 The apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
-We consider a selection of filter techniques, details of which along with a summary of digital signal processing resources can be found in the Supplementary Material. 
+We consider a selection of filter techniques, details of which, along with a summary of digital signal processing resources, can be found in the Supplementary Material. 
 In Section~\ref{sec:opticalMicResults}, we present the two best-performing techniques from the Supplementary Material. 
 
 
@@ -47,8 +47,9 @@ This component attenuates any frequencies above $8\,{\rm kHz}$ before they are d
 We test the optical microphone with a variety of recordings, including the speech of different people and music ranging from simple melodies and rhythms to songs. 
 During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
 The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python (see Appendix~\ref{app:code}).
-When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. 
+When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. \han{NOTE!}
 
+\han{NOTES!}
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud, continuous bass hum. 
 This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., the output with the speaker switched off), shown in Fig.~\ref{fig:psd_noise}. 
 The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond the $8$th harmonic. 

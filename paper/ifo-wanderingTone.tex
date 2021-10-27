@@ -3,7 +3,7 @@
 
 \begin{document}
 
-A continuous-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion from a stellar companion for neutron stars in binaries such as LMXBs (see Ref.~\cite{SuvorovaEtAl:2017} and references therein).
+A continuous gravitational-wave signal may wander slowly (and randomly) in frequency over time, due to stochastic internal processes in the superfluid interior of isolated neutron stars, or variable accretion from a stellar companion for neutron stars in binaries such as LMXBs (see Ref.~\cite{SuvorovaEtAl:2017} and references therein).
 Although continuous gravitational waves are nearly monochromatic, the long observing times ($\sim 1\,{\rm yr}$) mean that searches can be impacted by very small frequency drifts. 
 A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent search must track the phase to better than half a cycle over the full observation. 
 Here we consider the audio analog of a tone that wanders in frequency. 
@@ -12,7 +12,7 @@ Here we consider the audio analog of a tone that wanders in frequency.
 
 A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case as the signal is spread across multiple frequency bins. 
 In continuous-wave searches, the wandering frequency problem is solved using the Viterbi algorithm,\cite{Viterbi:1967} which can track the signal's frequency over time.
-The analysis described and presented in this section is directly inspired by real continuous-wave search methods~\cite{SuvorovaEtAl:2017} yet is pitched at a level appropriate for an undergraduate laboratory setting. 
+The analysis described and presented in this section is directly inspired by real continuous-wave search methods,~\cite{SuvorovaEtAl:2017} yet is pitched at a level appropriate for an undergraduate laboratory setting. 
 In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used by LIGO and Virgo; in Section~\ref{sec:viterbi}, we describe the methods as applied in this work; and in Section~\ref{sec:wanderingResults}, we show results for recovering a wandering frequency signal using the table-top interferometer. 
 
 
@@ -64,7 +64,6 @@ Schematic diagram of the Viterbi algorithm.
 The circular nodes represent elements in a time-frequency grid, labeled $t_0$ to $t_{N_t}$ (left to right) in time and $f_0$ to $f_{N_f}$ (bottom to top) in frequency. 
 The size of the nodes represents the likelihood of a signal being present in each time-frequency element. 
 The small to large sizing corresponds to low to high likelihood values in arbitrary units for this schematic. 
-The color gradient (online only) also represents the likelihood values where the dark blue corresponds to low likelihood and light green corresponds to high likelihood. 
 The objective is to find the most probable path of a signal through the grid from left to right.
 All possible paths are shown by the lines. 
 The black lines show the best path to each node and the gray lines show rejected paths. 
@@ -87,7 +86,7 @@ The detection statistic is normalized for convenience by dividing each value by 
 
 
 Fig.~\ref{fig:viterbi} represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins.
-The circlular nodes represent the elements of the time and frequency grid, which are labelled as  
+The circular nodes represent the elements of the time and frequency grid, which are labelled as  
 $t_i$ and $f_j$, respectively, where $i=0,1,2,\mathellipsis,N_t$ and $j=0,1,2,\mathellipsis,N_f$. 
 The shading of the nodes represents the detection statistic $F(t_i,f_j)$ (the observable) at each grid point, where dark corresponds to lower values and light to higher values. 
 
@@ -169,7 +168,7 @@ At $150\,{\rm s}$, the data appears anomalous, which may be due to some transien
  
 
 We simulate a slowly wandering signal by modulating the frequency sinusoidally with a modulation amplitude that decays with time. 
-We use the same set-up as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
+We use the same apparatus as shown in Fig.~\ref{fig:ifo_schematic_webcam} and the output interference pattern is recorded via webcam as in Section~\ref{sec:single_tone}. 
 In this section, we test the Viterbi algorithm’s ability to recover the wandering signal. 
 Note that we implicitly approximate the noise at the webcam as white (uniform in frequency) in this implementation of the Viterbi algorithm. 
 This approximation ignores the increase in noise at low frequencies (below 1~Hz) shown in Fig.~\ref{fig:webcam_spectrum}.
@@ -178,7 +177,7 @@ However, white noise is a reasonable approximation for the narrow frequency rang
 
 
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heat-map shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
-In this demonstration we use a signal that can easily be identified in the spectrogram, however, we expect real continuous-wave signals to have far lower signal-to-noise ratios at each time step. 
+In this demonstration we use a signal that can easily be identified in the spectrogram; however, we expect real continuous-wave signals to have far lower signal-to-noise ratios at each time step. 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
 The recovered Viterbi path is within one frequency bin ($\sim 0.3\,{\rm Hz}$) of the injected signal for $94\%$ of the time. We also compute the root-mean-square (RMS) fractional error $E_{\rm rms}$ along the path, which is defined as 
 \begin{equation}
@@ -191,7 +190,7 @@ For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms
 
 This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. 
 If we remove the first four time bins from the $E_{\rm rms}$ calculation, we find a slight improvement in recovery with $E_{\rm rms} = 0.044$.
-One may be tempted to increase the allowed frequency wander in the algorithm, however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. 
+One may be tempted to increase the allowed frequency wander in the algorithm; however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. 
 There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
 As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continue to track the signal after the disturbance. 
 

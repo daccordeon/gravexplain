@@ -1,5 +1,6 @@
 \documentclass[paper-main.tex]{subfiles}
 
+
 \begin{document}
 
 
@@ -9,8 +10,7 @@ In a Michelson interferometer, laser light is split by a beamsplitter into two p
 Mirrors at the end of each arm reflect the two beams back to the beamsplitter where they recombine to produce an interference pattern.
 The resulting interference pattern is dependent on the relative distance traveled by the beams. 
 Current generation gravitational-wave observatories have kilometer-scale arms (with arm lengths $4\,{\rm km}$ and $3\,{\rm km}$ at LIGO and Virgo, respectively). 
-They can measure minuscule changes in distance due to gravitational waves; e.g., the first detection of a binary black hole merger produced a strain of $10^{-21}$,\cite{GW150914} corresponding to a change in distance equal to a fraction of the width of a proton. 
-
+They can measure minuscule changes in distance due to gravitational waves; e.g., the first detection of a binary black hole merger produced a strain of $10^{-21}$,\cite{GW150914} corresponding to a change in distance equal to a fraction of the diameter of a proton. 
 
 
 Sound is a commonly used analogy when explaining gravitational-wave science. 
@@ -23,8 +23,9 @@ We use audio signals throughout this work to simulate gravitational wave--like s
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{figures/ifo_schematic_webcam_edit.pdf}
 	\caption{\label{fig:ifo_schematic_webcam}
+\han{Notes!}
 Schematic of the table-top Michelson interferometer. 
-The output of a Class 2 $532\,{\rm nm}$ laser (top-left) is reflected from a mirror at a right angle. The beam then passes through a converging lens (focal length: $125.0\,{\rm mm}$) before reaching the beamsplitter which reflects approximately $50\%$ of the beam and transmits the remaining $\sim50\%$.
+The output of a Class 2 $532\,{\rm nm}$ laser (top-left) is reflected from a mirror at a right angle. The beam then passes through a converging lens (focal length: $125.0\,{\rm mm}$) before reaching the beamsplitter, which reflects approximately $50\%$ of the beam and transmits the remaining $\sim50\%$.
 The split beams are reflected from mirrors (M1 and M2) at the ends of the interferometer arms and recombine at the beamsplitter. 
 The output interference pattern is enlarged using a diverging lens (focal length: $-25.0\,{\rm mm}$), projected onto a screen, and recorded using a commercial webcam connected to a computer (PC). 
 A speaker fixed to the back of M2 is used to inject audio signals from the PC into the interferometer.
@@ -60,7 +61,7 @@ The central bright fringe of the interference pattern is approximately $5\,{\rm 
 }
 \end{figure}
 
-The motion of the interference fringes follows the motion of M2, and therefore of the speaker.
+\han{NOTE!} The motion of the interference fringes follows the motion of M2, and therefore of the speaker.
 The amplitude of these motions is given by a transfer function that accounts for the coupling and resonance of the speaker-mirror system.
 If the relative change in the length of the arms is kept small enough, then the intensity of the interference pattern at any point on the screen oscillates at the same frequency as the injected audio.
 For larger relative length changes, multiple fringes will pass through the detection point during a single speaker oscillation, raising the measured frequency artificially. 

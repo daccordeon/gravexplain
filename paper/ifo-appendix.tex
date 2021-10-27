@@ -8,79 +8,19 @@
 \label{app:code}
 This project is implemented in Python 3 scripts and jupyter notebooks and MATLAB. 
 We refer the reader to the Supplementary Material for software references. 
-%This project is implemented in Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. We used the Python packages of numpy~\cite{numpy}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
 The current build and sample data can be found at:
-%\textbf{[Removed GitHub web-link for double-anonymous review.]}
 \url{https://github.com/daccordeon/gravexplain}
-% \begin{verbatim}
-% README
-% \end{verbatim}
 
 
 
-\begin{comment}
-\section{Interferometric relation between path length and optical intensity}
-\label{app:intensity_derivation}
-
-Part of the transfer function for the optical microphone relates the change in intensity, $\delta I$, at a point $P$ in the interference pattern, given a small change, $\delta d$, in the difference between the arm lengths of the mirrors. 
-Let $\theta$ be the angle between the optical axis and the ray from the center of the relevant mirror to the point $P$. 
-%Let the point be at angle $\theta$ on the screen (in the far-field) above the central ray as measured from the mirrors. 
-%Noting circular symmetry as to not specify exactly where in the fringe the point is.
-At $P$, two rays meet, one from each mirror, with total electric field amplitude $E_1(t) + E_2(t)$ and 
-\begin{align}
-    E_1(t) &= A e^{i (k L - \omega t)},                       \label{eqn:E1} \\
-    E_2(t) &= A e^{i (k (L + 2 d \cos{\theta}) - \omega t)}\,  \label{eqn:E2}, 
-\end{align}
-where $A$ is the amplitude, $L$ is the unperturbed arm length, $k$ is the wavenumber and $\omega$ is the angular frequency of the laser. 
-If the unperturbed difference between the arm lengths is $d$, then the path difference between the two rays is $2 d \cos{\theta}$~\cite{fringes:online}.
-
-The intensity $I(t)$ at $P$ is then the norm squared of the total electric field amplitude,
-\begin{equation}
-I(t) = \left| A e^{i (k L - \omega t)}  + A e^{i (k (L + 2 d \cos{\theta}) - \omega t)} \right|^2\,.
-\label{eqn:intensity1}    
-\end{equation}
-Some elementary trigonometry yields
-\begin{equation}
-%I(t) = 2 A^2 (1 + \cos{\phi})
-I(t) = 2 A^2 \left[ 1 + \cos{\left( 2 k d(t) \cos{\theta} \right) } \right]  \label{eqn:intensity2}\,.
-\end{equation}
-Equation~\ref{eqn:intensity2} shows that $I(t)$ and $d(t)$ are related nonlinearly. 
-Near a bright fringe, where one has $\cos{[2kd\cos{(\theta)}]} \approx 1$, the nonlinearity is quadratic, with $\delta I \propto (\delta d)^2$ for small $\delta d$. 
-Consequently, an oscillation of the form $\delta d \propto \exp{( -i \Omega t )}$ in the arm length difference produces a DC signal and a frequency-doubled signal $\propto \exp{(-2i\Omega t)}$ in $\delta I$. 
-This is discussed further in Section~\ref{sec:ifo}.
 
 
-%Collapse the phase difference to some value $\phi = 2 k d \cos{\theta}$. Then expand the norm squared using Euler’s relation, $e^{i \theta} = \cos{\theta} + i \sin{\theta}$. Here we stop considering intensity as a function of time as the time dependence will vanish.
-
-%\begin{align}    
-%    I =& A^2 \lvert e^{i (k L - \omega t)} + e^{i (k L + \phi - \omega t)} \rvert^2,\, \phi = 2 k d \cos{\theta} \\
-%    I =& A^2 ((\cos{(k L - \omega t)} + \cos{(k L + \phi - \omega t)})^2 \nonumber\\ &+ (\sin{(k L - \omega t)} + \sin{(k L + \phi - \omega t)})^2)
-%\end{align}
-
-%Expand and collect like terms, pull out a factor of two, and then recognise the form of $\cos{(\alpha-\beta)}$.
-
-%\begin{align}
-%    I =& A^2 (1 + 2 \cos{(k L - \omega t)} \cos{(k L + \phi - \omega t)} \nonumber\\&+ 1 + 2 \sin{(k L - \omega t)} \sin{(k L + \phi - \omega t)}) \\
-%    I =& 2 A^2 (1 + \cos{\phi}),\, \phi = \frac{4 \pi d \cos{\theta}}{\lambda}
-%\end{align}
-
-%Finally, changing derivatives and expand $\phi$ to find that the change in intensity given a change in distance is non-linear, that ${\delta I}/{\delta d}$ is non-constant.
-
-%\begin{align}    
-%    \frac{\delta I}{\delta d} &= \frac{\delta I}{\delta \phi}\; \frac{\delta \phi}{\delta d}\\
-%    \frac{\delta I}{\delta\phi} &= - 2 A^2 \sin{\phi}\\
-%    \frac{\delta\phi}{\delta d} &= \frac{4 \pi \cos{\theta}}{\lambda}\\
-%    \therefore \frac{\delta I}{\delta d} &= \frac{- 8 \pi A^2 \cos{\theta}}{\lambda} \sin{(\frac{4 \pi \cos{\theta}}{\lambda} d)}
-%\end{align}
-
-%This non-linearity in part of the transfer function will make the reverse problem of extracting the original signal more difficult.
-\end{comment}
 
 
 \section{Detecting a sinusoidal signal in Gaussian noise}
 \label{app:sinusoid_likelihood}
 
-%\jam{[to do! from Andrew: ``Write a short appendix proving that maximizing the likelihood exp(-n||n/2) with respect to A given a signal A cos (wt + phi) is the Fourier transform. Classic sig proc result useful for teachers to know.'']}
+
 In this appendix, we demonstrate that the modulus of the Fourier transform is an appropriate detection statistic when searching for a sinusoidal signal in Gaussian noise. 
 We describe the data as
 \begin{equation}
@@ -106,19 +46,10 @@ where $T$ is the total time of the observation, then the likelihood $\mathcal{L}
 \end{equation}
 Equations~\ref{eqn:ipuv} and~\ref{eqn:ipnn} define what it means for noise to be Gaussian through the fundamental measurement of $\ip{n}{n}$.
 
-\begin{comment}
-The likelihood is proportional to the probability of observing the data given an assumed model of the signal~\cite{Jaynes:2003}.
-In this example the model is given by Eqn.~\ref{eqn:GNmodel}.
-Under the assumption of Gaussian noise, the log-likelihood is 
-\begin{equation}
-\log \mathcal{L} = -\frac{1}{2}\ip{n}{n}\,, 
-\end{equation}
-where we define the inner product between $u(t)$ and $v(t)$ as $\ip{u}{v} = \frac{1}{T} \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data~\cite{JKS:1998}. 
-\end{comment}
 
 
-% We replace $n$ by $x-s$ (Eqn.~\ref{eqn:GNdata}), so that 
-%Using Eqns.~\ref{eqn:GNdata} and~\ref{eqn:GNmodel}, we find that
+
+
 The likelihood of measuring the signal $s(t)$ in the presence of noise follows from Eqns.~\ref{eqn:GNdata} and~\ref{eqn:ipnn} by replacing $n(t)$ in Eqn.~\ref{eqn:ipnn} with $x(t) - s(t) = n(t)$ from Eqn.~\ref{eqn:GNdata}.~\cite{JKS:1998,Jaynes:2003}
 The result is
 \begin{eqnarray}
@@ -137,35 +68,12 @@ From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum likel
 
 Two important points must be made about the above procedure. 
 (i) Fundamentally the goal is to maximize $\mathcal{L}$ in Eqn.~\ref{eqn:likeOne} by varying $s(t)$ through $A$.
-For the special case of the Gaussian likelihood (Eqn.~\ref{eqn:ipnn}), which peaks at $\ip{n}{n}= 0$, this is equivalent to minimizing the distance between $x(t)$ and $s(t)$ as evident in Eqn.~\ref{eqn:ipuv}.
-In general, however, minimizing the distance between $x(t)$ and $s(t)$ is not equivalent always to the fundamental goal of maximising $\mathcal{L}$, for example if $\mathcal{L}$ peaks at $\ip{n}{n} \neq 0$, or if $\mathcal{L}$ has multiple maxima.
+For the special case of the Gaussian likelihood (Eqn.~\ref{eqn:ipnn}), which peaks at $\ip{n}{n}= 0$, this is equivalent to minimizing the difference between $x(t)$ and $s(t)$ as evident in Eqn.~\ref{eqn:ipuv}.
+In general, however, minimizing the difference between $x(t)$ and $s(t)$ is not equivalent always to the fundamental goal of maximising $\mathcal{L}$, for example if $\mathcal{L}$ peaks at $\ip{n}{n} \neq 0$, or if $\mathcal{L}$ has multiple maxima.
 (ii) The maximum likelihood $\mathcal{L}_{\rm max}$ in Eqn.~\ref{eqn:maxLogLike} (or equivalently its logarithm) defines the detection statistic. 
 When its value exceeds a threshold (chosen freely by the analyst) at some value of $\omega$, a signal is deemed to have been detected at that value of $\omega$.
 Therefore the specific functional form of Eqn.~\ref{eqn:maxLogLike} matters, which is a second reason why one must start from Eqn.~\ref{eqn:ipnn} rather than Eqn.~\ref{eqn:likeOne}, in addition to reason (i).
 
-
-
-\begin{comment}
-The log-likelihood assuming Gaussian noise is given by
-\begin{eqnarray}
-\log \mathcal{L} &=& -\frac{1}{2}\ip{n}{n}\,, \\
-                 &=& -\frac{1}{2}\ip{x-s}{x-s}\,, \\ 
-                 &=& -\frac{1}{2}\ip{x}{x} - \frac{A^2}{2} \ip{\cos[\omega t + \phi]}{\cos[\omega t + \phi]} \nonumber\\
-                 &&+ A \ip{x}{\cos[\omega t + \phi]}\,,\\ 
-                 &=& -\frac{1}{2}\ip{x}{x} - \frac{A^2}{4} + A \ip{x}{\cos[\omega t + \phi]}\,,\label{eqn:logLike}
-\end{eqnarray}
-where we define the inner product between $u(t)$ and $v(t)$ as $\ip{u}{v} = \int_0^T \mathrm{d} t \, u(t) v(t) $ and $T$ is the total time of the data (and the last line assumes that $T\gg1/\omega$ so that $\ip{\cos[\omega t + \phi]}{\cos[\omega t + \phi]}\approx{1/2}$). 
-
-
-Maximising Eqn.~\ref{eqn:logLike} with respect to $A$ shows that the maximum likelihood is when $A = 2\ip{x}{\cos[\omega t + \phi]}$. 
-The maximum likelihood is then, 
-\begin{eqnarray}
-\label{eqn:maxLogLike}
-\log \mathcal{L}_\mathrm{max} = - \frac{1}{2} \ip{x}{x} + \ip{x}{\cos[\omega t + \phi]}^2\,. 
-\end{eqnarray}
-From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum log-likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
-%baring the constant factor $\ip{x}{x}$.  
-\end{comment}
 
 
 
@@ -174,13 +82,12 @@ From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum log-l
 This appendix contains some details regarding the implementation of the Viterbi algorithm described in Section~\ref{sec:viterbi}. 
 The Viterbi algorithm~\cite{Viterbi:1967} is a classic method in signal processing, whose theoretical underpinnings and implementation are accessible to undergraduate students. 
 See the Supplementary Material for further resources and other pseudocode examples available online.
-% moved to supp. matt. The interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001} to learn more. 
 
-%\subsection{Pseudocode}
 Here, we present some pseudocode (below) of the implementation used in Section~\ref{sec:viterbi}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. 
 To avoid numerical underflow we take the logarithm of the Fourier amplitudes, which we can equivalently use as additive weights.
 
-Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the boundary cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode below).
+
+Let $X$ be a grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additive weights for each node. Let Y and Z be grids of the same shape to store the weight of the best path to each node and the row index of the previous node on that path, respectively. Let W be a length $N_t+1$ array to store the final sequence of row indices for the optimal path. We restrict paths to only move one cell up or down at a time (or stay constant). For the boundary cases of $j=0,N_f$, we only search over $k \in \{0,1\}$ and $k \in \{-1,0\}$, respectively, to stay inside the grid (this is not shown in the pseudocode below).
 
 \begin{algorithmic}
 \Function{Viterbi}{$X$}
@@ -211,63 +118,6 @@ Let $X$ be grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of additiv
     \State \Return $W$
 \EndFunction
 \end{algorithmic}
-
-%We consider a spectrogram grid where each element in the grid is the Fourier amplitude of a particular frequency at a particular time. These are normalised between $(0, 1)$ to use as multiplicative weights. In fact, we take the logarithm and so the sum of all weights to avoid underflow. The best path has the highest weight among all paths.
-
-%With the grid prepared, the algorithm starts in the second column. In each iteration, the algorithm looks for the best path to each cell from the cells in the previous column, selecting the previous cell with the greatest cumulative weight among those ‘nearby’ (the value of which was discovered in the previous iteration). Where the cumulative weight is the weight of the best path to reach that previous cell. The nearness of a previous cell is given by the limit on the allowed frequency change over time.
-
-%For each cell in the current column, the algorithm calculates the cumulative weight to reach that cell by adding its weight to the cumulative weight to reach it. The algorithm also notes the row index of which cell in the previous column it best connects to.
-%Continuing like this until it reaches the end of the grid, the algorithm then looks for the greatest weight in the last column and retraces the indices of the steps it took until it reaches the start of the grid. That discovered best path is the Viterbi path.
-
-
-%\section{A common mistake for those new to wandering frequency signals}
-%\label{app:phase_gotcha}
-%We want to generate a sine wave that changes frequency over time so that the frequency at some time is given by a function $f(t)$. A common mistake is to appeal to the standard form $\sin{(2 \pi f t)}$, where f is a constant frequency, and guess $\sin{(2 \pi f(t) t)}$. However, this fails to address the phase accumulated earlier in the signal. Instead, the standard form in fact says that for some $\sin{(F(t))}$ it is true that $\frac{dF}{dt}(t) = 2 \pi f(t)$, where $f(t)$ gives the frequency of $\sin{(F(t))}$ at time $t$. Therefore, the correct form for a wandering tone is $\sin{(\int{2 \pi f(t) dt})}$.
-%% This formula is also useful when performing frequency modulation.
-
-
-\begin{comment} % move to supp matt due to large number of references needed here. 
-\section{Photodiode circuit design}
-\label{app:circuit_diagram}
-% schematic of breadboard and connections to pi
-% https://www.circuit-diagram.org/editor/
-% https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
-
-Figure~\ref{fig:circuit_diagram} shows the photodiode circuit diagram. 
-It is also available at \url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. 
-A photo of the breadboard and Raspberry Pi pins is shown in the Supplementary Material.
-The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an ADC to a Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
-
-
-\begin{figure*}
-	\includegraphics[width=.8\textwidth]{figures/circuit_diagram_2.pdf}
-	\caption{\label{fig:circuit_diagram}
-Circuit diagram for reading the photodiode. 
-The photodiode is connected in reverse-bias across an op-amp (pale-red box). 
-The op-amp output is passed through a Sallen-Key anti-aliasing filter (pale-blue box) tuned to $16\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
-The digitized signal is then read by the special-purpose input (SPI) pins of a Raspberry Pi in standard configuration.
-This diagram is produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online} and is available from~\url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}.
-}
-\end{figure*}
-\end{comment}
-
-
-%\section{Optical Components List}
-%\label{app:opComponents}
-%In this appendix we include a parts list for the optical components of the Michelson interferometer. 
-%The interferometer described in this paper uses parts from ThorLabs~\cite{}, with a total price of AU\$ 1120 at the time of purchase (July 2019). 
-%We also refer the reader to other examples of table-top interferometers at various price points~\cite{TTExhibit:2020,TTExhibit:online,ThorLabsIFO,LIGOIFOGlue,LIGOIFOMagnets,FoxEtAl:1999}. 
-
-%\begin{table*}
-%\begin{tabular}{llll}
-%\hline \hline
-%Item & Component & Quantity & Part number \\ 
-%\hline
-%1    & Aluminium optical breadboard $450\,{\rm mm} \times 450\,{\rm mm}$ & 1 & MB4545/M \\
-%\hline \hline
-%\end{tabular}
-%\end{table*}
-
 
 
 
