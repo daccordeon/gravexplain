@@ -1,5 +1,3 @@
-% GravExplainSuppMatt
-
 \documentclass[aps,pra,superscriptaddress,reprint]{revtex4-2}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amssymb,amsthm}
@@ -66,7 +64,7 @@ For further information on searching for transient gravitational wave signals se
 
 
 \subsection{Gravitational-wave engagement}
-Numerous engagement activities have been developed by gravitational-wave research groups around the world~\cite{TTExhibit:2021,CavagliaExhibit:2009, LIGOScienceEducationCentre:online, GravityDiscoveryCentre:online, GWOSC:online, LOSC:2015, LaserLabs:online, SciVR:online, chirp:online, BlackHoleHunter:online, ArthurJeffesMusic:online, GravitySynthLeonTrimble:online}. 
+Numerous outreach activities have been developed by gravitational-wave research groups around the world~\cite{TTExhibit:2021,CavagliaExhibit:2009, LIGOScienceEducationCentre:online, GravityDiscoveryCentre:online, GWOSC:online, LOSC:2015, LaserLabs:online, SciVR:online, chirp:online, BlackHoleHunter:online, ArthurJeffesMusic:online, GravitySynthLeonTrimble:online}. 
 Specific examples of using table-top interferometers as engagement or teaching tools include Refs.~\cite{TTExhibit:2021,UgoliniEtAl:2019,LibbrechtBlack:2015,AMIGO:online,FoxEtAl:1999} and parts lists or instructions can be found in Refs.~\cite{TTExhibit:online,LIGOIFOGlue,LIGOIFOMagnets,NikhefIFO,ThorLabsIFO}. 
 The analogy between sound and gravitational-wave signals is explored in Refs.~\cite{SoundsOfSpaceTime:online,BlackHoleHunter:online}.
 
@@ -76,11 +74,12 @@ In Section~V~B in the main article, we see evidence for environmental noise in o
 In gravitational-wave detectors reducing and mitigating environmental noise is an active area of research~\cite{EfflerEtAl:2015}. 
 One such noise source is seismic ground motion from the Earth. 
 In gravitational-wave observatories, the optical components are suspended from a series of pendulums to achieve passive isolation, and feedback control loops provide active isolation\cite{MatichardEtAl:2015, AdvancedVirgo:2015}. 
-Such a system is beyond the scope of this article, however, feedback control has been demonstrated in table-top Michelson interferometers designed for the undergraduate laboratory~\cite{LibbrechtBlack:2015}.
+Such a system is beyond the scope of this article. 
+However, feedback control has been demonstrated in table-top Michelson interferometers designed for the undergraduate laboratory~\cite{LibbrechtBlack:2015}.
 Other sources of noise include acoustic sound waves (for example from nearby vehicles, wind, and components such as electric fans) and magnetic noise (for example from high-voltage power lines, building heaters and lights, or any electrical power circuit)~\cite{EfflerEtAl:2015,CironeEtAl:2019}.
 In some cases, environmental noise sources can be removed or mitigated on site~\cite{CovasEtAl:2018}. 
 Where this is not possible, noise subtraction can be done after data collection~\cite{DriggersEtAl:2019, DavisEtAl:2019}. 
-One example is the removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. %United States's?
+One example is the removal of spectral noise lines from the United States power grid operating at $60\,{\rm Hz}$~\cite{VajenteEtAl:2020}. 
  
 
 \subsection{Hardware and software}
@@ -96,7 +95,7 @@ We make use of Python packages: numpy~\cite{numpy}\footnote{\url{https://numpy.o
 Information on the Sallen-Key filter used in Section~V.A. can be found in Ref.~\cite{sallen_key_filter}. 
 We refer the reader to Ref.~\cite{feynman} for details of the harmonics and non-linearity we observe in Section~V.B. 
 The cascaded notch and Wiener filter are described in Section~\ref{sec:opmic} in this Supplementary Material and also in  Refs.~\cite{10.5555/541204,10.5555/151045}.
-Further details about the logMMSE estimator can be found in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and for speech intelligibility see Refs.~\cite{speech_intelligibility,SubjectiveComparison}
+Further details about the logMMSE estimator can be found in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and for speech intelligibility see Refs.~\cite{speech_intelligibility,SubjectiveComparison}.
 
 
 
@@ -113,7 +112,7 @@ For more information about the techniques used here see Refs.~\cite{Mitra:2011, 
 The experimental apparatus presented here provides an opportunity to bring together physics and electrical engineering topics in the lab environment. 
 Several examples of cross-disciplinary teaching can be found in the literature, for example, see Refs.~\cite{OConnerSibrayForinash:2001, PiersonGurlandCrawford:2002, CafarelliEtAl:2012, MakanKopaszGingl:2014}. 
 Cross-disciplinary experimental projects between physics and engineering students can increase student understanding of overlapping concepts through contextual learning and also improve student motivation~\cite{PiersonGurlandCrawford:2002}. 
-Realistic and open-ended projects spanning both topics allow students a better understanding of real-world applications of these topics and of the dependency between physicists and engineers (as shown by the collaborative project presented in Ref.~\cite{OConnerSibrayForinash:2001}).
+Realistic open-ended projects spanning both topics allow students to better understand real-world applications of these topics and the interdependency between physicists and engineers (as shown by the collaborative project presented in Ref.~\cite{OConnerSibrayForinash:2001}).
 The optical microphone presented here can similarly be used as a teaching tool for students to conduct investigations into signal processing techniques with a physical system. 
 
 \begin{figure*}
@@ -129,11 +128,9 @@ Right: A photograph of the photodiode circuit assembled on a breadboard. The lea
 
 All analysis is done using the photodiode set-up as described in Section~V.A. in the main article. 
 A photograph of the equipment is shown in Fig.~\ref{fig:photographs_of_optical_microphone_and_circuit} with the interferometer and circuit shown on the left and right, respectively. 
-% schematic of breadboard and connections to pi
-% https://www.circuit-diagram.org/editor/
-% https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce
-The photodiode circuit diagram is shown in Figure~\ref{fig:circuit_diagram}
-The design was based off standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an analogy-to-digital converter ADC to a Raspberry~Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. Useful throughout was the Raspberry Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online}.
+The photodiode circuit diagram is shown in Figure~\ref{fig:circuit_diagram}.
+The design was based on standard examples found online of photo-detectors~\cite{photodiodecircuits1:online,photodiodecircuits2:online}, connecting an analogy-to-digital converter ADC to a Raspberry~Pi~\cite{piadcguide:online}, and Sallen-Key filters~\cite{sallenkey1:online,sallenkey2:online}. 
+The Raspberry Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ reference~\cite{pipinout:online} were also useful.
 
 
 \begin{figure*}
@@ -143,7 +140,7 @@ Circuit diagram for reading the photodiode.
 The photodiode is connected in reverse-bias across an op-amp (pale-red box). 
 The op-amp output is passed through a Sallen-Key anti-aliasing filter (pale-blue box) with a cut-off frequency of $8\,{\rm kHz}$, then into an analog-to-digital converter (ADC). 
 The digitized signal is then read by the special-purpose input (SPI) pins of a Raspberry Pi in standard configuration.
-This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online}. % and is available from~\url{https://crcit.net/c/e397dcc2166943d69155f9dac1e27bce}. this url has the incorrect resistors and capacitors - James
+This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDiagram:online}.
 }
 \end{figure*}
 
@@ -151,15 +148,10 @@ This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDia
 
 \begin{figure}
 	\begin{center}
-    %% trim order is <left> <lower> <right> <upper>
-    % height=0.5\textheight,trim={1cm 4.5cm 0.4cm 3.5cm},clip
 	\includegraphics[width=.48\textwidth]
-% trim={1cm 3cm 1cm 1cm}]
 {figures/combined_results_full_melatos_labelled.pdf}
-%notch_and_wiener_superplot_v2.pdf}
 	\end{center}
 	\caption{\label{fig:op_mic_results}
-	%\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}
 	Timeseries (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
     The top two rows are the input signal and raw output (identical to the top two rows in Fig.~7 in the main article).  
     The third row shows a background noise recording from the optical microphone when no audio signal is played. 
@@ -214,14 +206,11 @@ Often in speech processing, the logarithm of the signal is taken since the ampli
 	\includegraphics[width=0.5\textwidth]{figures/butterworth_150_3000.pdf}
 	\caption{
 Butterworth bandpass filter frequency response. 
-%Any amplitude below $-3\,{\rm dB}$ is significant attenuation (less than half the power at that frequency remains). 
-% suggest removing as -3db is hard to judge on the figure and I think the attenuation outside the frequency range is the key point to get across here
 The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band characteristic of the Butterworth filter.}
 	\label{fig:butterworth}
 \end{figure}
 
-A general band-pass filter combines a high-pass filter and a low-pass filter to smoothly attenuate frequencies outside of some band (alt.\ pass-band). A Butterworth band-pass filter is a particular band-pass filter such that the frequency response (the attenuation at each frequency) is ``maximally flat'' within the band. The Butterworth low-pass component is given by %Eqn.~\ref{eq:butterworth}
-
+A general band-pass filter combines a high-pass filter and a low-pass filter to smoothly attenuate frequencies outside of some band (alt.\ pass-band). A Butterworth band-pass filter is a particular band-pass filter such that the frequency response (the attenuation at each frequency) is ``maximally flat'' within the band. The Butterworth low-pass component is given by 
 \begin{equation}
 \label{eq:butterworth}
 H(f) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
@@ -334,17 +323,11 @@ r_{ss}[1]\\
 r_{ss}[n]
 \end{bmatrix}\,,
 \end{equation}
-where $r_{xx}$ and $r_{ss}$ are the auto-correlation functions of $\mathbf{x}$ and $\mathbf{s}$ between timestep $i$ and $i+n$, 
-%\begin{equation*}
-%\left\{ 
+where $r_{xx}$ and $r_{ss}$ are the auto-correlation functions of $\mathbf{x}$ and $\mathbf{s}$ between timestep $i$ and $i+n$,  
 \begin{eqnarray} 
 r_{xx}[n] &~=~& E[x(i)~x(i+n)] \,,\\
 r_{ss}[n] &~=~& E[s(i)~s(i+n)] \,.
-%r_{xx}[n] &=& E[x(i)\, &x(i+n)] \\ 
-%r_{ss}[n] &=& E[s(i)\, &s(i+n)] 
 \end{eqnarray} 
-%\right\}  
-%\end{equation*}
 
 
 
@@ -380,24 +363,6 @@ However, the recovered voice still sounds muffled and is not understandable.
 
 \subsection{logMMSE estimator}
 \label{sec:logmmse}
-
-\begin{comment}
-\begin{figure*}
-	%\includegraphics[width=0.49\textwidth]{figures/combined_timeseries_melatos_shift_source.pdf}
-	%\includegraphics[width=0.49\textwidth]{figures/combined_spectrum_melatos.pdf}
-    \includegraphics[height=0.57\textheight]{figures/combined_timeseries_melatos_shift_source_tall.pdf}
-    \includegraphics[height=0.57\textheight]{figures/combined_spectrum_melatos_tall.pdf}
-    \caption{\label{fig:logMMSE_timeseries_freqspectrum}
-\jam{Fig.2 should be combined with Fig.6 using combined\_results\_full\_melatos\_labelled.pdf}    - done 
-Timeseries (left column) and frequency spectrum (right columns) results with the logMMSE estimator. 
-The original source signal and optical microphone recording in the top and middle panels respectively are for comparison and are identical to those shown in the top two panels in Fig.~\ref{fig:BackgroundNotchWienerCombined} (again, the source signal is shifted by $0.12\,{\rm s}$). 
-The bottom-left panel shows the timeseries of the recording after filtering with the logMMSE estimator, where the rise at the start of the timeseries is expected when filtering a signal of finite duration.
-The bottom-right panel shows the corresponding frequency spectrum with the logMMSE estimator. 
-The spectrum shows only a detail of the total frequency domain (there is little activity at higher frequencies) and has truncated peaks at amplitude $2$ which otherwise dominate the plot. 
-The change in scale from the top panel is not of concern as the ear hears the relative frequency content and normalisation of the timeseries fixes any scaling. 
-    }
-\end{figure*}
-\end{comment}
 
 
 
