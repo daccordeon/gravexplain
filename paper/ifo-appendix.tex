@@ -41,7 +41,7 @@ where $T$ is the total time of the observation, then the likelihood $\mathcal{L}
 Equations~\ref{eqn:ipuv} and~\ref{eqn:ipnn} define what it means for noise to be Gaussian through the fundamental measurement of $\ip{n}{n}$.
 
 
-The likelihood of measuring the signal $s(t)$ in the presence of noise follows from Eqns.~\ref{eqn:GNdata} and~\ref{eqn:ipnn} by replacing $n(t)$ in Eqn.~\ref{eqn:ipnn} with $x(t) - s(t) = n(t)$ from Eqn.~\ref{eqn:GNdata}.~\cite{JKS:1998,Jaynes:2003}
+The likelihood of measuring the signal $s(t)$ in the presence of noise follows from Eqs.~\ref{eqn:GNdata} and~\ref{eqn:ipnn} by replacing $n(t)$ in Eq.~\ref{eqn:ipnn} with $x(t) - s(t) = n(t)$ from Eq.~\ref{eqn:GNdata}.~\cite{JKS:1998,Jaynes:2003}
 The result is
 \begin{eqnarray}
 \mathcal{L} &=& \exp\left( -\frac{1}{2}\ip{x-s}{x-s} \right) \label{eqn:likeOne}\,, \\ 
@@ -49,22 +49,22 @@ The result is
                  &&\hspace{3em} \left. +  A \ip{x}{\cos[\omega t + \phi]} \vphantom{\frac12}\right) \,,\\ 
                  &=& \exp \left( -\frac{1}{2}\ip{x}{x} - \frac{A^2}{4} + A \ip{x}{\cos[\omega t + \phi]} \right)\,.\label{eqn:logLike}
 \end{eqnarray}
-We then maximise Eqn~.\ref{eqn:logLike} with respect to $A$, obtaining 
+We then maximise Eq.~\ref{eqn:logLike} with respect to $A$, obtaining 
 \begin{eqnarray}
 \label{eqn:maxLogLike}
 \mathcal{L}_\mathrm{max} = \exp \left( - \frac{1}{2} \ip{x}{x} + \ip{x}{\cos[\omega t + \phi]}^2 \right)\,,
 \end{eqnarray}
 for $A = 2\ip{x}{\cos[\omega t + \phi]}$.
-From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
+From the second term of Eq.~\ref{eqn:maxLogLike}, we see that the maximum likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
 
 
 Two important points must be made about the above procedure. 
-(i) Fundamentally the goal is to maximize $\mathcal{L}$ in Eqn.~\ref{eqn:likeOne} by varying $s(t)$ through $A$.
-For the special case of the Gaussian likelihood (Eqn.~\ref{eqn:ipnn}), which peaks at $\ip{n}{n}= 0$, this is equivalent to minimizing the difference between $x(t)$ and $s(t)$ as evident in Eqn.~\ref{eqn:ipuv}.
+(i) Fundamentally the goal is to maximize $\mathcal{L}$ in Eq.~\ref{eqn:likeOne} by varying $s(t)$ through $A$.
+For the special case of the Gaussian likelihood (Eq.~\ref{eqn:ipnn}), which peaks at $\ip{n}{n}= 0$, this is equivalent to minimizing the difference between $x(t)$ and $s(t)$ as evident in Eq.~\ref{eqn:ipuv}.
 In general, however, minimizing the difference between $x(t)$ and $s(t)$ is not equivalent always to the fundamental goal of maximising $\mathcal{L}$, for example if $\mathcal{L}$ peaks at $\ip{n}{n} \neq 0$, or if $\mathcal{L}$ has multiple maxima.
-(ii) The maximum likelihood $\mathcal{L}_{\rm max}$ in Eqn.~\ref{eqn:maxLogLike} (or equivalently its logarithm) defines the detection statistic. 
+(ii) The maximum likelihood $\mathcal{L}_{\rm max}$ in Eq.~\ref{eqn:maxLogLike} (or equivalently its logarithm) defines the detection statistic. 
 When its value exceeds a threshold (chosen freely by the analyst) at some value of $\omega$, a signal is deemed to have been detected at that value of $\omega$.
-Therefore the specific functional form of Eqn.~\ref{eqn:maxLogLike} matters, which is a second reason why one must start from Eqn.~\ref{eqn:ipnn} rather than Eqn.~\ref{eqn:likeOne}, in addition to reason (i).
+Therefore the specific functional form of Eq.~\ref{eqn:maxLogLike} matters, which is a second reason why one must start from Eq.~\ref{eqn:ipnn} rather than Eq.~\ref{eqn:likeOne}, in addition to reason (i).
 
 
 \section{Viterbi algorithm}

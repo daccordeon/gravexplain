@@ -64,7 +64,7 @@ The objective is to find the most probable path of a signal through the grid fro
 All possible paths are shown by the lines. 
 The black lines show the best path to each node and the gray lines show rejected paths. 
 Some routes through the grid result in dead-ends with respect to optimally reaching the other side, such as the path ending at $t_1$ marked (a).
-At $t=t_{N_t}$ the algorithm chooses the terminating frequency node which has the highest value given by Eqn.~\ref{eqn:pathprobability}, marked (b). 
+At $t=t_{N_t}$ the algorithm chooses the terminating frequency node which has the highest value given by Eq.~\ref{eqn:pathprobability}, marked (b). 
 The Viterbi path is the path leading to this node, highlighted by the thick-black lines, from (b) to the start at (c). 
 }
 \end{center}
@@ -102,7 +102,7 @@ The probability of a specific path given the data is
 \label{eqn:pathprobability}
 \end{eqnarray}
 The path $f^\ast(t_0),\mathellipsis,f^\ast(t_n)$ that maximises ${\rm Pr}[ f(t_0), f(t_1),\mathellipsis, f(t_n) | {\rm data}]$ is the optimal path terminating in the frequency bin $f^\ast(t_n)$. 
-We note that the left-hand-side and right-hand-side of Eqn.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
+We note that the left-hand-side and right-hand-side of Eq.~\ref{eqn:pathprobability} are both evaluated for a specific path and then we maximize over all such paths to find the optimal Viterbi path. 
 
 
 The Viterbi algorithm provides a computationally efficient method for finding the optimal path. 
@@ -118,13 +118,13 @@ For example, the most probable connection to the node labeled (a) is the one dir
 Therefore, this path is selected as the best path from $t_0$ to $t_1$ for $f_4$.
 To allow backtracking at the end, the index of the most probable connection to a node along with the value of the best path to that node is stored, for each node.
 
-\item Moving to time $t_2$, again we select the path which maximizes Eqn.~\ref{eqn:pathprobability} for each $f_j$. 
+\item Moving to time $t_2$, again we select the path which maximizes Eq.~\ref{eqn:pathprobability} for each $f_j$. 
 These paths are again shown by the solid black lines between the nodes at $t_1$ and $t_2$ in Fig.~\ref{fig:viterbi}.
 Rejected paths are again shown by gray lines. 
 
 \item Step 2 is repeated until the end of the grid ($t=t_{N_t}$) is reached with only the best paths being stored at each iteration. 
 
-\item We have now found the most probable path to each $f_j$ at $t=t_{N_t}$ and its probability (Eqn.~\ref{eqn:pathprobability}). 
+\item We have now found the most probable path to each $f_j$ at $t=t_{N_t}$ and its probability (Eq.~\ref{eqn:pathprobability}). 
 We select the terminating frequency bin $f(t_{N_t})$ with the highest probability labeled as (b) in Fig.~\ref{fig:viterbi}.
 
 \item The final step is to find the Viterbi path (the overall best path that terminates in the frequency bin with the highest probability in step 4). 
