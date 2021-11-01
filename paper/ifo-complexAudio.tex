@@ -2,6 +2,7 @@
 
 \begin{document}
 
+
 In this section, we explore how our apparatus can be used to teach a selection of signal processing techniques. 
 We use complex audio signals (such as music and speech) as natural successors to the constant and wandering tones used in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, respectively.
 As complex audio signals are not quasi-monochromatic, the Viterbi algorithm used in Section~\ref{sec:viterbi_wandering} is not directly applicable here. 
@@ -14,21 +15,21 @@ Optical microphones have precedence in the laser microphones~\cite{laser_microph
 Our objective is to play a recording of speech or music through the speaker attached to mirror M2 (see Fig.~\ref{fig:ifo_schematic_webcam}), record the resulting interference pattern, and then recover the original signal via a selection of signal processing techniques. 
 
 
-
 The apparatus serves as an independent demonstration for a broader physics and engineering audience, particularly in undergraduate laboratories. 
 We describe additional hardware components required for this demonstration in Section~\ref{sec:photodiode} and the initial results in Section~\ref{sec:initialResultsOpMic}. 
 We consider a selection of filter techniques, details of which, along with a summary of digital signal processing resources, can be found in the Supplementary Material. 
 In Section~\ref{sec:opticalMicResults}, we present the two best-performing techniques from the Supplementary Material. 
 
 
-
 \subsection{Hardware modifications for the optical microphone}
 \label{sec:photodiode}
+
 The human ear can hear frequencies in the range of $\sim 20\,{\rm Hz}$--$20\,{\rm kHz}$. 
 Speech intelligibility (the ability to understand speech) requires frequencies up to $3\,{\rm kHz}$ and music requires up to and beyond $8\,{\rm kHz}$. 
 Therefore, the optical microphone requires a sample rate of at least $16\,{\rm kHz}$ to capture both speech and music (adjusting for the Nyquist frequency). 
 This cannot be achieved with the webcam used in Sections~\ref{sec:single_tone} and ~\ref{sec:viterbi_wandering} as it has a sampling rate of $30\,{\rm Hz}$ and thus can only ``hear'' frequencies below $15\,{\rm Hz}$.
 To overcome this issue, we use a photodiode~\footnote{A photodiode is an electrical component that acts as a regular diode when no light is incident on it, blocking any current flow in the reverse direction. As the intensity of incident light rises, it becomes increasingly conductive in the reverse direction.} at the output of the interferometer to achieve a sampling rate of $16\,{\rm kHz}$.
+
 
 We place an OSRAM BPW21 photodiode in reverse-bias over an LM358 op-amp which together produce a voltage that depends on the incident intensity. 
 The photodiode records the interference pattern at roughly the same off-center position as the webcam in Sections~\ref{sec:single_tone} and~\ref{sec:viterbi_wandering}, again chosen arbitrarily. 
@@ -43,23 +44,20 @@ This component attenuates any frequencies above $8\,{\rm kHz}$ before they are d
 \subsection{Anti-aliased output}
 \label{sec:initialResultsOpMic}
 
-
 We test the optical microphone with a variety of recordings, including the speech of different people and music ranging from simple melodies and rhythms to songs. 
 During recordings, care is taken to minimize activity around the demonstration to reduce environmental noise coupling into the interferometer. 
 The timeseries data is then directly converted to a .wav file and played as an audio recording using the \texttt{scipy.io.wavfile.write} function in Python (see Appendix~\ref{app:code}).
-When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second here. \han{NOTE!}
+When processing the results, we restrict our analysis to only the first $10\,{\rm s}$ of each observation (for efficiency), and only plot the first second in our results (Fig.~\ref{fig:notchWienerLogMMSEResults}).
 
-\han{NOTES!}
+
 The raw output of the optical microphone (with anti-aliasing) is noisy with a loud, continuous bass hum. 
 This can be explained by looking at the power spectral density (PSD) of the background noise (i.e., the output with the speaker switched off), shown in Fig.~\ref{fig:psd_noise}. 
-The spectrum is dominated by AC mains noise with power from the fundamental $50\,{\rm Hz}$ Australian mains power grid signal up to and beyond the $8$th harmonic. 
+The spectrum is dominated by AC eletrical power grid noise from the fundamental $50\,{\rm Hz}$ Australian mains electricity grid signal up to and beyond the $8$th harmonic (at $400\,{\rm Hz}$). 
 The mains signal is also present, but far weaker, in the background spectrum taken with the photodiode in darkness, suggesting that ambient lighting has a large contribution. 
 Besides lighting, other possible contributions to the mains signal include air conditioning and the photodiode circuit itself. 
 The appearance of harmonics of the mains noise might be due to the non-linearity in the system discussed in Section~\ref{sec:ifo}. 
 The spectrum in Fig.~\ref{fig:psd_noise} also has a broad feature at around $750\,{\rm Hz}$, the origin of which is yet to be determined.
 Environmental noise reduction for gravitational-wave detectors is an active area of research (see the Supplementary Material for further information and resources on this topic).
-
-
 
 
 \begin{figure}
@@ -88,6 +86,7 @@ The fourth row shows the result of applying the logMMSE estimator, where the ris
 \end{center}
 \end{figure*}
 
+
 We explore several filters to remove the $50\,{\rm Hz}$ mains hum and harmonics and improve the speech intelligibility of the recording.
 The Supplementary Material describes a range of analysis techniques that can be used as examples for the undergraduate laboratory. 
 All filters are tested on the same $1\,{\rm s}$ long speech recording.
@@ -95,7 +94,6 @@ The results of this section are shown in Fig.~\ref{fig:notchWienerLogMMSEResults
 In the figure, the left and right columns show the timeseries and frequency spectrum, respectively. 
 The first row shows the input signal played through the speaker (see Fig.~\ref{fig:ifo_schematic_webcam}). 
 The second row shows the raw output from the photodiode recording. 
-
 
 
 In signal processing, the ideal filter would be one that:
@@ -112,7 +110,6 @@ Therefore, we choose filters that compromise between achieving the three conditi
 
 In this section, we present the results of two advanced signal processing techniques applied to the optical microphone recordings. 
 The techniques are only briefly described here and we refer the reader to the Supplementary Material for further details and other analysis techniques. 
-
 
 
 Firstly, we consider two signal processing techniques used in combination: the cascaded notch and the Wiener filter (see also the Supplementary Material). 
@@ -141,5 +138,5 @@ To address these problems, we need to determine whether the signals that are aud
 To determine this requires a better understanding of the system, as discussed in Section~\ref{sec:future_work}.
 
 
-
 \end{document}
+

@@ -1,5 +1,5 @@
-
 \documentclass[paper-main.tex]{subfiles}
+
 \begin{document}
 
 
@@ -12,11 +12,10 @@ Not shown are the signal processing filters that are performed on the PC once th
 }
 \end{figure*}
 
+
 The experiment described here can be used to demonstrate and teach a variety of topics, from basic optics and photodiode circuits, to signal processing and speech enhancement. 
 Cross-disciplinary undergraduate laboratory experiments between physics and engineering courses are beneficial to student learning (see Section II in the Supplementary Material for further information). 
-% ``have been shown to be beneficial'' changed to ``are beneficial'' since we justify it elsewhere - james
 Here, we consider further extensions and improvements to the experiment such as noise isolation, transfer function analysis, speech recognition, and control systems.
-
 
 
 Isolating the experiment from interference may provide some noise reduction. 
@@ -36,7 +35,6 @@ A voluminous literature exists on using hidden Markov models trained on phonemes
 These could perform the final stage of speech enhancement for the optical microphone. 
 This coincidentally connects back to the Viterbi algorithm in Section~\ref{sec:viterbi_wandering}, which is also underpinned by a hidden Markov model, albeit of a different type. 
 Alternatively, machine learning solutions exist throughout the field that can provide results competitive with statistical techniques (such as the logMMSE estimator used here).\cite{SEGAN}
-%Alternatively, machine learning solutions exist throughout the field that can compete with statistical techniques such as the logMMSE estimator.\cite{SEGAN} \han{note}
 
 
 More traditional techniques such as a wavelet transform~\citep{nason1995stationary} could be used to extract the signal from noise and compared with the above methods. 
@@ -49,8 +47,7 @@ We could therefore extend this analysis to include data from two interferometers
 This would require increasing the sensitivity of the optical microphone to pick up the signal from a distant source instead of from a speaker attached directly to one of the mirrors of the interferometer.
 Another extension would be to demonstrate the Doppler effect of the Earth's motion around the Sun, which needs to be considered in continuous-wave searches (see Section~\ref{sec:realCWSearches} and Ref.~\cite{JKS:1998}). 
 One approach could be to modify the input audio signal to simulate Doppler modulation. 
-% did we cut the turn-table idea? that was fun! - james
-% yeah afraid so - it was nice, but the editor did not like it! :( - Hannah
-% haha, okay. - james
+
 
 \end{document}
+

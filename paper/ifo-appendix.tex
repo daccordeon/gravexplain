@@ -12,14 +12,8 @@ The current build and sample data can be found at:
 \url{https://github.com/daccordeon/gravexplain}
 
 
-
-
-
-
-
 \section{Detecting a sinusoidal signal in Gaussian noise}
 \label{app:sinusoid_likelihood}
-
 
 In this appendix, we demonstrate that the modulus of the Fourier transform is an appropriate detection statistic when searching for a sinusoidal signal in Gaussian noise. 
 We describe the data as
@@ -47,9 +41,6 @@ where $T$ is the total time of the observation, then the likelihood $\mathcal{L}
 Equations~\ref{eqn:ipuv} and~\ref{eqn:ipnn} define what it means for noise to be Gaussian through the fundamental measurement of $\ip{n}{n}$.
 
 
-
-
-
 The likelihood of measuring the signal $s(t)$ in the presence of noise follows from Eqns.~\ref{eqn:GNdata} and~\ref{eqn:ipnn} by replacing $n(t)$ in Eqn.~\ref{eqn:ipnn} with $x(t) - s(t) = n(t)$ from Eqn.~\ref{eqn:GNdata}.~\cite{JKS:1998,Jaynes:2003}
 The result is
 \begin{eqnarray}
@@ -66,6 +57,7 @@ We then maximise Eqn~.\ref{eqn:logLike} with respect to $A$, obtaining
 for $A = 2\ip{x}{\cos[\omega t + \phi]}$.
 From the second term of Eqn.~\ref{eqn:maxLogLike}, we see that the maximum likelihood of a sinusoidal signal in Gaussian noise is the modulus of the cosine Fourier transform, plus the term $\ip{x}{x}$, which is independent of $\omega$ and $\phi$ and can therefore be ignored when searching over $\omega$.
 
+
 Two important points must be made about the above procedure. 
 (i) Fundamentally the goal is to maximize $\mathcal{L}$ in Eqn.~\ref{eqn:likeOne} by varying $s(t)$ through $A$.
 For the special case of the Gaussian likelihood (Eqn.~\ref{eqn:ipnn}), which peaks at $\ip{n}{n}= 0$, this is equivalent to minimizing the difference between $x(t)$ and $s(t)$ as evident in Eqn.~\ref{eqn:ipuv}.
@@ -75,13 +67,13 @@ When its value exceeds a threshold (chosen freely by the analyst) at some value 
 Therefore the specific functional form of Eqn.~\ref{eqn:maxLogLike} matters, which is a second reason why one must start from Eqn.~\ref{eqn:ipnn} rather than Eqn.~\ref{eqn:likeOne}, in addition to reason (i).
 
 
-
-
 \section{Viterbi algorithm}
 \label{app:viterbi}
+
 This appendix contains some details regarding the implementation of the Viterbi algorithm described in Section~\ref{sec:viterbi}. 
 The Viterbi algorithm~\cite{Viterbi:1967} is a classic method in signal processing, whose theoretical underpinnings and implementation are accessible to undergraduate students. 
 See the Supplementary Material for further resources and other pseudocode examples available online.
+
 
 Here, we present some pseudocode (below) of the implementation used in Section~\ref{sec:viterbi}. We use Fourier amplitudes, normalized between $(0, 1)$ by dividing by the maximum value in the grid, as multiplicative weights. 
 To avoid numerical underflow we take the logarithm of the Fourier amplitudes, which we can equivalently use as additive weights.
@@ -91,8 +83,6 @@ Let $X$ be a grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of addit
 
 \begin{algorithmic}
 \Function{Viterbi}{$X$}
-    % \State $a \gets a+1$
-    % \State \Return $a$
 
     \For{each row $j=0,\ldots,N_f$}
 		\State $Y_{0,j} \gets X_{0,j}$
@@ -120,5 +110,5 @@ Let $X$ be a grid of $j=0,\ldots,N_f$ rows and $i=0,\ldots,N_t$ columns of addit
 \end{algorithmic}
 
 
-
 \end{document}
+

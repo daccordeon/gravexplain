@@ -9,7 +9,6 @@ A typical observation involves $1 \times 10^{10}$ wave cycles, and a coherent se
 Here we consider the audio analog of a tone that wanders in frequency. 
 
 
-
 A Fourier transform applied to the whole dataset (as in Section~\ref{sec:single_tone}) is not well suited to the wandering frequency case as the signal is spread across multiple frequency bins. 
 In continuous-wave searches, the wandering frequency problem is solved using the Viterbi algorithm,\cite{Viterbi:1967} which can track the signal's frequency over time.
 The analysis described and presented in this section is directly inspired by real continuous-wave search methods,~\cite{SuvorovaEtAl:2017} yet is pitched at a level appropriate for an undergraduate laboratory setting. 
@@ -18,7 +17,6 @@ In Section~\ref{sec:realCWSearches}, we briefly review the analysis method used 
 
 \subsection{Continuous wave analysis with real data}
 \label{sec:realCWSearches}
-
 
 The methods used here are inspired by LIGO and Virgo continuous-wave searches. 
 For further details on these methods and continuous-wave searches, we refer the reader to the references in the Supplementary Material. 
@@ -51,8 +49,6 @@ The Viterbi algorithm~\cite{Viterbi:1967} is used to find the most probable sequ
 In the next section, we describe our application of the Viterbi method and our choice of detection statistic. 
 
 
-
-
 \subsection{The hidden Markov model and Viterbi algorithm}
 \label{sec:viterbi}
 
@@ -75,14 +71,10 @@ The Viterbi path is the path leading to this node, highlighted by the thick-blac
 \end{figure}
 
 
-
-
 First, we split the timeseries data from the interferometer into segments. 
 Then, we take the discrete Fourier transform of each timeseries segment to form a grid in time and frequency (a spectrogram) with the Fourier amplitude $F(t_i,f_j)$ at frequency $f_j$ and time $t_i$, as the detection statistic (this is the emission probability).
 Assuming Gaussian noise, this detection statistic maximizes the likelihood of detecting a sinusoidal signal as described in Appendix~\ref{app:sinusoid_likelihood}.
 The detection statistic is normalized for convenience by dividing each value by the maximum Fourier amplitude in the grid (such that $\max_{i,j} F(t_i,f_j) = 1$).
-
-
 
 
 Fig.~\ref{fig:viterbi} represents a spectrogram with $N_t$ time bins and $N_f$ frequency bins.
@@ -97,9 +89,6 @@ Here, we allow the frequency of the signal to either (i) stay in the same bin, (
 We assign these three transitions equal probability, i.e.\ $A(f_k,f_m)=1/3$ for $k=m+1,m,m-1$ and $A(f_k,f_m)=0$ otherwise.
 All possible transitions are shown as lines in Fig.~\ref{fig:viterbi}.
 The different line colors are explained below. 
-
-
-
 
 
 Before we begin analyzing the data, we have no prior knowledge as to which frequency bin the signal starts in (i.e. the prior is flat between the minimum and maximum frequency bins).
@@ -143,14 +132,9 @@ The Viterbi path is found by backtracking along the stored best connections at e
 In Fig.~\ref{fig:viterbi}, it is the path ending at (b) that started at (c) highlighted by the thick-black lines.
 \end{enumerate}
 
-In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time. % how to hyphenate ``continuous gravitational wave searches''?
+In continuous gravitational wave searches, the signal amplitude is expected to be small in comparison to the noise and its frequency can change unpredictably over time. 
 The Viterbi algorithm's strength lies in its ability to track such signals through the data even in the presence of comparatively loud noise fluctuations in the time-frequency bins.
 In the following section, we present the results of using the Viterbi algorithm with the table-top interferometer data. 
-
-
-
-
-
 
 
 \subsection{Wandering frequency signal results}
@@ -175,7 +159,6 @@ This approximation ignores the increase in noise at low frequencies (below 1~Hz)
 However, white noise is a reasonable approximation for the narrow frequency range (around $3$--$11\,{\rm Hz}$) we use in this analysis. 
 
 
-
 The results are shown in Fig.~\ref{fig:viterbi_overlay}, where the heat-map shows the spectrogram of the observed signal (similar to that represented by the schematic in Fig.~\ref{fig:viterbi}). 
 In this demonstration we use a signal that can easily be identified in the spectrogram; however, we expect real continuous-wave signals to have far lower signal-to-noise ratios at each time step. 
 The overlaid pink dots in Fig.~\ref{fig:viterbi_overlay} show the injected signal and the white crosses show the recovered Viterbi path.
@@ -187,13 +170,11 @@ where $I_i$ and $R_i$ are the injected and recovered (Viterbi) frequencies at ti
 For the result shown in Fig.~\ref{fig:viterbi_overlay}, we find that $E_{\rm rms} = 0.082$, which indicates fair but not total recovery of the injected signal.
 
 
-
 This may be explained by two anomalies in the recovered path. Initially, the injected signal wanders by more than one frequency bin per time bin (i.e.\ faster than our choice of $A(f_k,f_m)$ allows), thus leading to a discrepancy between the injected and recovered paths for $t\lesssim 10\,{\rm s}$. 
 If we remove the first four time bins from the $E_{\rm rms}$ calculation, we find a slight improvement in recovery with $E_{\rm rms} = 0.044$.
 One may be tempted to increase the allowed frequency wander in the algorithm; however, this leads to an overall decrease in the above statistics, as the algorithm is prone to jump briefly to nearby spots of noise. 
 There is also an anomaly at $150\,{\rm s}$, which is likely due to a local disturbance, e.g. someone walking past the interferometer. 
 As shown in Fig.~\ref{fig:viterbi_overlay}, the Viterbi algorithm can recover and continue to track the signal after the disturbance. 
-
 
 
 \end{document}

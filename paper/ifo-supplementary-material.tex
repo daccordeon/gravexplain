@@ -17,12 +17,8 @@
 \WarningFilter{revtex4-1}{Repair the float}
 
 
-\newcommand{\jam}{\textcolor{magenta}}
-\newcommand{\han}{\textcolor{orange}}
-
 
 \begin{document}
-
 
 
 \title{Supplementary Material for \texorpdfstring{\\}{}Continuous gravitational waves in the lab: recovering audio signals with a table-top~optical microphone} 
@@ -35,15 +31,19 @@
 
 \section{Further reading and resources}
 
+
 Here we provide a selection of resources and reading material on topics related to this work. 
+
 
 \subsection{Gravitational-wave observatories}
 The current network of ground-based gravitational-wave observatories includes the Advanced Laser Interferometer Gravitational-wave Observatory (LIGO~\cite{AdvancedLIGO:2015} which includes LIGO-Hanford and LIGO-Livingston in the United States and LIGO India which is under construction in India~\cite{LIGOIndia:2021}), Advanced Virgo~\cite{AdvancedVirgo:2015}, GEO600~\cite{GEO600:2010}, and KAGRA~\cite{KAGRA:2013}. 
+
 
 \subsection{Gravitational-wave observations}
 Gravitational waves have been observed from compact binary coalescences~\cite{GW150914}. 
 For more information on observations of binary black hole mergers see Refs~\cite{GW150914,GW151226,GW170104,GW170814,GW190521,GWTC-1:2018,GWTC-2:2020,GWTC-1:2018}, for binary neutron star mergers see Refs~\cite{GW170817,GW170817multi,GW190425,GWTC-1:2018,GWTC-2:2020} and for neutron star-black hole mergers see Refs.~\cite{NSBH:2021,GW190814}.
 More information about gravitational waves can be found in Refs.~\cite{Maggiore:2007,CBCs:2014,ObsScenarioDoc:2020,Einstein:1916}.
+
 
 \subsection{Continuous wave sources and searches}
 \label{sec:GWSsearches}
@@ -51,12 +51,15 @@ The network of ground-based gravitational-wave observatories is also searching f
 Rotating neutron stars are prime targets for continuous wave searches. 
 For further information about continuous waves from isolated neutron stars see for example Refs.~\cite{MelatosDouglassSimula:2015,Jones:2010} and from neutron stars in binaries see for example Ref.~\cite{BildstenTB:1998}.
 
+
 The methods used in Section~IV are inspired by hidden Markov model (HMM) searches for continuous gravitational waves. 
 The HMM method is described in Refs~\cite{SuvorovaEtAl:2017,SuvorovaEtAl:2016,BayleyEtAlSOAP:2019,Viterbi:1967} and further information can be found in Ref.~\cite{JKS:1998}. 
 For more information on the Viterbi algorithm, the interested reader is referred to the excellent review paper by Rabiner~\cite{Rabiner:1989} and textbook by Quinn and Hannam~\cite{QuinnEtAl:2001}. 
 Alternative pseudocode examples (to that described in Appendix~C of the main paper) can be found online at Ref.~\cite{viterbipseudocode:online}.
 
+
 HMM continuous-wave searches have targeted low mass X-ray binaries~\cite{ScoX1O2Viterbi:2019, ScoX1ViterbiO1:2017,MiddletonEtAlO2LMXBs:2020}, young supernova remnants~\cite{SNRO3a:2021,MillhouseStrangMelatos:2020,SunEtAlSNR:2018}, post merger remnants~\cite{PostMergerRemnantSearch:2019}, Fomalhaut b~\cite{JonesSun:2020}, and high energy TeV sources~\cite{BeniwalEtAl:2021}.
+
 
 A range of other continuous wave searches exist. 
 We refer the reader to Refs.~\cite{MSPSearchO3O2O1:2020, RadiometerO1O2:2019, SearchRadiometerO1:2017, KnownPulsarsO2:2019, SearchCrossCorrO1:2017, SearchTwoSpecS6:2017, VirgoCrabVelaSearch:2015, StackSlide:2012} for searches that consider particular targets or sky locations, and to Refs.~\cite{UnknownNSSearchO3a:2021, EinsteinAtHomeO2:2021, StackSlide:2012} for search methods that cover the entire sky. 
@@ -86,9 +89,9 @@ One example is the removal of spectral noise lines from the United States power 
 In Section~V in the main text, we make use of a Raspberry Pi to record data from the interferometer. 
 For further information and documentation see Refs~\cite{RaspberryPi:online,pidocumentation:online}.
 
+
 This work is implemented in Python 3~\cite{python} scripts and jupyter notebooks~\cite{jupyter,ipython} as well as in MATLAB~\cite{MATLAB}. 
 We make use of Python packages: numpy~\cite{numpy}\footnote{\url{https://numpy.org/doc/stable/reference/routines.fft.html}}, scipy~\cite{scipy}, matplotlib~\cite{matplotlib}, tqdm~\cite{tqdm}, and logmmse~\cite{logmmse}.
-
 
 
 \subsection{Signal processing and speech}
@@ -96,7 +99,6 @@ Information on the Sallen-Key filter used in Section~V.A. can be found in Ref.~\
 We refer the reader to Ref.~\cite{feynman} for details of the harmonics and non-linearity we observe in Section~V.B. 
 The cascaded notch and Wiener filter are described in Section~\ref{sec:opmic} in this Supplementary Material and also in  Refs.~\cite{10.5555/541204,10.5555/151045}.
 Further details about the logMMSE estimator can be found in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and for speech intelligibility see Refs.~\cite{speech_intelligibility,SubjectiveComparison}.
-
 
 
 \section{Optical microphone signal processing}
@@ -109,11 +111,13 @@ We finish by combining these with advanced statistical techniques (Wiener filter
 As an example, we test all of these filters on the same $1\,{\rm s}$ long speech recording.
 For more information about the techniques used here see Refs.~\cite{Mitra:2011, Lyons:2011, Stein:2000, OpenheimSchaferBuck:1999, PrakisManolakis:1996,10.5555/151045, DigitalProcingOfSpeechSignals:1978}.
 
+
 The experimental apparatus presented here provides an opportunity to bring together physics and electrical engineering topics in the lab environment. 
 Several examples of cross-disciplinary teaching can be found in the literature, for example, see Refs.~\cite{OConnerSibrayForinash:2001, PiersonGurlandCrawford:2002, CafarelliEtAl:2012, MakanKopaszGingl:2014}. 
 Cross-disciplinary experimental projects between physics and engineering students can increase student understanding of overlapping concepts through contextual learning and also improve student motivation~\cite{PiersonGurlandCrawford:2002}. 
 Realistic open-ended projects spanning both topics allow students to better understand real-world applications of these topics and the interdependency between physicists and engineers (as shown by the collaborative project presented in Ref.~\cite{OConnerSibrayForinash:2001}).
 The optical microphone presented here can similarly be used as a teaching tool for students to conduct investigations into signal processing techniques with a physical system. 
+
 
 \begin{figure*}
 	\includegraphics[height=0.41\textwidth]{figures/setup_pic2.pdf}
@@ -145,7 +149,6 @@ This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDia
 \end{figure*}
 
 
-
 \begin{figure}
 	\begin{center}
 	\includegraphics[width=.48\textwidth]
@@ -163,12 +166,10 @@ This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDia
 \end{figure}
 
 
-
 Results for a selection of filters are collated in Fig.~\ref{fig:op_mic_results}, which we refer to throughout this Supplementary Material. 
 The left and right columns show timeseries and Fourier spectrum results, respectively. 
 The first and second rows in Fig.~\ref{fig:op_mic_results} show the original, source signal and the raw optical microphone recording, respectively. 
 The following sections describe a sequence of analysis techniques and a selection of their results is presented in Fig.~\ref{fig:op_mic_results}.
-
 
 
 \subsection{Background noise subtraction}
@@ -177,7 +178,6 @@ The first technique we consider is quite intuitive: we try to remove noise by di
 The third row in Fig.~\ref{fig:op_mic_results} shows the interferometer background noise when there is no input signal.
 The fourth row shows the spectrum obtained after subtracting the background noise spectrum, i.e.\ the result of subtracting the third row from the second row. 
 We see no obvious improvement, which may be attributed to a time-variant noise spectrum, the cause of which is unidentified. 
-
 
 
 \subsection{Rectangular comb filter}
@@ -191,13 +191,11 @@ The inverse Fourier transform of a rectangular comb filter (a set of boxcars) is
 See also Section~\ref{sec:notch} where we explore a notch filter. 
 
 
-
 \subsection{High-pass filter}
 
 A high-pass filter smoothly attenuates frequencies below some cut-off frequency. 
 Applying a high-pass filter, with a cut-off frequency around $150\,{\rm Hz}$, to the signal spectrum works well at removing the $50\,{\rm Hz}$ and $100\,{\rm Hz}$ harmonics. However, the mains harmonics above $100\,{\rm Hz}$ remain. A high-pass filter with a higher cut-off can be used to mitigate this issue. However, it makes the played-back signal unrecognizable as the region above $100\,{\rm Hz}$ carries a lot of the fundamental frequencies of speech and music~\cite{speech_intelligibility}.
 Often in speech processing, the logarithm of the signal is taken since the amplitude information seems to be more important to intelligibility than the phase information to the human ear~\cite{SubjectiveComparison}. However, applying a high-pass filter to the logarithm of the signal spectrum does not significantly improve on the above simple high-pass filter.
-
 
 
 \subsection{Butterworth band-pass filter}
@@ -210,6 +208,7 @@ The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{
 	\label{fig:butterworth}
 \end{figure}
 
+
 A general band-pass filter combines a high-pass filter and a low-pass filter to smoothly attenuate frequencies outside of some band (alt.\ pass-band). A Butterworth band-pass filter is a particular band-pass filter such that the frequency response (the attenuation at each frequency) is ``maximally flat'' within the band. The Butterworth low-pass component is given by 
 \begin{equation}
 \label{eq:butterworth}
@@ -218,7 +217,9 @@ H(f) = \left[1+\varepsilon^2 \left( \frac{f}{f_c} \right)^{2n}\right]^{-1/2},
 and is combined with a similar high-pass filter to form the band-pass filter.
 In Eqn.~\ref{eq:butterworth}, $f_c$ is the cut-off frequency of the low-pass Butterworth filter, $\varepsilon$ is the gain, and $n$ is the order of the filter which determines how quickly the response rolls off past the cut-off frequency. Fig.~\ref{fig:butterworth} shows the frequency response of the filter used here: a fifth order ($n = 5$) Butterworth filter with a pass-band of $(150\,{\rm Hz}$, $3\,{\rm kHz})$. This high frequency ($3\,{\rm kHz}$) cut-off is chosen since the frequencies important for speech generally lie below $2\,{\rm kHz}$~\cite{speech_intelligibility}.
 
+
 The effect of applying this filter to the background noise PSD can be seen in the bottom panel in Fig.~\ref{fig:psd_noise}. The Butterworth band-pass filter reduces the amplitude of mains harmonics below $150\,{\rm Hz}$ and suppresses unrelated noise sources above $3\,{\rm kHz}$. However, it does not address the issue of mains harmonics above $150\,{\rm Hz}$ (i.e.\ those in the pass-band). In the following section, we experiment with a cascade notch filter to address this.
+
 
 \begin{figure}
 	\includegraphics[width=.5\textwidth]{figures/psd_butterworth_14_6.pdf}
@@ -245,7 +246,9 @@ Amplitude (magnitude) response for the first five notches of fifteen for the cas
 }
 \end{figure}
 
+
 One method to remove mains noise and its harmonics is to use a sequence of notch filters centered at each of the frequency bins we want to remove. This sequence is known as a ``cascade'' of notches. Here, the notches are smooth in comparison to the na{\"i}ve zeroing of each frequency (which looks like a rectangular comb). 
+
 
 The impulse response describes the reaction of a system to an input signal as a function of time. 
 If a system is linear and time-invariant, the output signals are completely determined for any input signal using the impulse response. 
@@ -271,17 +274,15 @@ We choose the bandwidth and order (here order six) of each notch to avoid distur
     H(z) = \prod_{k=0}^{14} H_k(z).
 \end{equation}
 
+
 We use the built-in MATLAB filter design toolbox in this work~\cite{MATLAB}. 
 The amplitude (magnitude) response of the first five notch filters is shown in Fig.~\ref{fig:notchMagResponse}. 
 The time series and spectrum obtained after applying the cascade notch filter to the speech recording are shown in the fifth row in Fig.~\ref{fig:op_mic_results}.
 We see that the mains harmonics are significantly attenuated compared to the background-subtracted results shown in the fourth row in Fig.~\ref{fig:op_mic_results}.
 
+
 Although the notch filter removes much of the mains hum sound, the filtered recording is not intelligible. Qualitatively, it sounds more like a drum than a human voice. This is due to the loss of voice information under the filter.
 To overcome this, we turn to more advanced techniques, starting with the Wiener filter. Instead of just passively filtering different frequencies, this statistical technique optimizes an estimate of the original signal. 
-
-
-
-
 
 
 \subsection{Wiener filter}
@@ -330,7 +331,6 @@ r_{ss}[n] &~=~& E[s(i)~s(i+n)] \,.
 \end{eqnarray} 
 
 
-
 If we let the Wiener filter be non-causal (i.e. we estimate the current signal based on both past \emph{and future} observations), then we can represent Eqn.~\ref{eqn:wiener-hopf} in the frequency domain as
 \begin{equation}
 \label{eqn:wiener}
@@ -358,28 +358,21 @@ The mains noise is all but removed and more voice information is retained.
 However, the recovered voice still sounds muffled and is not understandable.
 
 
-
-
-
 \subsection{logMMSE estimator}
 \label{sec:logmmse}
-
 
 
 Speech enhancement of noisy channels is a classic problem in signal processing. 
 In Ref.~\cite{SubjectiveComparison}, a comparison is made of $13$ speech enhancement methods, finding the log minimum mean-square error (logMMSE) estimator to be the best, qualitatively, at recovering speech. 
 This estimator is based on speech enhancement techniques discussed in Ref.~\cite{Ephraim1984SpeechEU_logMMSE} and minimizes the mean-square error (MSE) of the estimate from the injected signal, like the Wiener filter above, except that it measures the MSE between the logarithm of the Fourier amplitudes. This is motivated by the fact that the logarithm approximates the response of the human ear~\cite{SubjectiveComparison}. We apply an existing implementation of the logMMSE estimator (see Ref.~\cite{logmmse}) to the recorded signal.
 
+
 The final row in Fig.~\ref{fig:op_mic_results} shows the results of the logMMSE estimator.
 Again there is significant noise reduction, however, the speech remains indistinct.
 The logMMSE results are also presented in Section V.C. in the main article. 
 
 
-
 \bibliographystyle{myunsrt}
 \bibliography{ifoDemoBib}
-
-
-
 
 \end{document}
