@@ -23,7 +23,131 @@
 
 \title{Supplementary Material for \texorpdfstring{\\}{}Continuous gravitational waves in the lab: recovering audio signals with a table-top~optical microphone} 
 
-\input{authorList.tex}
+
+
+
+\author{James~W.~Gardner}
+\email{james.gardner@anu.edu.au}
+\affiliation{%
+Centre for Gravitational Astrophysics, The Australian National University, Acton, ACT, 2601, Australia
+}
+\affiliation{%
+OzGrav-ANU, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, The Australian National University, Acton, ACT, 2601, Australia
+} 
+\affiliation{%
+School of Physics, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{Hannah~Middleton}
+\email{hannah.middleton@unimelb.edu.au}
+\affiliation{%
+School of Physics, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+\affiliation{%
+Centre for Astrophysics and Supercomputing, Swinburne University of Technology, Hawthorn, Victoria, 3122, Australia 
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{Changrong~Liu}
+\email{changrongl1@student.unimelb.edu.au}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{Andrew~Melatos}
+\email{amelatos@unimelb.edu.au}
+\affiliation{%
+School of Physics, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{Robin~Evans}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+\affiliation{%
+OzGrav-Melbourne, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{William~Moran}
+\affiliation{%
+Department of Electrical and Electronic Engineering, University of Melbourne, Parkville, Victoria, 3010, Australia
+}
+
+
+\author{Deeksha~Beniwal}
+\affiliation{%
+Department of Physics, The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+The Institute of Photonics and Advanced Sensing (IPAS), The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, South Australia, 5005, Australia
+}
+
+
+\author{Huy~Tuong~Cao}
+\affiliation{%
+Department of Physics, The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+The Institute of Photonics and Advanced Sensing (IPAS), The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, South Australia, 5005, Australia
+}
+
+
+\author{Craig~Ingram}
+\affiliation{%
+Department of Physics, The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+The Institute of Photonics and Advanced Sensing (IPAS), The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, South Australia, 5005, Australia
+}
+
+
+\author{Daniel~Brown}
+\affiliation{%
+Department of Physics, The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+The Institute of Photonics and Advanced Sensing (IPAS), The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, South Australia, 5005, Australia
+}
+
+
+\author{Sebastian~Ng}
+\affiliation{%
+Department of Physics, The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+The Institute of Photonics and Advanced Sensing (IPAS), The University of Adelaide, South Australia, 5005, Australia
+}
+\affiliation{%
+OzGrav-Adelaide, Australian Research Council Centre of Excellence for Gravitational Wave Discovery, South Australia, 5005, Australia
+}
+
+
+
 
 \date{\today}
 
@@ -120,8 +244,8 @@ The optical microphone presented here can similarly be used as a teaching tool f
 
 
 \begin{figure*}
-	\includegraphics[height=0.41\textwidth]{figures/setup_pic2.pdf}
-	\includegraphics[height=0.41\textwidth]{figures/circuit_pic3.pdf}
+	\includegraphics[height=0.41\textwidth]{figures/fig01a_setup_pic2.pdf}
+	\includegraphics[height=0.41\textwidth]{figures/fig01b_circuit_pic3.pdf}
 	\caption{
 Left: A photograph of the optical microphone with an inset of the photodiode. The Michelson interferometer is shown on the left and the circuit and Raspberry Pi on the right. In the main image, the photodiode is placed behind a cloth screen as explained in the main article. The inset shows a face-on view of the photodiode with the cloth screen removed. 
 Right: A photograph of the photodiode circuit assembled on a breadboard. The leads from the photodiode enter from the left of the picture. The Raspberry Pi is shown at the top of the picture.
@@ -138,7 +262,7 @@ The Raspberry Pi documentation~\cite{pidocumentation:online} and the pinoutXYZ r
 
 
 \begin{figure*}
-	\includegraphics[angle=-90,width=.8\textwidth]{figures/circuit_diagram_2.pdf}
+	\includegraphics[angle=-90,width=.8\textwidth]{figures/fig02_circuit_diagram_2.pdf}
 	\caption{\label{fig:circuit_diagram}
 Circuit diagram for reading the photodiode. 
 The photodiode is connected in reverse-bias across an op-amp (pale-red box). 
@@ -152,7 +276,7 @@ This diagram was produced using the Circuit Diagram online tool~\cite{CircuitDia
 \begin{figure}
 	\begin{center}
 	\includegraphics[width=.48\textwidth]
-{figures/combined_results_full_melatos_labelled.pdf}
+{figures/fig03_combined_results_full_melatos_labelled.pdf}
 	\end{center}
 	\caption{\label{fig:op_mic_results}
 	Timeseries (left column) and frequency spectrum (right column) results for the background subtraction, notch, and Wiener filters.
@@ -201,7 +325,7 @@ Often in speech processing, the logarithm of the signal is taken since the ampli
 \subsection{Butterworth band-pass filter}
 
 \begin{figure}
-	\includegraphics[width=0.5\textwidth]{figures/butterworth_150_3000.pdf}
+	\includegraphics[width=0.5\textwidth]{figures/fig04_butterworth_150_3000.pdf}
 	\caption{
 Butterworth bandpass filter frequency response. 
 The red, dashed vertical lines show the band limits of $150\,{\rm Hz}$ and $3\,{\rm kHz}$. Note the flat response within the band characteristic of the Butterworth filter.}
@@ -222,7 +346,7 @@ The effect of applying this filter to the background noise PSD can be seen in th
 
 
 \begin{figure}
-	\includegraphics[width=.5\textwidth]{figures/psd_butterworth_14_6.pdf}
+	\includegraphics[width=.5\textwidth]{figures/fig05_psd_butterworth_14_6.pdf}
 	\caption{\label{fig:psd_noise}
 Top: power spectral density (PSD) of background noise from the optical microphone (with the speaker off). 
 Bottom: the PSD after applying a Butterworth bandpass filter (bottom panel) between the two frequencies marked with red, dashed lines. 
@@ -239,7 +363,7 @@ The sharp drop-off at low frequencies, around 100~dB near 0~Hz, is due to strong
 \label{sec:notch}
 \begin{figure}
 \begin{center}
-\includegraphics[width=.5\textwidth]{figures/cascaded_notch_response_plot.pdf}
+\includegraphics[width=.5\textwidth]{figures/fig06_cascaded_notch_response_plot.pdf}
 \end{center}
 \caption{\label{fig:notchMagResponse}
 Amplitude (magnitude) response for the first five notches of fifteen for the cascaded notch filter described by Eqs.~\ref{eqn:notch} and~\ref{eqn:notch15}. 
